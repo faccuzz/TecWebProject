@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="eng">, <meta charset="UTF-8">, <title>Carrello</title>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+	<div class="shoppingCart">
+		<h1> Cart </h1>
+        
+		<div class="itemsInCart">
+			<h2> Products: </h2>
+			<ul>
+				<li class="items">
+					<img class="itemImages" src="%path_to_img%" alt="$img" />
+					<p class="itemDescription"> $Titolo </p>
+					<form class="itemControls" action="%RemoveFromCart%">
+						<input class="itemControlsRemove" type="submit" value="Remove product" />
+						<label class="itemControlsLabel" for="itemQuantity"> Quantity:
+							<input class="itemControlsCount" type="text" name="itemQuantity" />
+						</label>
+					</form>
+				</li>
+			</ul>
+		</div>
+
+		<form class="shoppingCart-form">
+			<input type="submit" value="Proceed to order">
+		</form>
+	</div>
+	<!-- end body -->
+</body>
+
