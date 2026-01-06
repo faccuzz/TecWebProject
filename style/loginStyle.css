@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    letter-spacing: 2px;
+}
+
+.logo{
+    font-weight: bold;
+    text-transform: capitalize;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+}
+
+html,body{
+    width: 100%;
+}
+
+.login-page {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+}
+
+#loginCard {
+    max-width: 400px; 
+    width: 100%;
+    border-radius: 12px;
+    text-align: center;
+    padding: 2.5em;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /*Shadow moves down 4px, blur of 15px, black at 50% transparency*/
+}
+
+#loginCard header {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+#loginCard h1 {
+    font-size: 2.5em;
+    line-height: 1.5em;
+    /*Insertar logo de IMG si quiero*/
+}
+
+#loginCard h2{
+    line-height: 1.5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+
+#loginCard .form-group  {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+#loginCard .form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-size: 0.9em;
+}
+
+#loginCard .form-group input {
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 6px;
+    border: 1px solid #444;
+    outline: none;
+    margin-bottom: 1em;
+    transition: all 0.5s ease;
+}
+
+#loginCard .forgotten {
+    text-align: right;
+    display: block;
+    font-size: 0.75em;
+    text-decoration: none;
+}
+
+#loginCard button {
+    width: 100%;
+    padding: 0.75em;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    margin-top: 2em;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+#loginCard .phone-container {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    text-align: left;
+}
+
+#loginCard .phone-container .prefix-box {
+    flex: 1;
+    min-width: 80px;
+}
+#loginCard .phone-container .phone-box {
+    flex: 3;
+}
+
+#loginCard .phone-container label {
+    margin-bottom: 0.5em;
+    font-size: 0.9em;
+}
+
+#loginCard .phone-container input {
+    margin-top: 0.5em;
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 6px;
+    border: 1px solid #444;
+    outline: none;
+    margin-bottom: 0.5em;
+    transition: all 0.5s ease;
+}
+#loginCard .register {
+    width: 100%;
+    padding: 0.5em;
+    text-align: center;
+    display: block;
+    margin-top: 1.5em;
+    text-decoration: none;
+    border: 2px solid black;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.8em;
+    background-color: transparent;
+}

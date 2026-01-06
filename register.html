@@ -6,14 +6,16 @@
         <meta name="description" content="Register">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="loginStyle.css">
+        <link rel="stylesheet" href="style/loginStyle.css">
+        <link rel="stylesheet" href="style/components.css" type="text/css"/>
+        <link rel="stylesheet" href="style/layout.css" type="text/css"/>
 
         <!--For introducing the font: Open Sans-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     </head>
-    <body>
+    <body class="login-page">
         <div id="loginCard">
         <header>
             <h1>Nombre empresa</h1>
@@ -25,25 +27,22 @@
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" autocomplete="email" required>
-                </div>
-                <div class="form-group">
+
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" autocomplete="current-password" required>
-                </div>
-                <div class="form-group">
+
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" autocomplete="given-name" required>
-                </div>
-                <div class="form-group">
+                    
                     <label for="surname">Surname</label>
                     <input type="text" id="surname" name="surname" autocomplete="family-name" required>
                 </div>
                 <div class="phone-container">
-                    <div class="form-group prefix-box">
+                    <div class="prefix-box">
                         <label for="prefix">Prefix</label>
                         <input type="text" id="prefix" name="prefix" placeholder="+39" required>
                     </div>
-                    <div class="form-group phone-box">
+                    <div class="phone-box">
                         <label for="phone">Phone Number</label>
                         <input type="tel" id="phone" name="phone" autocomplete="tel" required>
                     </div>
