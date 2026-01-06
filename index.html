@@ -1,81 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/style.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style/style.css" type="text/css" />
+    <link rel="stylesheet" href="style/components.css" type="text/css" />
+    <link rel="stylesheet" href="style/layout.css" type="text/css" />
     <title>Welcome page</title>
 </head>
+
 <body>
-    <header class="hero home-hero">
+    <header class="hero big-height home-table-bg">
         <nav>
             <div class="nav-links">
-                <a href="#">Home</a>
-                <a href="#">Catalog</a>
-                <a href="#">Contacts</a>
+                <a href="#" class="menu-items active">Home</a>
+                <a href="#" class="menu-items">Catalog</a>
+                <a href="#" class="menu-items">Contacts</a>
             </div>
 
-            <div class="logo">Dolorem</div>
+            <div class="logo">LUMEN SPIRITS</div>
 
-            <div class="nav-icons"></div>
+            <div class="nav-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-user"></i>
+                <i class="fas fa-shopping-bag"></i>
+            </div>
         </nav>
 
-        <div class="hero-content">
-            <p class="shop-description">
-                Unique Lamps and Centerpieces <br/>
-                Transformed by Artisan Mastery
-            </p>
+        <p class="shop-description">
+            Unique Lamps and Centerpieces <br />
+            Transformed by Artisan Mastery
+        </p>
 
-            <h1 class="big-title">Creative Rebirth</h1>
-        </div>
+        <h1 class="giant-title">Creative Rebirth</h1>
     </header>
     <main>
-        <section class="main-products">
-            <h2>Home Decor Products</h2>
+        <section class="hero hero-padding mid-height align-center">
+            <h2 class="section-title">Home Decor Products</h2>
             <div class="row-layout">
                 <div class="card">
-                    <img src="media/lampada-don-papa.webp" alt="Bottle Rum Don Papa Lamp">
+                    <img src="assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
                     <div class="card-content">
-                        <h3>Don Papa Lamp</h3>
-                        <a href="#" class="button">Discover</a>
+                        <h3>Gin&Jute</h3>
+                        <button href="#" class="button">Discover</a>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="media/lampada-don-papa.webp" alt="Bottle Rum Don Papa Lamp">
+                    <img src="assets/img/whisky-edison.webp" alt="Bottle whisky lamp edison style">
                     <div class="card-content">
-                        <h3>Don Papa Lamp</h3>
-                        <a href="#" class="button">Discover</a>
+                        <h3>Whisky Edison</h3>
+                        <button href="#" class="button">Discover</a>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="media/lampada-don-papa.webp" alt="Bottle Rum Don Papa Lamp">
+                    <img src="assets/img/vodka-industrial.webp" alt="Bottle vodka lamp industrial style">
                     <div class="card-content">
-                        <h3>Don Papa Lamp</h3>
-                        <a href="#" class="button">Discover</a>
+                        <h3>Vodka Industrial</h3>
+                        <button href="#" class="button">Discover</a>
                     </div>
                 </div>
                 <div class="card">
-                    <img src="media/lampada-don-papa.webp" alt="Bottle Rum Don Papa Lamp">
+                    <img src="assets/img/wine-cork.webp" alt="Bottle wine and cork lamp">
                     <div class="card-content">
-                        <h3>Don Papa Lamp</h3>
-                        <a href="#" class="button">Discover</a>
+                        <h3>Wine&Cork</h3>
+                        <button href="#" class="button">Discover</a>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="hero sub-home-hero">
-            <div class="hero-content sub-hero">
-                <h2 class="hero-title">
-                    Sustainable <br/>
-                    Design
-                </h2>
-                <p>
-                    Each piece is a sensory journey,<br/>
-                    the result of a meticulous process,<br/>
-                    from bottle to beauty.
-                </p>
-                <a href="#" class="button">Buy now</a>
+        <section class="hero hero-padding mid-height sustainable-design-bg align-start">
+            <h2 class="section-title big-size">
+                Sustainable <br />
+                Design
+            </h2>
+            <p>
+                Each piece is a sensory journey,<br />
+                the result of a meticulous process,<br />
+                from bottle to beauty.
+            </p>
+            <button href="#" class="button">Buy now</a>
+        </section>
+        <section class="hero hero-padding mid-height align-center">
+            <div class="main-quote">
+                <blockquote>
+                    We offer functional works of art,<br />
+                    crafted with passion and attention to detail,<br />
+                    to rediscover the beauty of reuse.
+                </blockquote>
+                <button href="#" class="button">Buy now</a>
             </div>
+        </section>
+        <section class="hero hero-padding mid-height craftsmanship-bg align-start">
+            <h2 class="section-title big-size">Unique Craftsmanship</h2>
+            <p class="section-text">Every piece is handmade</p>
+            <button href="#" class="button">Buy now</a>
         </section>
     </main>
+    <footer class="hero hero-padding footer-layout">
+        <div class="footer-column">
+            <h3 class="footer-title">Discover More</h3>
+            <ul class="footer-links">
+                <li><a href="#" class="menu-items">Home</a></li>
+                <li><a href="#" class="menu-items">Catalog</a></li>
+                <li><a href="#" class="menu-items">Contacts</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3 class="footer-title">Link up</h3>
+            <ul class="footer-links">
+                <li><a href="#"><i class="fab fa-facebook-f fa-fw"></i>&nbsp;Facebook</a></li>
+                <li><a href="#"><i class="fab fa-instagram fa-fw"></i>&nbsp;Instagram</a></li>
+                <li><a href="#"><i class="fab fa-tiktok fa-fw"></i>&nbsp;Tiktok</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column newsletter-column">
+            <h3 class="footer-title">Subscribe to our community!</h3>
+            <form class="newsletter-form">
+                <input type="email" placeholder="email" required>
+                <button type="submit"></button>
+            </form>
+        </div>
+    </footer>
 </body>
