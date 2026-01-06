@@ -6,14 +6,16 @@
         <meta name="description" content="Login">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="loginStyle.css">
+        <link rel="stylesheet" href="style/loginStyle.css">
+        <link rel="stylesheet" href="style/components.css" type="text/css"/>
+        <link rel="stylesheet" href="style/layout.css" type="text/css"/>
 
         <!--For introducing the font: Open Sans-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     </head>
-    <body>
+    <body class="login-page">
         <div id="loginCard">
         <header>
             <h1>Nombre empresa</h1>
@@ -25,8 +27,6 @@
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" autocomplete="email" required>
-                </div>
-                <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" autocomplete="current-password" required>
                 </div>
