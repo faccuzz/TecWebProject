@@ -44,7 +44,7 @@ CREATE TABLE cart(
     user varchar(25) NOT NULL,
     PRIMARY KEY (product_id, user),
     FOREIGN KEY (user) REFERENCES users(username) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(id)
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
 CREATE TABLE orders(
@@ -52,9 +52,16 @@ CREATE TABLE orders(
     user varchar(25) NOT NULL,
     orderDate TIMESTAMP NOT NULL,
     totalAmount numeric(9,2) NOT NULL,
-    product char(10) NOT NULL,
-    FOREIGN KEY (user) REFERENCES users(username) ON DELETE CASCADE,
-    FOREIGN KEY (product) REFERENCES products(id)
+    FOREIGN KEY (user) REFERENCES users(username) ON DELETE CASCADE
+);
+
+CREATE TABLE order_items(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    orderID varchar(20) NOT NULL,
+    product_id char(10) NOT NULL,
+    quantity smallint NOT NULL,
+    FOREIGN KEY (orderID) REFERENCES orders(orderID) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
 
