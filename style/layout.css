@@ -3,3 +3,13 @@
    grid-template-columns: 1fr 1fr 1fr 1fr;
    gap: 2em; 
 }
+
+.footer-layout {
+    min-height: auto; 
+    padding-top: 4em;
+    padding-bottom: 2em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4em;
+    margin-bottom: 4em;
+}
