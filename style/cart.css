@@ -89,8 +89,7 @@
     cursor: pointer;
 }
 
-/* Versione base responsive */
-/* da controllare 
+
 @media (max-width: 700px) {
     .shoppingCart {
         margin: 3em 1em;
@@ -106,4 +105,4 @@
         align-items: flex-start;
     }
 }
-  */  
+
