@@ -89,7 +89,12 @@
     cursor: pointer;
 }
 
+<<<<<<< HEAD
+/* Versione base responsive */
+ 
+=======
 
+>>>>>>> 8ff9b1f8833d6e5e237dea18becaa9b9bd2cb2df
 @media (max-width: 700px) {
     .shoppingCart {
         margin: 3em 1em;
@@ -105,4 +110,8 @@
         align-items: flex-start;
     }
 }
+<<<<<<< HEAD
+  
+=======
+>>>>>>> 8ff9b1f8833d6e5e237dea18becaa9b9bd2cb2df
 
