@@ -1,3 +1,10 @@
+:root{
+    --primary-color: 249, 245, 240;
+    --text-color: 44, 24, 16;
+    --decoration-color: 230, 126, 34;
+    --side-padding: 3em;
+    --top-padding: 3em;
+}
 * {
     margin: 0;
     padding: 0;
@@ -5,14 +12,9 @@
     font-family: sans-serif;
     letter-spacing: 2px;
 }
-
-.logo{
-    font-weight: bold;
-    text-transform: capitalize;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
+body{
+    background-color: rgb(var(--primary-color));
+    color: rgb(var(--text-color));
 }
 
 html,body{
@@ -20,29 +22,59 @@ html,body{
 }
 
 .login-page {
+    width: 100%;
     min-height: 100dvh;
-    display: grid;
-    place-items: center;
+    background-image: url('../assets/img/sfondo-hero-sustainable-design.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 2rem 5rem;
+    position: relative;
+}
+
+.login-page::before {
+    content: '';
+    position: absolute; /* posición absoluta que se ve limitada por la relativa del .login-page (su padre)*/
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.area-logo{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.company-name {
+    font-weight: bold;
+    color: rgb(var(--primary-color));
+    font-size: 2.5em;
+    line-height: 1.5em;
+    text-align: center;
+    /*Insertar logo de IMG si quiero*/
 }
 
 #loginCard {
+    z-index: 10;
     max-width: 400px; 
     width: 100%;
     border-radius: 12px;
     text-align: center;
     padding: 2.5em;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /*Shadow moves down 4px, blur of 15px, black at 50% transparency*/
+    background-color: rgb(var(--primary-color));
+    color: rgb(var(--text-color));
+    flex-shrink: 0;
 }
 
 #loginCard header {
     text-align: center;
     margin-bottom: 2em;
-}
-
-#loginCard h1 {
-    font-size: 2.5em;
-    line-height: 1.5em;
-    /*Insertar logo de IMG si quiero*/
 }
 
 #loginCard h2{
