@@ -1,7 +1,7 @@
 <?php 
     include_once 'configDB.php';
     class database{
-        private $connection;
+        public $connection;
 
         public function connect(){
             $this->connection = new mysqli(DB_CONFIG['db_host'], DB_CONFIG['db_user'], DB_CONFIG['db_password'], DB_CONFIG['db_name']);
@@ -35,9 +35,16 @@
         }
 
         public function getProducts(){
-            $sql = "SELECT productName,price,description FROM products";
+            $sql = "SELECT id,productName,price,description FROM products";
             $result = $this->connection->query($sql);
             return $result;
+        }
+
+        public function deleteProduct($id){
+            $query = "DELETE FROM products WHERE id = ?";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bind_param('s',$id);
+            $stmt->execute();
         }
     }
 ?>
