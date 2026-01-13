@@ -2,29 +2,34 @@ async function showProducts() {
     const productsList = document.getElementById('productsList');
     const response = await fetch('./php/adminPage.php');
         
-    const prodotti = await response.json();
-    console.log("3. Dati ricevuti:", prodotti);
+    const products = await response.json();
 
-    if (prodotti.length === 0) {
-        productsList.innerHTML = '<li>Nessun prodotto trovato nel database.</li>';
+    if (products.length === 0) {
+        productsList.innerHTML = '<li>There are no products available.</li>';
         return;
     }
 
     productsList.innerHTML = '';
 
-    prodotti.forEach(p => {
-        console.log("4. Sto creando la card per:", p.productName);
+    products.forEach(p => {
         const card = `
             <li class="card"> 
                 <h2>${p.productName}</h2> 
                 <div class="product"> 
                     <p>${p.description}</p>
-                    <img src="assets/img/${p.productName.replace(/\s+/g, '').toLowerCase()}.jpg" style="width:100px">
+                    <img src="assets/img/${p.productName.replace(/\s+/g, '').toLowerCase()}.jpg" style="width:100%; height:320px;object-fit: contain;">
                 </div> 
-                <p>Prezzo: <strong>${p.price}€</strong></p> 
+                <p>Price: <strong>${p.price}€</strong></p> 
+                <button onclick="deleteProduct('${p.id}')">Delete</button>
+                <button onclick="modifyProduct('${p.id}')">Modify</button>
             </li>`;
             productsList.innerHTML += card;
         });
+    
+}
+
+async function deleteProduct(id) {
+    window.location.href = `php/deleteProduct.php?id=${id}`;
 }
 
 document.addEventListener('DOMContentLoaded', showProducts);
