@@ -1,4 +1,4 @@
-/* Contenitore principale del carrello */
+/*  principale  carrello */
 .shoppingCart {
     max-width: 900px;
     margin: 5em auto;
@@ -45,7 +45,7 @@
     font-size: 0.95rem;
 }
 
-/* Form controlli prodotto */
+/*  controlli prodotto */
 .itemControls {
     display: flex;
     flex-direction: column;
