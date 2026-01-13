@@ -216,7 +216,7 @@ nav{
 }
 
 .itemBox {
-    border: 1px solid #e0e0e0; /* Subtle border */
+    border: 1px solid #e0e0e0;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     margin: 1%;
     max-width: 70%;
@@ -246,9 +246,46 @@ nav{
 .hero p{
     font-size: 1.2rem;
 }
+
 .footer-links a {
     text-decoration: none;
     color: rgb(var(--text-color));
     font-size: 1rem;
     font-weight: 300;
+}
+
+.mainAdmin {
+    margin: 3%; 
+    padding: 20px;
+}
+
+.adminUpload {
+    max-width: 30%;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 3%;
+}
+
+.adminUpload form{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#productsList{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 5%;
+    margin-top: 5%;
+    gap: 2%;
+}
+
+#productsList li{
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
 }
