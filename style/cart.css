@@ -1,0 +1,125 @@
+/* principale carrello */
+
+.shoppingCart {
+max-width: 900px;
+margin: 5em auto;
+padding: 2em;
+background-color: rgb(249, 245, 240);
+border: 1px solid #ddd;
+}
+
+/* Titoli */
+
+.shoppingCart h1 {
+font-size: 2rem;
+text-transform: uppercase;
+margin-bottom: 1em;
+color: rgb(44, 24, 16);
+}
+
+.itemsInCart h2 {
+font-size: 1.3rem;
+margin-bottom: 0.8em;
+color: rgb(44, 24, 16);
+}
+
+/* Lista prodotti */
+
+.itemsInCart ul {
+list-style: none;
+}
+
+.itemsInCart .items {
+display: flex;
+align-items: center;
+gap: 1.5em;
+padding: 1em 0;
+border-bottom: 1px solid #eee;
+}
+
+/* Immagine prodotto */
+
+.itemImages {
+width: 100px;
+height: 100px;
+object-fit: cover;
+}
+
+/* Descrizione prodotto */
+
+.itemDescription {
+flex: 1;
+font-size: 0.95rem;
+color: rgb(44, 24, 16);
+}
+
+/* controlli prodotto */
+
+.itemControls {
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+gap: 0.5em;
+}
+
+/* Pulsante rimozione */
+
+.itemControlsRemove {
+padding: 0.4em 0.8em;
+border: 1px solid rgb(44, 24, 16);
+background-color: transparent;
+color: rgb(44, 24, 16);
+cursor: pointer;
+text-transform: uppercase;
+font-size: 0.7rem;
+letter-spacing: 2px;
+}
+
+/* Quantità */
+
+.itemControlsLabel {
+font-size: 0.8rem;
+color: rgb(44, 24, 16);
+}
+
+.itemControlsCount {
+width: 50px;
+padding: 0.2em;
+border: 1px solid #ccc;
+}
+
+/* Pulsante procedi all'ordine */
+
+.shoppingCart-form {
+margin-top: 2em;
+text-align: right;
+}
+
+.shoppingCart-form input[type="submit"] {
+padding: 0.7em 1.5em;
+border: 1px solid rgb(44, 24, 16);
+background-color: transparent;
+color: rgb(44, 24, 16);
+text-transform: uppercase;
+font-size: 0.8rem;
+cursor: pointer;
+letter-spacing: 2px;
+}
+
+/* parte responsive */
+
+@media (max-width: 700px) {
+.shoppingCart {
+margin: 3em 1em;
+padding: 1.5em;
+}
+
+.itemsInCart .items {
+flex-direction: column;
+align-items: flex-start;
+}
+
+.itemControls {
+align-items: flex-start;
+}
+}
