@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="style/style.css" type="text/css" />
     <link rel="stylesheet" href="style/components.css" type="text/css" />
     <link rel="stylesheet" href="style/layout.css" type="text/css" />
+
+    <script src="assets/js/animation.js" defer></script>
+    <script src="assets/js/search-engine.js" defer></script>
     <title>Welcome page</title>
 </head>
 
@@ -16,16 +19,20 @@
         <nav>
             <div class="nav-links">
                 <a href="#" class="menu-items active">Home</a>
-                <a href="#" class="menu-items">Catalog</a>
+                <a href="items.html" class="menu-items">Catalog</a>
                 <a href="#" class="menu-items">Contacts</a>
             </div>
 
             <div class="logo">LUMEN SPIRITS</div>
 
             <div class="nav-icons">
-                <i class="fas fa-search"></i>
-                <i class="fas fa-user"></i>
-                <i class="fas fa-shopping-bag"></i>
+                <div class="search-box" id="search-input">
+                    <input type="text" class="search-bar" placeholder="Search...">
+                    <div class="result-list"></div>
+                </div>
+                <i class="fas fa-search" id="home-search-button"></i>
+                <a href="adminPage.html"><i class="fas fa-user"></i></a>
+                <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
             </div>
         </nav>
 
@@ -80,7 +87,7 @@
                 the result of a meticulous process,<br />
                 from bottle to beauty.
             </p>
-            <button href="#" class="button">Buy now</a>
+            <button href="items.html" class="button">Buy now</a>
         </section>
         <section class="hero hero-padding mid-height align-center">
             <div class="main-quote">
@@ -89,7 +96,7 @@
                     crafted with passion and attention to detail,<br />
                     to rediscover the beauty of reuse.
                 </blockquote>
-                <button href="#" class="button">Buy now</a>
+                <button href="items.html" class="button">Buy now</a>
             </div>
         </section>
         <section class="hero hero-padding mid-height craftsmanship-bg align-start">
