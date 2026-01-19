@@ -1,9 +1,14 @@
+/* TODO: spostare nel posto giusto */
+body {
+    margin: 0;
+}
+
 /* principale carrello */
 
 .shoppingCart {
-    max-width: 900px;
-    margin: 5em auto;
-    padding: 2em;
+   /*  max-width: 900px;
+    margin: 5em auto; */
+    padding: 1.25em;
     background-color: rgb(249, 245, 240);
     border: 1px solid #ddd;
 }
@@ -27,6 +32,7 @@
 
 .itemsInCart ul {
     list-style: none;
+    padding: 0;
 }
 
 .itemsInCart .items {
@@ -108,18 +114,24 @@
 
 /* parte responsive */
 
-@media (max-width: 700px) {
+@media (min-width: 600px) {
     .shoppingCart {
-        margin: 3em 1em;
+	max-width: 500px;
+	margin: 3em auto;
         padding: 1.5em;
+	border-radius: 10px;
     }
 
     .itemsInCart .items {
-        flex-direction: column;
+        flex-direction: row;
         align-items: flex-start;
     }
 
     .itemControls {
         align-items: flex-start;
+    }
+
+    .button.itemControlsRemove {
+	padding: 0.8em 1.5em;
     }
 }

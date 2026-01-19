@@ -19,6 +19,10 @@ body{
     color: rgb(var(--text-color));
 }
 
+a {
+    color: rgb(var(--text-color));
+}
+
 .hero {
     position: relative;
     width: 100%;
@@ -27,7 +31,15 @@ body{
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column; 
-    min-height: 45em;
+    min-height: 15em;
+}
+
+.hero h1 {
+    text-align: center;
+    position: absolute; 
+    bottom: 20px;
+    left: 0;
+    width: 100%;
 }
 
 .hero-padding{
@@ -54,6 +66,7 @@ body{
         linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0)),
         url('../assets/img/sfondo-home-tavolo-con-bottiglie.webp');
     color: rgb(var(--primary-color));
+    box-shadow: inset 0em -1em 5em black;
 }
 .sustainable-design-bg{
     background-image: 
@@ -169,11 +182,6 @@ nav{
 .giant-title{
     font-size: 11rem;
     font-weight: 300;
-    text-align: center;
-    position: absolute; 
-    bottom: 20px;
-    left: 0;
-    width: 100%;
 }
 
 .big-size{
