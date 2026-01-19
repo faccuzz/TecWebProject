@@ -23,13 +23,16 @@
 
         <main id="loginCard">
             <h2>Register</h2>
-            <form action="" method="post">
+            <form action="php/register.php" method="post">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" autocomplete="email" required>
 
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" autocomplete="current-password" required>
+
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" autocomplete="username" required>
 
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" autocomplete="given-name" required>
@@ -48,7 +51,7 @@
                     </div>
                 </div>
                 
-                <button type="submit">Create account</button>
+                <button type="submit" name="register">Create account</button>
             </form>
             <a class="register" href="login.html">Login</a>
         </main>

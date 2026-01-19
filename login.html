@@ -23,7 +23,7 @@
         
         <main id="loginCard">
             <h2>Log in</h2>  
-            <form action="" method="post">
+            <form action="php/login.php" method="post">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" autocomplete="email" required>
@@ -31,7 +31,7 @@
                     <input type="password" id="password" name="password" autocomplete="current-password" required>
                 </div>
                 <a class="forgotten" href="recovery.html">Have you forgotten your password?</a>
-                <button type="submit">Log in</button>
+                <button type="submit" name="login">Log in</button>
             </form>
             <a class="register" href="register.html">Register</a>
         </main>

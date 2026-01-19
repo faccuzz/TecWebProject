@@ -8,15 +8,15 @@ DROP TABLE IF EXISTS products;
 CREATE TABLE users (
     username varchar(25) PRIMARY KEY,
     password varchar(64) NOT NULL,
-    lastName varchar(50) NOT NULL,
-    firstName varchar(50) NOT NULL
+    surname varchar(50) NOT NULL,
+    name varchar(50) NOT NULL,
+    email varchar(100) NOT NULL,
+    phoneNumber varchar(20)
 );
 
-INSERT INTO users(username,password,lastName,firstName) VALUES
-('admin','admin','Davide','Rossi'),
-('user','user','Daniele','Bortoli'),
-('lFogazzaro','Fog1234','Lucca','Fogazzaro'),
-('cBortoli','Cris3434','Cristina','Bortoli');
+INSERT INTO users(username,password,name,surname,email,phoneNumber) VALUES
+('admin','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918','Davide','Rossi','admin@gmail.com','+391562145632'),
+('user','04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb','Daniele','Bortoli','user@gmail.com','+391512631544');
 
 CREATE TABLE products(
     id char(10) PRIMARY KEY,
