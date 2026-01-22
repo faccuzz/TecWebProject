@@ -59,7 +59,7 @@ function renderList(items) {
     }
 }
 function renderGrid(items) {
-
+    /** TODO */
 }
 
 if (searchInput) {

@@ -1,56 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title> Register - Creative Rebirth</title>
-        <meta name="description" content="Register">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="style/loginStyle.css">
-        <link rel="stylesheet" href="style/components.css" type="text/css"/>
-        <link rel="stylesheet" href="style/layout.css" type="text/css"/>
+<head>
+    <meta charset="utf-8">
+    <title> Register - Creative Rebirth</title>
+    <meta name="description" content="Register">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!--For introducing the font: Open Sans-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    </head>
-    <body class="login-page">
-        <header class="area-logo">
-            <h1 class="company-name">Creative Rebirth</h1>
-            <!--Meter logo en vez otra opción-->
-        </header>
+    <link rel="stylesheet" href="style/loginStyle.css">
+    <link rel="stylesheet" href="style/components.css" type="text/css" />
+    <link rel="stylesheet" href="style/layout.css" type="text/css" />
 
-        <main id="loginCard">
-            <h2>Register</h2>
-            <form action="" method="post">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" autocomplete="email" required>
+    <!--For introducing the font: Open Sans-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+    
+    <!--IntlTelInput Libray-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js" defer></script>
 
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" autocomplete="current-password" required>
+    <script src="assets/js/form-checker.js" defer></script>
+</head>
 
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" autocomplete="given-name" required>
-                    
-                    <label for="surname">Surname</label>
-                    <input type="text" id="surname" name="surname" autocomplete="family-name" required>
+<body class="login-page">
+    <header class="area-logo">
+        <h1 class="company-name">Creative Rebirth</h1>
+        <!--Meter logo en vez otra opción-->
+    </header>
+
+    <main id="loginCard">
+        <h2>Register</h2>
+        <form action="" method="post" id="access-form" novalidate>
+            <div class="form-group">
+
+                <label for="email">Email</label>
+                <input type="email" id="email-input" name="email" autocomplete="email" required>
+                <p class="form-error-msg">Error placeholder</p>
+
+            </div>
+            <div class="form-group">
+
+                <label for="password">Password</label>
+                <input type="password" id="password-input" name="password" autocomplete="current-password" required>
+
+                <p>Password must contain:</p>
+
+                <div class="password-requirements">
+                    <p id="requirement-1">
+                        At least 8 Character
+                    </p>
+                    <p id="requirement-2">
+                        At least a Number
+                    </p>
+                    <p id="requirement-3">
+                        At least an Uppercase Letter
+                    </p>
+                    <p id="requirement-4">
+                        At least a Special Character
+                    </p>
                 </div>
-                <div class="phone-container">
-                    <div class="prefix-box">
-                        <label for="prefix">Prefix</label>
-                        <input type="text" id="prefix" name="prefix" placeholder="+39" required>
-                    </div>
-                    <div class="phone-box">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" autocomplete="tel" required>
-                    </div>
-                </div>
-                
-                <button type="submit">Create account</button>
-            </form>
-            <a class="register" href="login.html">Login</a>
-        </main>
-    </body>
+
+            </div>
+            <div class="form-group">
+
+                <label for="name">Name</label>
+                <input type="text" id="name-input" name="name" autocomplete="given-name" required>
+                <p class="form-error-msg">Error placeholder</p>
+
+            </div>
+            <div class="form-group">
+
+                <label for="surname">Surname</label>
+                <input type="text" id="surname-input" name="surname" autocomplete="family-name" required>
+                <p class="form-error-msg">Error placeholder</p>
+            </div>
+            <div class="form-group">
+                <label for="phone-input">Phone Number</label>
+                <input type="tel" id="phone-input" name="phone" required>
+                <p class="form-error-msg">Error placeholder</p>
+            </div>
+
+            <button type="submit">Create account</button>
+        </form>
+        <a class="register" href="login.html">Login</a>
+    </main>
+</body>
+
 </html>

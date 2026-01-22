@@ -2,6 +2,7 @@
     --primary-color: 249, 245, 240;
     --text-color: 44, 24, 16;
     --decoration-color: 230, 126, 34;
+    --error-color: #FF6B6B;
     --side-padding: 3em;
     --top-padding: 3em;
 }
@@ -88,6 +89,33 @@ html,body{
     display: flex;
     flex-direction: column;
 }
+.password-requirements{
+    padding: 1em 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+}
+
+.form-group input.input-error{
+    border-color: var(--error-color) !important;
+}
+
+.form-error-msg {
+    color: var(--error-color);
+    font-size: 0.7rem;
+    margin-top: 0;
+    margin-bottom: 1.5em;
+    display: none;
+}
+
+.form-error-msg.active{
+    display: block !important;
+}
+
+.password-requirements{
+    font-size: 0.75em;
+    color: rgb(var(--text-color));
+}
 
 #loginCard .form-group label {
     display: block;
@@ -123,37 +151,12 @@ html,body{
     cursor: pointer;
 }
 
-
-#loginCard .phone-container {
-    display: flex;
-    gap: 15px;
-    width: 100%;
-    text-align: left;
+.iti { width: 100%; margin-bottom: 1em; }
+.iti__country-list .iti__country-name {
+    font-size: 0.7em;
+    display: inline-block;
 }
 
-#loginCard .phone-container .prefix-box {
-    flex: 1;
-    min-width: 80px;
-}
-#loginCard .phone-container .phone-box {
-    flex: 3;
-}
-
-#loginCard .phone-container label {
-    margin-bottom: 0.5em;
-    font-size: 0.9em;
-}
-
-#loginCard .phone-container input {
-    margin-top: 0.5em;
-    width: 100%;
-    padding: 0.5em;
-    border-radius: 6px;
-    border: 1px solid #444;
-    outline: none;
-    margin-bottom: 0.5em;
-    transition: all 0.5s ease;
-}
 #loginCard .register {
     width: 100%;
     padding: 0.5em;
