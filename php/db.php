@@ -46,5 +46,30 @@
             $stmt->bind_param('s',$id);
             $stmt->execute();
         }
+
+        public function registration($username, $password, $name, $surname, $email, $phoneNumber){
+            $hashedPassword = hash('sha256',$password);
+            $sql = "INSERT INTO users (username, password, name, surname, email, phoneNumber) VALUES (?,?,?,?,?,?)";
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bind_param('ssssss', $username, $hashedPassword, $name, $surname, $email, $phoneNumber);
+            $stmt->execute();
+        }
+
+        public function login($email,$password){
+            $sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+            $stmt = $this->connection->prepare($sql);
+            $password = hash('sha256',$password);
+            $stmt->bind_param('ss',$email,$password);
+            $result = $stmt->execute();
+
+            $result = $stmt->get_result();
+            if($result->num_rows > 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+            
+        }
     }
 ?>

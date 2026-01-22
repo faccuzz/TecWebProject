@@ -1,94 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Items</title>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style/style.css" type="text/css" />
-  </head>
-  <body>
-    <header class="hero home-hero">
-      <nav>
-        <div class="nav-links">
-          <a href="#">Home</a>
-          <a href="#">Catalog</a>
-          <a href="#">Contacts</a>
-        </div>
+    <link rel="stylesheet" href="style/components.css" type="text/css" />
+    <link rel="stylesheet" href="style/layout.css" type="text/css" />
 
-        <div class="logo">Dolorem</div>
+    <script src="assets/js/animation.js" defer></script>
+    <script src="assets/js/search-engine.js" defer></script>
+    <title>Welcome page</title>
+</head>
 
-        <div class="nav-icons"></div>
-      </nav>
+<body>
+    <header class="hero home-table-bg">
+        <nav>
+            <div class="nav-links">
+                <a href="index.html" class="menu-items">Home</a>
+                <a href="#" class="menu-items active">Catalog</a>
+                <!-- <a href="#" class="menu-items">Contacts</a> -->
+            </div>
 
-      <div class="hero-content">
-        <p class="shop-description">
-          Unique Lamps and Centerpieces <br />
-          Transformed by Artisan Mastery
-        </p>
+            <div class="logo">LUMEN SPIRITS</div>
 
-        <h1 class="big-title">Creative Rebirth</h1>
-      </div>
+            <div class="nav-icons">
+                <div class="search-box" id="search-input">
+                    <input type="text" class="search-bar" placeholder="Search...">
+                    <div class="result-list"></div>
+                </div>
+                <i class="fas fa-search" id="home-search-button"></i>
+                <a href="adminPage.html"><i class="fas fa-user"></i></a>
+                <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+            </div>
+        </nav>
+        <h1>Creative Rebirth</h1>
     </header>
-    <div class="Items">
-      <div class="itemBox">
-        <div class="imgBox">
-          <img src="assets/img/b1.png" alt="Bottle" />
-        </div>
-        <div class="productDesc">
-          <h2>Bottle 1</h2>
-          <strong>20€</strong>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas
-            dolorem architecto praesentium rem in! Cumque nam at officia
-            reiciendis, ea cupiditate harum? Rem, odio. Magnam dicta sit
-            explicabo incidunt officiis?
-          </p>
-          <div class="rowCompra">
-            Quantity: <input type="number" value="1" />
-            <button>Add to Cart</button>
+    <main>
+      <section class="hero hero-padding mid-height align-center">
+        <div class="items-layout">
+	  <h2 class="section-title">Products</h2>
+          <div class="card">
+            <img src="assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
+            <div class="card-content">
+              <h3><a href="#" title="Gin&amp;Jute">Gin&Jute</a></h3>
+	      <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.</p>
+              <!-- <a href="#" class="button">Discover</a> -->
+	    </div>
+	  </div>
+	  <div class="card">
+            <img src="assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
+            <div class="card-content">
+              <h3><a href="#" title="Gin&amp;Jute">Gin&Jute</a></h3>
+	      <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.</p>
+              <!-- <a href="#" class="button">Discover</a> -->
+	    </div>
+	  </div>
+	  <div class="card">
+            <img src="assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
+            <div class="card-content">
+              <h3><a href="#" title="Gin&amp;Jute">Gin&Jute</a></h3>
+	      <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.</p>
+              <!-- <a href="#" class="button">Discover</a> -->
+	    </div>
+	  </div>
+	  <div class="card">
+            <img src="assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
+            <div class="card-content">
+              <h3><a href="#" title="Gin&amp;Jute">Gin&Jute</a></h3>
+	      <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.</p>
+              <!-- <a href="#" class="button">Discover</a> -->
+	    </div>
+	  </div>
+	  <div class="card">
+            <img src="assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
+            <div class="card-content">
+              <h3><a href="#" title="Gin&amp;Jute">Gin&Jute</a></h3>
+	      <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.</p>
+              <!-- <a href="#" class="button">Discover</a> -->
+	    </div>
+	  </div>
+	  <div class="card">
+            <img src="assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
+            <div class="card-content">
+              <h3><a href="#" title="Gin&amp;Jute">Gin&Jute</a></h3>
+	      <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.</p>
+              <!-- <a href="#" class="button">Discover</a> -->
+	    </div>
+	  </div>
+	  
+          <div class="card">
+            <img src="assets/img/whisky-edison.webp" alt="Bottle whisky lamp edison style">
+            <div class="card-content">
+              <h3>Whisky Edison</h3>
+	      <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.
+		Breve descrizone...
+	      </p>
+              <a href="#" class="button">Discover</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="assets/img/vodka-industrial.webp" alt="Bottle vodka lamp industrial style">
+            <div class="card-content">
+              <h3>Vodka Industrial</h3>
+              <a href="#" class="button">Discover</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="assets/img/wine-cork.webp" alt="Bottle wine and cork lamp">
+            <div class="card-content">
+              <h3>Wine&Cork</h3>
+              <a href="#" class="button">Discover</a>
+            </div>
+	  </div>
+	  <div class="card">
+            <img src="assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
+            <div class="card-content">
+              <h3>Gin&Jute</h3>
+              <a href="#" class="button">Discover</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="assets/img/whisky-edison.webp" alt="Bottle whisky lamp edison style">
+            <div class="card-content">
+              <h3>Whisky Edison</h3>
+              <a href="#" class="button">Discover</a>
+            </div>
+          </div>
+	  <div class="card">
+            <img src="assets/img/whisky-edison.webp" alt="Bottle whisky lamp edison style">
+            <div class="card-content">
+              <h3>Whisky Edison</h3>
+              <a href="#" class="button">Discover</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="assets/img/vodka-industrial.webp" alt="Bottle vodka lamp industrial style">
+            <div class="card-content">
+              <h3>Vodka Industrial</h3>
+              <a href="#" class="button">Discover</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="assets/img/wine-cork.webp" alt="Bottle wine and cork lamp">
+            <div class="card-content">
+              <h3>Wine&Cork</h3>
+              <a href="#" class="button">Discover</a>
+            </div>
+	  </div>
+	  <div class="card">
+            <img src="assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
+            <div class="card-content">
+              <h3>Gin&Jute</h3>
+              <a href="#" class="button">Discover</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="assets/img/whisky-edison.webp" alt="Bottle whisky lamp edison style">
+            <div class="card-content">
+              <h3>Whisky Edison</h3>
+              <a href="#" class="button">Discover</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="assets/img/vodka-industrial.webp" alt="Bottle vodka lamp industrial style">
+            <div class="card-content">
+              <h3>Vodka Industrial</h3>
+              <a href="#" class="button">Discover</a>
+            </div>
+          </div>
+          <div class="card">
+            <img src="assets/img/wine-cork.webp" alt="Bottle wine and cork lamp">
+            <div class="card-content">
+              <h3>Wine&Cork</h3>
+              <a href="#" class="button">Discover</a>
+            </div>
+          </div>
+	  <div class="card">
+            <img src="assets/img/wine-cork.webp" alt="Bottle wine and cork lamp">
+            <div class="card-content">
+              <h3>Wine&Cork</h3>
+              <a href="#" class="button">Discover</a>
+            </div>
           </div>
         </div>
-      </div>
+        </section>
+    </main>
+    <footer class="hero hero-padding footer-layout">
+        <div class="footer-column">
+            <h3 class="footer-title">Discover More</h3>
+            <ul class="footer-links">
+                <li><a href="#" class="menu-items">Home</a></li>
+                <li><a href="#" class="menu-items">Catalog</a></li>
+                <li><a href="#" class="menu-items">Contacts</a></li>
+            </ul>
+        </div>
 
-      <div class="itemBox">
-        <div class="imgBox">
-          <img src="assets/img/b2.png" alt="Bottle" />
+        <div class="footer-column">
+            <h3 class="footer-title">Link up</h3>
+            <ul class="footer-links">
+                <li><a href="#"><i class="fab fa-facebook-f fa-fw"></i>&nbsp;Facebook</a></li>
+                <li><a href="#"><i class="fab fa-instagram fa-fw"></i>&nbsp;Instagram</a></li>
+                <li><a href="#"><i class="fab fa-tiktok fa-fw"></i>&nbsp;Tiktok</a></li>
+            </ul>
         </div>
-        <div class="productDesc">
-          <h2>Bottle 2</h2>
-          <strong>20€</strong>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas
-            dolorem architecto praesentium rem in! Cumque nam at officia
-            reiciendis, ea cupiditate harum? Rem, odio. Magnam dicta sit
-            explicabo incidunt officiis?
-          </p>
-          <div class="rowCompra">
-            Quantity: <input type="number" value="1" />
-            <button>Add to Cart</button>
-          </div>
-        </div>
-      </div>
 
-      <div class="itemBox">
-        <div class="imgBox">
-          <img src="assets/img/b3.png" alt="Bottle" />
+        <div class="footer-column newsletter-column">
+            <h3 class="footer-title">Subscribe to our community!</h3>
+            <form class="newsletter-form">
+                <input type="email" placeholder="email" required>
+                <button type="submit"></button>
+            </form>
         </div>
-        <div class="productDesc">
-          <h2>Bottle 3</h2>
-          <strong>20€</strong>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas
-            dolorem architecto praesentium rem in! Cumque nam at officia
-            reiciendis, ea cupiditate harum? Rem, odio. Magnam dicta sit
-            explicabo incidunt officiis?
-          </p>
-          <div class="rowCompra">
-            Quantity: <input type="number" value="1" />
-            <button>Add to Cart</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>
-</html>
+    </footer>
+</body>
