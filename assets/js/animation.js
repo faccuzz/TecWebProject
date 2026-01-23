@@ -1,6 +1,6 @@
-const searchBox = document.querySelector('.search-box');
+const searchBox = document.querySelector('.home-search-box');
 const searchButton = document.getElementById('home-search-button');
-const searchBar = document.querySelector('.search-bar');
+const searchBar = document.querySelector('.home-search-bar');
 
 searchButton.addEventListener('click', (e) => {
     e.preventDefault();
