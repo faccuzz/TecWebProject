@@ -16,12 +16,31 @@
 
 <body>
     <header class="hero home-table-bg">
-        <!--Aggiungere bottone per tornare a home-->
+        <nav>
+            <div class="nav-links">
+                <a href="index.html" class="menu-items">Home</a>
+                <a href="#" class="menu-items active">Catalog</a>
+                <!-- <a href="#" class="menu-items">Contacts</a> -->
+            </div>
+
+            <div class="logo">LUMEN SPIRITS</div>
+
+            <div class="nav-icons">
+                <div class="search-box" id="search-input">
+                    <input type="text" class="search-bar" placeholder="Search...">
+                    <div class="result-list"></div>
+                </div>
+                <i class="fas fa-search" id="home-search-button"></i>
+                <a href="adminPage.html"><i class="fas fa-user"></i></a>
+                <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+            </div>
+        </nav>
         <h1>Creative Rebirth</h1>
     </header>
     <main>
       <section class="hero hero-padding mid-height align-center">
         <div class="items-layout">
+	  <h2 class="section-title">Products</h2>
           <div class="card">
             <img src="assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
             <div class="card-content">
@@ -34,7 +53,7 @@
             <img src="assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
             <div class="card-content">
               <h3><a href="#" title="Gin&amp;Jute">Gin&Jute</a></h3>
-	            <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.</p>
+	      <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.</p>
               <!-- <a href="#" class="button">Discover</a> -->
 	    </div>
 	  </div>
@@ -188,11 +207,10 @@
         </div>
 
         <div class="footer-column newsletter-column">
-            <h2 class="footer-title">Subscribe to our community!</h2>
+            <h3 class="footer-title">Subscribe to our community!</h3>
             <form class="newsletter-form">
-                <label for="email" class="sr-only">Email</label>
                 <input type="email" placeholder="email" required>
-                <button type="submit">Subscribe!</button>
+                <button type="submit"></button>
             </form>
         </div>
     </footer>
