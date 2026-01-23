@@ -27,12 +27,12 @@
 
             <div class="nav-icons">
                 <div class="search-box" id="search-input">
-                    <input type="text" class="search-bar" placeholder="Search...">
+                    <input type="text" class="search-bar" placeholder="Search..." aria-label="Search items">
                     <div class="result-list"></div>
                 </div>
-                <i class="fas fa-search" id="home-search-button"></i>
-                <a href="adminPage.html"><i class="fas fa-user"></i></a>
-                <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+                <button type="button" id="home-search-button" aria-label="Search"><i class="fas fa-search"></i></button>
+                <a href="adminPage.html" aria-label="User Profile"><i class="fas fa-user"></i></a>
+                <a href="cart.html" aria-label="Shopping Cart"><i class="fas fa-shopping-bag"></i></a>
             </div>
         </nav>
 
@@ -125,10 +125,11 @@
         </div>
 
         <div class="footer-column newsletter-column">
-            <h3 class="footer-title">Subscribe to our community!</h3>
+            <h2 class="footer-title">Subscribe to our community!</h2>
             <form class="newsletter-form">
+                <label for="email" class="sr-only">Email</label>
                 <input type="email" placeholder="email" required>
-                <button type="submit"></button>
+                <button type="submit">Subscribe!</button>
             </form>
         </div>
     </footer>
