@@ -260,29 +260,6 @@ nav{
     margin-bottom: 0.6em;
 }
 
-footer .newsletter-form button {
-    padding: 0.5em 1em;
-    border-radius: 6px;
-    border: 1px solid #2C1810;
-    font-weight: bold;
-    text-align: center;
-    cursor: pointer;
-    margin-top: 0;
-    margin-left: 10px;
-    background-color:#2C1810;
-    color: rgb(var(--primary-color));
-}
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0); 
-    white-space: nowrap;
-    border: 0;
-}
 .Items{
     display: flex;
     flex-direction: column;
