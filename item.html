@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style/style.css" type="text/css" />
+    <link rel="stylesheet" href="./style/components.css" type="text/css" />
+    <link rel="stylesheet" href="./style/layout.css" type="text/css" />
+    <title>Gin&amp;Jute – Dettaglio</title>
+
+</head>
+
+<body>
+    <header class="hero home-table-bg">
+        <nav>
+            <div class="nav-links">
+                <a href="./index.html" class="menu-items">Home</a>
+                <a href="./items.html" class="menu-items" aria-current="page">Catalog</a>
+            </div>
+
+            <div class="logo">LUMEN SPIRITS</div>
+
+            <div class="nav-icons">
+                <div class="search-box" id="search-input">
+                    <input type="text" class="search-bar" placeholder="Search..." aria-label="Cerca prodotto">
+                    <div class="result-list"></div>
+                </div>
+                <i class="fas fa-search" id="home-search-button" aria-hidden="true"></i> 
+                    <!--fixare href qua sotto-->
+                <a href="./adminPage.html" aria-label="Area admin"><i class="fas fa-user" aria-hidden="true"></i></a> 
+                <a href="./cart.html" aria-label="Carrello"><i class="fas fa-shopping-bag" aria-hidden="true"></i></a>
+            </div>
+        </nav>
+        <h1>Creative Rebirth</h1>
+    </header>
+
+    <main>
+        <section class="hero hero-padding mid-height align-center">
+            <div class="detail-layout">
+
+                <div class="detail-image-wrapper">
+                    <img src="./assets/img/gin-jute.webp" alt="Lampada Gin e Jute">
+                </div>
+
+                <div class="detail-info">
+                    <h2 class="section-title">Gin &amp; Jute</h2>
+
+                    <p class="section-text">
+                        Lampada artigianale ricavata da una bottiglia di gin riciclata,
+                        rivestita con intreccio di iuta naturale.
+                    </p>
+
+                    <table class="detail-table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Materiale</th>
+                                <td>Vetro riciclato, Iuta naturale</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Autore</th>
+                                <td>Marco Ferretti</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Dimensioni</th>
+                                <td>Ø 9 cm × H 35 cm</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Disponibilità</th>
+                                <td>Disponibile</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p class="detail-price">€ 89,00</p>
+
+                    <div class="detail-actions">
+                        <label for="qty">Quantità</label>
+                        <input type="number" id="qty" name="qty" value="1" min="1" max="99">
+                        <button class="button" type="button">
+                            <i class="fas fa-shopping-bag" aria-hidden="true"></i> Aggiungi al carrello
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="hero hero-padding footer-layout">
+        <div class="footer-column">
+            <h3 class="footer-title">Discover More</h3>
+            <ul class="footer-links">
+                <li><a href="#" class="menu-items">Home</a></li>
+                <li><a href="#" class="menu-items">Catalog</a></li>
+                <li><a href="#" class="menu-items">Contacts</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3 class="footer-title">Link up</h3>
+            <ul class="footer-links">
+                <li><a href="#"><i class="fab fa-facebook-f fa-fw" aria-hidden="true"></i>&nbsp;Facebook</a></li>
+                <li><a href="#"><i class="fab fa-instagram fa-fw" aria-hidden="true"></i>&nbsp;Instagram</a></li>
+                <li><a href="#"><i class="fab fa-tiktok fa-fw" aria-hidden="true"></i>&nbsp;Tiktok</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3 class="footer-title">Subscribe to our community!</h3>
+            <form class="newsletter-form">
+                <label for="newsletter-email" class="visually-hidden">Email</label>
+                <input type="email" id="newsletter-email" placeholder="email" required>
+                <button type="submit" aria-label="Iscriviti alla newsletter"></button>
+            </form>
+        </div>
+    </footer>
+</body>
+</html>
