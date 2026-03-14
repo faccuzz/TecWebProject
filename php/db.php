@@ -24,13 +24,13 @@
             return $result->num_rows > 0;
         }
 
-        public function insertProduct($name, $price, $description){
+        public function insertProduct($name, $price, $description,$imageUrl){
             do {
                 $id = $this->generateRandomID();
             } while ($this->idExists($id));
-            $sql = "INSERT INTO products (id,productName,price,description) VALUES (?,?,?,?)";
+            $sql = "INSERT INTO products (id,productName,price,description,imageUrl) VALUES (?,?,?,?,?)";
             $stmt = $this->connection->prepare($sql);
-            $stmt->bind_param('ssds',$id, $name, $price, $description);
+            $stmt->bind_param('ssdss',$id, $name, $price, $description, $imageUrl);
             return $stmt->execute();
         }
 
@@ -70,6 +70,22 @@
                 return false;
             }
             
+        }
+
+        public function modifyProduct($id, $name, $price, $description, $imageUrl){
+            $sql = "UPDATE products SET productName = ?, price = ?, description = ?, imageUrl = ? WHERE id = ?";
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bind_param('sdsss',$name, $price, $description,$imageUrl,$id);
+            return $stmt->execute();
+        }
+
+        public function getProductById($id){
+            $sql = "SELECT id,productName,price,description,imageUrl FROM products WHERE id = ?";
+            $stmt =  $this->connection->prepare($sql);
+            $stmt->bind_param('s', $id);
+            $stmt->execute();
+            return $stmt->get_result();
+
         }
     }
 ?>

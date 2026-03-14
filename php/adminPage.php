@@ -30,7 +30,7 @@
         file_put_contents($destinationFolder, $img);
         
         $db->connect();
-        $insert = $db->insertProduct($name, $price, $description);
+        $insert = $db->insertProduct($name, $price, $description,$urlIMG);
     
         $db->close();
 

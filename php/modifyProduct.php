@@ -1,0 +1,41 @@
+<?php 
+    include_once 'db.php';
+    header('Content-Type: application/json');
+    error_reporting(0);
+
+    session_start();
+    if(isset($_SESSION['email']) && $_SESSION['email'] !== 'admin@gmail.com'){
+        header("Location: ../index.html");
+        exit();
+    }
+    
+    $db = new database();
+    if(isset($_POST['submit'])){
+        $name = $_POST['name'];
+        $price = $_POST['price'];
+        $description = $_POST['description'];
+
+        $nameIMG = strtolower(preg_replace('/\s+/', '', $name));
+        $urlIMG = $_POST['img'];
+        $destinationFolder = "../assets/img/";
+
+        $extension = pathinfo($urlIMG, PATHINFO_EXTENSION);
+        if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
+            $extension = 'jpg'; 
+        }
+        $destinationFolder = $destinationFolder . $nameIMG . "." . $extension;
+
+        $img = @file_get_contents($urlIMG);
+        file_put_contents($destinationFolder, $img);
+        
+        $db->connect();
+        $modify = $db->modifyProduct($_POST['id'], $name, $price, $description,$urlIMG);
+    
+        $db->close();
+
+        if($modify){
+            header("Location: ../adminPage.html");
+            exit();
+        }
+    }
+?>
