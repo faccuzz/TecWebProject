@@ -399,3 +399,71 @@ nav{
         width: 100%;
     }
 }
+
+.detail-layout { /* far funzionare item */
+            display: grid;
+            gap: 2em;
+            width: 100%;
+            max-width: 80em;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 55em) {
+            .detail-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .detail-image-wrapper img {
+            width: 100%;
+            display: block;
+        }
+
+        .detail-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5em;
+        }
+
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .detail-table th,
+        .detail-table td {
+            padding: 0.6em 0;
+            border-bottom: 1px solid rgba(44, 24, 16, 0.15);
+            text-align: left;
+        }
+
+        .detail-table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            width: 40%;
+        }
+
+        .detail-price {
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .detail-actions {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            flex-wrap: wrap;
+        }
+
+        #qty {
+            width: 4em;
+            border: 1px solid rgb(var(--text-color));
+            background: transparent;
+            padding: 0.5em;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+            text-align: center;
+            outline: none;
+        }
