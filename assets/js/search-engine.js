@@ -12,6 +12,11 @@ const searchInput = document.getElementById('search-input');
 const resultList = document.querySelector('.result-list');
 const resultGrid = document.querySelector('.result-grid');
 
+/**
+ * Filtra i prodotti
+ * 
+ * TODO: filtra prodotti dal database
+ */
 function filterProducts(input) {
     const filteredProducts = products.filter(product => {
         return product.name.toLowerCase().includes(input) ||
@@ -20,6 +25,9 @@ function filterProducts(input) {
     return filteredProducts;
 }
 
+/**
+ * Genera il prodotto html con le classi richieste
+ */
 function renderProduct(htmlContent, classes) {
     const resultItem = document.createElement('div');
     resultItem.innerHTML = htmlContent;
@@ -27,30 +35,31 @@ function renderProduct(htmlContent, classes) {
     return resultItem;
 }
 
+/**
+ * Renderizza una lista con i risultati
+ */
 function renderList(items) {
     resultList.innerHTML = '';
     resultList.style.display = 'block';
 
     if (items.length === 0) {
         const htmlContent = `
-                                        <a href="#"> 
-                                            <strong>No products found</strong>
-                                        </a>
-                                    `;
+                                            <a href="#"> 
+                                                <strong>No products found</strong>
+                                            </a>
+                                        `;
         const classes = 'result-item'
         const resultItem = renderProduct(htmlContent, classes);
         resultList.append(resultItem);
         return;
     }
     else {
-        resultList.style.display = 'block';
-
         items.slice(0, 5).forEach(product => {
             const htmlContent = `
-                                            <a href="${product.link}">
-                                                <strong>${product.name}</strong>
-                                            </a>
-                                        `;
+                                                <a href="${product.link}">
+                                                    <strong>${product.name}</strong>
+                                                </a>
+                                            `;
             const classes = 'result-item';
             const resultItem = renderProduct(htmlContent, classes);
 
@@ -58,25 +67,46 @@ function renderList(items) {
         });
     }
 }
+
+/**
+ * Renderizza una griglia con i risultati
+ */
 function renderGrid(items) {
-    /** TODO */
+    resultGrid.innerHTML = '';
+    resultGrid.style.display = 'grid';
+
+    items.forEach(product => {
+        const htmlContent = `
+                                    <img src="./assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
+                                    <div class="card-content">
+                                        <h3><a href="#" title="Gin&amp;Jute">${product.name}</a></h3>
+                                        <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.</p>
+                                        <a href="#" class="button">Discover</a>
+                                    </div>
+                            `;
+        const resultItem = renderProduct(htmlContent, 'card');
+        resultGrid.append(resultItem)
+    })
 }
 
+/**
+ * Se presente un input, renderizza la lista
+ * 
+ * TODO: la funzione deve capire se renderizzare una lista oppure una griglia
+ */
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
         const searchValue = e.target.value.toLowerCase();
 
-        if (resultList) {
-            if (searchValue === '') {
-                resultList.style.display = 'none';
-                return;
-            }
-            else {
-                const filteredProducts = filterProducts(searchValue);
-
-                renderList(filteredProducts);
-            }
+        if (searchValue === '') {
+            if(resultList) resultList.style.display = 'none';
+            if(resultGrid) renderGrid(products);
             return;
+        }
+        else {
+            const filteredProducts = filterProducts(searchValue);
+            if(resultList) renderList(filteredProducts);
+            if(resultGrid) renderGrid(filteredProducts);
         }
 
     });
@@ -92,3 +122,7 @@ document.addEventListener('click', (e) => {
         }
     }
 });
+
+if(resultGrid){
+    renderGrid(products.slice(0,10));
+}

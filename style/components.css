@@ -55,3 +55,15 @@
     font-weight: 300;
 }
 
+.search-bar{
+    display: block;
+    flex: 1;
+    border: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    font-size: 1rem;
+    color: #333;
+    font-family: inherit;
+    letter-spacing: normal;
+}
