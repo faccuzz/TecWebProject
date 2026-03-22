@@ -1,16 +1,18 @@
 <?php 
-    include_once 'db.php';
-    header('Content-Type: application/json');
-    error_reporting(0);
-
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    
     session_start();
-    if(isset($_SESSION['email']) && $_SESSION['email'] !== 'admin@gmail.com'){
-        header("Location: ../index.html");
-        exit();
-    }
+
+    header('Content-Type: application/json');
+    
+    include_once 'db.php';
     
     $db = new database();
     $products = [];
+
+    //Save new product
     if(isset($_POST['submit'])){
         $name = $_POST['name'];
         $price = $_POST['price'];
@@ -27,20 +29,21 @@
         $destinationFolder = $destinationFolder . $nameIMG . "." . $extension;
 
         $img = @file_get_contents($urlIMG);
-        file_put_contents($destinationFolder, $img);
+        if($img !== false) {
+            file_put_contents($destinationFolder, $img);
+        }
         
         $db->connect();
-        $insert = $db->insertProduct($name, $price, $description,$urlIMG);
-    
+        $insert = $db->insertProduct($name, $price, $description, $urlIMG);
         $db->close();
 
         if($insert){
             header("Location: ../adminPage.html");
             exit();
         }
-
     }
 
+    //Retrieve and send products
     $db->connect();
     $result = $db->getProducts();
     
@@ -50,5 +53,7 @@
         }
     }
     $db->close();
+    
+    //Print JSON
     echo json_encode($products);
 ?>

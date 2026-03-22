@@ -1,9 +1,9 @@
 const products = [
-    { name: "Lampada Gin Bombay", category: "Gin", price: "45€", link: "prodotto-gin.html" },
-    { name: "Lampada Jack Daniels", category: "Whiskey", price: "50€", link: "prodotto-jack.html" },
-    { name: "Centrotavola Belvedere", category: "Vodka", price: "65€", link: "prodotto-vodka.html" },
-    { name: "Lampada Vino Rosso", category: "Vino", price: "35€", link: "prodotto-vino.html" },
-    { name: "Kit Fai da Te", category: "Accessori", price: "20€", link: "prodotto-kit.html" }
+    { id:"000", name: "Lampada Gin Bombay", category: "Gin", price: "45€", link: "prodotto-gin.html" },
+    { id:"001", name: "Lampada Jack Daniels", category: "Whiskey", price: "50€", link: "prodotto-jack.html" },
+    { id:"002", name: "Centrotavola Belvedere", category: "Vodka", price: "65€", link: "prodotto-vodka.html" },
+    { id:"003", name: "Lampada Vino Rosso", category: "Vino", price: "35€", link: "prodotto-vino.html" },
+    { id:"004", name: "Kit Fai da Te", category: "Accessori", price: "20€", link: "prodotto-kit.html" }
 ];
 
 const currentPage = window.location.pathname;
@@ -56,7 +56,7 @@ function renderList(items) {
     else {
         items.slice(0, 5).forEach(product => {
             const htmlContent = `
-                                                <a href="${product.link}">
+                                                <a href="item.html?id=${product.id}">
                                                     <strong>${product.name}</strong>
                                                 </a>
                                             `;
@@ -79,9 +79,9 @@ function renderGrid(items) {
         const htmlContent = `
                                     <img src="./assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
                                     <div class="card-content">
-                                        <h3><a href="#" title="Gin&amp;Jute">${product.name}</a></h3>
+                                        <h3>${product.name}</h3>
                                         <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.</p>
-                                        <a href="#" class="button">Discover</a>
+                                        <a href="item.html?id=${product.id}" class="button">Discover</a>
                                     </div>
                             `;
         const resultItem = renderProduct(htmlContent, 'card');
