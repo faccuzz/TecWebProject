@@ -10,31 +10,11 @@ async function init() {
     try {
         products = await fetchProducts();
 
-        /**
-        * Se presente un input, renderizza la lista
-        */
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                const searchValue = e.target.value.toLowerCase();
 
-                if (searchValue === '') {
-                    if (resultList) resultList.style.display = 'none';
-                    if (resultGrid) renderGrid(products);
-                    return;
-                }
-                else {
-                    const filteredProducts = filterProducts(searchValue);
-                    if (resultList) renderList(filteredProducts);
-                    if (resultGrid) renderGrid(filteredProducts);
-                }
-
-            });
-
-
-            if (resultGrid) {
-                renderGrid(products.slice(0, 10));
-            }
+        if (resultGrid) {
+            renderGrid(products.slice(0, 8));
         }
+
     } catch (error) {
         console.error("Errore durante l'avvio del catalogo:", error);
     }
@@ -47,8 +27,7 @@ async function init() {
  */
 function filterProducts(input) {
     const filteredProducts = products.filter(product => {
-        return product.name.toLowerCase().includes(input) ||
-            product.category.toLowerCase().includes(input);
+        return product.productName.toLowerCase().includes(input)
     });
     return filteredProducts;
 }
@@ -85,7 +64,7 @@ function renderList(items) {
         items.slice(0, 5).forEach(product => {
             const htmlContent = `
                                                 <a href="item.html?id=${product.id}">
-                                                    <strong>${product.name}</strong>
+                                                    <strong>${product.productName}</strong>
                                                 </a>
                                             `;
             const classes = 'result-item';
@@ -119,6 +98,24 @@ function renderGrid(items) {
 
 //Inizializza il catalogo
 init();
+
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        const searchValue = e.target.value.toLowerCase();
+
+        if (searchValue === '') {
+            if (resultList) resultList.style.display = 'none';
+            if (resultGrid) renderGrid(products);
+            return;
+        }
+        else {
+            const filteredProducts = filterProducts(searchValue);
+            if (resultList) renderList(filteredProducts);
+            if (resultGrid) renderGrid(filteredProducts);
+        }
+
+    });
+}
 
 /**
  * Chiude la lista di risultati nella Home se togli il focus dalla SearchBox
