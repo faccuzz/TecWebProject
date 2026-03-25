@@ -170,3 +170,25 @@ html,body{
     font-size: 0.8em;
     background-color: transparent;
 }
+
+@media (max-width: 768px) { /*mobile scaling ok*/
+    .login-page {
+        flex-direction: column;
+        padding: 2rem 1rem;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .area-logo {
+        display: none;  
+    }
+
+    .company-name {
+        font-size: 1.8em;
+    }
+
+    #loginCard {
+        max-width: 100%;
+        width: 100%;
+    }
+}
