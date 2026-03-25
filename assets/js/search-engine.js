@@ -105,7 +105,7 @@ if (searchInput) {
 
         if (searchValue === '') {
             if (resultList) resultList.style.display = 'none';
-            if (resultGrid) renderGrid(products);
+            if (resultGrid) renderGrid(products.slice(0,8));
             return;
         }
         else {
