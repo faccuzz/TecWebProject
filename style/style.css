@@ -5,7 +5,7 @@
     --side-padding: 3em;
     --top-padding: 3em;
 }
-/* add as root/override  */
+/* added as root/override  */
 @media (max-width: 35em) {
     :root { --side-padding: 1.2em; }
 }
