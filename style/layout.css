@@ -1,6 +1,5 @@
 .row-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    display: flex;
     gap: 2em;
 }
 /* mobile fix index */
