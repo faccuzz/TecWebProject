@@ -18,7 +18,8 @@ async function showProducts() {
                 <div class="product"> 
                     <p>${p.description}</p>
                     <img src="assets/img/${p.productName.replace(/\s+/g, '').toLowerCase()}.jpg" style="width:100%; height:320px;object-fit: contain;">
-                </div> 
+                </div>
+                <p>In Stock: ${p.inStock == 1 ? 'Yes' : 'No'}</p>
                 <p>Price: <strong>${p.price}€</strong></p> 
                 <button onclick="deleteProduct('${p.id}')">Delete</button>
                 <button onclick="modifyProduct('${p.id}')">Modify</button>
@@ -29,7 +30,7 @@ async function showProducts() {
 }
 
 async function deleteProduct(id) {
-    window.location.href = `php/deleteProduct.php?id=${id}`;
+    window.location.href = `./php/deleteProduct.php?id=${id}`;
 }
 
 async function modifyProduct(id) {
@@ -45,7 +46,7 @@ window.addEventListener('DOMContentLoaded',() => {
 function getProdotto(){
     const id = new URLSearchParams(window.location.search).get('id');
     document.getElementById('id').value = id;
-    fetch(`php/modifyPage.php?id=${id}`)
+    fetch(`./php/modifyPage.php?id=${id}`)
     .then(res => res.json())
     .then(data => {
         document.getElementById('name').value = data.productName;
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded',() => {
         })
 
         async function caricaDati(sezione) {
-            const risposta = await fetch(`php/optionsPage.php?section=${sezione}`);
+            const risposta = await fetch(`./php/optionsPage.php?section=${sezione}`);
             const html = await risposta.text();
             areaContenuto.innerHTML = html;
         }

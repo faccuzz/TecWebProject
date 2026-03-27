@@ -1,10 +1,10 @@
 <?php 
     include_once 'db.php';
     header('Content-Type: application/json');
-    error_reporting(0);
+    error_reporting(E_ALL);
 
     session_start();
-    if(isset($_SESSION['email']) && $_SESSION['email'] !== 'admin@gmail.com'){
+    if(!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com'){
         header("Location: ../index.html");
         exit();
     }
@@ -14,6 +14,7 @@
         $name = $_POST['name'];
         $price = $_POST['price'];
         $description = $_POST['description'];
+        $inStock = $_POST['inStock'] === 'true' ? 1 : 0;
 
         $nameIMG = strtolower(preg_replace('/\s+/', '', $name));
         $urlIMG = $_POST['img'];
@@ -29,7 +30,7 @@
         file_put_contents($destinationFolder, $img);
         
         $db->connect();
-        $modify = $db->modifyProduct($_POST['id'], $name, $price, $description,$urlIMG);
+        $modify = $db->modifyProduct($_POST['id'], $name, $price, $description,$urlIMG,$inStock);
     
         $db->close();
 

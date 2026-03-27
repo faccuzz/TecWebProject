@@ -4,6 +4,10 @@
     error_reporting(E_ALL);
     
     session_start();
+    if(!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com'){
+        header("Location: ../index.html");
+        exit();
+    }
 
     header('Content-Type: application/json');
     
@@ -26,6 +30,7 @@
         $name = $_POST['name'];
         $price = $_POST['price'];
         $description = $_POST['description'];
+        $inStock = $_POST['inStock'] === 'true' ? 1 : 0;
 
         $nameIMG = strtolower(preg_replace('/\s+/', '', $name));
         $urlIMG = $_POST['img'];
@@ -43,7 +48,7 @@
         }
         
         $db->connect();
-        $insert = $db->insertProduct($name, $price, $description, $urlIMG);
+        $insert = $db->insertProduct($name, $price, $description, $urlIMG, $inStock);
         $db->close();
 
         if($insert){
@@ -52,7 +57,6 @@
         }
     }
 
-    //Retrieve and send products
     $db->connect();
     $result = $db->getProducts();
     
@@ -62,7 +66,5 @@
         }
     }
     $db->close();
-    
-    //Print JSON
     echo json_encode($products);
 ?>
