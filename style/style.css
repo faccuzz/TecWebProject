@@ -1,7 +1,7 @@
 :root{
     --primary-color: 249, 245, 240;
     --text-color: 44, 24, 16;
-    --decoration-color: 230, 126, 34;
+    --decoration-color: 184, 85, 10;
     --side-padding: 3em;
     --top-padding: 3em;
 }
@@ -520,3 +520,113 @@ nav{
             text-align: center;
             outline: none;
         }
+.descr {
+    text-align: center;
+    margin-bottom: 3em;
+}
+
+.formulario {
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    padding: 2.5em;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /*Shadow moves down 4px, blur of 15px, black at 50% transparency*/
+    background-color: rgb(var(--primary-color));
+    color: rgb(var(--text-color));
+    flex-shrink: 0;
+}
+
+.formulario h3{
+    font-size: 1.5em;
+    line-height: 1.5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+
+.form-group  {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+.form-group input.input-error{
+    border-color: var(--error-color) !important;
+}
+
+.form-error-msg {
+    color: var(--error-color);
+    font-size: 0.7rem;
+    margin-top: 0;
+    margin-bottom: 1.5em;
+    display: none;
+}
+
+.form-error-msg.active{
+    display: block !important;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-size: 0.9em;
+}
+
+.form-group input, .form-group select, .form-group textarea  {
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 6px;
+    border: 1px solid #444;
+    outline: none;
+    margin-bottom: 1em;
+    transition: all 0.5s ease;
+}
+
+.formulario button {
+    width: 100%;
+    padding: 0.75em;
+    border-radius: 6px;
+    border: 1px solid #444;
+    font-weight: bold;
+    margin-top: 2em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.col-layout aside {
+    flex: 1;
+    padding: 2.5em;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+}
+
+.col-layout aside h3 {
+    margin-bottom: 20px;
+    color: rgb(var(--decoration-color));
+    font-size: 1.5em;
+}
+
+.col-layout aside h4 {
+    margin-top: 15spx;
+    font-size: 1.3em;
+}
+
+.col-layout aside div {
+    margin: 10px;
+}
+.col-layout aside p {
+    margin-bottom: 10px;
+}
+
+.col-layout aside .social-links {
+    list-style: none;
+}
+
+.col-layout aside .social-links li {
+    margin-bottom: 0.6em;
+}
+
+.col-layout aside .social-links a {
+    text-decoration: none;
+    color: rgb(var(--text-color));
+    font-size: 1rem;
+    font-weight: 300;
+}

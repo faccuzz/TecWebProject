@@ -10,6 +10,19 @@
 @media (max-width: 35em) {
     .row-layout { grid-template-columns: 1fr; }
 }
+.col-layout{
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 4em;
+    max-width: 1200px;
+    margin: 4em auto;
+    padding: 0 2em;
+}
+.col-layout form{
+    flex: 1.5;
+    padding: 3em;
+}
 
 .footer-layout {
     min-height: auto; 
