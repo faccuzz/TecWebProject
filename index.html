@@ -11,6 +11,7 @@
 
     <script src="assets/js/animation.js" defer></script>
     <script src="assets/js/search-engine.js" defer></script>
+    <script src="assets/js/account-menu.js" defer></script>
     <title>Welcome page</title>
 </head>
 
@@ -31,8 +32,20 @@
                     <div class="result-list"></div>
                 </div>
                 <i class="fas fa-search" id="home-search-button"></i>
-                <a href="adminPage.html" aria-label="User Profile"><i class="fas fa-user"></i></a>
-                <a href="cart.html" aria-label="Shopping Cart"><i class="fas fa-shopping-bag"></i></a>
+                <div class="account-box">
+                    <button id="account-button" class="account-icon-button" aria-haspopup="true" aria-expanded="false"
+                        aria-label="Menu account">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                    </button>
+
+                    <div id="account-popup" class="account-popup" role="dialog" aria-modal="true"
+                        aria-label="Scegli un'azione">
+                        <button id="close-popup-button" class="hidden">Chiudi menu account</button>
+
+                        <a href="./login.html" class="popup-link">Accedi</a>
+                        <a href="./register.html" class="popup-link">Registrati</a>
+                    </div>
+                </div> <a href="cart.html" aria-label="Shopping Cart"><i class="fas fa-shopping-bag"></i></a>
             </div>
         </nav>
 

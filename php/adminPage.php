@@ -7,6 +7,15 @@
 
     header('Content-Type: application/json');
     
+    /**
+     * TODO: Verificare se admin, aggiungere voce SOLO se flag settato correttamente
+     *
+    *if(!isset($_SESSION['email'])){
+       * echo json_encode(["error" => "Accesso negato"]);
+      *  exit();
+    *}
+    */
+
     include_once 'db.php';
     
     $db = new database();
