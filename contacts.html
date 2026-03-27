@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style/style.css" type="text/css" />
+    <link rel="stylesheet" href="style/components.css" type="text/css" />
+    <link rel="stylesheet" href="style/layout.css" type="text/css" />
+
+    <script src="assets/js/animation.js" defer></script>
+    <script src="assets/js/search-engine.js" defer></script>
+    <title>Contacts page</title>
+</head>
+
+<body>
+    <header class="hero big-height home-table-bg">
+        <nav>
+            <div class="nav-links">
+                <a href="#" class="menu-items">Home</a>
+                <a href="items.html" class="menu-items">Catalog</a>
+                <a href="#" class="menu-items active">Contacts</a>
+            </div>
+
+            <div class="logo">LUMEN SPIRITS</div>
+
+            <div class="nav-icons">
+                <div class="home-search-box" id="search-input">
+                    <input type="text" class="home-search-bar" placeholder="Search..." aria-label="Search items">
+                    <div class="result-list"></div>
+                </div>
+                <i class="fas fa-search" id="home-search-button"></i>
+                <a href="adminPage.html" aria-label="User Profile"><i class="fas fa-user"></i></a>
+                <a href="cart.html" aria-label="Shopping Cart"><i class="fas fa-shopping-bag"></i></a>
+            </div>
+        </nav>
+
+        <p class="shop-description">
+            Unique Lamps and Centerpieces <br />
+            Transformed by Artisan Mastery
+        </p>
+
+        <h1 class="giant-title">Creative Rebirth</h1>
+    </header>
+    <main>
+        <section class="hero hero-padding mid-height align-center">
+            <h2 class="section-title">Contacts</h2>
+            <div class="descr">
+                <h3>Message in a bottle?</h3>
+                <p>Let's shed some light on your questions!</p>
+            </div>
+            <div class="col-layout">
+                <div class="formulario">
+                    <h3>Light up our inbox</h3>
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" autocomplete="name" required>
+                            <p class="form-error-msg">Error placeholder</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="surname">Surname</label>
+                            <input type="text" id="surname" name="surname" autocomplete="family-name" required>
+                            <p class="form-error-msg">Error placeholder</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" autocomplete="email" required>
+                            <p class="form-error-msg">Error placeholder</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">What can we help you with?</label>
+                            <select id="subject" name="subject" required>
+                                <option value="" disabled selected>Select a topic...</option>
+                                <option value="order">Questions about an order / Shipping</option>
+                                <option value="damage">My item arrived damaged</option>
+                                <option value="custom">Custom pieces for events</option>
+                                <option value="general">General inquiry</option>
+                            </select>
+                            <p class="form-error-msg">Error placeholder</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Add comment</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Tell us more about what you need..." required></textarea>
+                            <p class="form-error-msg">Error placeholder</p>
+                        </div>
+                        <button type="submit">Send message</button>
+                    </form>
+                </div>
+                <aside>
+                    <h3>Additional Information</h3>
+                    <div>
+                        <h4>Creative Rebirth Guarantee</h4>
+                        <p> Glass is fragile, but our commitment to you isn't. If your item arrives damaged, send us a photo within 48 hours and we'll replace it for free.</p>
+                    </div>
+                    <div>
+                        <h4>Working hours</h4>
+                        <p>Monday-Friday<br>9:00 AM - 6:00 PM</p>
+                        <p>We aim to reply within 24 hours.</p>
+                    </div>
+                    <div>
+                        <h4>Direct Contact</h4>
+                        <p><a href="mailto:help@creativerebirth.com">help@creativerebirth.com</a></p>
+                    </div>
+                    <div>
+                        <h4>Social Media</h4>
+                        <p>Don't miss out latest bright ideas!</p>
+                        <ul class="social-links">
+                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f fa-fw"></i>&nbsp;Facebook</a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-instagram fa-fw"></i>&nbsp;Instagram</a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-tiktok fa-fw"></i>&nbsp;Tiktok</a></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </section>
+        
+    </main>
+    <footer class="hero hero-padding footer-layout">
+        <div class="footer-column">
+            <h3 class="footer-title">Discover More</h3>
+            <ul class="footer-links">
+                <li><a href="#" class="menu-items">Home</a></li>
+                <li><a href="#" class="menu-items">Catalog</a></li>
+                <li><a href="#" class="menu-items">Contacts</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3 class="footer-title">Link up</h3>
+            <ul class="footer-links">
+                <li><a href="#"><i class="fab fa-facebook-f fa-fw"></i>&nbsp;Facebook</a></li>
+                <li><a href="#"><i class="fab fa-instagram fa-fw"></i>&nbsp;Instagram</a></li>
+                <li><a href="#"><i class="fab fa-tiktok fa-fw"></i>&nbsp;Tiktok</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column newsletter-column">
+            <h2 class="footer-title">Subscribe to our community!</h2>
+            <form class="newsletter-form">
+                <label for="email-newsletter" class="sr-only">Email</label>
+                <input type="email" id="email-newsletter" placeholder="email" required>
+                <button type="submit">Subscribe!</button>
+            </form>
+        </div>
+    </footer>
+</body>
+</html>
+
