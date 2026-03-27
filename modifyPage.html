@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style/style.css" type="text/css" />
     <link rel="stylesheet" href="style/components.css" type="text/css" />
     <link rel="stylesheet" href="style/layout.css" type="text/css" />
-    <script src="script/script.js" defer></script>
+    <script src="assets/js/manage-products.js" defer></script>
   </head>
   <body>
     <header class="hero home-table-bg">
@@ -37,6 +37,12 @@
           <label for="immagine">URL Product Image:</label>
           <input type="text" id="img" name="img" required/>
 
+          <label for="inStock">In Stock:</label>
+          <select id="inStock" name="inStock" required>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+          
           <input type="submit" name="submit" value="Modify Product"/>
         </form>
       </div>
