@@ -3,7 +3,6 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 2em;
 }
-
 /* mobile fix index */
 @media (max-width: 55em) {
     .row-layout { grid-template-columns: 1fr 1fr; }
