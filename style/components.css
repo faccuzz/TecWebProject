@@ -49,9 +49,9 @@
     color: rgb(var(--text-color));
 }
 
-.card-content h3{
+.card-content h3{ /* fix font size mobile */
     margin-bottom: 10px;
-    font-size: 1.6vw;
+    font-size: clamp(0.95rem, 1.6vw, 1.3rem);
     font-weight: 300;
 }
 

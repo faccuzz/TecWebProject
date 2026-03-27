@@ -1,7 +1,14 @@
-.row-layout{
-   display: grid;
-   grid-template-columns: 1fr 1fr 1fr 1fr;
-   gap: 2em; 
+.row-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2em;
+}
+/* mobile fix index */
+@media (max-width: 55em) {
+    .row-layout { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 35em) {
+    .row-layout { grid-template-columns: 1fr; }
 }
 .col-layout{
     display: flex;
