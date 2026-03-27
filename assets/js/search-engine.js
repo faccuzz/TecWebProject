@@ -1,16 +1,24 @@
-const products = [
-    { id:"000", name: "Lampada Gin Bombay", category: "Gin", price: "45€", link: "prodotto-gin.html" },
-    { id:"001", name: "Lampada Jack Daniels", category: "Whiskey", price: "50€", link: "prodotto-jack.html" },
-    { id:"002", name: "Centrotavola Belvedere", category: "Vodka", price: "65€", link: "prodotto-vodka.html" },
-    { id:"003", name: "Lampada Vino Rosso", category: "Vino", price: "35€", link: "prodotto-vino.html" },
-    { id:"004", name: "Kit Fai da Te", category: "Accessori", price: "20€", link: "prodotto-kit.html" }
-];
+let products = []
 
 const currentPage = window.location.pathname;
 
 const searchInput = document.getElementById('search-input');
 const resultList = document.querySelector('.result-list');
 const resultGrid = document.querySelector('.result-grid');
+
+async function init() {
+    try {
+        products = await fetchProducts();
+
+
+        if (resultGrid) {
+            renderGrid(products.slice(0, 8));
+        }
+
+    } catch (error) {
+        console.error("Errore durante l'avvio del catalogo:", error);
+    }
+}
 
 /**
  * Filtra i prodotti
@@ -19,8 +27,7 @@ const resultGrid = document.querySelector('.result-grid');
  */
 function filterProducts(input) {
     const filteredProducts = products.filter(product => {
-        return product.name.toLowerCase().includes(input) ||
-            product.category.toLowerCase().includes(input);
+        return product.productName.toLowerCase().includes(input)
     });
     return filteredProducts;
 }
@@ -57,7 +64,7 @@ function renderList(items) {
         items.slice(0, 5).forEach(product => {
             const htmlContent = `
                                                 <a href="item.html?id=${product.id}">
-                                                    <strong>${product.name}</strong>
+                                                    <strong>${product.productName}</strong>
                                                 </a>
                                             `;
             const classes = 'result-item';
@@ -79,7 +86,7 @@ function renderGrid(items) {
         const htmlContent = `
                                     <img src="./assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
                                     <div class="card-content">
-                                        <h3>${product.name}</h3>
+                                        <h3>${product.productName}</h3>
                                         <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.</p>
                                         <a href="item.html?id=${product.id}" class="button">Discover</a>
                                     </div>
@@ -89,24 +96,22 @@ function renderGrid(items) {
     })
 }
 
-/**
- * Se presente un input, renderizza la lista
- * 
- * TODO: la funzione deve capire se renderizzare una lista oppure una griglia
- */
+//Inizializza il catalogo
+init();
+
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
         const searchValue = e.target.value.toLowerCase();
 
         if (searchValue === '') {
-            if(resultList) resultList.style.display = 'none';
-            if(resultGrid) renderGrid(products);
+            if (resultList) resultList.style.display = 'none';
+            if (resultGrid) renderGrid(products.slice(0,8));
             return;
         }
         else {
             const filteredProducts = filterProducts(searchValue);
-            if(resultList) renderList(filteredProducts);
-            if(resultGrid) renderGrid(filteredProducts);
+            if (resultList) renderList(filteredProducts);
+            if (resultGrid) renderGrid(filteredProducts);
         }
 
     });
@@ -122,7 +127,3 @@ document.addEventListener('click', (e) => {
         }
     }
 });
-
-if(resultGrid){
-    renderGrid(products.slice(0,10));
-}
