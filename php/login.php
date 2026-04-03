@@ -20,7 +20,7 @@ if (isset($_POST['login'])) {
         session_regenerate_id(true);
 
         $_SESSION['email'] = $row['email'];
-        $_SESSION['is_admin'] = $row['is_admin'];
+        $_SESSION['is_admin'] = $db->isAdmin($email);
 
         header("Location: ../index.html");
         exit();

@@ -78,9 +78,25 @@
             </div>
             <div class="form-group">
                 <label for="phone-input">Phone Number</label>
-                <input type="tel" id="phone-input" name="phone" required>
+                <input type="text" id="phone-input" name="phone" required>
                 <p class="form-error-msg">Error placeholder</p>
             </div>
+            <div class="form-group">
+                <label for="street">Street</label>
+                <input type="text" id="street-input" name="street" autocomplete="street-address" required>
+                <p class="form-error-msg">Error placeholder</p>
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city-input" name="city" autocomplete="address-level2" required>
+                <p class="form-error-msg">Error placeholder</p>
+            </div>
+            <div class="form-group">
+                <label for="postalCode">Postal Code</label>
+                <input type="text" id="postalCode-input" name="postalCode" autocomplete="postal-code" required>
+                <p class="form-error-msg">Error placeholder</p>
+            </div>
+            <input type='hidden' name='isAdmin' value='false'>
 
             <button type="submit">Create account</button>
         </form>

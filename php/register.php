@@ -13,11 +13,21 @@
         $surname = $_POST['surname'];
         $email = $_POST['email'];
         $phoneNumber = $_POST['prefix'] . $_POST['phone'];
+        $street = $_POST['street'];
+        $city = $_POST['city'];
+        $postalCode = $_POST['postalCode'];
+        if($_POST['isAdmin'] === 'true'){
+            $isAdmin = 1;
+        }
+        else{
+            $isAdmin = 0;
+        }
 
         $db->connect();
-        $db->registration($username,$password,$name,$surname,$email,$phoneNumber);
+        $db->registration($username,$password,$name,$surname,$email,$phoneNumber,$isAdmin,$street,$city,$postalCode);
         $db->close();
         $_SESSION['email'] = $email;
+        $_SESSION['is_admin'] = $isAdmin;
         header("Location: ../index.html");
         exit();
     }
