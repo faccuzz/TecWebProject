@@ -4,10 +4,10 @@
     error_reporting(E_ALL);
 
     session_start();
-    if(!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com'){
+    /*if(!isset($_SESSION['email']) || $_SESSION['is_admin'] === 1){
         header("Location: ../index.html");
         exit();
-    }
+    }*/
     
     $db = new database();
     if(isset($_POST['submit'])){
@@ -35,7 +35,7 @@
         $db->close();
 
         if($modify){
-            header("Location: ../adminPage.html");
+            header("Location: ../optionsPage.html");
             exit();
         }
     }
