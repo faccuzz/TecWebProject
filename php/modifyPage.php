@@ -3,7 +3,7 @@
     header('Content-Type: application/json');
     error_reporting(E_ALL);
     
-    */session_start();
+    session_start();
     /*if(!isset($_SESSION['email']) || $_SESSION['is_admin'] === 1){
         header("Location: ../index.html");
         exit();

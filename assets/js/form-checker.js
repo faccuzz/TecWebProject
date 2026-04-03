@@ -105,28 +105,63 @@ async function grantAccess() {
 }
 
 async function registerUser() {
-    
     const accountDetails = {
         'username': emailInput.value.split('@')[0],
         'email': emailInput.value,
         'password': passwordInput.value,
         'name': nameInput.value,
         'surname': surnameInput.value,
-        'phone': phoneInput.value
-    }
+        'phone': phoneInput.value,
+        'isAdmin': 0,
+    };
 
-    await fetch('register.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(accountDetails)
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success()) return true;
-            else return false;
+    try {
+        const response = await fetch('php/register.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(accountDetails)
         });
+        
+        const data = await response.json();
+        
+        return data.success; 
+        
+    } catch (error) {
+        console.error("Errore durante la registrazione:", error);
+        return false;
+    }
+}
+
+async function register() {
+    hideInputError(emailInput);
+    hideInputError(passwordInput);
+    hideInputError(nameInput);
+    hideInputError(surnameInput);
+    hideInputError(phoneInput);
+
+    let validRegistration = 0;
+    const ps = verifyPasswordStrength();
+
+    verifyEmail() ? validRegistration++ : showInputError(emailInput, 'Invalid Email');
+
+    if (ps.score === 4) validRegistration++;
+
+    verifyName(nameInput) ? validRegistration++ : showInputError(nameInput, 'Invalid Name');
+    verifyName(surnameInput) ? validRegistration++ : showInputError(surnameInput, 'Invalid Surname');
+
+    verifyPhoneNumber() ? validRegistration++ : showInputError(phoneInput, 'Invalid Phone Number');
+
+    if (validRegistration === 5) {
+        const isRegistered = await registerUser(); 
+        
+        if(isRegistered) {
+            redirect();
+        } else {
+            alert('Errore durante la registrazione');
+        }
+    }
 }
 
 function showInputError(input, message) {
@@ -153,31 +188,6 @@ function hideInputError(input) {
 }
 function hideTextError(textReference) {
     textReference.style.color = 'var(--text-color)';
-}
-
-function register() {
-    hideInputError(emailInput);
-    hideInputError(passwordInput);
-    hideInputError(nameInput);
-    hideInputError(surnameInput);
-    hideInputError(phoneInput);
-
-    let validRegistration = 0;
-    const ps = verifyPasswordStrength();
-
-    verifyEmail() ? validRegistration++ : showInputError(emailInput, 'Invalid Email');
-
-    if (ps.score === 4) validRegistration++;
-
-    verifyName(nameInput) ? validRegistration++ : showInputError(nameInput, 'Invalid Name');
-    verifyName(surnameInput) ? validRegistration++ : showInputError(surnameInput, 'Invalid Surname');
-
-    verifyPhoneNumber() ? validRegistration++ : showInputError(phoneInput, 'Invalid Phone Number');
-
-    if (validRegistration === 5) {
-        registerUser();
-        redirect();
-    }
 }
 
 function login() {
