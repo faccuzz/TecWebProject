@@ -1,6 +1,13 @@
 /* TODO: spostare nel posto giusto */
 body {
     margin: 0;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url('../assets/img/sfondo-hero-sustainable-design.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
 }
 
 /* principale carrello */
@@ -11,6 +18,8 @@ body {
     padding: 1.25em;
     background-color: rgb(249, 245, 240);
     border: 1px solid #ddd;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
 }
 
 /* Titoli */
@@ -55,7 +64,7 @@ body {
 
 .itemDescription {
     flex: 1;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     color: rgb(44, 24, 16);
 }
 
@@ -73,18 +82,20 @@ body {
 .button.itemControlsRemove {
     padding: 0.4em 0.8em;
     border: 1px solid rgb(44, 24, 16);
+    border-radius: 6px;
     background-color: transparent;
     color: rgb(44, 24, 16);
     cursor: pointer;
     text-transform: uppercase;
     font-size: 0.7rem;
     letter-spacing: 2px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /* Quantità */
 
 .itemControlsLabel {
-    font-size: 0.8rem;
     color: rgb(44, 24, 16);
 }
 
@@ -92,6 +103,7 @@ body {
     width: 50px;
     padding: 0.2em;
     border: 1px solid #ccc;
+    border-radius: 6px;
 }
 
 /* Pulsante procedi all'ordine - MODIFICATO per <button> */
@@ -104,12 +116,15 @@ body {
 .shoppingCart-form .button {
     padding: 0.7em 1.5em;
     border: 1px solid rgb(44, 24, 16);
-    background-color: transparent;
-    color: rgb(44, 24, 16);
+    border-radius: 6px;
+    background-color: rgb(44, 24, 16);
+    color: rgb(249, 245, 240);
     text-transform: uppercase;
     font-size: 0.8rem;
     cursor: pointer;
     letter-spacing: 2px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /* parte responsive */
@@ -128,7 +143,7 @@ body {
     }
 
     .itemControls {
-        align-items: flex-start;
+        align-items: flex-end;
     }
 
     .button.itemControlsRemove {
