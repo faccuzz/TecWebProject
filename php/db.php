@@ -47,12 +47,22 @@
             $stmt->execute();
         }
 
-        public function registration($username, $password, $name, $surname, $email, $phoneNumber,$street, $city, $postalCode){
+        /**
+         * Sistemare db
+         * tabella separata per gli indirizzi
+         * 
+         * TODO: inserire salvataggio variabile isAdmin
+         */
+        public function registration($username, $password, $name, $surname, $email, $phoneNumber){
             $hashedPassword = hash('sha256',$password);
-            $sql = "INSERT INTO users (username, password, name, surname, email, phoneNumber, street, city, postalCode) VALUES (?,?,?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO users (username, password, name, surname, email, phoneNumber) VALUES (?,?,?,?,?,?)";
             $stmt = $this->connection->prepare($sql);
-            $stmt->bind_param('ssssssss', $username, $hashedPassword, $name, $surname, $email, $phoneNumber, $street, $city, $postalCode);
+            $stmt->bind_param('ssssss', $username, $hashedPassword, $name, $surname, $email, $phoneNumber);
             $stmt->execute();
+
+            $result = $stmt->get_result();
+            if($result) return true;
+            else return false;
         }
 
         public function login($email,$password){
@@ -60,11 +70,11 @@
             $stmt = $this->connection->prepare($sql);
             $password = hash('sha256',$password);
             $stmt->bind_param('ss',$email,$password);
-            $result = $stmt->execute();
+            $stmt->execute();
 
             $result = $stmt->get_result();
             if($result->num_rows > 0){
-                return true;
+                return $result->fetch_assoc();
             }
             else{
                 return false;
