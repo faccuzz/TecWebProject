@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS order_items;
+DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS wishlist;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     username varchar(25) PRIMARY KEY,
@@ -12,9 +12,9 @@ CREATE TABLE users (
     email varchar(100) NOT NULL,
     phoneNumber varchar(20),
     isAdmin boolean NOT NULL DEFAULT FALSE,
-    street varchar(100) NOT NULL,
-    city varchar(50) NOT NULL,
-    postalCode varchar(20) NOT NULL
+    street varchar(100),
+    city varchar(50),
+    postalCode varchar(20)
 );
 
 INSERT INTO users(username,password,name,surname,email,phoneNumber,isAdmin,street,city,postalCode) VALUES

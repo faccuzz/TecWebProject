@@ -63,6 +63,10 @@
             $stmt = $this->connection->prepare($sql);
             $stmt->bind_param('ssssssisss', $username, $hashedPassword, $name, $surname, $email, $phoneNumber, $isAdmin,$street, $city, $postalCode);
             $stmt->execute();
+
+            $result = $stmt->get_result();
+            if($result) return true;
+            else return false;
         }
 
         public function login($email,$password){
@@ -70,11 +74,11 @@
             $stmt = $this->connection->prepare($sql);
             $password = hash('sha256',$password);
             $stmt->bind_param('ss',$email,$password);
-            $result = $stmt->execute();
+            $stmt->execute();
 
             $result = $stmt->get_result();
             if($result->num_rows > 0){
-                return true;
+                return $result->fetch_assoc();
             }
             else{
                 return false;

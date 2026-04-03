@@ -65,10 +65,10 @@ function updateRequirementsUI(checks) {
     hideTextError(txtRequirement3);
     hideTextError(txtRequirement4);
 
-    if(!checks.length) showTextError(txtRequirement1);
-    if(!checks.number) showTextError(txtRequirement2);
-    if(!checks.uppercase) showTextError(txtRequirement3);
-    if(!checks.special) showTextError(txtRequirement4);
+    if (!checks.length) showTextError(txtRequirement1);
+    if (!checks.number) showTextError(txtRequirement2);
+    if (!checks.uppercase) showTextError(txtRequirement3);
+    if (!checks.special) showTextError(txtRequirement4);
 }
 
 function verifyPhoneNumber() {
@@ -84,13 +84,13 @@ function verifyName(input) {
     }
 }
 
-function grantAccess() {
+async function grantAccess() {
     const credentials = {
-        'email': emailInput.value,
+        'email': emailInput.value.toUnderCase(),
         'password': passwordInput.value,
     }
-    /*
-    fetch('login.php', {
+
+    await fetch('login.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -102,15 +102,12 @@ function grantAccess() {
             if (data.success) return true;
             else return false;
         });
-        */
-
-    if (credentials['email'] === 'admin@admin.it' && credentials['password'] === 'admin') return true;
-    else return false;
 }
 
-function registerUser() {
-    /*
+async function registerUser() {
+    
     const accountDetails = {
+        'username': emailInput.value.split('@')[0],
         'email': emailInput.value,
         'password': passwordInput.value,
         'name': nameInput.value,
@@ -118,7 +115,7 @@ function registerUser() {
         'phone': phoneInput.value
     }
 
-    fetch('register.php', {
+    await fetch('register.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -130,8 +127,6 @@ function registerUser() {
             if (data.success()) return true;
             else return false;
         });
-    */
-    return true;
 }
 
 function showInputError(input, message) {
@@ -146,7 +141,6 @@ function showInputError(input, message) {
     }
 }
 function showTextError(textReference) {
-    /* Rosso di errore predefinito */
     textReference.style.color = 'var(--error-color)';
 }
 function hideInputError(input) {
