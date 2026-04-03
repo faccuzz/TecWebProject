@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS order_items;
+DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS wishlist;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     username varchar(25) PRIMARY KEY,
@@ -11,15 +11,15 @@ CREATE TABLE users (
     name varchar(50) NOT NULL,
     email varchar(100) NOT NULL,
     phoneNumber varchar(20),
-    isAdmin boolean NOT NULL DEFAULT 'FALSE',
+    isAdmin boolean NOT NULL DEFAULT FALSE,
     street varchar(100),
     city varchar(50),
     postalCode varchar(20)
 );
 
 INSERT INTO users(username,password,name,surname,email,phoneNumber,isAdmin,street,city,postalCode) VALUES
-('admin','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918','Davide','Rossi','admin@gmail.com','+391562145632','TRUE','Via Roma 1','Milano','20100'),
-('user','04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb','Daniele','Bortoli','user@gmail.com','+391512631544','FALSE','Via Verdi 2','Roma','00100');
+('admin','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918','Davide','Rossi','admin@gmail.com','+391562145632',TRUE,'Via Roma 1','Milano','20100'),
+('user','04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb','Daniele','Bortoli','user@gmail.com','+391512631544',FALSE,'Via Verdi 2','Roma','00100');
 
 CREATE TABLE products(
     id char(10) PRIMARY KEY,

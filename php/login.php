@@ -1,31 +1,31 @@
 <?php
 include_once 'db.php';
-session_start();
-$db = new database();
-if (isset($_SESSION['email'])) {
-    header("Location: ../index.html");
-    exit();
-}
-if (isset($_POST['login'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+$data = json_decode(file_get_contents("php://input"), true);
+
+if ($data) {
+    $email = $data['email'];
+    $password = $data['password'];
+
+    $db = new database();
     $db->connect();
-    $result = $db->login($email, $password);
+
+    $userInfo = $db->login($email, $password);
     $db->close();
 
-    if ($result) {
+    if ($userInfo) {
         session_start();
 
         //Anti Session Hijacking
         session_regenerate_id(true);
 
-        $_SESSION['email'] = $row['email'];
-        $_SESSION['is_admin'] = $row['is_admin'];
+        $_SESSION['email'] = $userInfo['email'];
+        $_SESSION['is_admin'] = $userInfo['is_admin'];
 
-        header("Location: ../index.html");
-        exit();
+        echo json_encode(["success" => true]);
     } else {
-        echo "<script>alert('Invalid email or password.'); window.location.href = '../login.html';</script>";
+        echo json_encode(["success" => false]);
     }
+} else {
+    echo json_encode(["success" => false]);
 }
 ?>
