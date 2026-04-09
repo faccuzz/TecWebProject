@@ -79,6 +79,13 @@ body {
     text-transform: uppercase;
     font-size: 0.7rem;
     letter-spacing: 2px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.button.itemControlsRemove:hover,
+.button.itemControlsRemove:focus-visible {
+    background-color: rgb(44, 24, 16);
+    color: rgb(249, 245, 240);
 }
 
 /* Quantità */
@@ -110,6 +117,19 @@ body {
     font-size: 0.8rem;
     cursor: pointer;
     letter-spacing: 2px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.shoppingCart-form .button:hover,
+.shoppingCart-form .button:focus-visible {
+    background-color: rgb(44, 24, 16);
+    color: rgb(249, 245, 240);
+}
+
+/* ─── Focus visibile per navigazione da tastiera ─── */
+:focus-visible {
+    outline: 2px solid rgb(44, 24, 16);
+    outline-offset: 3px;
 }
 
 /* parte responsive */
