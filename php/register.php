@@ -11,10 +11,11 @@ if ($data) {
     $surname = $data['surname'];
     $email = $data['email'];
     $phoneNumber = $data['phone'];
+    $isAdmin = $data['isAdmin'];
     
     $db = new database();
     $db->connect();
-    $result = $db->registration($username, $password, $name, $surname, $email, $phoneNumber);
+    $result = $db->registration($username, $password, $name, $surname, $email, $phoneNumber, $isAdmin);
     $db->close();
 
     if ($result) {

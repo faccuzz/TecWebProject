@@ -57,16 +57,14 @@
             $stmt->execute();
   }
 
-        public function registration($username, $password, $name, $surname, $email, $phoneNumber,$isAdmin,$street, $city, $postalCode){
+        public function registration($username, $password, $name, $surname, $email, $phoneNumber,$isAdmin){
             $hashedPassword = hash('sha256',$password);
-            $sql = "INSERT INTO users (username, password, name, surname, email, phoneNumber, isAdmin, street, city, postalCode) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO users (username, password, name, surname, email, phoneNumber, isAdmin) VALUES (?,?,?,?,?,?,?)";
             $stmt = $this->connection->prepare($sql);
-            $stmt->bind_param('ssssssisss', $username, $hashedPassword, $name, $surname, $email, $phoneNumber, $isAdmin,$street, $city, $postalCode);
-            $stmt->execute();
+            $stmt->bind_param('ssssssi', $username, $hashedPassword, $name, $surname, $email, $phoneNumber, $isAdmin);
+            $result = $stmt->execute();
 
-            $result = $stmt->get_result();
-            if($result) return true;
-            else return false;
+            return $result;
         }
 
         public function login($email,$password){
