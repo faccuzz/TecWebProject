@@ -157,11 +157,12 @@ nav{
 }
 .home-search-box{
     background: transparent;
-    height: 2em;
+    min-height: 2em;
     border-radius: 4em;
     display: flex;
     flex-direction: column;
     position: relative;
+    justify-content: center;
 }
 .catalog-search-box{
     display: flex;
@@ -171,8 +172,8 @@ nav{
     padding: 12px 24px;
     width: 100%;
     max-width: 450px;
-    margin: 0 auto;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06); 
+    margin: 0 auto 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
     border: 1px solid transparent;
 }
 .catalog-search-box .search-icon {
@@ -187,10 +188,11 @@ nav{
 }
 .home-search-bar{
     width: 0;
+    height: 100%;
     border: none;
     outline: none;
     background: none;
-    padding: 0 1em ;
+    padding: 0.5em 1em ;
     color: rgb(var(--text-color));
     font-size: 1rem;
     transition: 0.3s ease-in-out;
@@ -423,8 +425,17 @@ nav{
 .adminUpload {
     max-width: 30%;
     border: 1px solid #e0e0e0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     padding: 3%;
+    border-radius: 12px;
+    background-color: rgb(var(--primary-color));
+    color: rgb(var(--text-color));
+}
+.adminUpload h2{
+    font-size: 1.5em;
+    line-height: 1.5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
 }
 
 .adminUpload form{
@@ -432,6 +443,34 @@ nav{
     flex-direction: column;
     gap: 8px;
 }
+.adminUpload label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-size: 0.9em;
+}
+
+.adminUpload input, .adminUpload select {
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 6px;
+    border: 1px solid #444;
+    outline: none;
+    margin-bottom: 1em;
+    transition: all 0.5s ease;
+}
+
+.adminUpload .submit, .adminUpload .button {
+    width: 100%;
+    padding: 0.75em;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: transparent;
+    font-weight: bold;
+    margin-top: 2em;
+    text-align: center;
+    cursor: pointer;
+}
+
 
 #productsList{
     display: grid;
@@ -443,7 +482,8 @@ nav{
 
 #productsList li{
     border: 1px solid #e0e0e0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     padding: 5%;
     display: flex;
     flex-direction: column;
@@ -571,6 +611,7 @@ nav{
         #qty {
             width: 4em;
             border: 1px solid rgb(var(--text-color));
+            border-radius: 6px;
             background: transparent;
             padding: 0.5em;
             font-family: sans-serif;

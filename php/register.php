@@ -1,24 +1,32 @@
-<?php 
-    include_once 'db.php';
-    session_start();
-    if(isset($_SESSION['email'])){
-        header("Location: ../index.html");
-        exit();
-    }
-    $db = new database();
-    if(isset($_POST['register'])){
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $name = $_POST['name'];
-        $surname = $_POST['surname'];
-        $email = $_POST['email'];
-        $phoneNumber = $_POST['prefix'] . $_POST['phone'];
+<?php
+include_once 'db.php';
+session_start();
 
-        $db->connect();
-        $db->registration($username,$password,$name,$surname,$email,$phoneNumber);
-        $db->close();
+$data = json_decode(file_get_contents("php://input"), true);
+
+if ($data) {
+    $username = $data['username'];
+    $password = $data['password'];
+    $name = $data['name'];
+    $surname = $data['surname'];
+    $email = $data['email'];
+    $phoneNumber = $data['phone'];
+    
+    $db = new database();
+    $db->connect();
+    $result = $db->registration($username, $password, $name, $surname, $email, $phoneNumber);
+    $db->close();
+
+    if ($result) {
+        session_regenerate_id(true);
         $_SESSION['email'] = $email;
-        header("Location: ../index.html");
-        exit();
+        $_SESSION['is_admin'] = 0; //Default
+
+        echo json_encode(["success" => true]);
+    } else {
+        echo json_encode(["success" => false]);
     }
+} else {
+    echo json_encode(["success" => false]);
+}
 ?>

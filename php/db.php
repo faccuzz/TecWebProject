@@ -41,18 +41,32 @@
         }
 
         public function deleteProduct($id){
+            $queryWish = "DELETE FROM wishlist WHERE product_id = ?";
+            $stmtWish = $this->connection->prepare($queryWish);
+            $stmtWish->bind_param('s', $id);
+            $stmtWish->execute();
+
+            $queryItems = "DELETE FROM order_items WHERE product_id = ?";
+            $stmtItems = $this->connection->prepare($queryItems);
+            $stmtItems->bind_param('s', $id);
+            $stmtItems->execute();
+
             $query = "DELETE FROM products WHERE id = ?";
             $stmt = $this->connection->prepare($query);
             $stmt->bind_param('s',$id);
             $stmt->execute();
-        }
+  }
 
-        public function registration($username, $password, $name, $surname, $email, $phoneNumber,$street, $city, $postalCode){
+        public function registration($username, $password, $name, $surname, $email, $phoneNumber,$isAdmin,$street, $city, $postalCode){
             $hashedPassword = hash('sha256',$password);
-            $sql = "INSERT INTO users (username, password, name, surname, email, phoneNumber, street, city, postalCode) VALUES (?,?,?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO users (username, password, name, surname, email, phoneNumber, isAdmin, street, city, postalCode) VALUES (?,?,?,?,?,?,?,?,?,?)";
             $stmt = $this->connection->prepare($sql);
-            $stmt->bind_param('ssssssss', $username, $hashedPassword, $name, $surname, $email, $phoneNumber, $street, $city, $postalCode);
+            $stmt->bind_param('ssssssisss', $username, $hashedPassword, $name, $surname, $email, $phoneNumber, $isAdmin,$street, $city, $postalCode);
             $stmt->execute();
+
+            $result = $stmt->get_result();
+            if($result) return true;
+            else return false;
         }
 
         public function login($email,$password){
@@ -60,11 +74,11 @@
             $stmt = $this->connection->prepare($sql);
             $password = hash('sha256',$password);
             $stmt->bind_param('ss',$email,$password);
-            $result = $stmt->execute();
+            $stmt->execute();
 
             $result = $stmt->get_result();
             if($result->num_rows > 0){
-                return true;
+                return $result->fetch_assoc();
             }
             else{
                 return false;
@@ -137,6 +151,34 @@
             $stmt->bind_param('s', $username);
             $stmt->execute();
             return $stmt->get_result();
+        }
+
+        public function removeFromWishlist($username, $productId){
+            $sql = "DELETE FROM wishlist WHERE user = ? AND product_id = ?";
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bind_param('ss', $username, $productId);
+            return $stmt->execute();
+        }
+
+        public function getUsers(){
+            $sql = "SELECT * FROM users";
+            $result = $this->connection->query($sql);
+            return $result;
+        }
+
+        public function isAdmin($username){
+            $sql = "SELECT isAdmin FROM users WHERE email = ?";
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bind_param('s', $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            if($row == 1){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
     }
 ?>

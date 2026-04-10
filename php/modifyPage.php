@@ -3,11 +3,11 @@
     header('Content-Type: application/json');
     error_reporting(E_ALL);
     
-    session_start();
-    if(!isset($_SESSION['email']) || $_SESSION['email'] !== 'admin@gmail.com'){
+    */session_start();
+    /*if(!isset($_SESSION['email']) || $_SESSION['is_admin'] === 1){
         header("Location: ../index.html");
         exit();
-    }
+    }*/
     
     $id = $_GET['id'];
     $db = new database();
