@@ -24,13 +24,35 @@ if (isset($_GET['category']) && isset($_GET['value']) && $_GET['category'] != ''
     $whitelist = ['id', 'productName', 'category', 'price', 'description'];
 
     if (in_array($requestedCategory, $whitelist)) {
-        /**
-         * Uso l'operatore LIKE così da poter eventualmente inviare un campo value vuoto, 
-         * restituendomi tutti i componenti di quella colonna con %%
-         */
-        $query = $conn->prepare("SELECT * FROM products WHERE $requestedCategory LIKE ?");
+        if ($requestedCategory === 'id') {
+            //Procedimento per cercare svariati id alla volta
+            /**
+             * 1. Separo gli ID in un array
+             * 2. Li conto
+             * 3. Creo la stringa placeholder per preparare la query
+             * 
+             * 4. Binding dei parametri
+             */
+            $idList = explode(',', $_GET['value']);
+            $idCount = count($idList);
+            $placeholder = implode(',', array_fill(0, $idCount, '?'));
 
-        $query->bind_param("s", $requestedValue);
+            $query = $conn->prepare("SELECT * FROM products WHERE $requestedCategory IN ($placeholder)");
+            $stringParam = str_repeat('s', $idCount);
+            $query->bind_param($stringParam, ...$idList);
+
+        } else {
+            /**
+             * Uso l'operatore LIKE così da poter eventualmente inviare un campo value vuoto, 
+             * restituendomi tutti i componenti di quella colonna con %%.
+             * Like mi permette anche di non dover cercare esattamente quella stringa.
+             */
+            $query = $conn->prepare("SELECT * FROM products WHERE $requestedCategory LIKE ?");
+
+            $query->bind_param("s", $requestedValue);
+            
+        }
+
         $query->execute();
         $risultato = $query->get_result();
     } else {
