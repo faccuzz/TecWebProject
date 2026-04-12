@@ -1,3 +1,6 @@
+const cartContainer = document.getElementById('itemsInCart');
+const addToCartButton = document.getElementById('addToCartButton');
+
 async function sendCartAction(action, payload = {}) {
     try {
         const response = await fetch('./php/cartManager.php', {
@@ -15,9 +18,9 @@ async function sendCartAction(action, payload = {}) {
     }
 }
 
-async function addToCart(product, quantity) {
+async function addToCart(productID, quantity) {
     const payload = {
-        id: product.id,
+        id: productID,
         qty: quantity
     };
 
@@ -43,21 +46,32 @@ async function clearCart() {
 }
 
 async function initCartPage() {
-    const cartContainer = document.getElementById('cart-items-container');
-    if (!cartContainer) return;
-
+    //ID e quantità
     const currentCart = await sendCartAction('get');
-    renderCartPage(currentCart);
+
+    const currentIDlist = Object.keys(currentCart);
+
+    if (currentIDlist.length === 0) {
+        renderCartPage([]);
+        return;
+    }
+
+    const IDstring = currentIDlist.join(',');
+
+    //Prodotto completo + quantità
+    const realCartProducts = await fetchProducts('id', IDstring);
+    realCartProducts.forEach(product => {
+        product['quantity'] = currentCart[product['id']]
+    })
+
+    renderCartPage(realCartProducts);
 }
 
 function renderCartPage(cartItems) {
-    const cartContainer = document.getElementById('cart-items-container');
-    const totalContainer = document.getElementById('cart-total-price');
-
-    if (!cartContainer) return;
+    //const totalContainer = document.getElementById('cart-total-price');
 
     cartContainer.innerHTML = '';
-    let totalPrice = 0;
+    //let totalPrice = 0;
 
     if (cartItems.length === 0) {
         cartContainer.innerHTML = '<p>Il tuo carrello è vuoto.</p>';
@@ -66,45 +80,52 @@ function renderCartPage(cartItems) {
     }
 
     cartItems.forEach(item => {
+        /*
         const itemTotal = (item.price * item.qty);
         totalPrice += itemTotal;
+        */
 
         const cartRow = document.createElement('div');
-        cartRow.className = 'cart-item-row';
+        cartRow.className = 'product';
 
         cartRow.innerHTML = `
-            <div class="cart-item-details">
-                <img src="${item.image}" alt="${item.name}" width="50">
-                <strong>${item.name}</strong>
-            </div>
-            <div class="cart-item-price">€ ${parseFloat(item.price).toFixed(2).replace('.', ',')}</div>
             
-            <div class="cart-item-actions">
-                <button onclick="updateQuantity('${item.id}', ${item.qty - 1})">-</button>
-                <input type="number" value="${item.qty}" min="1" readonly style="width: 40px; text-align: center;">
-                <button onclick="updateQuantity('${item.id}', ${item.qty + 1})">+</button>
-            </div>
+              <img class="itemImages" src="assets/img/vodka-industrial.webp" alt="Vodka Industrial Lamp">
+                <a href="#" class="itemDescription">${item.productName}</a>
+                <form class="itemControls" action="RemoveFromCart">
+                  <button class="button itemControlsRemove" type="submit">Remove product</button>
+                  <label class="itemControlsLabel" for="itemQuantity1">Quantity</label>
+                  <input class="itemControlsCount" type="number" min="1" name="itemQuantity" id="itemQuantity1" value="${item.quantity}" />
+                </form>
             
-            <div class="cart-item-total">€ ${itemTotal.toFixed(2).replace('.', ',')}</div>
-            
-            <button class="remove-btn" onclick="removeFromCart('${item.id}')">
-                <i class="fas fa-trash"></i>
-            </button>
         `;
 
         cartContainer.appendChild(cartRow);
     });
 
+    /*
     if (totalContainer) {
         totalContainer.textContent = `€ ${totalPrice.toFixed(2).replace('.', ',')}`;
     }
+        */
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    initCartPage();
+    if(cartContainer) initCartPage();
+    
+    if(addToCartButton) {
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get('id');
 
+        const quantityInput = document.getElementById('qty');
+        
+        addToCartButton.addEventListener('click', () => addToCart(productId, quantityInput.value))
+    }
+
+    /*
     const btnClear = document.getElementById('clear-cart-btn');
     if (btnClear) {
         btnClear.addEventListener('click', clearCart);
     }
+        */
 });

@@ -44,7 +44,7 @@ function populatePage(product){
         const nomeImmagine = product.productName.replace(/\s+/g, '').toLowerCase();
         //TODO: salvataggio immagini dinamico
         imageSlot.src = `./assets/img/gin-jute.webp`;
-        imageSlot.alt = `Foto del prodotto ${product.name}`;
+        imageSlot.alt = `Foto del prodotto ${nomeImmagine}`;
     }
 }
 

@@ -31,24 +31,27 @@ body {
     color: rgb(44, 24, 16);
 }
 
-.itemsInCart h2 {
+#itemsInCart h2 {
     font-size: 1.3rem;
     margin-bottom: 0.8em;
     color: rgb(44, 24, 16);
 }
 
 /* Lista prodotti */
-
-.itemsInCart ul {
-    list-style: none;
-    padding: 0;
+#itemsInCart{
+    display: flex;
+    flex-direction: column;
 }
 
-.itemsInCart .items {
+#itemsInCart .product{
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 1.5em;
     padding: 1em 0;
+}
+
+#itemsInCart .product:not(:last-child){
     border-bottom: 1px solid #eee;
 }
 

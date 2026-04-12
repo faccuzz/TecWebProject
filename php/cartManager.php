@@ -60,6 +60,5 @@ switch ($action) {
         break;
 }
 
-//Restituisce il carrello
-echo json_encode(array_values($_SESSION['cart']));
+echo json_encode($_SESSION['cart']);
 ?>

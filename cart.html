@@ -5,46 +5,17 @@
     <title>Carrello</title>
     <link rel="stylesheet" type="text/css" href="style/cart.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="./assets/js/bridge.js"></script>
+    <script src="./assets/js/cart-manager.js" defer></script>
 </head>
 
 <body>
     <div class="shoppingCart">
         <h1>Cart</h1>
-        <div class="itemsInCart">
-            <h2>Products</h2>
-            <ul>
-              <li class="items">
-                <img class="itemImages" src="assets/img/vodka-industrial.webp" alt="Vodka Industrial Lamp">
-                <a href="#" class="itemDescription">Vodka Industrial</a>
-                <form class="itemControls" action="RemoveFromCart">
-                  <button class="button itemControlsRemove" type="submit">Remove product</button>
-                  <label class="itemControlsLabel" for="itemQuantity1">Quantity</label>
-                  <input type="hidden" name="itemId" value="123">
-                  <input class="itemControlsCount" type="number" min="1" name="itemQuantity" id="itemQuantity1" value="1" />
-                </form>
-              </li>
-              <li class="items">
-                <img class="itemImages" src="assets/img/vodka-industrial.webp" alt="Vodka Industrial Lamp">
-                <a href="#" class="itemDescription">Vodka Industrial</a>
-                <form class="itemControls" action="RemoveFromCart">
-                  <button class="button itemControlsRemove" type="submit">Remove product</button>
-                  <label class="itemControlsLabel" for="itemQuantity2">Quantity</label>
-                  <input type="hidden" name="itemId" value="124">
-                  <input class="itemControlsCount" type="number" min="1" name="itemQuantity" id="itemQuantity2" value="1" />
-                </form>
-              </li>
-              <li class="items">
-                <img class="itemImages" src="assets/img/vodka-industrial.webp" alt="Vodka Industrial Lamp">
-                <a href="#" class="itemDescription">Vodka Industrial</a>
-                <form class="itemControls" action="RemoveFromCart">
-                  <button class="button itemControlsRemove" type="submit">Remove product</button>
-                  <label class="itemControlsLabel" for="itemQuantity3">Quantity</label>
-                  <input type="hidden" name="itemId" value="125">
-                  <input class="itemControlsCount" type="number" min="1" name="itemQuantity" id="itemQuantity3" value="1" />
-                </form>
-              </li>
-            </ul>
-        </div>
+        <h2>Products</h2>
+        <div id="itemsInCart"></div>
+            
         <form class="shoppingCart-form">
             <button class="button" type="submit">Proceed to order</button>
         </form>
