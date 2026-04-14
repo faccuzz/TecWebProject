@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     accountBtn.addEventListener('click', (e) => {
+        /**
+         * Si può aggiungere un controllo per aspettare l'arrivo delle informazioni nel caso di connessione lenta
+         */
         if (isUserLoggedIn) {
             //Se loggato apre impostazioni, altrimenti il popup
             window.location.href = './optionsPage.html'; 

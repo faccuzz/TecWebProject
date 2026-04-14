@@ -19,7 +19,7 @@ if ($data) {
         session_regenerate_id(true);
 
         $_SESSION['email'] = $userInfo['email'];
-        $_SESSION['is_admin'] = $userInfo['is_admin'];
+        $_SESSION['isAdmin'] = $userInfo['isAdmin'];
 
         echo json_encode(["success" => true]);
     } else {

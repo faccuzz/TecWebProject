@@ -1,87 +1,92 @@
-<?php 
-    include_once 'db.php';
+<?php
+include_once 'db.php';
 
-    /*session_start();
-    if(!isset($_SESSION['email'])){
-        header("Location: ../index.html");
+/*session_start();
+if(!isset($_SESSION['email'])){
+    header("Location: ../index.html");
+    exit();
+}*/
+
+$db = new database();
+$db->connect();
+
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $price = $_POST['price'];
+    $description = $_POST['description'];
+    $inStock = $_POST['inStock'] === 'true' ? 1 : 0;
+    $nameIMG = strtolower(preg_replace('/\s+/', '', $name));
+    $urlIMG = $_POST['img'];
+    $destinationFolder = "../assets/img/";
+
+    $extension = pathinfo($urlIMG, PATHINFO_EXTENSION);
+    if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
+        $extension = 'jpg';
+    }
+    $destinationFolder = $destinationFolder . $nameIMG . "." . $extension;
+
+    $img = @file_get_contents($urlIMG);
+    if ($img !== false) {
+        file_put_contents($destinationFolder, $img);
+    }
+
+    $insert = $db->insertProduct($name, $price, $description, $urlIMG, $inStock);
+
+    if ($insert) {
+        header("Location: ../optionsPage.html");
         exit();
-    }*/
-    
-    $db = new database();
-    $db->connect();
-
-    if (isset($_POST['submit'])) {
-        $name = $_POST['name'];
-        $price = $_POST['price'];
-        $description = $_POST['description'];
-        $inStock = $_POST['inStock'] === 'true' ? 1 : 0;
-        $nameIMG = strtolower(preg_replace('/\s+/', '', $name));
-        $urlIMG = $_POST['img'];
-        $destinationFolder = "../assets/img/";
-
-        $extension = pathinfo($urlIMG, PATHINFO_EXTENSION);
-        if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
-            $extension = 'jpg'; 
-        }
-        $destinationFolder = $destinationFolder . $nameIMG . "." . $extension;
-
-        $img = @file_get_contents($urlIMG);
-        if($img !== false) {
-            file_put_contents($destinationFolder, $img);
-        }
-
-        $insert = $db->insertProduct($name, $price, $description, $urlIMG, $inStock);
-        
-        if($insert) {
-            header("Location: ../optionsPage.html"); 
-            exit();
-        }
     }
+}
 
-    $section = $_GET['section'] ?? '';
+$section = $_GET['section'] ?? '';
 
-    switch($section){
-        case 'orderHistory':
-            renderOrders($db);
-            break;
-        case 'configurations':
-            renderConfig($db);
-            break;
-        case 'wishlist':
-            renderWishlist($db);
-            break;
-        case 'security':
-            renderSecurity($db);
-            break;
-        /*if(!isset($_SESSION['email']) || $_SESSION['is_admin'] === 1){*/
-        case 'products':
-            renderProducts($db);
-            break;
-        case 'users':
-            renderUsers($db);
-            break;
-        /*}*/
-    }
-    $db->close();
+switch ($section) {
+    case 'orderHistory':
+        renderOrders($db);
+        break;
+    case 'configurations':
+        renderConfig($db);
+        break;
+    case 'wishlist':
+        renderWishlist($db);
+        break;
+    case 'security':
+        renderSecurity($db);
+        break;
+    /*if(!isset($_SESSION['email']) || $_SESSION['is_admin'] === 1){*/
+    case 'products':
+        renderProducts($db);
+        break;
+    case 'users':
+        renderUsers($db);
+        break;
+    /*}*/
+    case 'logout':
+        renderLogout($db);
+        break;
+}
+$db->close();
 
-    function renderOrders($db){
-        echo "<h2>Order history</h2>";
-        $products = $db->getOrderHistory('user');
-        if ($products->num_rows > 0) {
-            while($row = $products->fetch_assoc()) {
-                echo "<ul id='productsList'><li>" ."<p>" . $row["orderID"]. "</p><p>" . $row["orderDate"]. "</p><p>" . $row["productName"]. "</p><p>" . $row["price"]. "</p><p>" . $row["quantity"]. "</p></li></ul>";
-            }
-        } else {
-            echo "No products found.";
+function renderOrders($db)
+{
+    echo "<h2>Order history</h2>";
+    $products = $db->getOrderHistory('user');
+    if ($products->num_rows > 0) {
+        while ($row = $products->fetch_assoc()) {
+            echo "<ul id='productsList'><li>" . "<p>" . $row["orderID"] . "</p><p>" . $row["orderDate"] . "</p><p>" . $row["productName"] . "</p><p>" . $row["price"] . "</p><p>" . $row["quantity"] . "</p></li></ul>";
         }
+    } else {
+        echo "No products found.";
     }
+}
 
-    function renderConfig($db){
-        echo "<h2>Account Settings</h2>";
-        $userInfo = $db->getUserInfo('user');
-        if ($userInfo->num_rows > 0) {
-            while($row = $userInfo->fetch_assoc()) {
-                echo "<div class='adminUpload'>
+function renderConfig($db)
+{
+    echo "<h2>Account Settings</h2>";
+    $userInfo = $db->getUserInfo('user');
+    if ($userInfo->num_rows > 0) {
+        while ($row = $userInfo->fetch_assoc()) {
+            echo "<div class='adminUpload'>
                 <form action='php/modifyUserInfo.php' method='post'>
                 <label for='first-name'>First Name</label>
                 <input id='name' name='name' type='text' value='" . $row["name"] . "' autocomplete='given-name'>
@@ -95,38 +100,31 @@
                 <label for='phone'>Phone</label>
                 <input id='phoneNumber' name='phoneNumber' type='tel' value='" . $row["phoneNumber"] . "' autocomplete='tel'>
 
-                <label for='street'>Street &amp; Number</label>
-                <input id='street' name='street' type='text' value='" . $row["street"] . "' autocomplete='street-address'>
-
-                <label for='city'>City</label>
-                <input id='city' name='city' type='text' value='" . $row["city"] . "' autocomplete='address-level2'>
-
-                <label for='postal'>Postal Code</label>
-                <input id='postalCode' name='postalCode' type='text' value='" . $row["postalCode"] . "' autocomplete='postal-code'>
-
                 <button name='submit' type='submit' class='button'>Save Changes</button>
             </form>
         </div>";
-            }
-        } else {
-            echo "No user info found.";
         }
+    } else {
+        echo "No user info found.";
     }
+}
 
-    function renderWishlist($db){
-        echo "<h2>Wishlist</h2>";
-        $wishlist = $db->getWishlist('user');
-        if ($wishlist->num_rows > 0) {
-            while($row = $wishlist->fetch_assoc()) {
-                echo "<ul id='productsList'><li>" ."<p>" . $row["productName"]. "</p><p>" . $row["price"]. "</p><p>" . $row["description"]. "</p></li></ul>";
-            }
-        } else {
-            echo "No products added to your wishlist yet.";
+function renderWishlist($db)
+{
+    echo "<h2>Wishlist</h2>";
+    $wishlist = $db->getWishlist('user');
+    if ($wishlist->num_rows > 0) {
+        while ($row = $wishlist->fetch_assoc()) {
+            echo "<ul id='productsList'><li>" . "<p>" . $row["productName"] . "</p><p>" . $row["price"] . "</p><p>" . $row["description"] . "</p></li></ul>";
         }
+    } else {
+        echo "No products added to your wishlist yet.";
     }
+}
 
-    function renderSecurity($db){
-        echo "<h2>Security</h2>
+function renderSecurity($db)
+{
+    echo "<h2>Security</h2>
         <h2 class='section-title'>Change Password</h2>
         <div class='adminUpload'>
             <form action='php/changePassword.php' method='post'>
@@ -139,11 +137,12 @@
                 <button type='submit' class='button'>Update Password</button>
             </form>
         </div>";
-    }
+}
 
-    function renderProducts($db){
-        echo "<h2>Products</h2><br>";
-        echo "<div class='adminUpload'>
+function renderProducts($db)
+{
+    echo "<h2>Products</h2><br>";
+    echo "<div class='adminUpload'>
                   <form action='php/optionsPage.php' method='POST'>
                       <h2>Add a new product</h2>
                       <label for='nome'>Product Name:</label>
@@ -162,11 +161,11 @@
                       <input type='submit' name='submit' value='Add Product'/>
                   </form>
             </div><br>";
-        echo "<div class='adminChoice'> <h3>Products Available</h3> <ul id='productsList'>";
+    echo "<div class='adminChoice'> <h3>Products Available</h3> <ul id='productsList'>";
 
-        $result = $db->getProducts();
-        if($result && $result->num_rows > 0){
-        while($p = $result->fetch_assoc()){
+    $result = $db->getProducts();
+    if ($result && $result->num_rows > 0) {
+        while ($p = $result->fetch_assoc()) {
             echo "<li class='card'> 
                     <h2>{$p['productName']}</h2> 
                     <div class='product'> 
@@ -179,19 +178,20 @@
                     <button onclick=\"deleteProduct('{$p['id']}')\">Delete</button>
                     <button onclick=\"modifyProduct('{$p['id']}')\">Modify</button></li>";
         }
-        } else {
-            echo "<li>No products available.</li>";
-        }
-        echo "</ul></div>";
+    } else {
+        echo "<li>No products available.</li>";
     }
+    echo "</ul></div>";
+}
 
-    function renderUsers($db){
-        echo "<h2>Users</h2><br>";
-        echo "<div class='adminChoice'> <h3>Registered Users</h3> <ul id='productsList'>";
+function renderUsers($db)
+{
+    echo "<h2>Users</h2><br>";
+    echo "<div class='adminChoice'> <h3>Registered Users</h3> <ul id='productsList'>";
 
-        $result = $db->getUsers();
-        if($result && $result->num_rows > 0){
-        while($u = $result->fetch_assoc()){
+    $result = $db->getUsers();
+    if ($result && $result->num_rows > 0) {
+        while ($u = $result->fetch_assoc()) {
             echo "<li class='card'> 
                     <h2>{$u['username']}</h2> 
                     <p>Name: {$u['name']} {$u['surname']}</p>
@@ -199,11 +199,11 @@
                     <p>Phone: {$u['phoneNumber']}</p>
                     <p>Address: {$u['street']}, {$u['city']}, {$u['postalCode']}</p>";
         }
-        } else {
-            echo "<li>No users registered.</li>";
-        }
-        echo "</ul></div>";
-        echo "<h2>Add admin account:</h2> 
+    } else {
+        echo "<li>No users registered.</li>";
+    }
+    echo "</ul></div>";
+    echo "<h2>Add admin account:</h2> 
         <div class='adminUpload'>
             <form action='php/register.php' method='post'>
                 <label for='username'>Username</label>
@@ -224,18 +224,16 @@
                 <label for='phoneNumber'>Phone Number</label>
                 <input id='phoneNumber' name='phoneNumber' type='tel'>
 
-                <label for='street'>Street &amp; Number</label>
-                <input id='street' name='street' type='text' required>
-
-                <label for='city'>City</label>
-                <input id='city' name='city' type='text' required>
-
-                <label for='postalCode'>Postal Code</label>
-                <input id='postalCode' name='postalCode' type='text' required>
-                <input type='hidden' name='isAdmin' value='true'>
-
                 <button name='register' type='submit' class='button'>Add Admin</button>
             </form>";
 
-    }
+}
+
+function renderLogout($db)
+{
+    echo "<h2>Sei sicuro di voler effettuare il logout dall'account?</h2><br>";
+    echo "<form action='./php/account-managing/logout.php' method='POST'>";
+    echo "<button type='submit' class='button'> Si, esci </button>";
+    echo "</form>";
+}
 ?>
