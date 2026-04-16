@@ -171,22 +171,24 @@ html,body{
     background-color: transparent;
 }
 
-@media (max-width: 768px) { /*mobile scaling ok*/
+@media (max-width: 1023px) {     /* desktop first best */
+
     .login-page {
         flex-direction: column;
         padding: 2rem 1rem;
         align-items: center;
         justify-content: flex-start;
     }
-
+ 
+    /* Hide logo on mobile to save space */
     .area-logo {
-        display: none;  
+        display: none;
     }
-
+ 
     .company-name {
         font-size: 1.8em;
     }
-
+ 
     #loginCard {
         max-width: 100%;
         width: 100%;
