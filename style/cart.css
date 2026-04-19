@@ -150,26 +150,24 @@ body {
     cursor: pointer;
 }
 
-/* parte responsive */
+/*  mobile first */
 
-@media (min-width: 600px) {
+
+@media (min-width: 640px) {
     .shoppingCart {
-	max-width: 500px;
-	margin: 3em auto;
+        max-width: 500px;
+        margin: 3em auto;
         padding: 1.5em;
-	border-radius: 10px;
+        border-radius: 10px;
     }
-
     .itemsInCart .items {
         flex-direction: row;
         align-items: flex-start;
     }
-
     .itemControls {
         align-items: flex-end;
     }
-
     .button.itemControlsRemove {
-	padding: 0.8em 1.5em;
+        padding: 0.8em 1.5em;
     }
 }
