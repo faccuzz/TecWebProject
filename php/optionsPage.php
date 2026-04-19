@@ -10,34 +10,6 @@ if(!isset($_SESSION['email'])){
 $db = new database();
 $db->connect();
 
-if (isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $price = $_POST['price'];
-    $description = $_POST['description'];
-    $inStock = $_POST['inStock'] === 'true' ? 1 : 0;
-    $nameIMG = strtolower(preg_replace('/\s+/', '', $name));
-    $urlIMG = $_POST['img'];
-    $destinationFolder = "../assets/img/";
-
-    $extension = pathinfo($urlIMG, PATHINFO_EXTENSION);
-    if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
-        $extension = 'jpg';
-    }
-    $destinationFolder = $destinationFolder . $nameIMG . "." . $extension;
-
-    $img = @file_get_contents($urlIMG);
-    if ($img !== false) {
-        file_put_contents($destinationFolder, $img);
-    }
-
-    $insert = $db->insertProduct($name, $price, $description, $urlIMG, $inStock);
-
-    if ($insert) {
-        header("Location: ../optionsPage.html");
-        exit();
-    }
-}
-
 $section = $_GET['section'] ?? '';
 
 switch ($section) {
@@ -53,14 +25,12 @@ switch ($section) {
     case 'security':
         renderSecurity($db);
         break;
-    /*if(!isset($_SESSION['email']) || $_SESSION['is_admin'] === 1){*/
     case 'products':
         renderProducts($db);
         break;
     case 'users':
         renderUsers($db);
         break;
-    /*}*/
     case 'logout':
         renderLogout($db);
         break;
@@ -143,7 +113,7 @@ function renderProducts($db)
 {
     echo "<h2>Products</h2><br>";
     echo "<div class='adminUpload'>
-                  <form action='php/optionsPage.php' method='POST'>
+                  <form id='product-upload' action='php/optionsPage.php' method='POST'>
                       <h2>Add a new product</h2>
                       <label for='nome'>Product Name:</label>
                       <input type='text' id='name' name='name' required/>
@@ -151,14 +121,17 @@ function renderProducts($db)
                       <input type='text' id='description' name='description' required/>
                       <label for='prezzo'>Product Price:</label>
                       <input type='number' step='0.01' id='price' name='price' required/>
-                      <label for='immagine'>URL Product Image:</label>
-                      <input type='text' id='img' name='img' required/>
+                      <label for='image-upload' class='button'>
+                        <i class='fas fa-camera'></i> Seleziona immagine
+                      </label>
+                      <input type='file' id='image-upload' name='image' accept='image/png, image/jpg, image/jpeg, image/webp'>
+                      <p id='file-name-display'> Nessun file selezionato </p><br>
                       <label for='inStock'>In Stock:</label>
                       <select id='inStock' name='inStock' required>
                           <option value='true'>Yes</option>
                           <option value='false'>No</option>
                       </select>
-                      <input type='submit' name='submit' value='Add Product'/>
+                      <input type='submit' name='submit' value='Add Product' class='button'/>
                   </form>
             </div><br>";
     echo "<div class='adminChoice'> <h3>Products Available</h3> <ul id='productsList'>";
@@ -170,7 +143,7 @@ function renderProducts($db)
                     <h2>{$p['productName']}</h2> 
                     <div class='product'> 
                         <p>{$p['description']}</p>
-                        <img src='assets/img/" . strtolower(preg_replace('/\s+/', '', $p['productName'])) . ".jpg' 
+                        <img src='assets/img/" . $p['imageUrl'] . "' 
                         style='width:100%; height:320px; object-fit: contain;'>
                     </div>
                     <p>In Stock: " . ($p['inStock'] == 1 ? 'Yes' : 'No') . "</p>

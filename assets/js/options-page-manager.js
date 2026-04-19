@@ -45,7 +45,59 @@ document.addEventListener('DOMContentLoaded', () => {
             const risposta = await fetch(`./php/optionsPage.php?section=${sezione}`);
             const html = await risposta.text();
             areaContenuto.innerHTML = html;
+
+            switch (sezione) {
+                case 'products': activateProductForm(); break;
+            }
         }
+
+        function activateProductForm() {
+            const fileInput = document.getElementById('image-upload');
+            const fileNameDisplay = document.getElementById('file-name-display');
+
+            const productForm = document.getElementById('product-upload');
+
+            //Form di aggiunta nuovo prodotto
+            if (productForm) {
+                //Cambia solo il testo, quando viene selezionato un file, con il suo nome
+                fileInput.addEventListener('change', async (event) => {
+                    const file = event.target.files[0];
+
+                    if (file)
+                        fileNameDisplay.textContent = "File selezionato: " + file.name;
+
+                });
+
+                productForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+
+                    const formData = new FormData(productForm);
+
+                    //TODO: segnalare nel form la mancanza del dato
+                    if (!formData.get('name')) return;
+                    if (!formData.get('description')) return;
+                    if (!formData.get('price')) return;
+                    if (!formData.get('image')) return;
+                    if (!formData.get('inStock')) return;
+
+                    try {
+                        const response = await fetch('./php/saveProduct.php', {
+                            method: 'POST',
+                            body: formData,
+                        })
+
+                        const result = await response.json();
+                        if (result.success) {
+                            console.log('Immagine salvata con successo');
+                        }
+                    }
+                    catch (error) {
+                        console.error('Errore di caricamento: ', error);
+                    }
+                })
+            }
+        }
+
         verifyAdmin();
 
     }
