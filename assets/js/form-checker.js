@@ -86,22 +86,24 @@ function verifyName(input) {
 
 async function grantAccess() {
     const credentials = {
-        'email': emailInput.value.toUnderCase(),
+        'email': emailInput.value.toLowerCase(),
         'password': passwordInput.value,
     }
-
-    await fetch('login.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) return true;
-            else return false;
-        });
+    try {
+        const response = await fetch('php/login.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        })
+        const data = await response.json();
+        return data.success;
+    }
+    catch (error) {
+        console.log('Errore durante il login', error);
+        return false;
+    }
 }
 
 async function registerUser() {
@@ -123,11 +125,11 @@ async function registerUser() {
             },
             body: JSON.stringify(accountDetails)
         });
-        
+
         const data = await response.json();
-        
-        return data.success; 
-        
+
+        return data.success;
+
     } catch (error) {
         console.error("Errore durante la registrazione:", error);
         return false;
@@ -154,9 +156,9 @@ async function register() {
     verifyPhoneNumber() ? validRegistration++ : showInputError(phoneInput, 'Invalid Phone Number');
 
     if (validRegistration === 5) {
-        const isRegistered = await registerUser(); 
-        
-        if(isRegistered) {
+        const isRegistered = await registerUser();
+
+        if (isRegistered) {
             redirect();
         } else {
             alert('Errore durante la registrazione');
@@ -190,11 +192,11 @@ function hideTextError(textReference) {
     textReference.style.color = 'var(--text-color)';
 }
 
-function login() {
+async function login() {
     hideInputError(emailInput);
     hideInputError(passwordInput);
     if (verifyEmail()) {
-        if (grantAccess()) redirect();
+        if (await grantAccess()) redirect();
         else {
             showInputError(passwordInput, 'Invalid credentials');
             showInputError(emailInput, 'Invalid credentials');

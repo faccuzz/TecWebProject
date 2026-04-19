@@ -22,8 +22,6 @@ async function init() {
 
 /**
  * Filtra i prodotti
- * 
- * TODO: filtra prodotti dal database
  */
 function filterProducts(input) {
     const filteredProducts = products.filter(product => {
@@ -84,10 +82,10 @@ function renderGrid(items) {
 
     items.forEach(product => {
         const htmlContent = `
-                                    <img src="./assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
+                                    <img src="./assets/img/${product.imageUrl}" alt="Bottle gin and jute lamp">
                                     <div class="card-content">
                                         <h3>${product.productName}</h3>
-                                        <p>Breve descrizone dell'articolo che va a capo così vediamo se ci sta.</p>
+                                        <p>${product.description}</p>
                                         <a href="item.html?id=${product.id}" class="button">Discover</a>
                                     </div>
                             `;
