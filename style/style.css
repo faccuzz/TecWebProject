@@ -1013,7 +1013,7 @@ nav {
 .checkout-layout {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 2em;
     max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
@@ -1025,6 +1025,21 @@ nav {
 
 .order-summary {
     flex: 0 0 380px;
+}
+
+.previewRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2em;
+}
+
+.previewRow img {
+    height: 70px;
+    width: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 1em 0em;
 }
 
 @media (min-width: 1024px) {
@@ -1052,7 +1067,7 @@ nav {
     margin: 1rem 0;
 }
 
-.total {
+#checkout-total {
     font-weight: bold;
     font-size: 1.2rem;
     border-top: 2px solid rgb(var(--text-color));
