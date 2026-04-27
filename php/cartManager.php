@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once 'db.php';
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['cart'])) {
@@ -17,6 +18,7 @@ $action = isset($data['action']) ? $data['action'] : 'get';
  * remove: rimuove un prodotto dal carrello
  * clear: libera l'intero carrello
  * get: restituisce il carrello nella sessione
+ * submit: salva informazioni per il checkout
  */
 switch ($action) {
     //Se già presente sommo la quantità, altrimenti la assegno
@@ -53,7 +55,7 @@ switch ($action) {
     case 'clear':
         $_SESSION['cart'] = [];
         break;
-
+    
     case 'get':
         //Non fa nulla, esce dallo switch e ritorna il carrello
     default:

@@ -16,3 +16,20 @@ async function fetchProducts(category = '', value = '') {
         console.error("Something's wrong:", errore);
     }
 }
+
+async function sendCartAction(action, payload = {}) {
+    try {
+        const response = await fetch('./php/cartManager.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ action: action, ...payload })
+        });
+        const cartData = await response.json();
+        return cartData;
+    } catch (error) {
+        console.error("Errore di comunicazione col carrello:", error);
+        return [];
+    }
+}

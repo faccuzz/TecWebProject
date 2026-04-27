@@ -1,25 +1,9 @@
 const cartContainer = document.getElementById('itemsInCart');
 const addToCartButton = document.getElementById('addToCartButton');
 const totalPriceContainer = document.getElementById('totalCartPrice');
+const submitCartButton = document.getElementById('submitCart');
 let removeFromCartButtons;
 let cartInformation;
-
-async function sendCartAction(action, payload = {}) {
-    try {
-        const response = await fetch('./php/cartManager.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ action: action, ...payload })
-        });
-        const cartData = await response.json();
-        return cartData;
-    } catch (error) {
-        console.error("Errore di comunicazione col carrello:", error);
-        return [];
-    }
-}
 
 async function addToCart(productID, quantity) {
     const payload = {
@@ -139,17 +123,18 @@ function renderCartPage() {
     activateRemovalButton();
     activateQuantityInput();
     updateTotalCartPrice();
-
-    /*
-    if (totalContainer) {
-        totalContainer.textContent = `€ ${totalPrice.toFixed(2).replace('.', ',')}`;
-    }
-        */
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     if (cartContainer) {
         initCartPage();
+    }
+
+    if(submitCartButton) {
+        submitCartButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = "./checkout.html";
+        });
     }
 
     if (addToCartButton) {
