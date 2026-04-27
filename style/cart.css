@@ -1,4 +1,11 @@
 /* TODO: spostare nel posto giusto */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    letter-spacing: 2px;
+}
 body {
     margin: 0;
     background-image:
@@ -8,6 +15,10 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    padding: 2em;
 }
 
 /* principale carrello */
@@ -176,14 +187,13 @@ body {
 @media (min-width: 640px) {
     .shoppingCart {
         max-width: 500px;
-        margin: 3em auto;
         padding: 1.5em;
         border-radius: 10px;
     }
 
     .itemsInCart .items {
         flex-direction: row;
-        align-items: flex-start;
+        align-items: center;
     }
 
     .itemControls {
