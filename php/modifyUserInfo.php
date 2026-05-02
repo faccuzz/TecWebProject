@@ -15,16 +15,14 @@
         $surname = $_POST['surname'];
         $email = $_POST['email'];
         $phoneNumber = $_POST['phoneNumber'];
-        $street = $_POST['street'];
-        $city = $_POST['city'];
-        $postalCode = $_POST['postalCode'];
 
         $db->connect();
-        $modify = $db->modifyUserInfo('user', $name, $surname, $email, $phoneNumber, $street, $city, $postalCode);
+        $modify = $db->modifyUserInfo($_SESSION['email'],$name, $surname, $email, $phoneNumber);
 
         $db->close();
 
         if($modify){
+            $_SESSION['email'] = $email;
             header("Location: ../optionsPage.html");
             exit();
         }

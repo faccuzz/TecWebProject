@@ -45,7 +45,13 @@ CREATE TABLE products(
 
 INSERT INTO products(id,productName,price,description,imageUrl) VALUES
 ('A7B9C0D3E1','Green Bottle',14.99,'The newest bottle made of green materials, part of the new Elementals Collection',''),
-('F5G8H2J4K6','Fire Bottle',14.99,'The newest bottle made of fire? Be careful, part of the new Elementals Collection','');
+('F5G8H2J4K6','Fire Bottle',14.99,'The newest bottle made of fire? Be careful, part of the new Elementals Collection',''),
+('JD7SKEL098','Ice Bottle',14.99,'The newest bottle made of ice? Be careful, part of the new Elementals Collection',''),
+('KSJGIE8685','Air Bottle',14.99,'The newest bottle made of air? Be careful, part of the new Elementals Collection',''),
+('84KD8F7GLH','Yellow Bottle',11.99,'A nice and beatiful yellow bottle',''),
+('S84IT09909','Clean Bottle',13.99,'The newest clean bottle',''),
+('SLOIUAMJG0','Rose Bottle',11.99,'A nice and beatiful rose bottle',''),
+('SKAJSOEL9K','Blue Bottle',11.99,'A nice and beatiful blue bottle','');
 
 
 CREATE TABLE orders(

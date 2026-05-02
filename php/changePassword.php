@@ -20,7 +20,7 @@
         }
 
         $db->connect();
-        $modify = $db->changePassword('user', $password);
+        $modify = $db->changePassword($_SESSION['email'], $password);
 
         $db->close();
 

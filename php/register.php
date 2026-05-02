@@ -1,37 +1,43 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include_once 'db.php';
 session_start();
 
-$data = json_decode(file_get_contents("php://input"), true);
+if (!empty($_POST)) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $email = $_POST['email'];
+    $phoneNumber = $_POST['phoneNumber'];
+    $isAdmin = $_POST['isAdmin'];
+    $address = $_POST['street'];
+    $city = $_POST['city'];
+    $cap = $_POST['postalCode'];
+    $province = $_POST['province'];
+    $state = $_POST['state'];
 
-if ($data) {
-    $username = $data['username'];
-    $password = $data['password'];
-    $name = $data['name'];
-    $surname = $data['surname'];
-    $email = $data['email'];
-    $phoneNumber = $data['phone'];
-    $isAdmin = $data['isAdmin'];
-    
+    if($isAdmin === 'true') {
+        $isAdmin = 1;
+    } else {
+        $isAdmin = 0;
+    }
+
     $db = new database();
     $db->connect();
-    $result = $db->registration($username, $password, $name, $surname, $email, $phoneNumber, $isAdmin);
-    $db->close();
+    $result = $db->registration($username, $password, $name, $surname, $email, $phoneNumber, $isAdmin, $address, $city, $cap, $province, $state);
+    
 
     if ($result) {
         session_regenerate_id(true);
         $_SESSION['email'] = $email;
-        $_SESSION['is_admin'] = 0; //Default
+        $_SESSION['is_admin'] = $isAdmin;
 
         echo json_encode(["success" => true]);
     } else {
         echo json_encode(["success" => false]);
     }
-} else {
-    echo json_encode(["success" => false]);
-}
+    $db->close();
+    header("Location: ../optionsPage.html");
+    exit();
+} 
 ?>

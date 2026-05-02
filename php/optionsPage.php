@@ -1,6 +1,6 @@
 <?php
 include_once 'db.php';
-
+session_start();
 /*session_start();
 if(!isset($_SESSION['email'])){
     header("Location: ../index.html");
@@ -53,7 +53,7 @@ function renderOrders($db)
 function renderConfig($db)
 {
     echo "<h2>Account Settings</h2>";
-    $userInfo = $db->getUserInfo('user');
+    $userInfo = $db->getUserInfo($_SESSION['email']);
     if ($userInfo->num_rows > 0) {
         while ($row = $userInfo->fetch_assoc()) {
             echo "<div class='adminUpload'>
@@ -160,23 +160,24 @@ function renderProducts($db)
 function renderUsers($db)
 {
     echo "<h2>Users</h2><br>";
-    echo "<div class='adminChoice'> <h3>Registered Users</h3> <ul id='productsList'>";
+        echo "<div class='adminChoice'> <h3>Registered Users</h3> <ul id='productsList'>";
 
-    $result = $db->getUsers();
-    if ($result && $result->num_rows > 0) {
-        while ($u = $result->fetch_assoc()) {
-            echo "<li class='card'> 
+        $result = $db->getUsers();
+        if($result && $result->num_rows > 0){
+        while($u = $result->fetch_assoc()){
+            if($u['isAdmin'] == 1){
+                echo "<li class='card'> 
                     <h2>{$u['username']}</h2> 
                     <p>Name: {$u['name']} {$u['surname']}</p>
                     <p>Email: {$u['email']}</p>
-                    <p>Phone: {$u['phoneNumber']}</p>
-                    <p>Address: {$u['street']}, {$u['city']}, {$u['postalCode']}</p>";
+                    <p>Phone: {$u['phoneNumber']}</p>";
+            }
         }
-    } else {
-        echo "<li>No users registered.</li>";
-    }
-    echo "</ul></div>";
-    echo "<h2>Add admin account:</h2> 
+        } else {
+            echo "<li>No users registered.</li>";
+        }
+        echo "</ul></div>";
+        echo "<h2>Add admin account:</h2> 
         <div class='adminUpload'>
             <form action='php/register.php' method='post'>
                 <label for='username'>Username</label>
@@ -197,7 +198,32 @@ function renderUsers($db)
                 <label for='phoneNumber'>Phone Number</label>
                 <input id='phoneNumber' name='phoneNumber' type='tel'>
 
+                <label for='street'>Street &amp; Number</label>
+                <input id='street' name='street' type='text' required>
+
+                <label for='city'>City</label>
+                <input id='city' name='city' type='text' required>
+
+                <label for='postalCode'>Postal Code</label>
+                <input id='postalCode' name='postalCode' type='text' required>
+
+                <label for='province'>Province</label>
+                <input id='province' name='province' type='text' required>
+
+                <label for='state'>State</label>
+                <input id='state' name='state' type='text' required>
+                <input type='hidden' name='isAdmin' value='true'>
+
                 <button name='register' type='submit' class='button'>Add Admin</button>
+            </form></div><br>";
+
+        echo "<h2>Add admin account:</h2> 
+            <div class='adminUpload'>
+            <form action='php/changetoAdmin.php' method='post'>
+                <label for='username'>Username</label>
+                <input id='username' name='username' type='text' required>
+
+                <input type='submit' name='submit' value='Add as Admin'/>
             </form>";
 
 }
