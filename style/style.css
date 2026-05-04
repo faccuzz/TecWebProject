@@ -316,7 +316,18 @@ nav {
     overflow: hidden;
     border: 0;
 }
-
+/* Screen Reader Only - per accessibilità */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
 /*  Mobile Based*/
 
 .giant-title {
@@ -710,8 +721,9 @@ nav {
 }
 
 .col-layout aside {
-    flex: 1;
-    padding: 2.5em;
+    flex: none;  
+    width: 100%;  
+    padding: 1.5em;  
     background-color: rgba(0, 0, 0, 0.03);
     border-radius: 12px;
 }
@@ -952,6 +964,187 @@ nav {
 
 #image-upload {
     display: none;
+}
+
+/* checkout */
+
+.checkout-header {
+    background-color: rgb(var(--text-color));
+    padding: 1.5rem 0;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.checkout-header .top-row {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+.checkout-header .bottom-row {
+    width: 100%;
+    margin: 1.5rem auto 0;
+    text-align: center;;
+}
+.checkout-header .bottom-row h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 400; 
+    color: rgb(var(--primary-color));
+}
+
+
+.back-to-cart {
+    color: rgb(var(--primary-color));
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+    flex: 1;
+}
+
+.back-to-cart:hover {
+    color: rgb(var(--decoration-color));
+}
+
+.checkout-logo a{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(var(--primary-color));
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+}
+.checkout-logo a:hover{
+    text-decoration: underline;
+}
+
+.checkout-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.form  {
+    flex: 1;
+}
+
+.order-summary {
+    flex: 0 0 380px;
+}
+
+.previewRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2em;
+}
+
+.previewRow img {
+    height: 70px;
+    width: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 1em 0em;
+}
+
+@media (min-width: 1024px) {
+    .checkout-layout {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .checkout-sidebar {
+        position: sticky;
+        top: 2rem;
+    }
+}
+
+.form, .order-summary {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+#checkout-total {
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-top: 2px solid rgb(var(--text-color));
+    padding-top: 1rem;
+}
+.form button {
+    width: 100%;
+    background: rgb(var(--text-color));
+    color: rgb(var(--primary-color));
+    padding: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+/* contacs page - mobile first  */
+
+.col-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    margin: 2em auto;
+    padding: 0 1em;
+}
+
+.col-layout form,
+.col-layout .formulario {
+    width: 100%;
+    padding: 1.5em;
+}
+
+/* Tablet */
+@media (min-width: 640px) {
+    .col-layout {
+        margin: 3em auto;
+        padding: 0 2em;
+        gap: 2.5em;
+    }
+    
+    .col-layout aside {
+        padding: 2em;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .col-layout {
+        flex-direction: row;
+        gap: 4em;
+        margin: 4em auto;
+    }
+    
+    .col-layout form,
+    .col-layout .formulario {
+        flex: 1.5;
+    }
+    
+    .col-layout aside {
+        flex: 1;  /* Ripristina flex: 1 solo su desktop */
+        width: auto;
+        padding: 2.5em;
+    }
 }
 
 /* checkout */

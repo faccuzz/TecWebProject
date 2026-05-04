@@ -4,27 +4,13 @@
     gap: 2em;
 }
 
-.col-layout{
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-    gap: 4em;
-    max-width: 1200px;
-    margin: 4em auto;
-    padding: 0 2em;
-}
-.col-layout form{
-    flex: 1.5;
-    padding: 3em;
-}
-
 .footer-layout {
     min-height: auto; 
-    padding-top: 4em;
+    padding-top: 1em;
     padding-bottom: 2em;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 4em;
+    gap: 2em;
     margin-bottom: 4em;
 }
 
@@ -124,4 +110,3 @@
         grid-column: 1 / span 4;
     }
 }
- 
