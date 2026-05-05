@@ -6,7 +6,13 @@
     --side-padding: 3em;
     --top-padding: 3em;
 }
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    letter-spacing: 2px;
+}
 body{
     background-color: rgb(var(--primary-color));
     color: rgb(var(--text-color));
