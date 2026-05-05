@@ -682,9 +682,7 @@ nav {
     flex-direction: column;
 }
 
-.form-group input.input-error {
-    border-color: var(--error-color) !important;
-}
+.form-group input
 .input-error {
     border-color: var(--error-color) !important;
 }
