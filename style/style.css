@@ -657,7 +657,7 @@ nav {
     border-radius: 12px;
     border: 1px solid #e0e0e0;
     text-align: center;
-    padding: 2.5em;
+    padding: 1.75em;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     background-color: rgb(var(--primary-color));
     color: rgb(var(--text-color));
@@ -1104,14 +1104,15 @@ nav {
     display: flex;
     flex-direction: column;
     gap: 2em;
-    margin: 2em auto;
+    max-width: 1200px;
+    margin: 1.75em auto;
     padding: 0 1em;
 }
 
 .col-layout form,
 .col-layout .formulario {
     width: 100%;
-    padding: 1.5em;
+    padding: 1.75em;
 }
 
 /* Tablet */
@@ -1125,6 +1126,7 @@ nav {
     .col-layout aside {
         padding: 2em;
     }
+   
 }
 
 /* Desktop */
@@ -1141,10 +1143,11 @@ nav {
     }
     
     .col-layout aside {
-        flex: 1;  /* Ripristina flex: 1 solo su desktop */
+        flex: 1;  /* Ripristina flex: 1 su desktop */
         width: auto;
         padding: 2.5em;
     }
+    
 }
 
 /* checkout */
