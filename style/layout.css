@@ -1,6 +1,6 @@
 .row-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr; /* singola colonna per home */
     gap: 2em;
 }
 
@@ -37,7 +37,7 @@
     margin: 0 auto;
 }
 
-/* Admin page  mobile small */
+/* Admin page  mobile small  probabile inutile
 #productsList {
     grid-template-columns: 0.46fr 0.46fr;
 }
@@ -96,9 +96,7 @@
     }
 }
  
-
- 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
     .result-grid {
         grid-template-columns: 1fr 1fr 1fr 1fr;
         margin: 0 auto;
