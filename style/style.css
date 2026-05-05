@@ -56,11 +56,11 @@ a {
 }
 
 .big-height {
-    min-height: 45em;
+    min-height: 35em;
 }
 
 .mid-height {
-    min-height: 35em;
+    min-height: 30em;
 }
 
 .small-size {
@@ -762,161 +762,6 @@ nav {
     font-weight: 300;
 }
 
-/* Scaling Tablet To Desktop*/
-
-@media (min-width: 640px) {
-    :root {
-        --side-padding: 3em;  /* Tablet: more padding */
-    }
-
-    .giant-title {
-        font-size: 5rem;
-    }
-
-    .big-size {
-        font-size: 3.5rem;
-    }
-
-    .main-quote blockquote {
-        font-size: 2rem;
-    }
-
-    /* Navigation: unwrap */
-    nav {
-        flex-wrap: nowrap;
-        height: 12%;
-        gap: 0;
-        padding: 2em var(--side-padding);
-    }
-
-    .nav-links {
-        order: initial;
-        flex: 1;
-    }
-
-    .logo {
-        order: initial;
-    }
-
-    .nav-icons {
-        order: initial;
-    }
-
-    /* Admin upload: narrower */
-    .adminUpload {
-        max-width: 30%;
-    }
-}
-
-@media (min-width: 1024px) {
-    .giant-title {
-        font-size: 11rem;
-    }
-
-    /* Options page: side-by-side */
-    .optionsPageContainer {
-        flex-direction: row;
-        padding: 40px 40px 40px 0;
-        align-items: flex-start;
-    }
-
-    .sidebarOp {
-        flex: 0 0 250px;
-        width: auto;
-        padding: 20px 40px 20px 0;
-        border: none;
-        position: sticky;
-        top: 2rem;
-    }
-
-    .contentOp {
-        flex: 1;
-        padding: 20px 0 20px 40px;
-        border-left: 1px solid rgba(var(--text-color), 0.15);
-    }
-    
-    /* Detail layout: two columns */
-    .detail-layout {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-/* Scaling Tablet To Desktop*/
-
-@media (min-width: 640px) {
-    :root {
-        --side-padding: 3em;  /* Tablet: more padding */
-    }
-
-    .giant-title {
-        font-size: 5rem;
-    }
-
-    .big-size {
-        font-size: 3.5rem;
-    }
-
-    .main-quote blockquote {
-        font-size: 2rem;
-    }
-
-    /* Navigation: unwrap */
-    nav {
-        flex-wrap: nowrap;
-        height: 12%;
-        gap: 0;
-        padding: 2em var(--side-padding);
-    }
-
-    .nav-links {
-        order: initial;
-        flex: 1;
-    }
-
-    .logo {
-        order: initial;
-    }
-
-    .nav-icons {
-        order: initial;
-    }
-
-    /* Admin upload: narrower */
-    .adminUpload {
-        max-width: 30%;
-    }
-}
-
-@media (min-width: 1024px) {
-    .giant-title {
-        font-size: 11rem;
-    }
-
-    /* Options page: side-by-side */
-    .optionsPageContainer {
-        flex-direction: row;
-        padding: 40px 40px 40px 0;
-    }
-
-    .sidebarOp {
-        flex: 0 0 250px;
-        width: auto;
-        padding: 20px 40px 20px 0;
-        border-bottom: none;
-    }
-
-    .contentOp {
-        flex: 1;
-        padding: 20px 0 20px 40px;
-        border-left: 1px solid rgba(var(--text-color), 0.15);
-    }
-    
-    /* Detail layout: two columns */
-    .detail-layout {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
 .admin-only{
     display: none;
 }
@@ -1054,17 +899,6 @@ nav {
     margin: 1em 0em;
 }
 
-@media (min-width: 1024px) {
-    .checkout-layout {
-        flex-direction: row;
-        align-items: flex-start;
-    }
-    .checkout-sidebar {
-        position: sticky;
-        top: 2rem;
-    }
-}
-
 .form, .order-summary {
     background: #fff;
     border: 1px solid #eee;
@@ -1113,41 +947,6 @@ nav {
 .col-layout .formulario {
     width: 100%;
     padding: 1.75em;
-}
-
-/* Tablet */
-@media (min-width: 640px) {
-    .col-layout {
-        margin: 3em auto;
-        padding: 0 2em;
-        gap: 2.5em;
-    }
-    
-    .col-layout aside {
-        padding: 2em;
-    }
-   
-}
-
-/* Desktop */
-@media (min-width: 1024px) {
-    .col-layout {
-        flex-direction: row;
-        gap: 4em;
-        margin: 4em auto;
-    }
-    
-    .col-layout form,
-    .col-layout .formulario {
-        flex: 1.5;
-    }
-    
-    .col-layout aside {
-        flex: 1;  /* Ripristina flex: 1 su desktop */
-        width: auto;
-        padding: 2.5em;
-    }
-    
 }
 
 /* checkout */
@@ -1238,16 +1037,7 @@ nav {
     margin: 1em 0em;
 }
 
-@media (min-width: 1024px) {
-    .checkout-layout {
-        flex-direction: row;
-        align-items: flex-start;
-    }
-    .checkout-sidebar {
-        position: sticky;
-        top: 2rem;
-    }
-}
+
 
 .form, .order-summary {
     background: #fff;
@@ -1281,3 +1071,122 @@ nav {
     cursor: pointer;
     text-transform: uppercase;
 }
+/* ANY ADDITION TO STYLE.CSS ABOVE MEDIA QUERIES*/
+
+/* Scaling Tablet To Desktop*/
+
+@media (min-width: 640px) {
+    :root {
+        --side-padding: 3em;  /* Tablet: more padding */
+    }
+
+    .big-height {
+        min-height: 35em;
+    }
+
+    .giant-title {
+        font-size: 5rem;
+    }
+
+    .big-size {
+        font-size: 3.5rem;
+    }
+
+    .main-quote blockquote {
+        font-size: 2rem;
+    }
+    
+    .button {
+        padding: 1.2em 3em; /* Padding originale per schermi larghi */
+    }
+
+    /* Navigation: unwrap */
+    nav {
+        flex-wrap: nowrap;
+        height: 12%;
+        gap: 0;
+        padding: 2em var(--side-padding);
+    }
+
+    .nav-links {
+        order: initial;
+        flex: 1;
+    }
+
+    .logo {
+        order: initial;
+    }
+
+    .nav-icons {
+        order: initial;
+    }
+
+    /* Admin upload: narrower */
+    .adminUpload {
+        max-width: 30%;
+    }
+    .col-layout {
+        margin: 3em auto;
+        padding: 0 2em;
+        gap: 2.5em;
+    }
+    
+    .col-layout aside {
+        padding: 2em;
+    }
+}
+
+@media (min-width: 1024px) {
+    .giant-title {
+        font-size: 11rem;
+    }
+
+    /* Options page: side-by-side */
+    .optionsPageContainer {
+        flex-direction: row;
+        padding: 40px 40px 40px 0;
+    }
+
+    .sidebarOp {
+        flex: 0 0 250px;
+        width: auto;
+        padding: 20px 40px 20px 0;
+        border-bottom: none;
+    }
+
+    .contentOp {
+        flex: 1;
+        padding: 20px 0 20px 40px;
+        border-left: 1px solid rgba(var(--text-color), 0.15);
+    }
+    
+    /* Detail layout: two columns */
+    .detail-layout {
+        grid-template-columns: 1fr 1fr;
+    }
+    .checkout-layout {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .checkout-sidebar {
+        position: sticky;
+        top: 2rem;
+    }
+    .col-layout {
+        flex-direction: row;
+        gap: 4em;
+        margin: 4em auto;
+    }
+    
+    .col-layout form,
+    .col-layout .formulario {
+        flex: 1.5;
+    }
+    
+    .col-layout aside {
+        flex: 1;  /* Ripristina flex: 1 su desktop */
+        width: auto;
+        padding: 2.5em;
+    }
+}
+/* ANY ADDITION TO STYLE.CSS ABOVE MEDIA QUERIES*/
