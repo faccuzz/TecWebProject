@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS wishlist;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS address;
@@ -72,16 +71,3 @@ CREATE TABLE order_items(
 INSERT INTO order_items(orderID,product_id,quantity) VALUES
 ('A7B9DS3E1','A7B9C0D3E1',2),
 ('GDFFDJ4K6','F5G8H2J4K6',1);
-
-
-CREATE TABLE wishlist(
-    id int AUTO_INCREMENT PRIMARY KEY,
-    user varchar(25) NOT NULL,
-    product_id char(10) NOT NULL,
-    FOREIGN KEY (user) REFERENCES users(username) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(id)
-);
-
-INSERT INTO wishlist(user,product_id) VALUES
-('user','A7B9C0D3E1');
-

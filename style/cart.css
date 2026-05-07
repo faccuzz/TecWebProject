@@ -15,22 +15,18 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    padding: 2em;
 }
 
 /* principale carrello */
 
 .shoppingCart {
-    /*  max-width: 900px;
-    margin: 5em auto; */
     padding: 1.25em;
     background-color: rgb(249, 245, 240);
     border: 1px solid #ddd;
     width: 100%;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    margin: 5em auto;
 }
 
 /* Titoli */

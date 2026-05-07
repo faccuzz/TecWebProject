@@ -8,36 +8,49 @@
     <link rel="stylesheet" href="./style/style.css" type="text/css">
     <link rel="stylesheet" href="./style/components.css" type="text/css">
     <link rel="stylesheet" href="./style/layout.css" type="text/css">
-    <title>Gin&amp;Jute – Dettaglio</title>
 
     <script src="./assets/js/bridge.js" defer></script>
     <script src="./assets/js/item-loader.js" defer></script>
     <script src="./assets/js/cart-manager.js" defer></script>
+    <script src="assets/js/animation.js" defer></script>
+    <script src="assets/js/search-engine.js" defer></script>
+    <script src="assets/js/account-menu.js" defer></script>
 </head>
 
 <body>
-    <header class="hero home-table-bg">
+    <header>
         <nav>
-            <div class="nav-links">
-                <a href="./index.html" class="menu-items">Home</a>
-                <a href="./items.html" class="menu-items" aria-current="page">Catalog</a>
-                <a href="./contacts.html" class="menu-items">Contacts</a>
+            <nav>
+        <div class="nav-links">
+            <a href="index.html" class="menu-items">Home</a>
+            <a href="catalog.html" class="menu-items">Catalog</a>
+            <a href="contacts.html" class="menu-items">Contacts</a>
+        </div>
+
+        <div class="logo">LUMEN SPIRITS</div>
+
+        <div class="nav-icons">
+            <div class="home-search-box" id="search-input">
+                <input type="text" class="home-search-bar" placeholder="Search..." aria-label="Search items">
+                <div class="result-list"></div>
             </div>
+            <i class="fas fa-search" id="home-search-button"></i>
+            <div class="account-box">
+                <button id="account-button" class="account-icon-button" aria-haspopup="true" aria-expanded="false"
+                    aria-label="Menu account">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                </button>
 
-            <div class="logo">LUMEN SPIRITS</div>
+                <div id="account-popup" class="account-popup" role="dialog" aria-modal="true"
+                    aria-label="Scegli un'azione">
+                    <button id="close-popup-button" class="hidden">Chiudi menu account</button>
 
-            <div class="nav-icons">
-                <div class="search-box" id="search-input">
-                    <input type="text" class="search-bar" placeholder="Search..." aria-label="Cerca prodotto">
-                    <div class="result-list"></div>
+                    <a href="./login.html" class="popup-link">Accedi</a>
+                    <a href="./register.html" class="popup-link">Registrati</a>
                 </div>
-                <i class="fas fa-search" id="home-search-button" aria-hidden="true"></i> 
-                    <!--fixare href qua sotto-->
-                <a href="./adminPage.html" aria-label="Area admin"><i class="fas fa-user" aria-hidden="true"></i></a> 
-                <a href="./cart.html" aria-label="Carrello"><i class="fas fa-shopping-bag" aria-hidden="true"></i></a>
-            </div>
+            </div> <a href="cart.html" aria-label="Shopping Cart"><i class="fas fa-shopping-bag"></i></a>
+        </div>
         </nav>
-        <h1>Creative Rebirth</h1>
     </header>
 
     <main>

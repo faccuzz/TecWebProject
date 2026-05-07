@@ -16,39 +16,38 @@
 </head>
 
 <body>
-    <header class="hero big-height home-table-bg">
-        <nav>
-            <div class="nav-links">
-                <a href="#" class="menu-items active">Home</a>
-                <a href="catalog.html" class="menu-items">Catalog</a>
-                <a href="contacts.html" class="menu-items">Contacts</a>
+    <nav>
+        <div class="nav-links">
+            <a href="#" class="menu-items active">Home</a>
+            <a href="catalog.html" class="menu-items">Catalog</a>
+            <a href="contacts.html" class="menu-items">Contacts</a>
+        </div>
+
+        <div class="logo">LUMEN SPIRITS</div>
+
+        <div class="nav-icons">
+            <div class="home-search-box" id="search-input">
+                <input type="text" class="home-search-bar" placeholder="Search..." aria-label="Search items">
+                <div class="result-list"></div>
             </div>
+            <i class="fas fa-search" id="home-search-button"></i>
+            <div class="account-box">
+                <button id="account-button" class="account-icon-button" aria-haspopup="true" aria-expanded="false"
+                    aria-label="Menu account">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                </button>
 
-            <div class="logo">LUMEN SPIRITS</div>
+                <div id="account-popup" class="account-popup" role="dialog" aria-modal="true"
+                    aria-label="Scegli un'azione">
+                    <button id="close-popup-button" class="hidden">Chiudi menu account</button>
 
-            <div class="nav-icons">
-                <div class="home-search-box" id="search-input">
-                    <input type="text" class="home-search-bar" placeholder="Search..." aria-label="Search items">
-                    <div class="result-list"></div>
+                    <a href="./login.html" class="popup-link">Accedi</a>
+                    <a href="./register.html" class="popup-link">Registrati</a>
                 </div>
-                <i class="fas fa-search" id="home-search-button"></i>
-                <div class="account-box">
-                    <button id="account-button" class="account-icon-button" aria-haspopup="true" aria-expanded="false"
-                        aria-label="Menu account">
-                        <i class="fas fa-user" aria-hidden="true"></i>
-                    </button>
-
-                    <div id="account-popup" class="account-popup" role="dialog" aria-modal="true"
-                        aria-label="Scegli un'azione">
-                        <button id="close-popup-button" class="hidden">Chiudi menu account</button>
-
-                        <a href="./login.html" class="popup-link">Accedi</a>
-                        <a href="./register.html" class="popup-link">Registrati</a>
-                    </div>
-                </div> <a href="cart.html" aria-label="Shopping Cart"><i class="fas fa-shopping-bag"></i></a>
-            </div>
-        </nav>
-
+            </div> <a href="cart.html" aria-label="Shopping Cart"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+    </nav>
+    <header class="hero big-height home-table-bg">
         <p class="shop-description">
             Unique Lamps and Centerpieces <br />
             Transformed by Artisan Mastery

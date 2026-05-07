@@ -11,15 +11,16 @@
 
     <script src="assets/js/animation.js" defer></script>
     <script src="assets/js/search-engine.js" defer></script>
+    <script src="assets/js/account-menu.js" defer></script>
     <title>Contacts page</title>
 </head>
 
 <body>
-    <header class="hero home-table-bg">
+    <header>
         <nav>
             <div class="nav-links">
-                <a href="#" class="menu-items">Home</a>
-                <a href="items.html" class="menu-items">Catalog</a>
+                <a href="index.html" class="menu-items">Home</a>
+                <a href="catalog.html" class="menu-items">Catalog</a>
                 <a href="#" class="menu-items active">Contacts</a>
             </div>
 
@@ -31,18 +32,22 @@
                     <div class="result-list"></div>
                 </div>
                 <i class="fas fa-search" id="home-search-button"></i>
-                <a href="adminPage.html" aria-label="User Profile"><i class="fas fa-user"></i></a>
-                <a href="cart.html" aria-label="Shopping Cart"><i class="fas fa-shopping-bag"></i></a>
+                <div class="account-box">
+                    <button id="account-button" class="account-icon-button" aria-haspopup="true" aria-expanded="false"
+                        aria-label="Menu account">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                    </button>
+
+                    <div id="account-popup" class="account-popup" role="dialog" aria-modal="true"
+                        aria-label="Scegli un'azione">
+                        <button id="close-popup-button" class="hidden">Chiudi menu account</button>
+
+                        <a href="./login.html" class="popup-link">Accedi</a>
+                        <a href="./register.html" class="popup-link">Registrati</a>
+                    </div>
+                </div> <a href="cart.html" aria-label="Shopping Cart"><i class="fas fa-shopping-bag"></i></a>
             </div>
         </nav>
-
-        <p class="shop-description">
-            Unique Lamps and Centerpieces <br>
-            Transformed by Artisan Mastery
-        </p>
-
-        <h1 class="giant-title">Creative Rebirth</h1>
-        <h1>Creative Rebirth</h1>
     </header>
     <main>
         <section class="hero hero-padding mid-height align-center">
@@ -83,7 +88,8 @@
                         </div>
                         <div class="form-group">
                             <label for="message">Add comment</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Tell us more about what you need..." required></textarea>
+                            <textarea id="message" name="message" rows="4"
+                                placeholder="Tell us more about what you need..." required></textarea>
                             <p class="form-error-msg">Error placeholder</p>
                         </div>
                         <button type="submit">Send message</button>
@@ -93,7 +99,8 @@
                     <h3>Additional Information</h3>
                     <div>
                         <h4>Creative Rebirth Guarantee</h4>
-                        <p> Glass is fragile, but our commitment to you isn't. If your item arrives damaged, send us a photo within 48 hours and we'll replace it for free.</p>
+                        <p> Glass is fragile, but our commitment to you isn't. If your item arrives damaged, send us a
+                            photo within 48 hours and we'll replace it for free.</p>
                     </div>
                     <div>
                         <h4>Working hours</h4>
@@ -108,15 +115,17 @@
                         <h4>Social Media</h4>
                         <p>Don't miss out latest bright ideas!</p>
                         <ul class="social-links">
-                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f fa-fw"></i>&nbsp;Facebook</a></li>
-                            <li><a href="#" target="_blank"><i class="fab fa-instagram fa-fw"></i>&nbsp;Instagram</a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f fa-fw"></i>&nbsp;Facebook</a>
+                            </li>
+                            <li><a href="#" target="_blank"><i class="fab fa-instagram fa-fw"></i>&nbsp;Instagram</a>
+                            </li>
                             <li><a href="#" target="_blank"><i class="fab fa-tiktok fa-fw"></i>&nbsp;Tiktok</a></li>
                         </ul>
                     </div>
                 </aside>
             </div>
         </section>
-        
+
     </main>
     <footer class="hero hero-padding footer-layout">
         <div class="footer-column">
@@ -147,5 +156,5 @@
         </div>
     </footer>
 </body>
-</html>
 
+</html>
