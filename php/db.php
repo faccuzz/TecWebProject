@@ -129,11 +129,11 @@ class database
         return $stmt->get_result();
     }
 
-    public function getUserInfo($username)
+    public function getUserInfo($email)
     {
-        $sql = "SELECT username, name, surname, email, phoneNumber, street, city, postalCode FROM users WHERE username = ?";
+        $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('s', $username);
+        $stmt->bind_param('s', $email);
         $stmt->execute();
         return $stmt->get_result();
     }

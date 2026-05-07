@@ -1,11 +1,11 @@
 <?php
 include_once 'db.php';
 
-/*session_start();
+session_start();
 if(!isset($_SESSION['email'])){
     header("Location: ../index.html");
     exit();
-}*/
+}
 
 $db = new database();
 $db->connect();
@@ -18,9 +18,6 @@ switch ($section) {
         break;
     case 'configurations':
         renderConfig($db);
-        break;
-    case 'wishlist':
-        renderWishlist($db);
         break;
     case 'security':
         renderSecurity($db);
@@ -53,42 +50,30 @@ function renderOrders($db)
 function renderConfig($db)
 {
     echo "<h2>Account Settings</h2>";
-    $userInfo = $db->getUserInfo('user');
-    if ($userInfo->num_rows > 0) {
+    $userInfo = $db->getUserInfo($_SESSION['email']);
+    if ($userInfo && $userInfo->num_rows > 0) {
         while ($row = $userInfo->fetch_assoc()) {
-            echo "<div class='adminUpload'>
+            echo "
+            <div class='adminUpload'>
                 <form action='php/modifyUserInfo.php' method='post'>
-                <label for='first-name'>First Name</label>
-                <input id='name' name='name' type='text' value='" . $row["name"] . "' autocomplete='given-name'>
+                    <label for='first-name'>First Name</label>
+                    <input id='name' name='name' type='text' value='" . $row["name"] . "' autocomplete='given-name'>
 
-                <label for='last-name'>Last Name</label>
-                <input id='surname' name='surname' type='text' value='" . $row["surname"] . "' autocomplete='family-name'>
+                    <label for='last-name'>Last Name</label>
+                    <input id='surname' name='surname' type='text' value='" . $row["surname"] . "' autocomplete='family-name'>
 
-                <label for='email'>Email</label>
-                <input id='email' name='email' type='email' value='" . $row["email"] . "' autocomplete='email'>
+                    <label for='email'>Email</label>
+                    <input id='email' name='email' type='email' value='" . $row["email"] . "' autocomplete='email'>
 
-                <label for='phone'>Phone</label>
-                <input id='phoneNumber' name='phoneNumber' type='tel' value='" . $row["phoneNumber"] . "' autocomplete='tel'>
+                    <label for='phone'>Phone</label>
+                    <input id='phoneNumber' name='phoneNumber' type='tel' value='" . $row["phoneNumber"] . "' autocomplete='tel'>
 
-                <button name='submit' type='submit' class='button'>Save Changes</button>
-            </form>
-        </div>";
+                    <button name='submit' type='submit' class='button'>Save Changes</button>
+                </form>
+            </div>";
         }
     } else {
         echo "No user info found.";
-    }
-}
-
-function renderWishlist($db)
-{
-    echo "<h2>Wishlist</h2>";
-    $wishlist = $db->getWishlist('user');
-    if ($wishlist->num_rows > 0) {
-        while ($row = $wishlist->fetch_assoc()) {
-            echo "<ul id='productsList'><li>" . "<p>" . $row["productName"] . "</p><p>" . $row["price"] . "</p><p>" . $row["description"] . "</p></li></ul>";
-        }
-    } else {
-        echo "No products added to your wishlist yet.";
     }
 }
 

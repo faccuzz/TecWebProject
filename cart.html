@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <link rel="stylesheet" type="text/css" href="style/cart.css">
     <link rel="stylesheet" type="text/css" href="style/components.css">
@@ -10,19 +13,33 @@
 
     <script src="./assets/js/bridge.js"></script>
     <script src="./assets/js/cart-manager.js" defer></script>
+    <script src="assets/js/animation.js" defer></script>
 </head>
 
 <body>
-    <div class="shoppingCart">
-        <h1>Your Cart</h1>
-        <div id="itemsInCart"></div>
-        
-        <div id="totalCartPrice"></div>
-        <!--<form class="shoppingCart-form">
+    <header>
+        <nav>
+            <div class="nav-links">
+                <a href="index.html"><i class="fa-solid fa-arrow-left"></i></a>
+            </div>
+
+            <div class="logo">LUMEN SPIRITS</div>
+
+            <div class="nav-icons"></div>
+        </nav>
+    </header>
+    <main>
+        <div class="shoppingCart">
+            <h1>Your Cart</h1>
+            <div id="itemsInCart"></div>
+
+            <div id="totalCartPrice"></div>
+            <!--<form class="shoppingCart-form">
             
         </form>-->
-        <button id="submitCart" class="button" type="submit">Proceed to order</button>
-    </div>
-    <!-- end body -->
+            <button id="submitCart" class="button" type="submit">Proceed to order</button>
+        </div>
+    </main>
 </body>
+
 </html>

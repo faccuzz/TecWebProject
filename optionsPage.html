@@ -10,38 +10,42 @@
   <link rel="stylesheet" href="style/components.css" type="text/css" />
   <link rel="stylesheet" href="style/layout.css" type="text/css" />
   <script src="assets/js/options-page-manager.js" defer></script>
+  <script src="assets/js/animation.js" defer></script>
 </head>
 
 <body>
   <div id="page-loader" class="loader-overlay">
     <div class="spinner"></div>
   </div>
-  <div id="main-content" class="hidden-content">
-    <header class="hero home-table-bg">
-      <!--Aggiungere bottone per tornare a home-->
-      <h1>Creative Rebirth</h1>
-    </header>
 
-    <div class="optionsPageContainer">
-      <aside class="sidebarOp">
-        <h3>User Menu</h3>
-        <ul id="menu-nav">
-          <li sessionOp="orderHistory">Order History</li>
-          <li sessionOp="configurations">Account Settings</li>
-          <li sessionOp="wishlist">Wishlist</li>
-          <li sessionOp="security">Security</li>
-          <li class="admin-only" sessionOp="products">Products</li>
-          <li class="admin-only" sessionOp="users">Users</li>
-          <li sessionOp="logout">Logout</li>
-        </ul>
-      </aside>
+  <nav>
+      <div class="nav-links">
+        <a href="index.html"><i class="fa-solid fa-arrow-left"></i></a>
+      </div>
 
-      <main class="contentOp" id="contentZone">
-        <div class="placeholderOp">
-          <p>Select an option to see the details</p>
-        </div>
-      </main>
-    </div>
+      <div class="logo">LUMEN SPIRITS</div>
+
+      <div class="nav-icons"></div>
+    </nav>
+
+  <div class="optionsPageContainer" id="main-content">
+    <aside class="sidebarOp">
+      <h3>User Menu</h3>
+      <ul id="menu-nav">
+        <li sessionOp="orderHistory">Order History</li>
+        <li sessionOp="configurations">Account Settings</li>
+        <li sessionOp="security">Security</li>
+        <li class="admin-only" sessionOp="products">Products</li>
+        <li class="admin-only" sessionOp="users">Users</li>
+        <li sessionOp="logout">Logout</li>
+      </ul>
+    </aside>
+
+    <main class="contentOp" id="contentZone">
+      <div class="placeholderOp">
+        <p>Select an option to see the details</p>
+      </div>
+    </main>
   </div>
 </body>
 

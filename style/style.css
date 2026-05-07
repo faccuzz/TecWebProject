@@ -28,6 +28,10 @@ a {
 
 /* Hero*/
 
+header {
+    margin-bottom: 2em;
+}
+
 .hero {
     position: relative;
     width: 100%;
@@ -101,11 +105,13 @@ a {
 /*Navigation Mobile first*/
 
 nav {
-    position: absolute;
+    position: sticky;
+    z-index: 100;
     top: 0;
     width: 100%;
     font-size: 0.8rem;
     padding: 1em var(--side-padding);
+    background-color: rgb(var(--text-color));
     align-items: center;
     display: flex;
     flex-wrap: wrap;
@@ -120,6 +126,7 @@ nav {
 
 .logo {
     order: 1;
+    color: rgb(var(--primary-color));
 }
 
 .nav-icons {
