@@ -1,30 +1,16 @@
 .row-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr; /* singola colonna per home */
     gap: 2em;
-}
-
-.col-layout{
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-    gap: 4em;
-    max-width: 1200px;
-    margin: 4em auto;
-    padding: 0 2em;
-}
-.col-layout form{
-    flex: 1.5;
-    padding: 3em;
 }
 
 .footer-layout {
     min-height: auto; 
-    padding-top: 4em;
+    padding-top: 1em;
     padding-bottom: 2em;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 4em;
+    gap: 2em;
     margin-bottom: 4em;
 }
 
@@ -51,7 +37,7 @@
     margin: 0 auto;
 }
 
-/* Admin page  mobile small */
+/* Admin page  mobile small  probabile inutile
 #productsList {
     grid-template-columns: 0.46fr 0.46fr;
 }
@@ -110,9 +96,7 @@
     }
 }
  
-
- 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
     .result-grid {
         grid-template-columns: 1fr 1fr 1fr 1fr;
         margin: 0 auto;
@@ -124,4 +108,3 @@
         grid-column: 1 / span 4;
     }
 }
- 

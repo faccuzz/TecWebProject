@@ -1,11 +1,5 @@
 /* TODO: spostare nel posto giusto */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
-    letter-spacing: 2px;
-}
+
 body {
     margin: 0;
     background-image:

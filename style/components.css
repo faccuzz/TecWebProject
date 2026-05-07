@@ -1,13 +1,13 @@
-:root{
+/*:root{
     --primary-color: 249, 245, 240;
     --text-color: 44, 24, 16;
     --decoration-color: 184, 85, 10;
 }
-
+*/
 .button{
     position: relative;
     display: inline-block;
-    padding: 1.2em 3em;
+    padding: 0.8em 1.5em;
     margin-top: 1em;
     color: rgb(var(--text-color));
     text-decoration: none;
