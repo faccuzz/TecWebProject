@@ -37,7 +37,7 @@
     margin: 0 auto;
 }
 
-/* Admin page  mobile small  probabile inutile
+ Admin page  mobile small  probabile inutile
 #productsList {
     grid-template-columns: 0.46fr 0.46fr;
 }
@@ -45,7 +45,7 @@
 .adminUpload {
     max-width: 100%;
 }
-  
+
 @media (min-width: 640px) {
     .row-layout {
         grid-template-columns: 1fr 1fr;
