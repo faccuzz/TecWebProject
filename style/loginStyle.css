@@ -171,7 +171,7 @@ html,body{
     background-color: transparent;
 }
 
-@media (max-width: 1023px) {     /* desktop first best */
+@media (max-width: 1024px) {     /* desktop first best */
 
     .login-page {
         flex-direction: column;
