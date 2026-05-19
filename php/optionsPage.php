@@ -36,7 +36,7 @@ $db->close();
 
 function renderOrders($db)
 {
-    echo "<h2>Order history</h2>";
+    echo "<h2 class='optionTitle'>Order history</h2>";
     $products = $db->getOrderHistory('user');
     if ($products->num_rows > 0) {
         while ($row = $products->fetch_assoc()) {
@@ -49,7 +49,7 @@ function renderOrders($db)
 
 function renderConfig($db)
 {
-    echo "<h2>Account Settings</h2>";
+    echo "<h2 class='optionTitle'>Account Settings</h2>";
     $userInfo = $db->getUserInfo($_SESSION['email']);
     if ($userInfo && $userInfo->num_rows > 0) {
         while ($row = $userInfo->fetch_assoc()) {
@@ -79,8 +79,8 @@ function renderConfig($db)
 
 function renderSecurity($db)
 {
-    echo "<h2>Security</h2>
-        <h2 class='section-title'>Change Password</h2>
+    echo "<h2 class='optionTitle'>Security</h2>
+        <h3 class='section-title'>Change Password</h3>
         <div class='adminUpload'>
             <form action='php/changePassword.php' method='post'>
                 <label for='new-pwd'>New Password</label>
@@ -96,7 +96,7 @@ function renderSecurity($db)
 
 function renderProducts($db)
 {
-    echo "<h2>Products</h2><br>";
+    echo "<h2 class='optionTitle'>Products</h2><br>";
     echo "<div class='adminUpload'>
                   <form id='product-upload' action='php/optionsPage.php' method='POST'>
                       <h2>Add a new product</h2>
@@ -144,7 +144,7 @@ function renderProducts($db)
 
 function renderUsers($db)
 {
-    echo "<h2>Users</h2><br>";
+    echo "<h2 class='optionTitle'>Users</h2>";
     echo "<div class='adminChoice'> <h3>Registered Users</h3> <ul id='productsList'>";
 
     $result = $db->getUsers();

@@ -550,14 +550,16 @@ nav {
 }
 
 .sidebarOp {
-    padding: 1.5rem;
-    border: 1px solid rgba(var(--text-color), 0.2);
-    border-radius: 6px;
+    padding-right: 10px;
 }
 
 .contentOp {
     padding: 20px 0;
     min-height: 500px;
+}
+
+.optionTitle {
+    margin-bottom: 20px;
 }
 
 #menu-nav {

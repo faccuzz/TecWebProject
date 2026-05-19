@@ -39,7 +39,7 @@
         }
 
         $extension = pathinfo($image['name'], PATHINFO_EXTENSION);
-        $image_name = time() . "_" . strtolower(preg_replace('/\s+/', '', $name)) . "." . $extension;
+        $image_name = strtolower(preg_replace('/\s+/', '', $name)) . "_" . time() . "." . $extension;
         $destination_folder = $destination_folder . $image_name;
 
         if(move_uploaded_file($image['tmp_name'], $destination_folder)){
