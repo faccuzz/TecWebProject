@@ -1,13 +1,15 @@
 <?php 
     include_once 'db.php';
+
     session_start();
-    /*if(!isset($_SESSION['email']) || $_SESSION['is_admin'] === 1){
-        header("Location: ../index.html");
+    if(!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] !== 1){
+        echo json_encode(["error" => "Accesso Negato"]);
         exit();
-    }*/
+    }
+    
     $db = new database();
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];
+    if(isset($_POST['submit'])){
+        $id = $_POST['id'];
         $db->connect();
         $db->deleteProduct($id);
         $db->close();

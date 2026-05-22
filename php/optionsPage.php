@@ -1,6 +1,5 @@
 <?php
 include_once 'db.php';
-
 session_start();
 if(!isset($_SESSION['email'])){
     header("Location: ../index.html");
@@ -19,14 +18,25 @@ switch ($section) {
     case 'configurations':
         renderConfig($db);
         break;
+    case 'wishlist':
+        renderWishlist($db);
+        break;
     case 'security':
         renderSecurity($db);
         break;
     case 'products':
-        renderProducts($db);
+        if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === 1) {
+            renderProducts($db);
+        } else {
+            echo "Accesso negato.";
+        }
         break;
     case 'users':
-        renderUsers($db);
+        if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === 1) {
+            renderUsers($db);
+        } else {
+            echo "Accesso negato.";
+        }
         break;
     case 'logout':
         renderLogout($db);
@@ -36,8 +46,8 @@ $db->close();
 
 function renderOrders($db)
 {
-    echo "<h2 class='optionTitle'>Order history</h2>";
-    $products = $db->getOrderHistory('user');
+    echo "<h2>Order history</h2>";
+    $products = $db->getOrderHistory($_SESSION['email']);
     if ($products->num_rows > 0) {
         while ($row = $products->fetch_assoc()) {
             echo "<ul id='productsList'><li>" . "<p>" . $row["orderID"] . "</p><p>" . $row["orderDate"] . "</p><p>" . $row["productName"] . "</p><p>" . $row["price"] . "</p><p>" . $row["quantity"] . "</p></li></ul>";
@@ -49,54 +59,86 @@ function renderOrders($db)
 
 function renderConfig($db)
 {
-    echo "<h2 class='optionTitle'>Account Settings</h2>";
+    echo "<h2>Account Settings</h2>";
     $userInfo = $db->getUserInfo($_SESSION['email']);
-    if ($userInfo && $userInfo->num_rows > 0) {
+    if ($userInfo->num_rows > 0) {
         while ($row = $userInfo->fetch_assoc()) {
-            echo "
-            <div class='adminUpload'>
+            echo "<div class='adminUpload'>
                 <form action='php/modifyUserInfo.php' method='post'>
-                    <label for='first-name'>First Name</label>
-                    <input id='name' name='name' type='text' value='" . $row["name"] . "' autocomplete='given-name'>
+                <label for='first-name'>First Name</label>
+                <input id='name' name='name' type='text' value='" . $row["name"] . "' autocomplete='given-name'>
 
-                    <label for='last-name'>Last Name</label>
-                    <input id='surname' name='surname' type='text' value='" . $row["surname"] . "' autocomplete='family-name'>
+                <label for='last-name'>Last Name</label>
+                <input id='surname' name='surname' type='text' value='" . $row["surname"] . "' autocomplete='family-name'>
 
-                    <label for='email'>Email</label>
-                    <input id='email' name='email' type='email' value='" . $row["email"] . "' autocomplete='email'>
+                <label for='email'>Email</label>
+                <input id='email' name='email' type='email' value='" . $row["email"] . "' autocomplete='email'>
 
-                    <label for='phone'>Phone</label>
-                    <input id='phoneNumber' name='phoneNumber' type='tel' value='" . $row["phoneNumber"] . "' autocomplete='tel'>
+                <label for='phone'>Phone</label>
+                <input id='phoneNumber' name='phoneNumber' type='tel' value='" . $row["phoneNumber"] . "' autocomplete='tel'>
 
-                    <button name='submit' type='submit' class='button'>Save Changes</button>
-                </form>
-            </div>";
+                <button name='submit' type='submit' class='button'>Save Changes</button>
+            </form>
+        </div>";
         }
     } else {
         echo "No user info found.";
     }
 }
 
+function renderWishlist($db)
+{
+    echo "<h2>Wishlist</h2>";
+    $wishlist = $db->getWishlist($_SESSION['email']);
+    if ($wishlist->num_rows > 0) {
+        while ($row = $wishlist->fetch_assoc()) {
+            echo "<ul id='productsList'>
+                 <li class='wishlistItem'> 
+                    <p>" . $row["productName"] . "</p>
+                    <p>" . $row["price"] . "</p>
+                    <p>" . $row["description"] . "</p>
+                    <form action='php/wishlist-remove.php' method='post'>
+                     <input type='hidden' name='id' value='" . $row["id"] . "'>
+                    <button class='button remove-from-wishlist-btn' type='submit' name='rmvWishlist' style='background: none; border: none; cursor: pointer;'>
+                        <i class='far fa-heart' aria-hidden='true'></i> Rimuovi
+                    </button>
+                    </form>
+                  </li>
+                </ul> ";
+        }
+    } else {
+        echo "No products added to your wishlist yet.";
+    }
+}
+
 function renderSecurity($db)
 {
-    echo "<h2 class='optionTitle'>Security</h2>
-        <h3 class='section-title'>Change Password</h3>
+    echo "<h2>Security</h2>
+        <h2 class='section-title'>Change Password</h2>
         <div class='adminUpload'>
-            <form action='php/changePassword.php' method='post'>
+            <form action='php/changePassword.php' method='post' id='change-password-form'>
                 <label for='new-pwd'>New Password</label>
-                <input id='newPass' type='password' autocomplete='new-password'>
+                <input name='newPass' id='newPass' type='password' autocomplete='new-password'>
+
+                <div id='password-requirements'>
+                    <p id='requirement-1'>At least 8 Character</p>
+                    <p id='requirement-2'>At least a Number</p>
+                    <p id='requirement-3'>At least an Uppercase Letter</p>
+                    <p id='requirement-4'>At least a Special Character</p>
+                </div>
 
                 <label for='conf-pwd'>Confirm New Password</label>
-                <input id='confPass' type='password' autocomplete='new-password'>
-
-                <button type='submit' class='button'>Update Password</button>
+                <input name='confPass' id='confPass' type='password' autocomplete='new-password'>
+               
+                <p id='password-error' class='form-error-msg' style='color: red; display: none;'></p>
+                <button type='submit' name='submit' class='button'>Update Password</button>
             </form>
         </div>";
 }
 
 function renderProducts($db)
 {
-    echo "<h2 class='optionTitle'>Products</h2><br>";
+    echo "<h2>Products</h2><br>";
     echo "<div class='adminUpload'>
                   <form id='product-upload' action='php/optionsPage.php' method='POST'>
                       <h2>Add a new product</h2>
@@ -133,8 +175,12 @@ function renderProducts($db)
                     </div>
                     <p>In Stock: " . ($p['inStock'] == 1 ? 'Yes' : 'No') . "</p>
                     <p>Price: <strong>{$p['price']}€</strong></p> 
-                    <button onclick=\"deleteProduct('{$p['id']}')\">Delete</button>
-                    <button onclick=\"modifyProduct('{$p['id']}')\">Modify</button></li>";
+                    <form action='php/deleteProduct.php' method='post'>
+                        <input type='hidden' name='id' value='" . $p['id'] . "'>
+                        <input type='submit' name='submit' value='Delete' class='button'/>
+                    </form>
+                    <button class='button' onclick=\"window.location.href='modifyProduct.html?id={$p['id']}'\">Modify</button>
+                </li>";
         }
     } else {
         echo "<li>No products available.</li>";
@@ -144,45 +190,86 @@ function renderProducts($db)
 
 function renderUsers($db)
 {
-    echo "<h2 class='optionTitle'>Users</h2>";
-    echo "<div class='adminChoice'> <h3>Registered Users</h3> <ul id='productsList'>";
+    echo "<h2>Users</h2><br>";
+        echo "<div class='adminChoice'> <h3>Registered Users</h3> <ul id='productsList'>";
 
-    $result = $db->getUsers();
-    if ($result && $result->num_rows > 0) {
-        while ($u = $result->fetch_assoc()) {
-            echo "<li class='card'> 
+        $result = $db->getUsers();
+        if($result && $result->num_rows > 0){
+        while($u = $result->fetch_assoc()){
+            if($u['isAdmin'] == 1){
+                echo "<li class='card'> 
                     <h2>{$u['username']}</h2> 
                     <p>Name: {$u['name']} {$u['surname']}</p>
                     <p>Email: {$u['email']}</p>
-                    <p>Phone: {$u['phoneNumber']}</p>
-                    <p>Address: {$u['street']}, {$u['city']}, {$u['postalCode']}</p>";
+                    <p>Phone: {$u['phoneNumber']}</p>";
+            }
         }
-    } else {
-        echo "<li>No users registered.</li>";
-    }
-    echo "</ul></div>";
-    echo "<h2>Add admin account:</h2> 
-        <div class='adminUpload'>
-            <form action='php/register.php' method='post'>
+        } else {
+            echo "<li>No users registered.</li>";
+        }
+        echo "</ul></div>";
+        echo "<h2>Register admin account:</h2><br>
+        <div class='adminUpload'> 
+              <form action='php/register.php' method='post' id='access-form' novalidate>
+              <div class='form-group'>
+
+                <label for='email'>Email</label>
+                <input type='email' id='email-input' name='email' autocomplete='email' required>
+                <p class='form-error-msg'>Error placeholder</p>
+
+            </div>
+            <div class='form-group'>
+
+                <label for='password'>Password</label>
+                <input type='password' id='password-input' name='password' autocomplete='current-password' required>
+
+                <p>Password must contain:</p>
+
+                <div class='password-requirements'>
+                    <p id='requirement-1'>
+                        At least 8 Character
+                    </p>
+                    <p id='requirement-2'>
+                        At least a Number
+                    </p>
+                    <p id='requirement-3'>
+                        At least an Uppercase Letter
+                    </p>
+                    <p id='requirement-4'>
+                        At least a Special Character
+                    </p>
+                </div>
+
+            </div>
+            <div class='form-group'>
+
+                <label for='name'>Name</label>
+                <input type='text' id='name-input' name='name' autocomplete='given-name' required>
+                <p class='form-error-msg'>Error placeholder</p>
+
+            </div>
+            <div class='form-group'>
+
+                <label for='surname'>Surname</label>
+                <input type='text' id='surname-input' name='surname' autocomplete='family-name' required>
+                <p class='form-error-msg'>Error placeholder</p>
+            </div>
+            <div class='form-group'>
+                <label for='phone-input'>Phone Number</label>
+                <input type='text' id='phone-input' name='phone' required>
+                <p class='form-error-msg'>Error placeholder</p>
+            </div>
+            <input type='hidden' name='isAdmin' value='1'>
+            <button type='submit'>Create admin account</button>
+        </form></div><br>";
+
+        echo "<h2>Add admin account:</h2> 
+            <div class='adminUpload'>
+            <form action='php/changetoAdmin.php' method='post'>
                 <label for='username'>Username</label>
                 <input id='username' name='username' type='text' required>
 
-                <label for='password'>Password</label>
-                <input id='password' name='password' type='password' required>
-
-                <label for='name'>First Name</label>
-                <input id='name' name='name' type='text' required>
-
-                <label for='surname'>Last Name</label>
-                <input id='surname' name='surname' type='text' required>
-
-                <label for='email'>Email</label>
-                <input id='email' name='email' type='email' required>
-
-                <label for='phoneNumber'>Phone Number</label>
-                <input id='phoneNumber' name='phoneNumber' type='tel'>
-
-                <button name='register' type='submit' class='button'>Add Admin</button>
+                <input type='submit' name='submit' value='Add as Admin'/>
             </form>";
 
 }

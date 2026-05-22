@@ -29,6 +29,16 @@ class database
         return $result->num_rows > 0;
     }
 
+    public function addressidExists($addressid)
+    {
+        $sql = "SELECT addressID FROM address WHERE addressID = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bind_param('s', $addressid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->num_rows > 0;
+    }
+
     public function insertProduct($name, $price, $description, $imageUrl, $inStock = 1)
     {
         do {
@@ -72,12 +82,22 @@ class database
         $stmt->execute();
     }
 
-    public function registration($username, $password, $name, $surname, $email, $phoneNumber, $isAdmin)
+    public function registration($username, $password, $name, $surname, $email, $phoneNumber, $isAdmin, $address, $city, $cap, $province, $state)
     {
-        $hashedPassword = hash('sha256', $password);
-        $sql = "INSERT INTO users (username, password, name, surname, email, phoneNumber, isAdmin) VALUES (?,?,?,?,?,?,?)";
+        do {
+            $addressid = $this->generateRandomID();
+        } while ($this->addressidExists($addressid));
+        
+        $sqlAddress = "INSERT INTO address (addressID,address, city, cap, province, state) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmtAddress = $this->connection->prepare($sqlAddress);
+        $stmtAddress->bind_param('ssssss', $addressid, $address, $city, $cap, $province, $state);
+        $stmtAddress->execute();
+
+        
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO users (username, password, name, surname, email, phoneNumber, isAdmin, addressId) VALUES (?,?,?,?,?,?,?,?)";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('ssssssi', $username, $hashedPassword, $name, $surname, $email, $phoneNumber, $isAdmin);
+        $stmt->bind_param('ssssssis', $username, $hashedPassword, $name, $surname, $email, $phoneNumber, $isAdmin, $addressid);
         $result = $stmt->execute();
 
         return $result;
@@ -85,18 +105,19 @@ class database
 
     public function login($email, $password)
     {
-        $sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+        $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $this->connection->prepare($sql);
-        $password = hash('sha256', $password);
-        $stmt->bind_param('ss', $email, $password);
+        $stmt->bind_param('s', $email);
         $stmt->execute();
 
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
-            return $result->fetch_assoc();
-        } else {
-            return false;
+            $user = $result->fetch_assoc();
+            if (password_verify($password, $user['password'])) {
+                return $user;
+            }
         }
+        return false;
     }
 
     public function modifyProduct($id, $name, $price, $description, $imageUrl, $inStock)
@@ -116,42 +137,43 @@ class database
         return $stmt->get_result();
     }
 
-    public function getOrderHistory($username)
+    public function getOrderHistory($email)
     {
         $sql = "SELECT o.orderID, o.orderDate, p.productName, p.price, op.quantity
                     FROM orders o
                     JOIN order_items op ON o.orderID = op.orderID
                     JOIN products p ON op.product_id = p.id
-                    WHERE o.user = ?";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('s', $username);
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    public function getUserInfo($email)
-    {
-        $sql = "SELECT * FROM users WHERE email = ?";
+                    JOIN users u ON o.user = u.username
+                    WHERE u.email = ?";
         $stmt = $this->connection->prepare($sql);
         $stmt->bind_param('s', $email);
         $stmt->execute();
         return $stmt->get_result();
     }
 
-    public function modifyUserInfo($username, $name, $surname, $email, $phoneNumber, $street, $city, $postalCode)
+    public function getUserInfo($email)
     {
-        $sql = "UPDATE users SET name = ?, surname = ?, email = ?, phoneNumber = ?, street = ?, city = ?, postalCode = ? WHERE username = ?";
+        $sql = "SELECT username,name, surname, email, phoneNumber FROM users WHERE email = ?";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('ssssssss', $name, $surname, $email, $phoneNumber, $street, $city, $postalCode, $username);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    public function modifyUserInfo($email,$name, $surname, $newemail, $phoneNumber)
+    {
+        $sql = "UPDATE users SET name = ?, surname = ?, email = ?, phoneNumber = ? WHERE email = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bind_param('sssss', $name, $surname, $newemail, $phoneNumber, $email);
         return $stmt->execute();
     }
 
-    public function changePassword($username, $newPassword)
+    public function changePassword($email, $newPassword)
     {
-        $hashedPassword = hash('sha256', $newPassword);
-        $sql = "UPDATE users SET password = ? WHERE username = ?";
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $sql = "UPDATE users SET password = ? WHERE email = ?";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('ss', $hashedPassword, $username);
+        $stmt->bind_param('ss', $hashedPassword, $email);
         return $stmt->execute();
     }
 
@@ -163,23 +185,24 @@ class database
         return $stmt->execute();
     }
 
-    public function getWishlist($username)
+    public function getWishlist($email)
     {
-        $sql = "SELECT p.productName, p.price, p.description
+        $sql = "SELECT w.id, p.productName, p.price, p.description
                     FROM wishlist w
                     JOIN products p ON w.product_id = p.id
-                    WHERE w.user = ?";
+                    JOIN users u ON w.user = u.username
+                    WHERE u.email = ?";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('s', $username);
+        $stmt->bind_param('s', $email);
         $stmt->execute();
         return $stmt->get_result();
     }
 
-    public function removeFromWishlist($username, $productId)
+    public function removeFromWishlist($id)
     {
-        $sql = "DELETE FROM wishlist WHERE user = ? AND product_id = ?";
+        $sql = "DELETE FROM wishlist WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('ss', $username, $productId);
+        $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
 
@@ -203,6 +226,13 @@ class database
         } else {
             return false;
         }
+    }
+
+    public function makeAdmin($username){
+        $sql = "UPDATE users SET isAdmin = 1 WHERE username = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bind_param('s', $username);
+        return $stmt->execute();
     }
 }
 ?>

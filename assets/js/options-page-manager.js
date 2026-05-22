@@ -46,8 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const html = await risposta.text();
             areaContenuto.innerHTML = html;
 
+
             switch (sezione) {
                 case 'products': activateProductForm(); break;
+                case 'users': if(typeof initFormChecker === 'function') initFormChecker(); break;
+                case 'security': initSecurityPasswordChecker(); break;
             }
         }
 
@@ -70,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 productForm.addEventListener('submit', async (event) => {
                     event.preventDefault();
-
                     const formData = new FormData(productForm);
 
                     //TODO: segnalare nel form la mancanza del dato
@@ -89,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const result = await response.json();
                         if (result.success) {
                             console.log('Immagine salvata con successo');
+                            window.location.href = 'optionsPage.html?section=products';
                         }
                     }
                     catch (error) {
@@ -102,3 +105,126 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 })
+
+window.addEventListener('DOMContentLoaded',() => {
+    if(window.location.pathname.includes('modifyProduct.html')){
+        getProdotto();
+    }
+})
+
+function getProdotto(){
+    const id = new URLSearchParams(window.location.search).get('id');
+    document.getElementById('id').value = id;
+
+    fetch(`./php/singleInfo.php?id=${id}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('name').value = data.productName;
+            document.getElementById('price').value = data.price;
+            document.getElementById('description').value = data.description;
+            document.getElementById('inStock').checked = data.inStock == 1 ? true :false;
+
+            if(data.imageUrl){
+                document.getElementById('file-name-display').textContent = "File selezionato: " + data.imageUrl;
+            }
+        })
+}
+
+
+function initSecurityPasswordChecker() {
+    const form = document.getElementById('change-password-form');
+    const newPass = document.getElementById('newPass');
+    const confPass = document.getElementById('confPass');
+    const errorMsg = document.getElementById('password-error');
+    
+    const req1 = document.getElementById('requirement-1');
+    const req2 = document.getElementById('requirement-2');
+    const req3 = document.getElementById('requirement-3');
+    const req4 = document.getElementById('requirement-4');
+
+    if (!newPass || !form){
+        return;
+    }
+
+    function checkStrength(password){
+        return {
+            length: password.length >= 8,
+            number: /[0-9]/.test(password),
+            uppercase: /[A-Z]/.test(password),
+            special: /[^A-Za-z0-9]/.test(password)
+        };
+    }
+
+    newPass.addEventListener('input', () => {
+        const checks = checkStrength(newPass.value);
+        
+        req1.style.color = checks.length ? 'green' : 'red';
+        req2.style.color = checks.number ? 'green' : 'red';
+        req3.style.color = checks.uppercase ? 'green' : 'red';
+        req4.style.color = checks.special ? 'green' : 'red';
+    });
+
+    form.addEventListener('submit', (event) => {
+        const checks = checkStrength(newPass.value);
+        const isSecure = checks.length && checks.number && checks.uppercase && checks.special;
+
+        if (!isSecure) {
+            event.preventDefault();
+            errorMsg.innerText = "Password does not meet the requirements.";
+            errorMsg.style.display = "block";
+            return false;
+        }
+
+        if (newPass.value !== confPass.value) {
+            event.preventDefault(); 
+            errorMsg.innerText = "Passwords do not match.";
+            errorMsg.style.display = "block";
+            return false;
+        }
+
+        errorMsg.style.display = "none";
+        return true;
+    });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname.includes('modifyProduct.html')) {
+        const modifyForm = document.getElementById('product-upload');
+        const fileInput = document.getElementById('image-upload');
+        const fileNameDisplay = document.getElementById('file-name-display');
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                fileNameDisplay.textContent = file.name;
+            }
+        });
+
+        modifyForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const formData = new FormData(modifyForm);
+            formData.append('submit', 'true'); 
+
+            try {
+                const response = await fetch('php/modifyProduct.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert('Prodotto modificato con successo!');
+                    window.location.href = 'optionsPage.html?section=products'; 
+                } else {
+                    alert('Errore durante la modifica: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Errore di connessione:', error);
+                alert('Impossibile connettersi al server per salvare le modifiche.');
+            }
+        });
+    }
+});
+
+

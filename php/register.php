@@ -1,37 +1,67 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include_once 'db.php';
 session_start();
 
-$data = json_decode(file_get_contents("php://input"), true);
+header('Content-Type: application/json');
 
-if ($data) {
-    $username = $data['username'];
-    $password = $data['password'];
-    $name = $data['name'];
-    $surname = $data['surname'];
-    $email = $data['email'];
-    $phoneNumber = $data['phone'];
-    $isAdmin = $data['isAdmin'];
-    
+$inputData = json_decode(file_get_contents("php://input"), true);
+
+if (!empty($inputData)) {
+    $username    = $inputData['username'];
+    $password    = $inputData['password'];
+    $name        = $inputData['name'];
+    $surname     = $inputData['surname'];
+    $email       = $inputData['email'];
+    $phoneNumber = $inputData['phone'];
+
+    $isAdmin = 0;
+    if(isset($inputData['isAdmin'])) {
+        if($inputData['isAdmin'] === true || $inputData['isAdmin'] === "true" || $inputData['isAdmin'] === 1 || $inputData['isAdmin'] === "1") {
+            $isAdmin = 1;
+        }
+    }
+
+    if(isset($inputData['street']) && isset($inputData['city']) && isset($inputData['postalCode']) && isset($inputData['province']) && isset($inputData['state'])) {
+        $address = $inputData['street'];
+        $city = $inputData['city'];
+        $cap = $inputData['postalCode'];
+        $province = $inputData['province'];
+        $state = $inputData['state'];
+    } else {
+        $address = null;
+        $city = null;
+        $cap = null;
+        $province = null;
+        $state = null;
+    }
+
     $db = new database();
     $db->connect();
-    $result = $db->registration($username, $password, $name, $surname, $email, $phoneNumber, $isAdmin);
-    $db->close();
+    $result = $db->registration($username, $password, $name, $surname, $email, $phoneNumber, $isAdmin, $address, $city, $cap, $province, $state);
+    
 
     if ($result) {
-        session_regenerate_id(true);
-        $_SESSION['email'] = $email;
-        $_SESSION['is_admin'] = 0; //Default
-
-        echo json_encode(["success" => true]);
+        if(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
+            echo json_encode(["success" => true, "stayOnPage" => true]);
+            $db->close();
+            exit();
+        } else {
+            $_SESSION['email'] = $email;
+            $_SESSION['isAdmin'] = $isAdmin;
+            session_write_close();
+            echo json_encode(["success" => true, "stayOnPage" => false]);
+            $db->close();
+            exit();
+        }
     } else {
-        echo json_encode(["success" => false]);
+        echo json_encode(["success" => false, "message" => "Registration failed. Please try again."]);
+        $db->close();
+        exit();
     }
-} else {
-    echo json_encode(["success" => false]);
 }
+else{
+    echo json_encode(["success" => false, "message" => "No data received"]);
+    $db->close();
+    exit();
+} 
 ?>
