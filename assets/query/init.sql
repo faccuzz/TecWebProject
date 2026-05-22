@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS wishlist;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS address;
@@ -7,11 +8,11 @@ DROP TABLE IF EXISTS address;
 
 CREATE TABLE address (
     addressID varchar(10) PRIMARY KEY,
-    address varchar(50) NOT NULL,
-    city varchar(25) NOT NULL,
-    cap varchar(10) NOT NULL,
-    province varchar(10) NOT NULL,
-    state varchar(25) NOT NULL
+    address varchar(50),
+    city varchar(25),
+    cap varchar(10),
+    province varchar(10),
+    state varchar(25)
 );
 
 INSERT INTO address(addressID, address, city, cap, province, state) VALUES
@@ -44,7 +45,13 @@ CREATE TABLE products(
 
 INSERT INTO products(id,productName,price,description,imageUrl) VALUES
 ('A7B9C0D3E1','Green Bottle',14.99,'The newest bottle made of green materials, part of the new Elementals Collection',''),
-('F5G8H2J4K6','Fire Bottle',14.99,'The newest bottle made of fire? Be careful, part of the new Elementals Collection','');
+('F5G8H2J4K6','Fire Bottle',14.99,'The newest bottle made of fire? Be careful, part of the new Elementals Collection',''),
+('JD7SKEL098','Ice Bottle',14.99,'The newest bottle made of ice? Be careful, part of the new Elementals Collection',''),
+('KSJGIE8685','Air Bottle',14.99,'The newest bottle made of air? Be careful, part of the new Elementals Collection',''),
+('84KD8F7GLH','Yellow Bottle',11.99,'A nice and beatiful yellow bottle',''),
+('S84IT09909','Clean Bottle',13.99,'The newest clean bottle',''),
+('SLOIUAMJG0','Rose Bottle',11.99,'A nice and beatiful rose bottle',''),
+('SKAJSOEL9K','Blue Bottle',11.99,'A nice and beatiful blue bottle','');
 
 
 CREATE TABLE orders(
@@ -71,3 +78,16 @@ CREATE TABLE order_items(
 INSERT INTO order_items(orderID,product_id,quantity) VALUES
 ('A7B9DS3E1','A7B9C0D3E1',2),
 ('GDFFDJ4K6','F5G8H2J4K6',1);
+
+
+CREATE TABLE wishlist(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    user varchar(25) NOT NULL,
+    product_id char(10) NOT NULL,
+    FOREIGN KEY (user) REFERENCES users(username) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+INSERT INTO wishlist(user,product_id) VALUES
+('user','A7B9C0D3E1');
+

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modify Page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style/style.css" type="text/css" />
+    <link rel="stylesheet" href="style/components.css" type="text/css" />
+    <link rel="stylesheet" href="style/layout.css" type="text/css" />
+    <script src="assets/js/options-page-manager.js" defer></script>
+  </head>
+  <body>
+    <header class="hero home-table-bg">
+      <!--Aggiungere bottone per tornare a home-->
+      <h1>Creative Rebirth</h1>
+    </header>
+    <div class="adminUpload">
+      <form id="product-upload" action="php/modifyProduct.php" method="POST" enctype="multipart/form-data">
+        <h2>Modify Product</h2>
+        <input type="hidden" id="id" name="id">
+        <label for="nome">Product Name:</label>
+        <input type="text" id="name" name="name" required />
+        <label for="descrizione">Product Description:</label>
+        <input type="text" id="description" name="description" required />
+        <label for="prezzo">Product Price:</label>
+        <input type="number" step="0.01" id="price" name="price" required />
+        <label for="image-upload" class="button">
+          <i class="fas fa-camera"></i> Seleziona immagine
+        </label>
+        <input
+          type="file"
+          id="image-upload"
+          name="image"
+          accept="image/png, image/jpg, image/jpeg, image/webp"
+        />
+        <p id="file-name-display">Nessun file selezionato</p>
+        <br />
+        <label for="inStock">In Stock:</label>
+        <select id="inStock" name="inStock" required>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+        <input type="submit" name="submit" value="Modify Product" class="button" />
+      </form>
+    </div>
+  </body>
+</html>

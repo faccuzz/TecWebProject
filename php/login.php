@@ -1,5 +1,6 @@
 <?php
 include_once 'db.php';
+header('Content-Type: application/json');
 $data = json_decode(file_get_contents("php://input"), true);
 
 if ($data) {
@@ -23,9 +24,9 @@ if ($data) {
 
         echo json_encode(["success" => true]);
     } else {
-        echo json_encode(["success" => false]);
+        echo json_encode(["success" => false, "message" => "Invalid credentials"]);
     }
 } else {
-    echo json_encode(["success" => false]);
+    echo json_encode(["success" => false, "message" => "No data received"]);
 }
 ?>

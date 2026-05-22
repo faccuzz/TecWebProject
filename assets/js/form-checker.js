@@ -1,34 +1,51 @@
-const emailInput = document.getElementById('email-input');
-const passwordInput = document.getElementById('password-input');
-const nameInput = document.getElementById('name-input');
-const surnameInput = document.getElementById('surname-input');
-const phoneInput = document.getElementById('phone-input');
+let emailInput, passwordInput, nameInput, surnameInput, phoneInput;
+let form, txtRequirement1, txtRequirement2, txtRequirement3, txtRequirement4;
+let phoneInputContainer;
 
-const form = document.getElementById('access-form');
-const txtRequirement1 = document.getElementById('requirement-1');
-const txtRequirement2 = document.getElementById('requirement-2');
-const txtRequirement3 = document.getElementById('requirement-3');
-const txtRequirement4 = document.getElementById('requirement-4');
+function initFormChecker() {
+    emailInput = document.getElementById('email-input');
+    passwordInput = document.getElementById('password-input');
+    nameInput = document.getElementById('name-input');
+    surnameInput = document.getElementById('surname-input');
+    phoneInput = document.getElementById('phone-input');
+    form = document.getElementById('access-form');
+    
+    txtRequirement1 = document.getElementById('requirement-1');
+    txtRequirement2 = document.getElementById('requirement-2');
+    txtRequirement3 = document.getElementById('requirement-3');
+    txtRequirement4 = document.getElementById('requirement-4');
 
-/**
- * Libreria intlTelInput
- * Utile per verificare i numeri di telefono e vari prefissi automaticamente
- */
-let phoneInputContainer; //Istanziazione libreria, lo script crea un container sull'input nell'html
-const phoneInputField = document.getElementById("phone-input");
+    if (phoneInput && window.intlTelInput) {
+        try {
+            phoneInputContainer = window.intlTelInput(phoneInput, {
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+                preferredCountries: ["it", "fr", "de", "gb"],
+                separateDialCode: true,
+                dropdownContainer: document.body,
+            });
+        } catch (err) {
+            console.error("Errore caricamento intlTelInput:", err);
+        }
+    }
 
-if (phoneInput && window.intlTelInput) {
-    try {
-        phoneInputContainer = window.intlTelInput(phoneInput, {
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-            preferredCountries: ["it", "fr", "de", "gb"],
-            separateDialCode: true,
-            dropdownContainer: document.body,
+    if (form) {
+        form.removeAttribute('action'); 
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            nameInput ? register() : login();
         });
-    } catch (err) {
-        console.error("Errore caricamento intlTelInput:", err);
+    }
+
+    if (passwordInput && txtRequirement1) {
+        passwordInput.addEventListener('input', () => {
+            const ps = verifyPasswordStrength();
+            if (ps) updateRequirementsUI(ps.checks);
+        });
     }
 }
+
+document.addEventListener('DOMContentLoaded', initFormChecker);
 
 function verifyEmail() {
     if (emailInput && emailInput.checkValidity()) return true;
@@ -107,6 +124,9 @@ async function grantAccess() {
 }
 
 async function registerUser() {
+    const isAdminField = form.querySelector('input[name="isAdmin"]');
+    const isAdminValue = isAdminField ? parseInt(isAdminField.value) : 0;
+
     const accountDetails = {
         'username': emailInput.value.split('@')[0],
         'email': emailInput.value,
@@ -114,7 +134,7 @@ async function registerUser() {
         'name': nameInput.value,
         'surname': surnameInput.value,
         'phone': phoneInput.value,
-        'isAdmin': 0,
+        'isAdmin': isAdminValue,
     };
 
     try {
@@ -128,7 +148,7 @@ async function registerUser() {
 
         const data = await response.json();
 
-        return data.success;
+        return data;
 
     } catch (error) {
         console.error("Errore durante la registrazione:", error);
@@ -158,10 +178,22 @@ async function register() {
     if (validRegistration === 5) {
         const isRegistered = await registerUser();
 
-        if (isRegistered) {
-            redirect();
-        } else {
-            alert('Errore durante la registrazione');
+        if(isRegistered && isRegistered.success === true || isRegistered.success === "true"){
+            if(isRegistered.stayOnPage === true) {
+                alert('Admin account created successfully!');
+                form.reset();
+                if (typeof txtRequirement1 !== 'undefined') {
+                    updateRequirementsUI({length:true, number:true, uppercase:true, special:true});
+                }
+
+                if(typeof caricaDati === 'function'){
+                    caricaDati('users');
+                }
+                window.location.href = 'optionsPage.html?section=users';
+            }
+            else{
+                redirect();
+            }
         }
     }
 }
@@ -210,15 +242,3 @@ function redirect() {
     window.location.replace('index.html');
 }
 
-if (form) form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    nameInput ? register() : login();
-});
-
-if (passwordInput) {
-    passwordInput.addEventListener('input', () => {
-        const ps = verifyPasswordStrength();
-        updateRequirementsUI(ps.checks);
-    });
-}

@@ -35,14 +35,14 @@
         <form action="php/register.php" method="post" id="access-form" novalidate>
             <div class="form-group">
 
-                <label for="email-input">Email</label>
+                <label for="email">Email</label>
                 <input type="email" id="email-input" name="email" autocomplete="email" required>
                 <p class="form-error-msg">Error placeholder</p>
 
             </div>
             <div class="form-group">
 
-                <label for="password-input">Password</label>
+                <label for="password">Password</label>
                 <input type="password" id="password-input" name="password" autocomplete="current-password" required>
 
                 <p>Password must contain:</p>
@@ -65,14 +65,14 @@
             </div>
             <div class="form-group">
 
-                <label for="name-input">Name</label>
+                <label for="name">Name</label>
                 <input type="text" id="name-input" name="name" autocomplete="given-name" required>
                 <p class="form-error-msg">Error placeholder</p>
 
             </div>
             <div class="form-group">
 
-                <label for="surname-input">Surname</label>
+                <label for="surname">Surname</label>
                 <input type="text" id="surname-input" name="surname" autocomplete="family-name" required>
                 <p class="form-error-msg">Error placeholder</p>
             </div>
@@ -81,7 +81,7 @@
                 <input type="text" id="phone-input" name="phone" required>
                 <p class="form-error-msg">Error placeholder</p>
             </div>
-            
+            <input type="hidden" name="isAdmin" value="0">
             <button type="submit">Create account</button>
         </form>
         <a class="register" href="login.html">Login</a>
