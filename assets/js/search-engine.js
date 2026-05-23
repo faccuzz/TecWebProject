@@ -12,7 +12,7 @@ async function init() {
 
 
         if (resultGrid) {
-            renderGrid(products.slice(0, 8));
+            renderGrid(products);
         }
 
     } catch (error) {
@@ -103,7 +103,7 @@ if (searchInput) {
 
         if (searchValue === '') {
             if (resultList) resultList.style.display = 'none';
-            if (resultGrid) renderGrid(products.slice(0,8));
+            if (resultGrid) renderGrid(products);
             return;
         }
         else {
