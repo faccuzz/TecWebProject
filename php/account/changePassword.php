@@ -1,9 +1,9 @@
 <?php 
-    include_once 'db.php';
+    include_once '../db.php';
     
     session_start();
     if(!isset($_SESSION['email'])){
-        header("Location: ../index.html");
+        header("Location: ../../index.html");
         exit();
     }
 
@@ -13,7 +13,7 @@
         $confermPass = $_POST['confPass'];
 
         if($password !== $confermPass){
-            header("Location: ../optionsPage.html?section=security&error=Passwords do not match");
+            header("Location: ../../optionsPage.html?section=security&error=Passwords do not match");
             exit();
         }
 
@@ -23,12 +23,12 @@
         $db->close();
 
         if($modify){
-            header("Location: ../optionsPage.html?section=security&success=Password changed successfully");
+            header("Location: ../../optionsPage.html?section=security&success=Password changed successfully");
             exit();
         }
     }
     else {
-        header("Location: ../optionsPage.html?section=security");
+        header("Location: ../../optionsPage.html?section=security");
         exit();
     }
 ?>

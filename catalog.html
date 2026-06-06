@@ -5,18 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="./style/style.css" type="text/css" />
-  <link rel="stylesheet" href="./style/components.css" type="text/css" />
-  <link rel="stylesheet" href="./style/layout.css" type="text/css" />
+  <link rel="stylesheet" href="style/desktop.css">
+  <link rel="stylesheet" href="style/mobile.css">
+  <link rel="stylesheet" media="print" href="style/print.css">
 
   <script src="./assets/js/animation.js" defer></script>
   <script src="./assets/js/bridge.js" defer></script>
-  <script src="./assets/js/search-engine.js" defer></script>
-    <script src="assets/js/account-menu.js" defer></script>
+  <script src="./assets/js/product/search-engine.js" defer></script>
+    <script src="assets/js/account/account-menu.js" defer></script>
   <title>Items</title>
 </head>
 
 <body>
+  <a href="#main-content" class="sr-only sr-only--focusable">Skip to main content</a>
   <header>
     <nav>
         <div class="nav-links">
@@ -28,11 +29,11 @@
         <div class="logo">LUMEN SPIRITS</div>
 
         <div class="nav-icons">
-            <div class="home-search-box" id="search-input">
+            <div class="home-search-box" id="nav-search-box">
                 <input type="text" class="home-search-bar" placeholder="Search..." aria-label="Search items">
                 <div class="result-list"></div>
             </div>
-            <i class="fas fa-search" id="home-search-button"></i>
+            <button class="nav-search-button" id="home-search-button" aria-label="Open search" aria-expanded="false"><i class="fas fa-search" aria-hidden="true"></i></button>
             <div class="account-box">
                 <button id="account-button" class="account-icon-button" aria-haspopup="true" aria-expanded="false"
                     aria-label="Menu account">
@@ -48,8 +49,9 @@
                 </div>
             </div> <a href="cart.html" aria-label="Shopping Cart"><i class="fas fa-shopping-bag"></i></a>
         </div>
+    </nav>
   </header>
-  <main>
+  <main id="main-content">
     <section class="hero-padding mid-height align-center">
       <div class="catalog-search-box">
         <i class="fas fa-search search-icon"></i>
@@ -81,8 +83,9 @@
     <div class="footer-column newsletter-column">
       <h3 class="footer-title">Subscribe to our community!</h3>
       <form class="newsletter-form">
-        <input type="email" placeholder="email" required>
-        <button type="submit"></button>
+        <label for="newsletter-email" class="sr-only">Email</label>
+        <input type="email" id="newsletter-email" placeholder="email" required>
+        <button type="submit" aria-label="Subscribe to newsletter"><i class="fas fa-paper-plane" aria-hidden="true"></i></button>
       </form>
     </div>
   </footer>

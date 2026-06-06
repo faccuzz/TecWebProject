@@ -5,17 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style/style.css" type="text/css">
-    <link rel="stylesheet" href="style/components.css" type="text/css">
-    <link rel="stylesheet" href="style/layout.css" type="text/css">
+    <link rel="stylesheet" href="style/desktop.css">
+    <link rel="stylesheet" href="style/mobile.css">
+    <link rel="stylesheet" media="print" href="style/print.css">
 
     <script src="assets/js/animation.js" defer></script>
-    <script src="assets/js/search-engine.js" defer></script>
-    <script src="assets/js/account-menu.js" defer></script>
+    <script src="assets/js/product/search-engine.js" defer></script>
+    <script src="assets/js/account/account-menu.js" defer></script>
     <title>Contacts page</title>
 </head>
 
 <body>
+    <a href="#main-content" class="sr-only sr-only--focusable">Skip to main content</a>
     <header>
         <nav>
             <div class="nav-links">
@@ -31,7 +32,7 @@
                     <input type="text" class="home-search-bar" placeholder="Search..." aria-label="Search items">
                     <div class="result-list"></div>
                 </div>
-                <i class="fas fa-search" id="home-search-button"></i>
+                <button class="nav-search-button" id="home-search-button" aria-label="Open search" aria-expanded="false"><i class="fas fa-search" aria-hidden="true"></i></button>
                 <div class="account-box">
                     <button id="account-button" class="account-icon-button" aria-haspopup="true" aria-expanded="false"
                         aria-label="Menu account">
@@ -49,7 +50,7 @@
             </div>
         </nav>
     </header>
-    <main>
+    <main id="main-content">
         <section class="hero hero-padding mid-height align-center">
             <h2 class="section-title">Contacts</h2>
             <div class="descr">
@@ -62,35 +63,35 @@
                     <form action="#" method="post">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" name="name" autocomplete="name" required>
-                            <p class="form-error-msg">Error placeholder</p>
+                            <input type="text" id="name" name="name" autocomplete="name" aria-describedby="contact-name-error" required>
+                            <p class="form-error-msg" id="contact-name-error" role="alert">Error placeholder</p>
                         </div>
                         <div class="form-group">
                             <label for="surname">Surname</label>
-                            <input type="text" id="surname" name="surname" autocomplete="family-name" required>
-                            <p class="form-error-msg">Error placeholder</p>
+                            <input type="text" id="surname" name="surname" autocomplete="family-name" aria-describedby="contact-surname-error" required>
+                            <p class="form-error-msg" id="contact-surname-error" role="alert">Error placeholder</p>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" autocomplete="email" required>
-                            <p class="form-error-msg">Error placeholder</p>
+                            <input type="email" id="email" name="email" autocomplete="email" aria-describedby="contact-email-error" required>
+                            <p class="form-error-msg" id="contact-email-error" role="alert">Error placeholder</p>
                         </div>
                         <div class="form-group">
                             <label for="subject">What can we help you with?</label>
-                            <select id="subject" name="subject" required>
+                            <select id="subject" name="subject" aria-describedby="contact-subject-error" required>
                                 <option value="" disabled selected>Select a topic...</option>
                                 <option value="order">Questions about an order / Shipping</option>
                                 <option value="damage">My item arrived damaged</option>
                                 <option value="custom">Custom pieces for events</option>
                                 <option value="general">General inquiry</option>
                             </select>
-                            <p class="form-error-msg">Error placeholder</p>
+                            <p class="form-error-msg" id="contact-subject-error" role="alert">Error placeholder</p>
                         </div>
                         <div class="form-group">
                             <label for="message">Add comment</label>
-                            <textarea id="message" name="message" rows="4"
+                            <textarea id="message" name="message" rows="4" aria-describedby="contact-message-error"
                                 placeholder="Tell us more about what you need..." required></textarea>
-                            <p class="form-error-msg">Error placeholder</p>
+                            <p class="form-error-msg" id="contact-message-error" role="alert">Error placeholder</p>
                         </div>
                         <button type="submit">Send message</button>
                     </form>
@@ -115,11 +116,9 @@
                         <h4>Social Media</h4>
                         <p>Don't miss out latest bright ideas!</p>
                         <ul class="social-links">
-                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f fa-fw"></i>&nbsp;Facebook</a>
-                            </li>
-                            <li><a href="#" target="_blank"><i class="fab fa-instagram fa-fw"></i>&nbsp;Instagram</a>
-                            </li>
-                            <li><a href="#" target="_blank"><i class="fab fa-tiktok fa-fw"></i>&nbsp;Tiktok</a></li>
+                            <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f fa-fw" aria-hidden="true"></i>&nbsp;Facebook<span class="sr-only"> (opens in new tab)</span></a></li>
+                            <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-fw" aria-hidden="true"></i>&nbsp;Instagram<span class="sr-only"> (opens in new tab)</span></a></li>
+                            <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok fa-fw" aria-hidden="true"></i>&nbsp;Tiktok<span class="sr-only"> (opens in new tab)</span></a></li>
                         </ul>
                     </div>
                 </aside>
@@ -147,7 +146,7 @@
         </div>
 
         <div class="footer-column newsletter-column">
-            <h2 class="footer-title">Subscribe to our community!</h2>
+            <h3 class="footer-title">Subscribe to our community!</h3>
             <form class="newsletter-form">
                 <label for="email-newsletter" class="sr-only">Email</label>
                 <input type="email" id="email-newsletter" placeholder="email" required>

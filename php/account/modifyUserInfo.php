@@ -1,11 +1,9 @@
 <?php 
-    include_once 'db.php';
+    include_once '../db.php';
     header('Content-Type: application/json');
-    error_reporting(E_ALL);
-
     session_start();
     if(!isset($_SESSION['email'])){
-        header("Location: ../index.html");
+        header("Location: ../../index.html");
         exit();
     }
     
@@ -23,7 +21,7 @@
 
         if($modify){
             $_SESSION['email'] = $email;
-            header("Location: ../optionsPage.html");
+            header("Location: ../../optionsPage.html");
             exit();
         }
     }

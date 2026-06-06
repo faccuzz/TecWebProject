@@ -7,7 +7,10 @@ searchButton.addEventListener('click', (e) => {
 
     searchBox.classList.toggle('active');
 
-    if(searchBox.classList.contains('active')){
+    const isOpen = searchBox.classList.contains('active');
+    searchButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+    if (isOpen) {
         searchBar.focus();
     }
 });

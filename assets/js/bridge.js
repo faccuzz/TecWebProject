@@ -1,6 +1,6 @@
 async function fetchProducts(category = '', value = '') {
     try {
-        let url = './php/getProducts.php';
+        let url = './php/product/getProducts.php';
         if(category !== '') url += `?category=${encodeURIComponent(category)}&value=${encodeURIComponent(value)}`;
         const risposta = await fetch(url);
         
@@ -19,7 +19,7 @@ async function fetchProducts(category = '', value = '') {
 
 async function sendCartAction(action, payload = {}) {
     try {
-        const response = await fetch('./php/cartManager.php', {
+        const response = await fetch('./php/cart/cartManager.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

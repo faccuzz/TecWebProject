@@ -66,11 +66,6 @@ class database
 
     public function deleteProduct($id)
     {
-        $queryWish = "DELETE FROM wishlist WHERE product_id = ?";
-        $stmtWish = $this->connection->prepare($queryWish);
-        $stmtWish->bind_param('s', $id);
-        $stmtWish->execute();
-
         $queryItems = "DELETE FROM order_items WHERE product_id = ?";
         $stmtItems = $this->connection->prepare($queryItems);
         $stmtItems->bind_param('s', $id);
@@ -128,6 +123,27 @@ class database
         return $stmt->execute();
     }
 
+    public function modifyProductWithoutImage($id, $name, $price, $description, $inStock)
+    {
+        $sql = "UPDATE products SET productName = ?, price = ?, description = ?, inStock = ? WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bind_param('sdsis', $name, $price, $description, $inStock, $id);
+        return $stmt->execute();
+    }
+
+    public static function validateAndMoveImage($image, $name, $destinationFolder)
+    {
+        if ($image['size'] > 2 * 1024 * 1024)
+            return ['error' => 'Immagine troppo grande'];
+        if (!in_array($image['type'], ['image/jpg', 'image/jpeg', 'image/png', 'image/webp']))
+            return ['error' => 'Formato non valido'];
+        $ext = pathinfo($image['name'], PATHINFO_EXTENSION);
+        $imageName = strtolower(preg_replace('/\s+/', '', $name)) . '_' . time() . '.' . $ext;
+        if (!move_uploaded_file($image['tmp_name'], $destinationFolder . $imageName))
+            return ['error' => 'Errore nel caricamento del file sul server'];
+        return ['success' => true, 'image_name' => $imageName];
+    }
+
     public function getProductById($id)
     {
         $sql = "SELECT id,productName,price,description,imageUrl,inStock FROM products WHERE id = ?";
@@ -174,35 +190,6 @@ class database
         $sql = "UPDATE users SET password = ? WHERE email = ?";
         $stmt = $this->connection->prepare($sql);
         $stmt->bind_param('ss', $hashedPassword, $email);
-        return $stmt->execute();
-    }
-
-    public function addToWishlist($username, $productId)
-    {
-        $sql = "INSERT INTO wishlist (user, product_id) VALUES (?, ?)";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('ss', $username, $productId);
-        return $stmt->execute();
-    }
-
-    public function getWishlist($email)
-    {
-        $sql = "SELECT w.id, p.productName, p.price, p.description
-                    FROM wishlist w
-                    JOIN products p ON w.product_id = p.id
-                    JOIN users u ON w.user = u.username
-                    WHERE u.email = ?";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    public function removeFromWishlist($id)
-    {
-        $sql = "DELETE FROM wishlist WHERE id = ?";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
 

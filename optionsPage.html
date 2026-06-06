@@ -5,27 +5,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Options Page</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="style/style.css" type="text/css" />
-  <link rel="stylesheet" href="style/components.css" type="text/css" />
-  <link rel="stylesheet" href="style/layout.css" type="text/css" />
-  <script src="assets/js/options-page-manager.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style/desktop.css">
+  <link rel="stylesheet" href="style/mobile.css">
+  <link rel="stylesheet" media="print" href="style/print.css">
+  <script src="assets/js/options/options-page-manager.js" defer></script>
   <script src="assets/js/animation.js" defer></script>
   <!--IntlTelInput Libray-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js" defer></script>
 
-    <script src="assets/js/form-checker.js" defer></script>
+    <script src="assets/js/account/form-checker.js" defer></script>
 </head>
 
 <body>
-  <div id="page-loader" class="loader-overlay">
+  <a href="#main-content" class="sr-only sr-only--focusable">Skip to main content</a>
+  <div id="page-loader" class="loader-overlay" role="status" aria-live="polite">
     <div class="spinner"></div>
   </div>
 
   <nav>
       <div class="nav-links">
-        <a href="index.html"><i class="fa-solid fa-arrow-left"></i></a>
+        <a href="index.html" aria-label="Back to home"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></a>
       </div>
 
       <div class="logo">LUMEN SPIRITS</div>
@@ -33,25 +34,26 @@
       <div class="nav-icons"></div>
     </nav>
 
-  <div class="optionsPageContainer" id="main-content">
+  <main class="optionsPageContainer" id="main-content">
+    <h1 class="sr-only">Account Options</h1>
     <aside class="sidebarOp">
-      <h3>User Menu</h3>
+      <h2>User Menu</h2>
       <ul id="menu-nav">
-        <li sessionOp="orderHistory">Order History</li>
-        <li sessionOp="configurations">Account Settings</li>
-        <li sessionOp="security">Security</li>
-        <li class="admin-only" sessionOp="products">Products</li>
-        <li class="admin-only" sessionOp="users">Users</li>
-        <li sessionOp="logout">Logout</li>
+        <li data-section="orderHistory"><button type="button" data-section="orderHistory">Order History</button></li>
+        <li data-section="configurations"><button type="button" data-section="configurations">Account Settings</button></li>
+        <li data-section="security"><button type="button" data-section="security">Security</button></li>
+        <li class="admin-only" data-section="products"><button type="button" data-section="products">Products</button></li>
+        <li class="admin-only" data-section="users"><button type="button" data-section="users">Users</button></li>
+        <li data-section="logout"><button type="button" data-section="logout">Logout</button></li>
       </ul>
     </aside>
 
-    <main class="contentOp" id="contentZone">
+    <section class="contentOp" id="contentZone">
       <div class="placeholderOp">
         <p>Select an option to see the details</p>
       </div>
-    </main>
-  </div>
+    </section>
+  </main>
 </body>
 
 </html>

@@ -60,7 +60,7 @@ function activateRemovalButton(){
     if(!cartInformation || cartInformation.length === 0) return;
 
     cartInformation.forEach(product => {
-        removalButton = document.getElementById(`btn-${product.id}`);
+        const removalButton = document.getElementById(`btn-${product.id}`);
         removalButton.addEventListener('click', () => {
             removeFromCart(product.id);
         })
@@ -71,7 +71,7 @@ function activateQuantityInput(){
     if(!cartInformation || cartInformation.length === 0) return;
 
     cartInformation.forEach(product => {
-        quantityButton = document.getElementById(`qty-${product.id}`);
+        const quantityButton = document.getElementById(`qty-${product.id}`);
         quantityButton.addEventListener('change', (event) => {
             const newQuantity = parseInt(event.target.value);
 
@@ -108,13 +108,13 @@ function renderCartPage() {
 
         cartRow.innerHTML = `
             
-            <img class="productCartImage" src="assets/img/${product.imageUrl}" alt="Vodka Industrial Lamp">
+            <img class="productCartImage" src="assets/img/${product.imageUrl}" alt="${product.productName}">
             <a href="item.html?id=${product.id}" class="productCartName">${product.productName}</a>
             <div class="productQuantity">
                 <label for="qty-${product.id}">Quantity</label>
                 <input class="productCartQuantityInput" type="number" min="1" name="itemQuantity" id="qty-${product.id}" value="${product.quantity}" />
             </div>
-            <button class="productCartRemovalButton button" id=btn-${product.id} type="button">Remove product</button>            
+            <button class="productCartRemovalButton button" id="btn-${product.id}" type="button">Remove product</button>
         `;
 
         cartContainer.appendChild(cartRow);
@@ -123,6 +123,14 @@ function renderCartPage() {
     activateRemovalButton();
     activateQuantityInput();
     updateTotalCartPrice();
+
+    const announcement = document.getElementById('cart-announcement');
+    if (announcement) {
+        const total = cartInformation.reduce((sum, p) => sum + p.price * p.quantity, 0);
+        announcement.textContent = cartInformation.length === 0
+            ? 'Cart is empty'
+            : `Cart updated: ${cartInformation.length} item(s), total $${total.toFixed(2)}`;
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

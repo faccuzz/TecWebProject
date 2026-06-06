@@ -1,5 +1,5 @@
 <?php 
-    include_once 'db.php';
+    include_once '../db.php';
 
     session_start();
     if(!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] !== 1){
@@ -14,7 +14,7 @@
         $db->deleteProduct($id);
         $db->close();
 
-        header("Location: ../optionsPage.html");
+        header("Location: ../../optionsPage.html");
         exit();
     }
 ?>

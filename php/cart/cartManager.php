@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'db.php';
+include_once '../db.php';
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['cart'])) {

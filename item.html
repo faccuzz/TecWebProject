@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./style/style.css" type="text/css">
-    <link rel="stylesheet" href="./style/components.css" type="text/css">
-    <link rel="stylesheet" href="./style/layout.css" type="text/css">
+    <link rel="stylesheet" href="style/desktop.css">
+    <link rel="stylesheet" href="style/mobile.css">
+    <link rel="stylesheet" media="print" href="style/print.css">
     <title>Gin&amp;Jute – Dettaglio</title>
 
     <script src="./assets/js/bridge.js" defer></script>
-    <script src="./assets/js/item-loader.js" defer></script>
-    <script src="./assets/js/cart-manager.js" defer></script>
-    <script src="./assets/js/wishlist-manager.js" defer></script>
+    <script src="./assets/js/product/item-loader.js" defer></script>
+    <script src="./assets/js/cart/cart-manager.js" defer></script>
 </head>
 
 <body>
+    <a href="#main-content" class="sr-only sr-only--focusable">Skip to main content</a>
     <header class="hero home-table-bg">
         <nav>
             <div class="nav-links">
@@ -32,7 +32,7 @@
                     <input type="text" class="search-bar" placeholder="Search..." aria-label="Cerca prodotto">
                     <div class="result-list"></div>
                 </div>
-                <i class="fas fa-search" id="home-search-button" aria-hidden="true"></i> 
+                <button class="nav-search-button" id="home-search-button" aria-label="Open search" aria-expanded="false"><i class="fas fa-search" aria-hidden="true"></i></button>
                     <!--fixare href qua sotto-->
                 <a href="./optionsPage.html" aria-label="Area Personale"><i class="fas fa-user" aria-hidden="true"></i></a> 
                 <a href="./cart.html" aria-label="Carrello"><i class="fas fa-shopping-bag" aria-hidden="true"></i></a>
@@ -41,7 +41,7 @@
         <h1>Creative Rebirth</h1>
     </header>
 
-    <main>
+    <main id="main-content">
         <section class="hero hero-padding mid-height align-center">
             <div class="detail-layout">
 
@@ -86,16 +86,12 @@
                         <button id="addToCartButton" class="button" type="button">
                             <i class="fas fa-shopping-bag" aria-hidden="true"></i> Aggiungi al carrello
                         </button>
-                        <button id="addToWishlistButton" class="button" type="button">
-                            <i class="far fa-heart" aria-hidden="true"></i>
-                        </button>
                     </div>
                 </div>
 
             </div>
         </section>
     </main>
-
     <footer class="hero hero-padding footer-layout">
         <div class="footer-column">
             <h3 class="footer-title">Discover More</h3>

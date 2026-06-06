@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
-    <link rel="stylesheet" type="text/css" href="style/style.css">
-    <link rel="stylesheet" type="text/css" href="style/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style/desktop.css">
+    <link rel="stylesheet" href="style/mobile.css">
+    <link rel="stylesheet" media="print" href="style/print.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="assets/js/bridge.js" defer></script>
-    <script src="assets/js/checkout-manager.js" defer></script>
+    <script src="assets/js/cart/checkout-manager.js" defer></script>
 </head>
 
 <body>
+    <a href="#main-content" class="sr-only sr-only--focusable">Skip to main content</a>
     <header class="checkout-header">
         <div class="top-row">
             <a href="cart.html" class="back-to-cart">
@@ -27,42 +30,42 @@
         </div>
 
     </header>
-    <div class="checkout-layout">
+    <main class="checkout-layout" id="main-content">
         <div class="form">
             <form action="" method="post" id="Checkout-form" novalidate>
                 <div class="form-group">
 
                     <label for="email-input">Email</label>
-                    <input type="email" id="email-input" name="email" autocomplete="email" required>
-                    <p class="form-error-msg">Error placeholder</p>
+                    <input type="email" id="email-input" name="email" autocomplete="email" aria-describedby="checkout-email-error" required>
+                    <p class="form-error-msg" id="checkout-email-error" role="alert">Error placeholder</p>
 
                 </div>
                 <div class="form-group">
 
                     <label for="name-input">Name</label>
-                    <input type="text" id="name-input" name="name" autocomplete="given-name" required>
-                    <p class="form-error-msg">Error placeholder</p>
+                    <input type="text" id="name-input" name="name" autocomplete="given-name" aria-describedby="checkout-name-error" required>
+                    <p class="form-error-msg" id="checkout-name-error" role="alert">Error placeholder</p>
 
                 </div>
                 <div class="form-group">
 
                     <label for="surname-input">Surname</label>
-                    <input type="text" id="surname-input" name="surname" autocomplete="family-name" required>
-                    <p class="form-error-msg">Error placeholder</p>
+                    <input type="text" id="surname-input" name="surname" autocomplete="family-name" aria-describedby="checkout-surname-error" required>
+                    <p class="form-error-msg" id="checkout-surname-error" role="alert">Error placeholder</p>
 
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>
-                    <input type="text" id="address" name="address" placeholder="Street,number,..." required>
-                    <p class="form-error-msg">Error placeholder</p>
+                    <input type="text" id="address" name="address" placeholder="Street,number,..." aria-describedby="checkout-address-error" required>
+                    <p class="form-error-msg" id="checkout-address-error" role="alert">Error placeholder</p>
 
                 </div>
                 <button type="submit" class="button" name="checkout">Pay now</button>
             </form>
         </div>
         <div class="order-summary">
-            <h1>Your order</h1>
-            <h2>Products</h2>
+            <h2>Your order</h2>
+            <h3>Products</h3>
             <div id="previewProducts"></div>
             <hr>
             <div class="summary-line">
@@ -76,7 +79,7 @@
             <div id="checkout-total" class="summary-line">
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- end body -->
 </body>

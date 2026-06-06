@@ -22,6 +22,7 @@ function initFormChecker() {
                 preferredCountries: ["it", "fr", "de", "gb"],
                 separateDialCode: true,
                 dropdownContainer: document.body,
+                initialCountry: "it",
             });
         } catch (err) {
             console.error("Errore caricamento intlTelInput:", err);
@@ -39,7 +40,7 @@ function initFormChecker() {
 
     if (passwordInput && txtRequirement1) {
         passwordInput.addEventListener('input', () => {
-            const ps = verifyPasswordStrength();
+            const ps = checkPasswordStrength(passwordInput.value);
             if (ps) updateRequirementsUI(ps.checks);
         });
     }
@@ -52,28 +53,19 @@ function verifyEmail() {
     else return false;
 }
 
-/**
- * Verifies the strength of a password during registration
- * @returns password strength (if === 4 then it's strong),
- *          map needed to know which text to highlight in the UI
- *      
- */
-function verifyPasswordStrength() {
-    if (passwordInput) {
-        const password = passwordInput.value;
-        const checks = {
-            length: password.length >= 8,
-            number: /[0-9]/.test(password),
-            uppercase: /[A-Z]/.test(password),
-            special: /[^A-Za-z0-9]/.test(password)
-        };
-        let score = 0;
-        if (checks.length) score++;
-        if (checks.number) score++;
-        if (checks.uppercase) score++;
-        if (checks.special) score++;
-        return { score, checks };
-    }
+function checkPasswordStrength(password) {
+    const checks = {
+        length: password.length >= 8,
+        number: /[0-9]/.test(password),
+        uppercase: /[A-Z]/.test(password),
+        special: /[^A-Za-z0-9]/.test(password)
+    };
+    let score = 0;
+    if (checks.length) score++;
+    if (checks.number) score++;
+    if (checks.uppercase) score++;
+    if (checks.special) score++;
+    return { score, checks };
 }
 
 function updateRequirementsUI(checks) {
@@ -107,7 +99,7 @@ async function grantAccess() {
         'password': passwordInput.value,
     }
     try {
-        const response = await fetch('php/login.php', {
+        const response = await fetch('php/account/login.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -138,7 +130,7 @@ async function registerUser() {
     };
 
     try {
-        const response = await fetch('php/register.php', {
+        const response = await fetch('php/account/register.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -164,7 +156,7 @@ async function register() {
     hideInputError(phoneInput);
 
     let validRegistration = 0;
-    const ps = verifyPasswordStrength();
+    const ps = checkPasswordStrength(passwordInput.value);
 
     verifyEmail() ? validRegistration++ : showInputError(emailInput, 'Invalid Email');
 
@@ -178,21 +170,22 @@ async function register() {
     if (validRegistration === 5) {
         const isRegistered = await registerUser();
 
-        if(isRegistered && isRegistered.success === true || isRegistered.success === "true"){
-            if(isRegistered.stayOnPage === true) {
+        if (isRegistered && (isRegistered.success === true || isRegistered.success === "true")) {
+            if (isRegistered.stayOnPage === true) {
                 alert('Admin account created successfully!');
                 form.reset();
                 if (typeof txtRequirement1 !== 'undefined') {
-                    updateRequirementsUI({length:true, number:true, uppercase:true, special:true});
-                }
-
-                if(typeof caricaDati === 'function'){
-                    caricaDati('users');
+                    updateRequirementsUI({length: true, number: true, uppercase: true, special: true});
                 }
                 window.location.href = 'optionsPage.html?section=users';
-            }
-            else{
+            } else {
                 redirect();
+            }
+        } else {
+            const generalError = document.getElementById('general-register-error');
+            if (generalError) {
+                generalError.textContent = isRegistered?.message || 'Registration failed. Please try again.';
+                generalError.classList.add('active');
             }
         }
     }
@@ -238,7 +231,6 @@ async function login() {
 }
 
 function redirect() {
-    document.cookie = 'user=' + emailInput.value + '; path=/; max-age=3600';
     window.location.replace('index.html');
 }
 

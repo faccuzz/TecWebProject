@@ -2,7 +2,7 @@ const previewContainer = document.getElementById('previewProducts');
 const totalContainer = document.getElementById('checkout-total');
 
 async function renderCheckoutPrice(){
-    const response = await fetch('./php/getCartPrice.php');
+    const response = await fetch('./php/cart/getCartPrice.php');
     const data = await response.json();
 
     totalContainer.innerHTML = `

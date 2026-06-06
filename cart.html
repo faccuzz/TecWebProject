@@ -4,22 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Shopping Cart</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <link rel="stylesheet" type="text/css" href="style/style.css">
-    <link rel="stylesheet" type="text/css" href="style/cart.css">
-    <link rel="stylesheet" type="text/css" href="style/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style/desktop.css">
+    <link rel="stylesheet" href="style/mobile.css">
+    <link rel="stylesheet" media="print" href="style/print.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./assets/js/bridge.js"></script>
-    <script src="./assets/js/cart-manager.js" defer></script>
+    <script src="./assets/js/bridge.js" defer></script>
+    <script src="./assets/js/cart/cart-manager.js" defer></script>
     <script src="assets/js/animation.js" defer></script>
 </head>
 
-<body>
+<body class="cart-body">
+    <a href="#main-content" class="sr-only sr-only--focusable">Skip to main content</a>
     <header>
         <nav>
             <div class="nav-links">
-                <a href="index.html"><i class="fa-solid fa-arrow-left"></i></a>
+                <a href="index.html" aria-label="Back to home"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></a>
             </div>
 
             <div class="logo">LUMEN SPIRITS</div>
@@ -27,8 +27,9 @@
             <div class="nav-icons"></div>
         </nav>
     </header>
-    <main>
+    <main id="main-content">
         <div class="shoppingCart">
+            <div id="cart-announcement" aria-live="polite" class="sr-only"></div>
             <h1>Your Cart</h1>
             <div id="itemsInCart"></div>
 

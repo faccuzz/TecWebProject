@@ -1,0 +1,58 @@
+@media print {
+
+    /* Nasconde elementi non utili sulla carta */
+    nav,
+    .nav-icons,
+    .account-box,
+    .account-popup,
+    .loader-overlay,
+    .newsletter-form,
+    footer,
+    button:not([type="submit"]),
+    .button {
+        display: none !important;
+    }
+
+    body {
+        background: #ffffff !important;
+        background-image: none !important;
+        color: #000000 !important;
+        font-size: 12pt;
+    }
+
+    a {
+        color: #000000;
+        text-decoration: underline;
+    }
+
+    /* Mostra l'URL accanto ai link */
+    a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+    }
+
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+
+    h1, h2 {
+        page-break-after: avoid;
+    }
+
+    /* Checkout: mostra solo il riepilogo ordine, nasconde il form */
+    .form {
+        display: none !important;
+    }
+
+    .checkout-layout {
+        flex-direction: column;
+    }
+
+    .order-summary {
+        width: 100%;
+        flex: none;
+        border: none;
+        box-shadow: none;
+    }
+}

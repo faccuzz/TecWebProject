@@ -1,7 +1,7 @@
 <?php
 session_start();
 header('Content-Type: application/json');
-include_once 'db.php';
+include_once '../db.php';
 
 $db = new database();
 $db->connect();

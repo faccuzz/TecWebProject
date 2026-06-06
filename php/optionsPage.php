@@ -18,9 +18,6 @@ switch ($section) {
     case 'configurations':
         renderConfig($db);
         break;
-    case 'wishlist':
-        renderWishlist($db);
-        break;
     case 'security':
         renderSecurity($db);
         break;
@@ -64,7 +61,7 @@ function renderConfig($db)
     if ($userInfo->num_rows > 0) {
         while ($row = $userInfo->fetch_assoc()) {
             echo "<div class='adminUpload'>
-                <form action='php/modifyUserInfo.php' method='post'>
+                <form action='php/account/modifyUserInfo.php' method='post'>
                 <label for='first-name'>First Name</label>
                 <input id='name' name='name' type='text' value='" . $row["name"] . "' autocomplete='given-name'>
 
@@ -86,37 +83,12 @@ function renderConfig($db)
     }
 }
 
-function renderWishlist($db)
-{
-    echo "<h2>Wishlist</h2>";
-    $wishlist = $db->getWishlist($_SESSION['email']);
-    if ($wishlist->num_rows > 0) {
-        while ($row = $wishlist->fetch_assoc()) {
-            echo "<ul id='productsList'>
-                 <li class='wishlistItem'> 
-                    <p>" . $row["productName"] . "</p>
-                    <p>" . $row["price"] . "</p>
-                    <p>" . $row["description"] . "</p>
-                    <form action='php/wishlist-remove.php' method='post'>
-                     <input type='hidden' name='id' value='" . $row["id"] . "'>
-                    <button class='button remove-from-wishlist-btn' type='submit' name='rmvWishlist' style='background: none; border: none; cursor: pointer;'>
-                        <i class='far fa-heart' aria-hidden='true'></i> Rimuovi
-                    </button>
-                    </form>
-                  </li>
-                </ul> ";
-        }
-    } else {
-        echo "No products added to your wishlist yet.";
-    }
-}
-
 function renderSecurity($db)
 {
     echo "<h2>Security</h2>
         <h2 class='section-title'>Change Password</h2>
         <div class='adminUpload'>
-            <form action='php/changePassword.php' method='post' id='change-password-form'>
+            <form action='php/account/changePassword.php' method='post' id='change-password-form'>
                 <label for='new-pwd'>New Password</label>
                 <input name='newPass' id='newPass' type='password' autocomplete='new-password'>
 
@@ -175,7 +147,7 @@ function renderProducts($db)
                     </div>
                     <p>In Stock: " . ($p['inStock'] == 1 ? 'Yes' : 'No') . "</p>
                     <p>Price: <strong>{$p['price']}€</strong></p> 
-                    <form action='php/deleteProduct.php' method='post'>
+                    <form action='php/product/deleteProduct.php' method='post'>
                         <input type='hidden' name='id' value='" . $p['id'] . "'>
                         <input type='submit' name='submit' value='Delete' class='button'/>
                     </form>
@@ -210,7 +182,7 @@ function renderUsers($db)
         echo "</ul></div>";
         echo "<h2>Register admin account:</h2><br>
         <div class='adminUpload'> 
-              <form action='php/register.php' method='post' id='access-form' novalidate>
+              <form action='php/account/register.php' method='post' id='access-form' novalidate>
               <div class='form-group'>
 
                 <label for='email'>Email</label>
@@ -265,7 +237,7 @@ function renderUsers($db)
 
         echo "<h2>Add admin account:</h2> 
             <div class='adminUpload'>
-            <form action='php/changetoAdmin.php' method='post'>
+            <form action='php/account/changeToAdmin.php' method='post'>
                 <label for='username'>Username</label>
                 <input id='username' name='username' type='text' required>
 
@@ -277,7 +249,7 @@ function renderUsers($db)
 function renderLogout($db)
 {
     echo "<h2>Sei sicuro di voler effettuare il logout dall'account?</h2><br>";
-    echo "<form action='./php/account-managing/logout.php' method='POST'>";
+    echo "<form action='./php/account/logout.php' method='POST'>";
     echo "<button type='submit' class='button'> Si, esci </button>";
     echo "</form>";
 }

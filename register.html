@@ -7,9 +7,9 @@
     <meta name="description" content="Register">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style/loginStyle.css">
-    <link rel="stylesheet" href="style/components.css" type="text/css" />
-    <link rel="stylesheet" href="style/layout.css" type="text/css" />
+    <link rel="stylesheet" href="style/desktop.css">
+    <link rel="stylesheet" href="style/mobile.css">
+    <link rel="stylesheet" media="print" href="style/print.css">
 
     <!--Font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,33 +21,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js" defer></script>
 
-    <script src="assets/js/form-checker.js" defer></script>
+    <script src="assets/js/account/form-checker.js" defer></script>
 </head>
 
 <body class="login-page">
+    <a href="#main-content" class="sr-only sr-only--focusable">Skip to main content</a>
     <header class="area-logo">
         <h1 class="company-name">Creative Rebirth</h1>
         <!--Meter logo en vez otra opción-->
     </header>
 
-    <main id="loginCard">
+    <main id="main-content" class="login-card">
         <h2>Register</h2>
-        <form action="php/register.php" method="post" id="access-form" novalidate>
+        <form action="php/account/register.php" method="post" id="access-form" novalidate>
             <div class="form-group">
 
-                <label for="email">Email</label>
-                <input type="email" id="email-input" name="email" autocomplete="email" required>
-                <p class="form-error-msg">Error placeholder</p>
+                <label for="email-input">Email</label>
+                <input type="email" id="email-input" name="email" autocomplete="email" aria-describedby="register-email-error" required>
+                <p class="form-error-msg" id="register-email-error" role="alert">Error placeholder</p>
 
             </div>
             <div class="form-group">
 
-                <label for="password">Password</label>
-                <input type="password" id="password-input" name="password" autocomplete="current-password" required>
+                <label for="password-input">Password</label>
+                <input type="password" id="password-input" name="password" autocomplete="current-password" aria-describedby="password-requirements-group" required>
 
                 <p>Password must contain:</p>
 
-                <div class="password-requirements">
+                <div class="password-requirements" id="password-requirements-group">
                     <p id="requirement-1">
                         At least 8 Character
                     </p>
@@ -65,23 +66,24 @@
             </div>
             <div class="form-group">
 
-                <label for="name">Name</label>
-                <input type="text" id="name-input" name="name" autocomplete="given-name" required>
-                <p class="form-error-msg">Error placeholder</p>
+                <label for="name-input">Name</label>
+                <input type="text" id="name-input" name="name" autocomplete="given-name" aria-describedby="register-name-error" required>
+                <p class="form-error-msg" id="register-name-error" role="alert">Error placeholder</p>
 
             </div>
             <div class="form-group">
 
-                <label for="surname">Surname</label>
-                <input type="text" id="surname-input" name="surname" autocomplete="family-name" required>
-                <p class="form-error-msg">Error placeholder</p>
+                <label for="surname-input">Surname</label>
+                <input type="text" id="surname-input" name="surname" autocomplete="family-name" aria-describedby="register-surname-error" required>
+                <p class="form-error-msg" id="register-surname-error" role="alert">Error placeholder</p>
             </div>
             <div class="form-group">
                 <label for="phone-input">Phone Number</label>
-                <input type="text" id="phone-input" name="phone" required>
-                <p class="form-error-msg">Error placeholder</p>
+                <input type="text" id="phone-input" name="phone" aria-describedby="register-phone-error" required>
+                <p class="form-error-msg" id="register-phone-error" role="alert">Error placeholder</p>
             </div>
             <input type="hidden" name="isAdmin" value="0">
+            <p class="form-error-msg" id="general-register-error" role="alert"></p>
             <button type="submit">Create account</button>
         </form>
         <a class="register" href="login.html">Login</a>
