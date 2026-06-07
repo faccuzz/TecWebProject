@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="utf-8">
-    <title> Register - Creative Rebirth</title>
-    <meta name="description" content="Register">
+    <title>Lumen Spirits — Registrati</title>
+    <meta name="description" content="Crea il tuo account Lumen Spirits">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="style/desktop.css">
     <link rel="stylesheet" href="style/mobile.css">
     <link rel="stylesheet" media="print" href="style/print.css">
 
-    <!--Font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
-    
-    <!--IntlTelInput Libray-->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js" defer></script>
 
@@ -25,68 +23,61 @@
 </head>
 
 <body class="login-page">
-    <a href="#main-content" class="sr-only sr-only--focusable">Skip to main content</a>
+    <a href="#main-content" class="sr-only sr-only--focusable">Salta al contenuto principale</a>
     <header class="area-logo">
-        <h1 class="company-name">Creative Rebirth</h1>
-        <!--Meter logo en vez otra opción-->
+        <h1 class="company-name" lang="en">Creative Rebirth</h1>
     </header>
 
     <main id="main-content" class="login-card">
-        <h2>Register</h2>
+        <h2>Registrati</h2>
         <form action="php/account/register.php" method="post" id="access-form" novalidate>
             <div class="form-group">
 
                 <label for="email-input">Email</label>
-                <input type="email" id="email-input" name="email" autocomplete="email" aria-describedby="register-email-error" required>
-                <p class="form-error-msg" id="register-email-error" role="alert">Error placeholder</p>
+                <input type="email" id="email-input" name="email" autocomplete="email" aria-describedby="register-email-error" aria-required="true" required>
+                <p class="form-error-msg" id="register-email-error" role="alert" aria-live="polite"></p>
 
             </div>
             <div class="form-group">
 
                 <label for="password-input">Password</label>
-                <input type="password" id="password-input" name="password" autocomplete="current-password" aria-describedby="password-requirements-group" required>
+                <input type="password" id="password-input" name="password" autocomplete="new-password" aria-describedby="password-requirements-group register-password-error" aria-required="true" required>
 
-                <p>Password must contain:</p>
+                <p id="password-requirements-label">La password deve contenere:</p>
 
-                <div class="password-requirements" id="password-requirements-group">
-                    <p id="requirement-1">
-                        At least 8 Character
-                    </p>
-                    <p id="requirement-2">
-                        At least a Number
-                    </p>
-                    <p id="requirement-3">
-                        At least an Uppercase Letter
-                    </p>
-                    <p id="requirement-4">
-                        At least a Special Character
-                    </p>
-                </div>
+                <ul class="password-requirements" id="password-requirements-group" aria-labelledby="password-requirements-label" aria-live="polite">
+                    <li id="requirement-1" class="requirement-unmet">Almeno 8 caratteri</li>
+                    <li id="requirement-2" class="requirement-unmet">Almeno un numero</li>
+                    <li id="requirement-3" class="requirement-unmet">Almeno una lettera maiuscola</li>
+                    <li id="requirement-4" class="requirement-unmet">Almeno un carattere speciale</li>
+                </ul>
+                <p class="form-error-msg" id="register-password-error" role="alert" aria-live="polite"></p>
 
             </div>
             <div class="form-group">
 
-                <label for="name-input">Name</label>
-                <input type="text" id="name-input" name="name" autocomplete="given-name" aria-describedby="register-name-error" required>
-                <p class="form-error-msg" id="register-name-error" role="alert">Error placeholder</p>
+                <label for="name-input">Nome</label>
+                <input type="text" id="name-input" name="name" autocomplete="given-name" aria-describedby="register-name-error" aria-required="true" required>
+                <p class="form-error-msg" id="register-name-error" role="alert" aria-live="polite"></p>
 
             </div>
             <div class="form-group">
 
-                <label for="surname-input">Surname</label>
-                <input type="text" id="surname-input" name="surname" autocomplete="family-name" aria-describedby="register-surname-error" required>
-                <p class="form-error-msg" id="register-surname-error" role="alert">Error placeholder</p>
+                <label for="surname-input">Cognome</label>
+                <input type="text" id="surname-input" name="surname" autocomplete="family-name" aria-describedby="register-surname-error" aria-required="true" required>
+                <p class="form-error-msg" id="register-surname-error" role="alert" aria-live="polite"></p>
             </div>
             <div class="form-group">
-                <label for="phone-input">Phone Number</label>
-                <input type="text" id="phone-input" name="phone" aria-describedby="register-phone-error" required>
-                <p class="form-error-msg" id="register-phone-error" role="alert">Error placeholder</p>
+                <label for="phone-input">Numero di telefono</label>
+                <input type="tel" id="phone-input" name="phone" autocomplete="tel" aria-describedby="phone-help register-phone-error" aria-required="true" required>
+                <p id="phone-help" class="sr-only">Numero di telefono internazionale: includere il prefisso del paese.</p>
+                <p class="form-error-msg" id="register-phone-error" role="alert" aria-live="polite"></p>
             </div>
             <input type="hidden" name="isAdmin" value="0">
-            <p class="form-error-msg" id="general-register-error" role="alert"></p>
-            <button type="submit">Create account</button>
+            <p class="form-error-msg" id="general-register-error" role="alert" aria-live="assertive"></p>
+            <button type="submit">Crea account</button>
         </form>
-        <a class="register" href="login.html">Login</a>
+        <a class="register" href="login.html">Accedi</a>
     </main>
 </body>
 

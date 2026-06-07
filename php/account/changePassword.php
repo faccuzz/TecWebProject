@@ -1,7 +1,7 @@
 <?php 
     include_once '../db.php';
     
-    session_start();
+include_once '../session_bootstrap.php';
     if(!isset($_SESSION['email'])){
         header("Location: ../../index.html");
         exit();

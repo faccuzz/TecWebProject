@@ -3,15 +3,37 @@ include_once 'configDB.php';
 class database
 {
     public $connection;
+    public $lastError = null;
 
     public function connect()
     {
-        $this->connection = new mysqli(DB_CONFIG['db_host'], DB_CONFIG['db_user'], DB_CONFIG['db_password'], DB_CONFIG['db_name']);
+        // Silenzia il warning di mysqli per gestire l'errore in modo controllato
+        // e ritornare un JSON parsabile lato client (utile anche per screen reader).
+        mysqli_report(MYSQLI_REPORT_OFF);
+        $this->connection = @new mysqli(
+            DB_CONFIG['db_host'],
+            DB_CONFIG['db_user'],
+            DB_CONFIG['db_password'],
+            DB_CONFIG['db_name']
+        );
+        if ($this->connection && $this->connection->connect_errno) {
+            $this->lastError = $this->connection->connect_error;
+            $this->connection = null;
+            return false;
+        }
+        return $this->connection !== null && $this->connection !== false;
+    }
+
+    public function isConnected()
+    {
+        return $this->connection !== null && $this->connection !== false;
     }
 
     public function close()
     {
-        $this->connection->close();
+        if ($this->connection) {
+            $this->connection->close();
+        }
     }
 
     private function generateRandomID($length = 10)

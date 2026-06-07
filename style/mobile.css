@@ -81,7 +81,8 @@
         width: 100%;
     }
 
-    .col-layout aside {
+    .col-layout aside,
+.col-layout > section {
         flex: none;
         width: 100%;
         padding: 2em;
@@ -158,6 +159,14 @@
         max-width: 100%;
     }
 
+    .adminUpload--wide {
+        max-width: 100%;
+    }
+
+    .form-pair {
+        grid-template-columns: 1fr;
+    }
+
     /* Layout a colonne */
     .col-layout {
         margin: 1.75em auto;
@@ -165,7 +174,8 @@
         gap: 2em;
     }
 
-    .col-layout aside {
+    .col-layout aside,
+.col-layout > section {
         padding: 1.5em;
     }
 
@@ -174,5 +184,32 @@
         border-radius: 0;
         padding: 1.25em;
         margin: 2em auto;
+    }
+
+    /* Touch target adeguati anche su tap mobile */
+    .nav-icons > a,
+    .nav-icons > button,
+    .nav-icons .account-icon-button,
+    #home-search-button {
+        margin-left: 4px;
+    }
+
+    /* Tabelle admin scrollabili orizzontalmente per non rompere reflow */
+    .data-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+
+/* ======================================================
+   PREFERS-REDUCED-MOTION (mobile)
+   ====================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
     }
 }

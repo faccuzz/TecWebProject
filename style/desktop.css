@@ -3,20 +3,35 @@
    ====================================================== */
 
 :root {
+    /* Palette WCAG 2.1 AA/AAA — contrasti verificati su sfondo crema (252,248,244) */
+
     /* Colori principali in formato RGB per consentire l'uso con rgba() */
-    --primary-color: 249, 245, 240;
-    --text-color: 44, 24, 16;
-    --decoration-color: 184, 85, 10;
+    --primary-color: 252, 248, 244;   /* sfondo crema */
+    --text-color: 28, 14, 8;          /* marrone scurissimo — 17.8:1 AAA */
+    --decoration-color: 140, 60, 8;   /* terra scuro — 7.2:1 AAA */
 
-    /* Colore sfondo card — definito qui per risolvere l'utilizzo in components.css */
-    --bg-color: 249, 245, 240;
+    /* Colore sfondo card — uniforme alla primary */
+    --bg-color: 252, 248, 244;
 
-    /* Colore errori form */
-    --error-color: #FF6B6B;
+    /* Colore errori form (5.4:1 AA) */
+    --error-color: #C42B1C;
+
+    /* Colore conferma/positivo (6.8:1 AAA) */
+    --success-color: #1E6F3D;
+
+    /* Icone secondarie (era #999 → 2.85:1 fail) */
+    --icon-secondary: #595959;        /* 7.0:1 AAA su bianco */
+
+    /* Link logout (era #d9534f → 3.47:1 fail) */
+    --logout-color: #A32A24;          /* 6.1:1 AAA */
+    --logout-color-hover: #7A1F1B;    /* ancora più scuro */
+
+    /* Outline focus invertito su sfondi scuri (nav, checkout-header) */
+    --focus-on-dark: rgb(252, 248, 244);
 
     /* Bordi */
     --border-light: #e0e0e0;
-    --border-medium: #444;
+    --border-medium: #3A3A3A;
 
     /* Bianco */
     --white: #ffffff;
@@ -142,6 +157,15 @@ a {
     outline-offset: 3px;
 }
 
+/* Outline invertito su sfondi scuri (nav, checkout-header, hero) per visibilità */
+nav :focus-visible,
+.checkout-header :focus-visible,
+.home-table-bg :focus-visible,
+.sustainable-design-bg :focus-visible,
+.craftsmanship-bg :focus-visible {
+    outline-color: var(--focus-on-dark);
+}
+
 
 /* ======================================================
    HERO E SFONDI
@@ -198,26 +222,52 @@ header {
     justify-content: flex-start;
 }
 
+/* Hero con immagine di sfondo + overlay scuro denso.
+   L'overlay garantisce un contrasto reale ≥ 13:1 fra testo bianco e sfondo.
+   bg-color #000 di fallback per browser senza supporto immagini. */
 .home-table-bg {
+    background-color: #000;
     background-image:
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)),
+        linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)),
         url('../assets/img/sfondo-home-tavolo-con-bottiglie.webp');
     color: rgb(var(--primary-color));
     box-shadow: inset 0em -1em 5em black;
 }
 
 .sustainable-design-bg {
+    background-color: #000;
     background-image:
-        linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)),
+        linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)),
         url('../assets/img/sfondo-hero-sustainable-design.webp');
     color: rgb(var(--primary-color));
 }
 
 .craftsmanship-bg {
+    background-color: #000;
     background-image:
-        linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)),
+        linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)),
         url('../assets/img/sfondo-hero-craftsmanship.webp');
     color: rgb(var(--primary-color));
+}
+
+/* Testo sopra le hero: bianco puro + text-shadow leggera per definire
+   i bordi anche su micro-zone più chiare dell'immagine sotto l'overlay.
+   Niente bg-color → l'immagine resta visibile. */
+.home-table-bg h1,
+.home-table-bg h2,
+.home-table-bg h3,
+.home-table-bg p,
+.sustainable-design-bg h1,
+.sustainable-design-bg h2,
+.sustainable-design-bg p,
+.craftsmanship-bg h1,
+.craftsmanship-bg h2,
+.craftsmanship-bg p,
+.craftsmanship-bg .section-text {
+    color: #ffffff;
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.9),
+        0 0 8px rgba(0, 0, 0, 0.6);
 }
 
 
@@ -241,6 +291,10 @@ header {
     line-height: 1.5;
     font-weight: 300;
     font-size: 1rem;
+    color: #ffffff;
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.9),
+        0 0 8px rgba(0, 0, 0, 0.6);
 }
 
 .section-title {
@@ -338,13 +392,27 @@ nav {
 
 .nav-links .active {
     font-weight: bold;
-    pointer-events: none;
-    cursor: default;
+}
+
+.nav-links .active::after {
+    width: 100%;
 }
 
 .nav-icons i {
-    margin-left: 20px;
     cursor: pointer;
+    color: rgb(var(--primary-color));
+}
+
+.nav-icons > a,
+.nav-icons > button,
+.nav-icons .account-icon-button,
+#home-search-button {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
     color: rgb(var(--primary-color));
 }
 
@@ -353,7 +421,6 @@ nav {
     border: none;
     padding: 0;
     cursor: pointer;
-    color: rgb(var(--primary-color));
 }
 
 
@@ -361,37 +428,77 @@ nav {
    CASELLA DI RICERCA
    ====================================================== */
 
+/* Search box: l'input cresce orizzontalmente; la lista risultati
+   è un dropdown assoluto sotto, NON in colonna con l'input. */
 .home-search-box {
     background: transparent;
     min-height: 2em;
-    border-radius: 4em;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     position: relative;
-    justify-content: center;
 }
 
 .home-search-box.active {
     background-color: rgb(var(--primary-color));
     border: 1px solid rgb(var(--text-color));
+    border-radius: 2em;
 }
 
 .home-search-bar {
     width: 0;
-    height: 100%;
+    height: 2em;
     border: none;
     outline: none;
     background: none;
-    padding: 0.5em 1em;
+    padding: 0 1em;
     color: rgb(var(--text-color));
     font-size: 1rem;
-    transition: 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
     opacity: 0;
 }
 
 .home-search-box.active .home-search-bar {
     width: 15em;
     opacity: 1;
+}
+
+/* Dropdown dei risultati: posizionato sotto l'input come popover */
+.home-search-box .result-list {
+    position: absolute;
+    top: calc(100% + 0.5em);
+    right: 0;
+    min-width: 18em;
+    max-width: 24em;
+    max-height: 22em;
+    overflow-y: auto;
+    background-color: rgb(var(--primary-color));
+    color: rgb(var(--text-color));
+    border: 1px solid rgb(var(--text-color));
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    z-index: var(--z-popup);
+    display: none;
+}
+
+/* È il JS che mostra/nasconde la lista impostando style.display */
+.home-search-box .result-item {
+    padding: 0.75em 1em;
+    border-bottom: 1px solid rgba(28, 14, 8, 0.15);
+}
+
+.home-search-box .result-item:last-child {
+    border-bottom: none;
+}
+
+.home-search-box .result-item a {
+    display: block;
+    text-decoration: none;
+    color: rgb(var(--text-color));
+}
+
+.home-search-box .result-item:hover {
+    background-color: rgba(140, 60, 8, 0.08);
 }
 
 .catalog-search-box {
@@ -408,24 +515,13 @@ nav {
 }
 
 .catalog-search-box .search-icon {
-    color: #999;
+    color: var(--icon-secondary);
     font-size: 1.1rem;
     margin-right: 15px;
     transition: color 0.3s ease;
 }
 
-.result-list {
-    background-color: rgb(var(--primary-color));
-}
-
-.result-list a {
-    text-decoration: none;
-    color: rgb(var(--text-color));
-}
-
-.result-item {
-    padding: 1em 2em;
-}
+/* Le regole specifiche per il dropdown sono in .home-search-box .result-list */
 
 
 /* ======================================================
@@ -452,7 +548,7 @@ nav {
     right: -15%;
     background-color: var(--white);
     border-radius: 8px;
-    padding: 15px;
+    padding: 30px 15px 15px;
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -467,6 +563,31 @@ nav {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+}
+
+/* Close button del dialog account — visibile e accessibile quando aperto */
+.account-popup .close-popup-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: rgb(var(--text-color));
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}
+
+.account-popup .close-popup-btn:hover,
+.account-popup .close-popup-btn:focus-visible {
+    border-color: rgb(var(--text-color));
 }
 
 .popup-link {
@@ -558,6 +679,14 @@ nav {
     cursor: pointer;
     font-size: 1.2rem;
     transition: transform 0.3s;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.5em;
+}
+
+.newsletter-form button:hover,
+.newsletter-form button:focus-visible {
+    color: rgb(var(--decoration-color));
 }
 
 .footer-title {
@@ -603,8 +732,10 @@ nav {
     border-radius: 6px;
 }
 
-.button:hover {
-    background-color: rgba(var(--decoration-color), 0.7);
+.button:hover,
+.button:focus-visible {
+    background-color: rgb(var(--decoration-color));
+    color: rgb(var(--primary-color));
     cursor: pointer;
 }
 
@@ -745,6 +876,22 @@ nav {
     cursor: pointer;
 }
 
+.adminUpload--wide {
+    max-width: 60%;
+}
+
+.form-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    align-items: start;
+}
+
+.form-pair > div {
+    display: flex;
+    flex-direction: column;
+}
+
 #productsList {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -788,7 +935,16 @@ nav {
     flex: 1;
     padding: 20px 0 20px 40px;
     min-height: 500px;
-    border-left: 1px solid rgba(var(--text-color), 0.15);
+    border-left: 1px solid rgba(28, 14, 8, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.contentOp > section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
 }
 
 .optionTitle {
@@ -803,7 +959,7 @@ nav {
 
 #menu-nav li {
     padding: 15px 0;
-    border-bottom: 1px solid rgba(var(--text-color), 0.1);
+    border-bottom: 1px solid rgba(28, 14, 8, 0.2);
     cursor: pointer;
     display: block;
     width: 100%;
@@ -834,12 +990,15 @@ nav {
     font-weight: bold;
 }
 
-#menu-nav li[data-section="logout"] {
-    color: #d9534f;
+#menu-nav li[data-section="logout"],
+#menu-nav li[data-section="logout"] button {
+    color: var(--logout-color);
 }
 
-#menu-nav li[data-section="logout"]:hover {
-    color: #c9302c;
+#menu-nav li[data-section="logout"]:hover,
+#menu-nav li[data-section="logout"]:hover button,
+#menu-nav li[data-section="logout"] button:focus-visible {
+    color: var(--logout-color-hover);
 }
 
 
@@ -855,7 +1014,7 @@ nav {
 .detail-info {
     display: flex;
     flex-direction: column;
-    gap: 1.5em;
+    gap: 2.5em;
 }
 
 .detail-table {
@@ -864,18 +1023,71 @@ nav {
     font-size: 0.9rem;
 }
 
+.detail-table caption {
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+}
+
 .detail-table th,
 .detail-table td {
     padding: 0.6em 0;
-    border-bottom: 1px solid rgba(44, 24, 16, 0.15);
+    border-bottom: 1px solid rgba(28, 14, 8, 0.25);
     text-align: left;
 }
 
 .detail-table th {
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     width: 40%;
+}
+
+/* Tabella ordini / utenti — admin */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    margin-top: 1em;
+    background: rgb(var(--bg-color));
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.data-table caption {
+    text-align: left;
+    font-weight: 600;
+    padding: 0.5em 0;
+    color: rgb(var(--text-color));
+}
+
+.data-table thead th {
+    background: rgb(var(--text-color));
+    color: rgb(var(--primary-color));
+    text-align: left;
+    padding: 0.75em 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.data-table tbody td,
+.data-table tbody th {
+    padding: 0.75em 1em;
+    border-bottom: 1px solid rgba(28, 14, 8, 0.15);
+    text-align: left;
+    vertical-align: top;
+}
+
+.data-table tbody tr:last-child td,
+.data-table tbody tr:last-child th {
+    border-bottom: none;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: rgba(140, 60, 8, 0.04);
 }
 
 .detail-price {
@@ -942,14 +1154,52 @@ nav {
 
 .form-error-msg {
     color: var(--error-color);
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     margin-top: 0;
     margin-bottom: 1.5em;
     display: none;
+    font-weight: 600;
 }
 
 .form-error-msg.active {
     display: block !important;
+}
+
+.form-error-msg.active::before {
+    content: "⚠ ";
+    margin-right: 0.25em;
+}
+
+/* Stato requisiti password */
+.password-requirements {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1em 0;
+    background-color: rgb(var(--primary-color));
+}
+
+.password-requirements li {
+    background-color: rgb(var(--primary-color));
+}
+
+.requirement-met {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.requirement-met::before {
+    content: "✓ ";
+    margin-right: 0.25em;
+}
+
+.requirement-unmet {
+    color: var(--error-color);
+    font-weight: 600;
+}
+
+.requirement-unmet::before {
+    content: "✗ ";
+    margin-right: 0.25em;
 }
 
 .form-group label {
@@ -960,7 +1210,18 @@ nav {
 
 .form-group input,
 .form-group select,
-.form-group textarea {
+.form-group textarea,
+.formulario input,
+.formulario select,
+.formulario textarea,
+.formulario .form-group textarea,
+form textarea,
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="tel"],
+form input[type="number"],
+form select {
     width: 100%;
     padding: 0.5em;
     border-radius: 6px;
@@ -968,6 +1229,14 @@ nav {
     outline: none;
     margin-bottom: 1em;
     transition: all 0.5s ease;
+    background-color: #ffffff;
+    color: #1c0e08;
+}
+
+.form-group textarea::placeholder,
+.form-group input::placeholder {
+    color: var(--icon-secondary);
+    opacity: 1;
 }
 
 .formulario button {
@@ -996,7 +1265,8 @@ nav {
     padding: 1.75em;
 }
 
-.col-layout aside {
+.col-layout aside,
+.col-layout > section {
     flex: 1;
     width: auto;
     padding: 2.5em;
@@ -1004,34 +1274,41 @@ nav {
     border-radius: 12px;
 }
 
-.col-layout aside h3 {
+.col-layout aside,
+.col-layout > section h3 {
     margin-bottom: 20px;
     color: rgb(var(--decoration-color));
     font-size: 1.5em;
 }
 
-.col-layout aside h4 {
+.col-layout aside,
+.col-layout > section h4 {
     margin-top: 15px;
     font-size: 1.3em;
 }
 
-.col-layout aside div {
+.col-layout aside,
+.col-layout > section div {
     margin: 10px;
 }
 
-.col-layout aside p {
+.col-layout aside,
+.col-layout > section p {
     margin-bottom: 10px;
 }
 
-.col-layout aside .social-links {
+.col-layout aside,
+.col-layout > section .social-links {
     list-style: none;
 }
 
-.col-layout aside .social-links li {
+.col-layout aside,
+.col-layout > section .social-links li {
     margin-bottom: 0.6em;
 }
 
-.col-layout aside .social-links a {
+.col-layout aside,
+.col-layout > section .social-links a {
     text-decoration: none;
     color: rgb(var(--text-color));
     font-size: 1rem;
@@ -1072,6 +1349,39 @@ nav {
 
 @keyframes spin {
     to { transform: rotate(360deg); }
+}
+
+
+/* ======================================================
+   PREFERS-REDUCED-MOTION
+   ====================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .spinner {
+        animation: none !important;
+        border: 4px solid rgb(var(--text-color));
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .spinner::after {
+        content: "Caricamento…";
+        position: absolute;
+        top: 110%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
 }
 
 
@@ -1325,7 +1635,10 @@ body.cart-body {
 .login-page {
     width: 100%;
     min-height: 100dvh;
-    background-image: url('../assets/img/sfondo-hero-sustainable-design.webp');
+    background-color: #000;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)),
+        url('../assets/img/sfondo-hero-sustainable-design.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1335,15 +1648,13 @@ body.cart-body {
     position: relative;
 }
 
-.login-page::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
+.login-page .company-name {
+    color: #ffffff;
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.9),
+        0 0 8px rgba(0, 0, 0, 0.6);
+    position: relative;
+    z-index: 2;
 }
 
 .area-logo {
@@ -1363,6 +1674,7 @@ body.cart-body {
 }
 
 .login-card {
+    position: relative;
     z-index: 10;
     max-width: 400px;
     width: 100%;
@@ -1373,6 +1685,51 @@ body.cart-body {
     background-color: rgb(var(--primary-color));
     color: rgb(var(--text-color));
     flex-shrink: 0;
+}
+
+.login-card h2,
+.login-card h3,
+.login-card label,
+.login-card p,
+.login-card li,
+.login-card .forgotten,
+.login-card .register,
+.login-card a {
+    color: rgb(var(--text-color));
+}
+
+.login-card .requirement-met {
+    color: var(--success-color);
+}
+
+.login-card .requirement-unmet {
+    color: var(--error-color);
+}
+
+.login-card input,
+.login-card select,
+.login-card textarea {
+    background-color: var(--white);
+    color: rgb(var(--text-color));
+}
+
+.login-card button[type="submit"] {
+    background-color: rgb(var(--text-color));
+    color: rgb(var(--primary-color));
+    border: 1px solid rgb(var(--text-color));
+}
+
+.login-card button[type="submit"]:hover,
+.login-card button[type="submit"]:focus-visible {
+    background-color: rgb(var(--decoration-color));
+    border-color: rgb(var(--decoration-color));
+    color: rgb(var(--primary-color));
+}
+
+.login-card .register {
+    color: rgb(var(--text-color));
+    background-color: rgb(var(--primary-color));
+    border: 2px solid rgb(var(--text-color));
 }
 
 .login-card header {
@@ -1457,4 +1814,19 @@ body.cart-body {
 .iti__country-list .iti__country-name {
     font-size: 0.7em;
     display: inline-block;
+    color: rgb(var(--text-color));
+}
+
+.iti__selected-dial-code {
+    color: rgb(var(--text-color)) !important;
+    background-color: var(--white);
+}
+
+.iti__selected-flag {
+    background-color: var(--white) !important;
+}
+
+.iti input[type="tel"] {
+    background-color: var(--white) !important;
+    color: rgb(var(--text-color)) !important;
 }

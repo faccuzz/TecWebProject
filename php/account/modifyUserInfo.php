@@ -1,7 +1,7 @@
 <?php 
     include_once '../db.php';
     header('Content-Type: application/json');
-    session_start();
+include_once '../session_bootstrap.php';
     if(!isset($_SESSION['email'])){
         header("Location: ../../index.html");
         exit();

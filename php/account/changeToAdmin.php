@@ -1,6 +1,6 @@
 <?php
 include_once '../db.php';
-session_start();
+include_once '../session_bootstrap.php';
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] !== 1) {

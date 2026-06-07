@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
@@ -8,41 +8,56 @@
     <link rel="stylesheet" href="style/desktop.css">
     <link rel="stylesheet" href="style/mobile.css">
     <link rel="stylesheet" media="print" href="style/print.css">
-    <title>Gin&amp;Jute – Dettaglio</title>
+    <title>Lumen Spirits — Dettaglio prodotto</title>
 
     <script src="./assets/js/bridge.js" defer></script>
     <script src="./assets/js/product/item-loader.js" defer></script>
     <script src="./assets/js/cart/cart-manager.js" defer></script>
+    <script src="./assets/js/animation.js" defer></script>
+    <script src="./assets/js/account/account-menu.js" defer></script>
 </head>
 
 <body>
-    <a href="#main-content" class="sr-only sr-only--focusable">Skip to main content</a>
-    <header class="hero home-table-bg">
-        <nav>
+    <a href="#main-content" class="sr-only sr-only--focusable">Salta al contenuto principale</a>
+    <header class="hero">
+        <nav aria-label="Navigazione principale">
             <div class="nav-links">
                 <a href="./index.html" class="menu-items">Home</a>
-                <a href="./items.html" class="menu-items" aria-current="page">Catalog</a>
-                <a href="./contacts.html" class="menu-items">Contacts</a>
+                <a href="./catalog.html" class="menu-items">Catalogo</a>
+                <a href="./contacts.html" class="menu-items">Contatti</a>
             </div>
 
-            <div class="logo">LUMEN SPIRITS</div>
+            <div class="logo" lang="en">LUMEN SPIRITS</div>
 
             <div class="nav-icons">
-                <div class="search-box" id="search-input">
-                    <input type="text" class="search-bar" placeholder="Search..." aria-label="Cerca prodotto">
+                <div class="home-search-box" id="search-input">
+                    <input type="text" class="home-search-bar" placeholder="Cerca…" aria-label="Cerca prodotti">
                     <div class="result-list"></div>
                 </div>
-                <button class="nav-search-button" id="home-search-button" aria-label="Open search" aria-expanded="false"><i class="fas fa-search" aria-hidden="true"></i></button>
-                    <!--fixare href qua sotto-->
-                <a href="./optionsPage.html" aria-label="Area Personale"><i class="fas fa-user" aria-hidden="true"></i></a> 
+                <button class="nav-search-button" id="home-search-button" aria-label="Apri la ricerca" aria-expanded="false" aria-controls="search-input"><i class="fas fa-search" aria-hidden="true"></i></button>
+                <div class="account-box">
+                    <button id="account-button" class="account-icon-button" aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Apri menu account">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                    </button>
+
+                    <div id="account-popup" class="account-popup" role="dialog" aria-modal="true"
+                        aria-labelledby="account-popup-title">
+                        <h2 id="account-popup-title" class="sr-only">Menu account</h2>
+                        <button id="close-popup-button" class="close-popup-btn" aria-label="Chiudi menu account" type="button">×</button>
+
+                        <a href="./login.html" class="popup-link">Accedi</a>
+                        <a href="./register.html" class="popup-link">Registrati</a>
+                    </div>
+                </div>
                 <a href="./cart.html" aria-label="Carrello"><i class="fas fa-shopping-bag" aria-hidden="true"></i></a>
             </div>
         </nav>
-        <h1>Creative Rebirth</h1>
     </header>
 
     <main id="main-content">
-        <section class="hero hero-padding mid-height align-center">
+        <div id="cart-announcement" aria-live="polite" role="status" class="sr-only"></div>
+        <section class="hero hero-padding mid-height align-center" aria-labelledby="product-title">
             <div class="detail-layout">
 
                 <div class="detail-image-wrapper">
@@ -50,7 +65,7 @@
                 </div>
 
                 <div class="detail-info">
-                    <h2 class="section-title">Gin &amp; Jute</h2>
+                    <h2 class="section-title" id="product-title">Gin &amp; Jute</h2>
 
                     <p class="section-text">
                         Lampada artigianale ricavata da una bottiglia di gin riciclata,
@@ -58,10 +73,11 @@
                     </p>
 
                     <table class="detail-table">
+                        <caption class="sr-only">Specifiche del prodotto</caption>
                         <tbody>
                             <tr>
                                 <th scope="row">Materiale</th>
-                                <td>Vetro riciclato, Iuta naturale</td>
+                                <td>Vetro riciclato, iuta naturale</td>
                             </tr>
                             <tr>
                                 <th scope="row">Autore</th>
@@ -78,11 +94,12 @@
                         </tbody>
                     </table>
 
-                    <p class="detail-price">€ 89,00</p>
+                    <p class="detail-price"><span class="sr-only">Prezzo: </span>€ 89,00</p>
 
                     <div class="detail-actions">
                         <label for="qty">Quantità</label>
-                        <input type="number" id="qty" name="qty" value="1" min="1" max="99">
+                        <input type="number" id="qty" name="qty" value="1" min="1" max="99" aria-describedby="qty-help">
+                        <span id="qty-help" class="sr-only">Inserisci un numero tra 1 e 99</span>
                         <button id="addToCartButton" class="button" type="button">
                             <i class="fas fa-shopping-bag" aria-hidden="true"></i> Aggiungi al carrello
                         </button>
@@ -94,29 +111,29 @@
     </main>
     <footer class="hero hero-padding footer-layout">
         <div class="footer-column">
-            <h3 class="footer-title">Discover More</h3>
+            <h2 class="footer-title">Scopri di più</h2>
             <ul class="footer-links">
-                <li><a href="#" class="menu-items">Home</a></li>
-                <li><a href="#" class="menu-items">Catalog</a></li>
-                <li><a href="#" class="menu-items">Contacts</a></li>
+                <li><a href="index.html" class="menu-items">Home</a></li>
+                <li><a href="catalog.html" class="menu-items">Catalogo</a></li>
+                <li><a href="contacts.html" class="menu-items">Contatti</a></li>
             </ul>
         </div>
 
         <div class="footer-column">
-            <h3 class="footer-title">Link up</h3>
+            <h2 class="footer-title">Seguici</h2>
             <ul class="footer-links">
-                <li><a href="#"><i class="fab fa-facebook-f fa-fw" aria-hidden="true"></i>&nbsp;Facebook</a></li>
-                <li><a href="#"><i class="fab fa-instagram fa-fw" aria-hidden="true"></i>&nbsp;Instagram</a></li>
-                <li><a href="#"><i class="fab fa-tiktok fa-fw" aria-hidden="true"></i>&nbsp;Tiktok</a></li>
+                <li><a href="https://facebook.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f fa-fw" aria-hidden="true"></i>&nbsp;Facebook<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
+                <li><a href="https://instagram.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-fw" aria-hidden="true"></i>&nbsp;Instagram<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
+                <li><a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok fa-fw" aria-hidden="true"></i>&nbsp;TikTok<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
             </ul>
         </div>
 
-        <div class="footer-column">
-            <h3 class="footer-title">Subscribe to our community!</h3>
-            <form class="newsletter-form">
-                <label for="newsletter-email" class="visually-hidden">Email</label>
-                <input type="email" id="newsletter-email" placeholder="email" required>
-                <button type="submit" aria-label="Iscriviti alla newsletter"></button>
+        <div class="footer-column newsletter-column">
+            <h2 class="footer-title">Iscriviti alla nostra community!</h2>
+            <form class="newsletter-form" aria-label="Iscrizione newsletter">
+                <label for="newsletter-email-item" class="sr-only">Indirizzo email</label>
+                <input type="email" id="newsletter-email-item" name="email" placeholder="email@esempio.it" required>
+                <button type="submit" aria-label="Iscriviti alla newsletter"><i class="fas fa-paper-plane" aria-hidden="true"></i><span class="sr-only"> Iscriviti</span></button>
             </form>
         </div>
     </footer>

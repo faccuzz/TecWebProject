@@ -4,15 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!accountBtn || !accountPopup) return;
 
-    //Elementi clicabili all'interno del popup
-    //firstElement === closePopupButton, distinzione: firstElement x posizione, closePopupButton x funzione
     const closePopupBtn = document.getElementById('close-popup-button');
-    
-    const focusableElements = accountPopup.querySelectorAll('a, button');
-    const firstElement = focusableElements[0]; 
-    const lastElement = focusableElements[focusableElements.length - 1];
-    
+
     let isUserLoggedIn = false;
+
+    function getFocusable() {
+        return accountPopup.querySelectorAll('a, button');
+    }
 
     async function verifyLogin() {
         try {
@@ -21,68 +19,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (data.logged_in) {
                 isUserLoggedIn = true;
-                
+                accountBtn.setAttribute('aria-label', "Vai all'area personale");
                 accountBtn.removeAttribute('aria-haspopup');
                 accountBtn.removeAttribute('aria-expanded');
             } else {
                 isUserLoggedIn = false;
             }
-
         } catch (error) {
             console.error("Errore nel login check:", error);
         }
     }
 
-    function toggleAccountMenu() {
-        const isActive = accountPopup.classList.toggle('active');
-
-        accountBtn.setAttribute('aria-expanded', isActive);
-
-        if (isActive) {
-            focusableElements[1].focus();
-        } else {
-            accountBtn.focus();
+    function openMenu() {
+        accountPopup.classList.add('active');
+        accountBtn.setAttribute('aria-expanded', 'true');
+        const firstLink = accountPopup.querySelector('a.popup-link');
+        if (firstLink) firstLink.focus();
+        else {
+            const focusable = getFocusable();
+            if (focusable[0]) focusable[0].focus();
         }
     }
 
+    function closeMenu({ returnFocus = true } = {}) {
+        accountPopup.classList.remove('active');
+        accountBtn.setAttribute('aria-expanded', 'false');
+        if (returnFocus) accountBtn.focus();
+    }
+
     accountBtn.addEventListener('click', (e) => {
-        /**
-         * Si può aggiungere un controllo per aspettare l'arrivo delle informazioni nel caso di connessione lenta
-         */
         if (isUserLoggedIn) {
-            //Se loggato apre impostazioni, altrimenti il popup
-            window.location.href = './optionsPage.html'; 
+            window.location.href = './optionsPage.html';
+            return;
+        }
+        e.stopPropagation();
+        if (accountPopup.classList.contains('active')) {
+            closeMenu();
         } else {
-            //Permette di non propagare l'evento verso l'alto, evita che il click per aprire chiuda anche il popup stesso
-            e.stopPropagation();
-            toggleAccountMenu();
+            openMenu();
         }
     });
-    
 
-    closePopupBtn.addEventListener('click', toggleAccountMenu);
+    if (closePopupBtn) {
+        closePopupBtn.addEventListener('click', () => closeMenu());
+    }
 
-    //Chiudi cliccando fuori dal pop up
     document.addEventListener('click', (e) => {
-        if (accountPopup.classList.contains('active') && !accountPopup.contains(e.target)) {
-            toggleAccountMenu();
+        if (
+            accountPopup.classList.contains('active') &&
+            !accountPopup.contains(e.target) &&
+            e.target !== accountBtn
+        ) {
+            closeMenu({ returnFocus: false });
         }
     });
 
-    //Focus Trap per accessibilità
     accountPopup.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            toggleAccountMenu();
+            closeMenu();
             return;
         }
 
         if (e.key === 'Tab') {
-            if (document.activeElement === lastElement) {
+            const focusable = Array.from(getFocusable());
+            if (focusable.length === 0) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
                 e.preventDefault();
-                firstElement.focus();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
             }
         }
     });
-    //Verifica se utente già loggato tramite sessione
+
     verifyLogin();
 });

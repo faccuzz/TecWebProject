@@ -2,7 +2,7 @@
 include_once '../db.php';
 header('Content-Type: application/json');
 
-session_start();
+include_once '../session_bootstrap.php';
 if (!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] !== 1) {
     echo json_encode(["error" => "Accesso Negato"]);
     exit();

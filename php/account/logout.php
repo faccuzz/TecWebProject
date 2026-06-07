@@ -1,5 +1,5 @@
 <?php
-session_start();
+include_once '../session_bootstrap.php';
 
 //Rimuove le variabili
 session_unset();

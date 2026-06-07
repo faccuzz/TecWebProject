@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
-    <title>Checkout</title>
+    <title>Lumen Spirits — Checkout</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style/desktop.css">
     <link rel="stylesheet" href="style/mobile.css">
@@ -14,15 +14,15 @@
 </head>
 
 <body>
-    <a href="#main-content" class="sr-only sr-only--focusable">Skip to main content</a>
+    <a href="#main-content" class="sr-only sr-only--focusable">Salta al contenuto principale</a>
     <header class="checkout-header">
         <div class="top-row">
             <a href="cart.html" class="back-to-cart">
-                <i class="fas fa-arrow-left"></i>Back to Cart
+                <i class="fas fa-arrow-left" aria-hidden="true"></i> Torna al carrello
             </a>
 
             <div class="checkout-logo">
-                <a href="index.html">LUMEN SPIRITS</a>
+                <a href="index.html" lang="en">LUMEN SPIRITS</a>
             </div>
         </div>
         <div class="bottom-row">
@@ -31,57 +31,56 @@
 
     </header>
     <main class="checkout-layout" id="main-content">
-        <div class="form">
+        <section class="form" aria-labelledby="billing-title">
+            <h2 id="billing-title">Dati di fatturazione</h2>
             <form action="" method="post" id="Checkout-form" novalidate>
                 <div class="form-group">
 
                     <label for="email-input">Email</label>
-                    <input type="email" id="email-input" name="email" autocomplete="email" aria-describedby="checkout-email-error" required>
-                    <p class="form-error-msg" id="checkout-email-error" role="alert">Error placeholder</p>
+                    <input type="email" id="email-input" name="email" autocomplete="email" aria-describedby="checkout-email-error" aria-required="true" required>
+                    <p class="form-error-msg" id="checkout-email-error" role="alert" aria-live="polite"></p>
 
                 </div>
                 <div class="form-group">
 
-                    <label for="name-input">Name</label>
-                    <input type="text" id="name-input" name="name" autocomplete="given-name" aria-describedby="checkout-name-error" required>
-                    <p class="form-error-msg" id="checkout-name-error" role="alert">Error placeholder</p>
+                    <label for="name-input">Nome</label>
+                    <input type="text" id="name-input" name="name" autocomplete="given-name" aria-describedby="checkout-name-error" aria-required="true" required>
+                    <p class="form-error-msg" id="checkout-name-error" role="alert" aria-live="polite"></p>
 
                 </div>
                 <div class="form-group">
 
-                    <label for="surname-input">Surname</label>
-                    <input type="text" id="surname-input" name="surname" autocomplete="family-name" aria-describedby="checkout-surname-error" required>
-                    <p class="form-error-msg" id="checkout-surname-error" role="alert">Error placeholder</p>
+                    <label for="surname-input">Cognome</label>
+                    <input type="text" id="surname-input" name="surname" autocomplete="family-name" aria-describedby="checkout-surname-error" aria-required="true" required>
+                    <p class="form-error-msg" id="checkout-surname-error" role="alert" aria-live="polite"></p>
 
                 </div>
                 <div class="form-group">
-                    <label for="address">Address</label>
-                    <input type="text" id="address" name="address" placeholder="Street,number,..." aria-describedby="checkout-address-error" required>
-                    <p class="form-error-msg" id="checkout-address-error" role="alert">Error placeholder</p>
+                    <label for="address">Indirizzo</label>
+                    <input type="text" id="address" name="address" autocomplete="street-address" placeholder="Via, numero civico…" aria-describedby="checkout-address-error" aria-required="true" required>
+                    <p class="form-error-msg" id="checkout-address-error" role="alert" aria-live="polite"></p>
 
                 </div>
-                <button type="submit" class="button" name="checkout">Pay now</button>
+                <button type="submit" class="button" name="checkout">Paga ora</button>
             </form>
-        </div>
-        <div class="order-summary">
-            <h2>Your order</h2>
-            <h3>Products</h3>
+        </section>
+        <section class="order-summary" aria-labelledby="order-summary-title">
+            <h2 id="order-summary-title">Il tuo ordine</h2>
+            <h3>Prodotti</h3>
             <div id="previewProducts"></div>
             <hr>
             <div class="summary-line">
-                <span>Subtotal</span>
-                <span>120,00 €</span>
+                <span>Subtotale</span>
+                <span id="subtotal-amount">€ 0,00</span>
             </div>
             <div class="summary-line">
-                <span>Shipping Cost</span>
-                <span>Free</span>
+                <span>Spedizione</span>
+                <span>Gratuita</span>
             </div>
-            <div id="checkout-total" class="summary-line">
+            <div id="checkout-total" class="summary-line" aria-live="polite">
             </div>
-        </div>
+        </section>
     </main>
-
-    <!-- end body -->
 </body>
 
 </html>

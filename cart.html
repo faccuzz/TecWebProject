@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
-    <title>Shopping Cart</title>
+    <title>Lumen Spirits — Carrello</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style/desktop.css">
     <link rel="stylesheet" href="style/mobile.css">
@@ -15,29 +15,26 @@
 </head>
 
 <body class="cart-body">
-    <a href="#main-content" class="sr-only sr-only--focusable">Skip to main content</a>
+    <a href="#main-content" class="sr-only sr-only--focusable">Salta al contenuto principale</a>
     <header>
-        <nav>
+        <nav aria-label="Navigazione carrello">
             <div class="nav-links">
-                <a href="index.html" aria-label="Back to home"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></a>
+                <a href="index.html" aria-label="Torna alla home"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></a>
             </div>
 
-            <div class="logo">LUMEN SPIRITS</div>
+            <div class="logo" lang="en">LUMEN SPIRITS</div>
 
             <div class="nav-icons"></div>
         </nav>
     </header>
     <main id="main-content">
         <div class="shoppingCart">
-            <div id="cart-announcement" aria-live="polite" class="sr-only"></div>
-            <h1>Your Cart</h1>
+            <div id="cart-announcement" aria-live="polite" role="status" class="sr-only"></div>
+            <h1>Il tuo carrello</h1>
             <div id="itemsInCart"></div>
 
-            <div id="totalCartPrice"></div>
-            <!--<form class="shoppingCart-form">
-            
-        </form>-->
-            <button id="submitCart" class="button" type="submit">Proceed to order</button>
+            <div id="totalCartPrice" aria-live="polite"></div>
+            <button id="submitCart" class="button" type="button">Procedi con l'ordine</button>
         </div>
     </main>
 </body>

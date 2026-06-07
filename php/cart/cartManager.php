@@ -1,5 +1,5 @@
 <?php
-session_start();
+include_once '../session_bootstrap.php';
 include_once '../db.php';
 header('Content-Type: application/json');
 
