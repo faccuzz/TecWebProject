@@ -61,17 +61,25 @@ class database
         return $result->num_rows > 0;
     }
 
-    public function insertProduct($name, $price, $description, $imageUrl, $inStock = 1)
+    public function insertProduct($name, $price, $description, $imageUrl, $inStock = 1,
+                                  $material = '', $author = '', $dimensions = '', $weight = '', $voltage = '')
     {
         do {
             $id = $this->generateRandomID();
         } while ($this->idExists($id));
-        $sql = "INSERT INTO products (id,productName,price,description,imageUrl,inStock) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO products
+                  (id, productName, price, description, imageUrl, material, author, dimensions, weight, voltage, inStock)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->connection->prepare($sql);
         if (!$stmt) {
             return "Errore Query: " . $this->connection->error;
         }
-        $stmt->bind_param('ssdssi', $id, $name, $price, $description, $imageUrl, $inStock);
+        $stmt->bind_param(
+            'ssdsssssssi',
+            $id, $name, $price, $description, $imageUrl,
+            $material, $author, $dimensions, $weight, $voltage,
+            $inStock
+        );
         if (!$stmt->execute()) {
             return "Errore Dati: " . $stmt->error;
         }
@@ -81,7 +89,9 @@ class database
 
     public function getProducts()
     {
-        $sql = "SELECT id,productName,price,description,imageUrl,inStock FROM products";
+        $sql = "SELECT id, productName, price, description, imageUrl,
+                       material, author, dimensions, weight, voltage, inStock
+                FROM products";
         $result = $this->connection->query($sql);
         return $result;
     }
@@ -137,19 +147,39 @@ class database
         return false;
     }
 
-    public function modifyProduct($id, $name, $price, $description, $imageUrl, $inStock)
+    public function modifyProduct($id, $name, $price, $description, $imageUrl, $inStock,
+                                  $material = '', $author = '', $dimensions = '', $weight = '', $voltage = '')
     {
-        $sql = "UPDATE products SET productName = ?, price = ?, description = ?, imageUrl = ?, inStock = ? WHERE id = ?";
+        $sql = "UPDATE products
+                SET productName = ?, price = ?, description = ?, imageUrl = ?,
+                    material = ?, author = ?, dimensions = ?, weight = ?, voltage = ?,
+                    inStock = ?
+                WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('sdssis', $name, $price, $description, $imageUrl, $inStock, $id);
+        $stmt->bind_param(
+            'sdsssssssis',
+            $name, $price, $description, $imageUrl,
+            $material, $author, $dimensions, $weight, $voltage,
+            $inStock, $id
+        );
         return $stmt->execute();
     }
 
-    public function modifyProductWithoutImage($id, $name, $price, $description, $inStock)
+    public function modifyProductWithoutImage($id, $name, $price, $description, $inStock,
+                                              $material = '', $author = '', $dimensions = '', $weight = '', $voltage = '')
     {
-        $sql = "UPDATE products SET productName = ?, price = ?, description = ?, inStock = ? WHERE id = ?";
+        $sql = "UPDATE products
+                SET productName = ?, price = ?, description = ?,
+                    material = ?, author = ?, dimensions = ?, weight = ?, voltage = ?,
+                    inStock = ?
+                WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('sdsis', $name, $price, $description, $inStock, $id);
+        $stmt->bind_param(
+            'sdssssssis',
+            $name, $price, $description,
+            $material, $author, $dimensions, $weight, $voltage,
+            $inStock, $id
+        );
         return $stmt->execute();
     }
 
@@ -168,7 +198,9 @@ class database
 
     public function getProductById($id)
     {
-        $sql = "SELECT id,productName,price,description,imageUrl,inStock FROM products WHERE id = ?";
+        $sql = "SELECT id, productName, price, description, imageUrl,
+                       material, author, dimensions, weight, voltage, inStock
+                FROM products WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
         $stmt->bind_param('s', $id);
         $stmt->execute();

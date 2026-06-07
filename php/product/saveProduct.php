@@ -12,10 +12,15 @@ $db = new database();
 $products = [];
 
 if (isset($_POST['name'])) {
-    $name = $_POST['name'];
-    $price = $_POST['price'];
+    $name        = $_POST['name'];
+    $price       = $_POST['price'];
     $description = $_POST['description'];
-    $in_stock = $_POST['inStock'] === 'true' ? 1 : 0;
+    $material    = $_POST['material']   ?? '';
+    $author      = $_POST['author']     ?? '';
+    $dimensions  = $_POST['dimensions'] ?? '';
+    $weight      = $_POST['weight']     ?? '';
+    $voltage     = $_POST['voltage']    ?? '';
+    $in_stock    = $_POST['inStock'] === 'true' ? 1 : 0;
 
     $upload = database::validateAndMoveImage($_FILES['image'], $name, "../../assets/img/");
     if (isset($upload['error'])) {
@@ -24,7 +29,10 @@ if (isset($_POST['name'])) {
     }
 
     $db->connect();
-    $insert = $db->insertProduct($name, $price, $description, $upload['image_name'], $in_stock);
+    $insert = $db->insertProduct(
+        $name, $price, $description, $upload['image_name'], $in_stock,
+        $material, $author, $dimensions, $weight, $voltage
+    );
     $db->close();
 
     echo json_encode($insert === true ? ['success' => true] : ['success' => false, 'error' => $insert]);

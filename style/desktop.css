@@ -756,10 +756,30 @@ nav {
     color: rgb(var(--text-color));
 }
 
+.card-content h2,
 .card-content h3 {
     margin-bottom: 10px;
     font-size: clamp(0.95rem, 1.6vw, 1.3rem);
-    font-weight: 300;
+    font-weight: 600;
+}
+
+/* Descrizione prodotto nelle card del catalogo: max 3 righe con ellipsis.
+   Il testo completo resta nel DOM (accessibile a screen reader), solo
+   visivamente è troncato; la versione integrale si vede in item.html. */
+.card-content p {
+    margin-bottom: 0.8em;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: rgb(var(--text-color));
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Fallback per browser senza supporto line-clamp:
+       max-height = 3 righe × line-height */
+    max-height: calc(0.9rem * 1.4 * 3);
 }
 
 .search-bar {
@@ -988,6 +1008,21 @@ nav {
 #menu-nav li:active {
     color: rgb(var(--decoration-color));
     font-weight: bold;
+}
+
+/* Voce di menu attualmente selezionata: grassetto + sottolineata,
+   cursor default (non sembra cliccabile). Il click viene comunque
+   bloccato lato JS per evitare ricaricamenti inutili. */
+#menu-nav li.active button,
+#menu-nav li button[aria-current="true"] {
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: default;
+}
+
+#menu-nav li.active {
+    color: rgb(var(--decoration-color));
 }
 
 #menu-nav li[data-section="logout"],

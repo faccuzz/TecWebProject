@@ -14,6 +14,7 @@
     <script src="assets/js/bridge.js" defer></script>
     <script src="assets/js/product/search-engine.js" defer></script>
     <script src="assets/js/account/account-menu.js" defer></script>
+    <script src="assets/js/home/home-products.js" defer></script>
     <title>Lumen Spirits — Home</title>
 </head>
 
@@ -62,36 +63,9 @@
     </header>
     <main id="main-content">
         <section class="hero hero-padding mid-height align-center" aria-labelledby="home-decor-title">
-            <h2 class="section-title" id="home-decor-title" lang="en">Home Decor Products</h2>
-            <div class="row-layout">
-                <div class="card">
-                    <img src="assets/img/gin-jute.webp" alt="Lampada da bottiglia di gin con rivestimento in iuta">
-                    <div class="card-content">
-                        <h3 lang="en">Gin&amp;Jute</h3>
-                        <a href="catalog.html" class="button" lang="en">Discover<span class="sr-only"> Gin and Jute</span></a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="assets/img/whisky-edison.webp" alt="Lampada da bottiglia di whisky in stile Edison">
-                    <div class="card-content">
-                        <h3 lang="en">Whisky Edison</h3>
-                        <a href="catalog.html" class="button" lang="en">Discover<span class="sr-only"> Whisky Edison</span></a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="assets/img/vodka-industrial.webp" alt="Lampada da bottiglia di vodka in stile industriale">
-                    <div class="card-content">
-                        <h3 lang="en">Vodka Industrial</h3>
-                        <a href="catalog.html" class="button" lang="en">Discover<span class="sr-only"> Vodka Industrial</span></a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="assets/img/wine-cork.webp" alt="Lampada da bottiglia di vino con tappi di sughero">
-                    <div class="card-content">
-                        <h3 lang="en">Wine&amp;Cork</h3>
-                        <a href="catalog.html" class="button" lang="en">Discover<span class="sr-only"> Wine and Cork</span></a>
-                    </div>
-                </div>
+            <h2 class="section-title" id="home-decor-title">Prodotti in evidenza</h2>
+            <div class="row-layout" aria-live="polite">
+                <!-- popolato dinamicamente da home-products.js con 4 prodotti casuali -->
             </div>
         </section>
         <section class="hero hero-padding mid-height sustainable-design-bg align-start" aria-labelledby="sustainable-title">

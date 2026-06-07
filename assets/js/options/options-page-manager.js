@@ -60,8 +60,16 @@ function initOptionsPage() {
     menu.addEventListener('click', (event) => {
         const button = event.target.closest('button[data-section]');
         if (!button) return;
-        const sezione = button.getAttribute('data-section');
         const elemento = button.closest('li');
+
+        // Se la sezione è già attiva, non ricaricare nulla.
+        // Il button rimane focusabile da tastiera ma il click non fa niente.
+        if (elemento.classList.contains('active')) {
+            event.preventDefault();
+            return;
+        }
+
+        const sezione = button.getAttribute('data-section');
 
         document.querySelectorAll('#menu-nav li').forEach(li => {
             li.classList.remove('active');
@@ -80,8 +88,10 @@ function initOptionsPage() {
             const html = await risposta.text();
             areaContenuto.innerHTML = html;
 
-            // Sposta il focus sull'area dei contenuti per gli screen reader
-            areaContenuto.focus();
+            // Sposta il focus sull'area dei contenuti per gli screen reader,
+            // ma SENZA scrollare: il browser di default centra l'elemento focusato,
+            // facendo scorrere la pagina giù — preventScroll mantiene lo scroll attuale.
+            areaContenuto.focus({ preventScroll: true });
             announceSection(`Sezione ${SECTION_LABELS[sezione] || sezione} caricata.`);
 
             switch (sezione) {
@@ -148,16 +158,24 @@ function getProdotto() {
     fetch(`./php/product/singleInfo.php?id=${id}`)
         .then(response => response.json())
         .then(data => {
-            const nameEl = document.getElementById('name');
-            const priceEl = document.getElementById('price');
-            const descEl = document.getElementById('description');
-            const stockEl = document.getElementById('inStock');
-            const fileEl = document.getElementById('file-name-display');
+            const setVal = (elId, val) => {
+                const el = document.getElementById(elId);
+                if (el && val !== undefined && val !== null) el.value = val;
+            };
 
-            if (nameEl) nameEl.value = data.productName;
-            if (priceEl) priceEl.value = data.price;
-            if (descEl) descEl.value = data.description;
+            setVal('name',        data.productName);
+            setVal('price',       data.price);
+            setVal('description', data.description);
+            setVal('material',    data.material);
+            setVal('author',      data.author);
+            setVal('dimensions',  data.dimensions);
+            setVal('weight',      data.weight);
+            setVal('voltage',     data.voltage);
+
+            const stockEl = document.getElementById('inStock');
             if (stockEl) stockEl.value = (data.inStock == 1) ? 'true' : 'false';
+
+            const fileEl = document.getElementById('file-name-display');
             if (fileEl && data.imageUrl) fileEl.textContent = 'File selezionato: ' + data.imageUrl;
         })
         .catch(error => console.error('Errore caricamento prodotto:', error));

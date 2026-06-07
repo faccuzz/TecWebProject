@@ -164,12 +164,41 @@ function renderProducts($db)
 
                 <div class='form-pair'>
                     <div>
+                        <label for='product-material'>Materiale</label>
+                        <input type='text' id='product-material' name='material' maxlength='120' placeholder='Es. Vetro riciclato, iuta naturale'/>
+                    </div>
+                    <div>
+                        <label for='product-author'>Autore / artigiano</label>
+                        <input type='text' id='product-author' name='author' maxlength='80' placeholder='Es. Marco Ferretti'/>
+                    </div>
+                </div>
+
+                <div class='form-pair'>
+                    <div>
+                        <label for='product-dimensions'>Dimensioni</label>
+                        <input type='text' id='product-dimensions' name='dimensions' maxlength='60' placeholder='Es. Ø 9 cm × H 35 cm'/>
+                    </div>
+                    <div>
+                        <label for='product-weight'>Peso</label>
+                        <input type='text' id='product-weight' name='weight' maxlength='30' placeholder='Es. 1,0 kg'/>
+                    </div>
+                </div>
+
+                <div class='form-pair'>
+                    <div>
+                        <label for='product-voltage'>Voltaggio</label>
+                        <input type='text' id='product-voltage' name='voltage' maxlength='30' placeholder='Es. 220–240 V'/>
+                    </div>
+                    <div>
                         <label for='product-stock'>Disponibilità</label>
                         <select id='product-stock' name='inStock' aria-required='true' required>
                             <option value='true'>Sì, disponibile</option>
                             <option value='false'>No, esaurito</option>
                         </select>
                     </div>
+                </div>
+
+                <div class='form-pair'>
                     <div>
                         <label for='image-upload' class='button'>
                           <i class='fas fa-camera' aria-hidden='true'></i> Seleziona immagine

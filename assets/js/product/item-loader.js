@@ -45,6 +45,44 @@ function populatePage(product) {
     if (product.productName) {
         document.title = `Lumen Spirits — ${product.productName}`;
     }
+
+    populateDetailTable(product);
+}
+
+/**
+ * Popola la tabella delle specifiche con i campi del prodotto.
+ * Saltiamo righe il cui valore è vuoto / null, così se l'admin non
+ * compila uno dei campi la tabella si adatta automaticamente.
+ */
+function populateDetailTable(product) {
+    const tbody = document.getElementById('detail-table-body');
+    if (!tbody) return;
+
+    const rows = [
+        { label: 'Materiale',     value: product.material },
+        { label: 'Autore',        value: product.author },
+        { label: 'Dimensioni',    value: product.dimensions },
+        { label: 'Peso',          value: product.weight },
+        { label: 'Voltaggio',     value: product.voltage },
+        {
+            label: 'Disponibilità',
+            value: Number(product.inStock) === 1 ? 'Disponibile' : 'Esaurito'
+        },
+    ];
+
+    tbody.innerHTML = '';
+    rows.forEach(({ label, value }) => {
+        if (value === null || value === undefined || String(value).trim() === '') return;
+        const tr = document.createElement('tr');
+        const th = document.createElement('th');
+        th.setAttribute('scope', 'row');
+        th.textContent = label;
+        const td = document.createElement('td');
+        td.textContent = value;
+        tr.appendChild(th);
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+    });
 }
 
 loadProduct();
