@@ -52,7 +52,7 @@ async function renderPreview() {
 
             const safeName = product.productName.replace(/"/g, '&quot;');
             previewRow.innerHTML = `
-                <img src="assets/img/${product.imageUrl}" alt="${safeName}">
+                <img src="assets/img/${product.imageUrl}" alt="${safeName}" loading="lazy" decoding="async">
                 <h3>${safeName}</h3>
             `;
             previewContainer.appendChild(previewRow);

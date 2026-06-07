@@ -52,7 +52,7 @@ async function renderHomeProducts() {
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-            <img src="assets/img/${safeImg}" alt="Foto del prodotto ${safeName}">
+            <img src="assets/img/${safeImg}" alt="Foto del prodotto ${safeName}" loading="lazy" decoding="async">
             <div class="card-content">
                 <h3>${safeName}</h3>
                 <a href="item.html?id=${safeId}" class="button">

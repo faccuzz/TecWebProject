@@ -118,7 +118,7 @@ function renderCartPage() {
         const safeName = product.productName.replace(/"/g, '&quot;');
 
         cartRow.innerHTML = `
-            <img class="productCartImage" src="assets/img/${product.imageUrl}" alt="${safeName}">
+            <img class="productCartImage" src="assets/img/${product.imageUrl}" alt="${safeName}" loading="lazy" decoding="async">
             <a href="item.html?id=${product.id}" class="productCartName">${safeName}</a>
             <div class="productQuantity">
                 <label for="qty-${product.id}">Quantità</label>

@@ -237,7 +237,7 @@ function renderProducts($db)
             echo "<tr>"
                 . "<th scope='row'>" . $name . "</th>"
                 . "<td>" . h($p['description']) . "</td>"
-                . "<td><img src='assets/img/" . $img . "' alt='Foto del prodotto " . $name . "' style='width:60px;height:60px;object-fit:cover;border-radius:4px;'></td>"
+                . "<td><img src='assets/img/" . $img . "' alt='Foto del prodotto " . $name . "' loading='lazy' decoding='async' style='width:60px;height:60px;object-fit:cover;border-radius:4px;'></td>"
                 . "<td aria-label='" . $stockLabel . "'>" . ($inStock ? 'Sì' : 'No') . "</td>"
                 . "<td aria-label='" . $priceLabel . "'>" . h($p['price']) . " €</td>"
                 . "<td>"

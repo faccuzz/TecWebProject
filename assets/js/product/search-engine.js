@@ -84,12 +84,15 @@ function renderGrid(items) {
     // Applica role="list" solo quando ci sono figli "listitem"
     resultGrid.setAttribute('role', 'list');
 
-    items.forEach(product => {
+    items.forEach((product, idx) => {
         const safeName = product.productName.replace(/</g, '&lt;');
         const safeDesc = (product.description || '').replace(/</g, '&lt;');
         const altText = `Foto del prodotto ${safeName}`;
+        // Le prime 3 card di solito sono above-the-fold: caricamento eager
+        // per non penalizzare LCP. Le restanti sono lazy.
+        const loadingAttr = idx < 3 ? 'eager' : 'lazy';
         const htmlContent = `
-            <img src="./assets/img/${product.imageUrl}" alt="${altText}">
+            <img src="./assets/img/${product.imageUrl}" alt="${altText}" loading="${loadingAttr}" decoding="async">
             <div class="card-content">
                 <h2>${safeName}</h2>
                 <p>${safeDesc}</p>
