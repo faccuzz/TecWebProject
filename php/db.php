@@ -7,8 +7,8 @@ class database
 
     public function connect()
     {
-        // Silenzia il warning di mysqli per gestire l'errore in modo controllato
-        // e ritornare un JSON parsabile lato client (utile anche per screen reader).
+        // disattivo i warning di mysqli cosi gestisco l'errore a mano
+        // e posso ritornare un JSON pulito al client
         mysqli_report(MYSQLI_REPORT_OFF);
         $this->connection = @new mysqli(
             DB_CONFIG['db_host'],
@@ -181,6 +181,22 @@ class database
             $inStock, $id
         );
         return $stmt->execute();
+    }
+
+    // compone la stringa delle dimensioni partendo da larghezza e altezza in cm
+    public static function formatDimensions($width, $height)
+    {
+        $w = is_numeric($width)  ? (float)$width  : null;
+        $h = is_numeric($height) ? (float)$height : null;
+        if ($w === null || $h === null || $w <= 0 || $h <= 0) {
+            return '';
+        }
+        // se è intero lo scrivo senza virgola, sennò con la virgola (formato italiano)
+        $fmt = function ($n) {
+            if (floor($n) == $n) return (string)(int)$n;
+            return rtrim(rtrim(number_format($n, 2, ',', ''), '0'), ',');
+        };
+        return "Ø " . $fmt($w) . " cm × H " . $fmt($h) . " cm";
     }
 
     public static function validateAndMoveImage($image, $name, $destinationFolder)

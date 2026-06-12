@@ -25,18 +25,14 @@ function initFormChecker() {
                 initialCountry: "it",
             });
 
-            // Patch a11y: la libreria mette aria-activedescendant verso un id
-            // che non esiste finché il dropdown è chiuso → violazione 4.1.2.
-            // Lo rimuoviamo finché il dropdown non è aperto.
+            // la libreria intlTelInput lascia attivi degli aria-* anche quando il dropdown
+            // è chiuso e cosi rompe gli screen reader. Li ripulisco a mano.
             const selectedFlag = phoneInput.closest('.iti')?.querySelector('.iti__selected-flag');
             if (selectedFlag) {
                 selectedFlag.removeAttribute('aria-activedescendant');
                 selectedFlag.removeAttribute('aria-owns');
                 selectedFlag.setAttribute('role', 'button');
-                // Niente aria-label: lasciamo che il nome accessibile derivi
-                // dal title (es. "Italy (Italia): +39") che corrisponde al testo visibile.
-                // Quando l'utente apre la lista, la libreria ri-assegna aria-activedescendant
-                // verso l'elemento corrente; va ripulito quando si richiude.
+                // quando l'utente richiude la lista devo togliere di nuovo l'attributo
                 const observer = new MutationObserver(() => {
                     const isOpen = selectedFlag.getAttribute('aria-expanded') === 'true';
                     if (!isOpen) {
@@ -60,7 +56,7 @@ function initFormChecker() {
     }
 
     if (passwordInput && txtRequirement1) {
-        // Stato iniziale: tutti i requisiti non soddisfatti
+        // all'inizio nessun requisito è soddisfatto
         updateRequirementsUI({ length: false, number: false, uppercase: false, special: false });
         passwordInput.addEventListener('input', () => {
             const ps = checkPasswordStrength(passwordInput.value);
@@ -94,7 +90,7 @@ function setRequirementState(el, met) {
     if (!el) return;
     el.classList.toggle('requirement-met', met);
     el.classList.toggle('requirement-unmet', !met);
-    // Annuncio per screen reader: testo originale + stato
+    // aggiorno l'aria-label per gli screen reader
     const baseText = el.dataset.baseText || el.textContent.replace(/^[✓✗]\s*/, '');
     el.dataset.baseText = baseText;
     el.setAttribute('aria-label', `${baseText}: ${met ? 'soddisfatto' : 'non soddisfatto'}`);
@@ -205,7 +201,7 @@ async function register() {
             );
         }
     } else {
-        // Sposto il focus sul primo campo in errore per non lasciare l'utente "perso"
+        // metto il focus sul primo campo sbagliato
         const firstError = form.querySelector('.input-error');
         if (firstError) firstError.focus();
     }

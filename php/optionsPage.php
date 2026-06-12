@@ -41,7 +41,7 @@ switch ($section) {
 }
 $db->close();
 
-//Anti Cross-Site Scripting
+// scorciatoia per fare l'escape dei dati prima di stamparli (evita XSS)
 function h($s)
 {
     return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
@@ -175,13 +175,21 @@ function renderProducts($db)
 
                 <div class='form-pair'>
                     <div>
-                        <label for='product-dimensions'>Dimensioni</label>
-                        <input type='text' id='product-dimensions' name='dimensions' maxlength='60' placeholder='Es. Ø 9 cm × H 35 cm'/>
+                        <label for='product-width'>Larghezza (cm)</label>
+                        <input type='number' id='product-width' name='dimensionsWidth' min='0' step='0.1' placeholder='Es. 9'/>
                     </div>
+                    <div>
+                        <label for='product-height'>Altezza (cm)</label>
+                        <input type='number' id='product-height' name='dimensionsHeight' min='0' step='0.1' placeholder='Es. 35'/>
+                    </div>
+                </div>
+
+                <div class='form-pair'>
                     <div>
                         <label for='product-weight'>Peso</label>
                         <input type='text' id='product-weight' name='weight' maxlength='30' placeholder='Es. 1,0 kg'/>
                     </div>
+                    <div></div>
                 </div>
 
                 <div class='form-pair'>
@@ -203,11 +211,12 @@ function renderProducts($db)
                         <label for='image-upload' class='button'>
                           <i class='fas fa-camera' aria-hidden='true'></i> Seleziona immagine
                         </label>
-                        <input type='file' id='image-upload' name='image' accept='image/png, image/jpg, image/jpeg, image/webp' aria-describedby='file-name-display'>
+                        <input type='file' id='image-upload' name='image' accept='image/png, image/jpg, image/jpeg, image/webp' aria-describedby='file-name-display' aria-required='true' required>
                         <p id='file-name-display'>Nessun file selezionato</p>
                     </div>
                 </div>
 
+                <p id='add-product-status' class='form-error-msg' role='alert' aria-live='polite'></p>
                 <button type='submit' name='submit' class='button'>Aggiungi prodotto</button>
             </form>
         </div>";

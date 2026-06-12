@@ -9,6 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// estrae larghezza e altezza dalla stringa salvata nel db (tipo "Ø 9 cm × H 33 cm")
+function parseDimensions(str) {
+    if (!str) return { width: '', height: '' };
+    const heightMatch = str.match(/H\s*([\d]+(?:[.,][\d]+)?)\s*cm/i);
+    const widthMatch  = str.match(/([\d]+(?:[.,][\d]+)?)\s*(?:cm|×|x)/i);
+    const norm = m => m ? m[1].replace(',', '.') : '';
+    return {
+        width:  norm(widthMatch),
+        height: norm(heightMatch),
+    };
+}
+
 const SECTION_LABELS = {
     orderHistory: 'Storico ordini',
     configurations: 'Impostazioni account',
@@ -57,19 +69,12 @@ function initOptionsPage() {
         }
     }
 
-    menu.addEventListener('click', (event) => {
-        const button = event.target.closest('button[data-section]');
-        if (!button) return;
-        const elemento = button.closest('li');
-
-        // Se la sezione è già attiva, non ricaricare nulla.
-        // Il button rimane focusabile da tastiera ma il click non fa niente.
-        if (elemento.classList.contains('active')) {
-            event.preventDefault();
-            return;
-        }
-
-        const sezione = button.getAttribute('data-section');
+    // uso questa sia quando l'utente clicca sul menu, sia all'avvio se nell'url c'è ?section=...
+    function activateSection(sezione) {
+        const targetBtn = menu.querySelector(`button[data-section="${sezione}"]`);
+        if (!targetBtn) return;
+        const elemento = targetBtn.closest('li');
+        if (elemento.classList.contains('active')) return;
 
         document.querySelectorAll('#menu-nav li').forEach(li => {
             li.classList.remove('active');
@@ -77,10 +82,29 @@ function initOptionsPage() {
             if (innerBtn) innerBtn.removeAttribute('aria-current');
         });
         elemento.classList.add('active');
-        button.setAttribute('aria-current', 'true');
+        targetBtn.setAttribute('aria-current', 'true');
 
         caricaDati(sezione);
+    }
+
+    menu.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-section]');
+        if (!button) return;
+        const elemento = button.closest('li');
+
+        // se la sezione è già aperta non ricarico
+        if (elemento.classList.contains('active')) {
+            event.preventDefault();
+            return;
+        }
+        activateSection(button.getAttribute('data-section'));
     });
+
+    // se nell'url c'è ?section=... (es. dopo che ho aggiunto un prodotto), apro quella
+    const initialSection = new URLSearchParams(window.location.search).get('section');
+    if (initialSection && SECTION_LABELS[initialSection]) {
+        activateSection(initialSection);
+    }
 
     async function caricaDati(sezione) {
         try {
@@ -88,9 +112,7 @@ function initOptionsPage() {
             const html = await risposta.text();
             areaContenuto.innerHTML = html;
 
-            // Sposta il focus sull'area dei contenuti per gli screen reader,
-            // ma SENZA scrollare: il browser di default centra l'elemento focusato,
-            // facendo scorrere la pagina giù — preventScroll mantiene lo scroll attuale.
+            // sposto il focus sulla zona dei contenuti (preventScroll evita che la pagina salti su)
             areaContenuto.focus({ preventScroll: true });
             announceSection(`Sezione ${SECTION_LABELS[sezione] || sezione} caricata.`);
 
@@ -111,7 +133,17 @@ function initOptionsPage() {
         const fileInput = document.getElementById('image-upload');
         const fileNameDisplay = document.getElementById('file-name-display');
         const productForm = document.getElementById('product-upload');
+        const statusEl = document.getElementById('add-product-status');
         if (!productForm) return;
+
+        function showStatus(msg, isError = true) {
+            if (statusEl) {
+                statusEl.textContent = msg;
+                statusEl.classList.toggle('active', !!msg);
+                statusEl.style.color = isError ? '' : 'var(--success-color)';
+            }
+            announceSection(msg);
+        }
 
         if (fileInput) {
             fileInput.addEventListener('change', (event) => {
@@ -124,10 +156,14 @@ function initOptionsPage() {
 
         productForm.addEventListener('submit', async (event) => {
             event.preventDefault();
+            showStatus('');
             const formData = new FormData(productForm);
 
-            if (!formData.get('name') || !formData.get('description') || !formData.get('price') || !formData.get('image') || !formData.get('inStock')) {
-                announceSection('Tutti i campi del prodotto sono obbligatori.');
+            // controllo i campi obbligatori. Per il file uso fileInput.files
+            // perche FormData.get('image') ritorna comunque un File anche se vuoto
+            const file = fileInput && fileInput.files[0];
+            if (!formData.get('name') || !formData.get('description') || !formData.get('price') || !formData.get('inStock') || !file || file.size === 0) {
+                showStatus('Compila tutti i campi obbligatori e seleziona un\'immagine.');
                 return;
             }
 
@@ -135,14 +171,15 @@ function initOptionsPage() {
                 const response = await fetch('./php/product/saveProduct.php', { method: 'POST', body: formData });
                 const result = await response.json();
                 if (result.success) {
-                    announceSection('Prodotto aggiunto con successo.');
-                    window.location.href = 'optionsPage.html?section=products';
+                    showStatus('Prodotto aggiunto con successo.', false);
+                    // forzo il reload anche se sono gia sulla stessa url
+                    setTimeout(() => { window.location.assign('optionsPage.html?section=products&t=' + Date.now()); }, 600);
                 } else {
-                    announceSection('Errore durante il salvataggio del prodotto.');
+                    showStatus('Errore: ' + (result.error || 'salvataggio non riuscito.'));
                 }
             } catch (error) {
                 console.error('Errore di caricamento:', error);
-                announceSection('Errore di connessione al server.');
+                showStatus('Errore di connessione al server.');
             }
         });
     }
@@ -168,9 +205,13 @@ function getProdotto() {
             setVal('description', data.description);
             setVal('material',    data.material);
             setVal('author',      data.author);
-            setVal('dimensions',  data.dimensions);
             setVal('weight',      data.weight);
             setVal('voltage',     data.voltage);
+
+            // le dimensioni nel db sono in una sola stringa, le splitto nei due input
+            const { width, height } = parseDimensions(data.dimensions);
+            setVal('dimensionsWidth',  width);
+            setVal('dimensionsHeight', height);
 
             const stockEl = document.getElementById('inStock');
             if (stockEl) stockEl.value = (data.inStock == 1) ? 'true' : 'false';
@@ -242,7 +283,7 @@ function initSecurityPasswordChecker() {
         el.setAttribute('aria-label', `${baseText}: ${met ? 'soddisfatto' : 'non soddisfatto'}`);
     }
 
-    // Stato iniziale
+    // stato iniziale: nessun requisito ok
     [req1, req2, req3, req4].forEach(r => setReq(r, false));
 
     newPass.addEventListener('input', () => {

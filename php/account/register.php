@@ -28,9 +28,8 @@ if (isset($inputData['isAdmin'])) {
     }
 }
 
-// I campi indirizzo non sono richiesti in fase di registrazione iniziale
-// (l'utente li compila al checkout). Le colonne della tabella `address`
-// sono NOT NULL in STRICT mode di MySQL, quindi forniamo stringa vuota.
+// l'indirizzo non lo chiediamo in registrazione (lo mette al checkout)
+// pero le colonne nella tabella address sono NOT NULL, quindi metto stringa vuota
 $address  = $inputData['street']     ?? '';
 $city     = $inputData['city']       ?? '';
 $cap      = $inputData['postalCode'] ?? '';

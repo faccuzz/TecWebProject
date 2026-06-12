@@ -117,6 +117,10 @@
         --side-padding: 1.2em;
     }
 
+    .home-search-box {
+        width: 14em;
+    }
+
     .giant-title {
         font-size: 3.2rem;
     }

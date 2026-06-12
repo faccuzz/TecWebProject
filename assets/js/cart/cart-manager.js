@@ -4,6 +4,7 @@ const totalPriceContainer = document.getElementById('totalCartPrice');
 const submitCartButton = document.getElementById('submitCart');
 let cartInformation;
 
+// aggiorna il messaggio per gli screen reader (aria-live)
 function announceToCart(message) {
     const announcement = document.getElementById('cart-announcement');
     if (announcement) announcement.textContent = message;

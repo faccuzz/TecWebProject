@@ -16,8 +16,8 @@ if (isset($_GET['category']) && isset($_GET['value']) && $_GET['category'] != ''
 
     if (in_array($requestedCategory, $whitelist)) {
         if ($requestedCategory === 'id') {
-            // Procedimento per cercare svariati id alla volta:
-            // separo gli ID, conto, creo i placeholder, eseguo bind dinamico
+            // qui posso ricevere piu id separati da virgola, quindi
+            // costruisco i placeholder dinamicamente
             $idList = explode(',', $_GET['value']);
             $idCount = count($idList);
             $placeholder = implode(',', array_fill(0, $idCount, '?'));

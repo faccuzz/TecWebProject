@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Tengo il focus dentro al popup (Tab e Shift+Tab fanno il giro)
         if (e.key === 'Tab') {
             const focusable = Array.from(getFocusable());
             if (focusable.length === 0) return;

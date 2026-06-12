@@ -52,7 +52,7 @@ function renderList(items) {
         return;
     }
 
-    // Applica role="listbox" solo quando ci sono figli "option" reali
+    // Imposto role="listbox" solo quando ho dei risultati da mostrare
     resultList.setAttribute('role', 'listbox');
     resultList.setAttribute('aria-label', 'Risultati di ricerca');
 
@@ -81,15 +81,13 @@ function renderGrid(items) {
         return;
     }
 
-    // Applica role="list" solo quando ci sono figli "listitem"
     resultGrid.setAttribute('role', 'list');
 
     items.forEach((product, idx) => {
         const safeName = product.productName.replace(/</g, '&lt;');
         const safeDesc = (product.description || '').replace(/</g, '&lt;');
         const altText = `Foto del prodotto ${safeName}`;
-        // Le prime 3 card di solito sono above-the-fold: caricamento eager
-        // per non penalizzare LCP. Le restanti sono lazy.
+        // le prime 3 immagini si vedono subito, le altre le carico solo quando servono
         const loadingAttr = idx < 3 ? 'eager' : 'lazy';
         const htmlContent = `
             <img src="./assets/img/${product.imageUrl}" alt="${altText}" loading="${loadingAttr}" decoding="async">
@@ -107,7 +105,6 @@ function renderGrid(items) {
 init();
 
 if (searchInput) {
-    // Aria-expanded sul container search per indicare lista risultati aperta
     function setListboxExpanded(expanded) {
         if (resultList) {
             resultList.setAttribute('aria-expanded', expanded ? 'true' : 'false');
@@ -145,7 +142,7 @@ if (searchInput) {
     });
 }
 
-// Chiude il dropdown della search della home quando si clicca fuori
+// chiudo la tendina dei risultati se l'utente clicca fuori
 document.addEventListener('click', (e) => {
     if (resultList && resultList.style.display === 'block') {
         if (!searchInput.contains(e.target) && !resultList.contains(e.target)) {

@@ -18,7 +18,10 @@ if (isset($_POST['submit'])) {
     $description = $_POST['description'];
     $material    = $_POST['material']   ?? '';
     $author      = $_POST['author']     ?? '';
-    $dimensions  = $_POST['dimensions'] ?? '';
+    $dimensions  = database::formatDimensions(
+        $_POST['dimensionsWidth']  ?? '',
+        $_POST['dimensionsHeight'] ?? ''
+    );
     $weight      = $_POST['weight']     ?? '';
     $voltage     = $_POST['voltage']    ?? '';
     $in_stock    = $_POST['inStock'] === 'true' ? 1 : 0;

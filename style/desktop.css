@@ -3,30 +3,26 @@
    ====================================================== */
 
 :root {
-    /* Palette WCAG 2.1 AA/AAA — contrasti verificati su sfondo crema (252,248,244) */
-
-    /* Colori principali in formato RGB per consentire l'uso con rgba() */
+    /* Colori principali (in formato RGB cosi posso usarli anche con rgba) */
     --primary-color: 252, 248, 244;   /* sfondo crema */
-    --text-color: 28, 14, 8;          /* marrone scurissimo — 17.8:1 AAA */
-    --decoration-color: 140, 60, 8;   /* terra scuro — 7.2:1 AAA */
+    --text-color: 28, 14, 8;          /* marrone molto scuro per il testo */
+    --decoration-color: 140, 60, 8;   /* terra scuro per gli accenti */
 
-    /* Colore sfondo card — uniforme alla primary */
+    /* sfondo card, uguale al primary */
     --bg-color: 252, 248, 244;
 
-    /* Colore errori form (5.4:1 AA) */
+    /* messaggi di errore/conferma */
     --error-color: #C42B1C;
-
-    /* Colore conferma/positivo (6.8:1 AAA) */
     --success-color: #1E6F3D;
 
-    /* Icone secondarie (era #999 → 2.85:1 fail) */
-    --icon-secondary: #595959;        /* 7.0:1 AAA su bianco */
+    /* grigio per le icone secondarie, abbastanza scuro da leggersi bene */
+    --icon-secondary: #595959;
 
-    /* Link logout (era #d9534f → 3.47:1 fail) */
-    --logout-color: #A32A24;          /* 6.1:1 AAA */
-    --logout-color-hover: #7A1F1B;    /* ancora più scuro */
+    /* link del logout: rosso ma non sparato in faccia */
+    --logout-color: #A32A24;
+    --logout-color-hover: #7A1F1B;
 
-    /* Outline focus invertito su sfondi scuri (nav, checkout-header) */
+    /* outline del focus quando lo sfondo è scuro (nav, hero scuri ecc.) */
     --focus-on-dark: rgb(252, 248, 244);
 
     /* Bordi */
@@ -98,7 +94,7 @@ a {
     border-width: 0;
 }
 
-/* Alias per compatibilità con item.html che usa visually-hidden */
+/* stesso comportamento di sr-only, mi serve solo perche in item.html ho usato visually-hidden */
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -111,7 +107,7 @@ a {
     border-width: 0;
 }
 
-/* Skip link: invisibile finché non riceve il focus da tastiera */
+/* skip link: si vede solo quando viene messo a fuoco dalla tastiera */
 .sr-only--focusable:focus {
     position: fixed;
     top: 0;
@@ -157,7 +153,7 @@ a {
     outline-offset: 3px;
 }
 
-/* Outline invertito su sfondi scuri (nav, checkout-header, hero) per visibilità */
+/* sugli sfondi scuri uso un outline chiaro, altrimenti non si vede */
 nav :focus-visible,
 .checkout-header :focus-visible,
 .home-table-bg :focus-visible,
@@ -222,9 +218,8 @@ header {
     justify-content: flex-start;
 }
 
-/* Hero con immagine di sfondo + overlay scuro denso.
-   L'overlay garantisce un contrasto reale ≥ 13:1 fra testo bianco e sfondo.
-   bg-color #000 di fallback per browser senza supporto immagini. */
+/* hero con immagine + overlay scuro, cosi il testo bianco sopra si legge bene.
+   metto anche un background-color nero come fallback se l'immagine non parte */
 .home-table-bg {
     background-color: #000;
     background-image:
@@ -250,9 +245,8 @@ header {
     color: rgb(var(--primary-color));
 }
 
-/* Testo sopra le hero: bianco puro + text-shadow leggera per definire
-   i bordi anche su micro-zone più chiare dell'immagine sotto l'overlay.
-   Niente bg-color → l'immagine resta visibile. */
+/* testo bianco con un po' di ombra, cosi resta leggibile anche se l'immagine
+   sotto ha delle zone piu chiare */
 .home-table-bg h1,
 .home-table-bg h2,
 .home-table-bg h3,
@@ -428,8 +422,7 @@ nav {
    CASELLA DI RICERCA
    ====================================================== */
 
-/* Search box: l'input cresce orizzontalmente; la lista risultati
-   è un dropdown assoluto sotto, NON in colonna con l'input. */
+/* la search box: input che si apre in orizzontale, e sotto i risultati come tendina */
 .home-search-box {
     background: transparent;
     min-height: 2em;
@@ -463,7 +456,7 @@ nav {
     opacity: 1;
 }
 
-/* Dropdown dei risultati: posizionato sotto l'input come popover */
+/* la lista dei risultati va sotto l'input */
 .home-search-box .result-list {
     position: absolute;
     top: calc(100% + 0.5em);
@@ -481,7 +474,6 @@ nav {
     display: none;
 }
 
-/* È il JS che mostra/nasconde la lista impostando style.display */
 .home-search-box .result-item {
     padding: 0.75em 1em;
     border-bottom: 1px solid rgba(28, 14, 8, 0.15);
@@ -521,7 +513,6 @@ nav {
     transition: color 0.3s ease;
 }
 
-/* Le regole specifiche per il dropdown sono in .home-search-box .result-list */
 
 
 /* ======================================================
@@ -565,7 +556,7 @@ nav {
     transform: translateY(0);
 }
 
-/* Close button del dialog account — visibile e accessibile quando aperto */
+/* pulsante x per chiudere il popup account */
 .account-popup .close-popup-btn {
     position: absolute;
     top: 4px;
@@ -728,14 +719,17 @@ nav {
     border: 1px solid rgb(var(--text-color));
     background-color: rgb(var(--primary-color));
     align-self: flex-start;
-    transition: background-color 0.3s ease-in-out;
     border-radius: 6px;
+    /* Niente transition sui colori: se il bg cambia in 0.3s ma il color
+       cambia all'istante, c'è una finestra in cui testo chiaro è sopra
+       sfondo ancora chiaro = invisibile. Cambio istantaneo evita il flash. */
 }
 
 .button:hover,
 .button:focus-visible {
     background-color: rgb(var(--decoration-color));
     color: rgb(var(--primary-color));
+    border-color: rgb(var(--decoration-color));
     cursor: pointer;
 }
 
@@ -763,9 +757,8 @@ nav {
     font-weight: 600;
 }
 
-/* Descrizione prodotto nelle card del catalogo: max 3 righe con ellipsis.
-   Il testo completo resta nel DOM (accessibile a screen reader), solo
-   visivamente è troncato; la versione integrale si vede in item.html. */
+/* descrizione del prodotto nelle card: la taglio dopo 3 righe con i puntini.
+   Il testo completo resta nel DOM (cosi gli screen reader lo leggono lo stesso) */
 .card-content p {
     margin-bottom: 0.8em;
     font-size: 0.9rem;
@@ -777,8 +770,7 @@ nav {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* Fallback per browser senza supporto line-clamp:
-       max-height = 3 righe × line-height */
+    /* se il browser non supporta line-clamp metto comunque una max-height */
     max-height: calc(0.9rem * 1.4 * 3);
 }
 
@@ -889,11 +881,13 @@ nav {
     padding: 0.75em;
     border-radius: 6px;
     border: 1px solid var(--border-medium);
-    background: transparent;
     font-weight: bold;
     margin-top: 2em;
     text-align: center;
     cursor: pointer;
+    /* NON forzare background:transparent: andrebbe in conflitto con
+       .button:hover sovrascrivendo lo sfondo terra (stessa specificity,
+       l'ultima vince), causando "crema su crema = invisibile" durante l'hover. */
 }
 
 .adminUpload--wide {
@@ -1010,9 +1004,8 @@ nav {
     font-weight: bold;
 }
 
-/* Voce di menu attualmente selezionata: grassetto + sottolineata,
-   cursor default (non sembra cliccabile). Il click viene comunque
-   bloccato lato JS per evitare ricaricamenti inutili. */
+/* voce di menu attiva: grassetto + sottolineata. Il cursor default fa capire
+   che non c'è bisogno di ri-cliccarci (e comunque il JS la ignora) */
 #menu-nav li.active button,
 #menu-nav li button[aria-current="true"] {
     font-weight: bold;
@@ -1279,10 +1272,19 @@ form select {
     padding: 0.75em;
     border-radius: 6px;
     border: 1px solid var(--border-medium);
+    background-color: rgb(var(--text-color));
+    color: rgb(var(--primary-color));
     font-weight: bold;
     margin-top: 2em;
     text-align: center;
     cursor: pointer;
+}
+
+.formulario button:hover,
+.formulario button:focus-visible {
+    background-color: rgb(var(--decoration-color));
+    border-color: rgb(var(--decoration-color));
+    color: rgb(var(--primary-color));
 }
 
 .col-layout {

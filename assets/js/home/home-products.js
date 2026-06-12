@@ -1,28 +1,15 @@
-/**
- * Mostra 4 prodotti casuali nella sezione "Home Decor Products" della home.
- * Ogni card linka direttamente a item.html?id=<id> per aprire la scheda del prodotto.
- */
+// Mostra 4 prodotti a caso nella sezione "Prodotti in evidenza" della home.
 
 const HOME_PRODUCTS_COUNT = 4;
 
-function escapeHtml(s) {
-    return String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-}
-
 function pickRandomProducts(products, count) {
-    // Fisher-Yates shuffle parziale per evitare il bias di sort(() => Math.random() - 0.5)
+    // mischio l'array e prendo i primi N
     const arr = [...products];
-    const n = Math.min(count, arr.length);
-    for (let i = 0; i < n; i++) {
-        const j = i + Math.floor(Math.random() * (arr.length - i));
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-    return arr.slice(0, n);
+    return arr.slice(0, count);
 }
 
 async function renderHomeProducts() {
@@ -33,10 +20,10 @@ async function renderHomeProducts() {
     try {
         products = await fetchProducts();
     } catch (err) {
-        console.error('Errore nel caricamento dei prodotti per la home:', err);
+        console.error('Errore caricamento prodotti home:', err);
         return;
     }
-    if (!Array.isArray(products) || products.length === 0) {
+    if (!products || products.length === 0) {
         container.innerHTML = '<p role="status">Nessun prodotto disponibile al momento.</p>';
         return;
     }
@@ -45,17 +32,15 @@ async function renderHomeProducts() {
 
     container.innerHTML = '';
     selected.forEach(p => {
-        const safeName = escapeHtml(p.productName);
-        const safeId   = encodeURIComponent(p.id);
-        const safeImg  = escapeHtml(p.imageUrl);
+        const safeName = p.productName.replace(/</g, '&lt;');
 
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-            <img src="assets/img/${safeImg}" alt="Foto del prodotto ${safeName}" loading="lazy" decoding="async">
+            <img src="assets/img/${p.imageUrl}" alt="Foto del prodotto ${safeName}" loading="lazy">
             <div class="card-content">
                 <h3>${safeName}</h3>
-                <a href="item.html?id=${safeId}" class="button">
+                <a href="item.html?id=${p.id}" class="button">
                     Scopri<span class="sr-only"> ${safeName}</span>
                 </a>
             </div>

@@ -13,7 +13,7 @@ async function fetchProducts(category = '', value = '') {
         return dati;
 
     } catch (errore) {
-        console.error("Something's wrong:", errore);
+        console.error("Errore fetch prodotti:", errore);
     }
 }
 

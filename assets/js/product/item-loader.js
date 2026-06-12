@@ -49,11 +49,8 @@ function populatePage(product) {
     populateDetailTable(product);
 }
 
-/**
- * Popola la tabella delle specifiche con i campi del prodotto.
- * Saltiamo righe il cui valore è vuoto / null, così se l'admin non
- * compila uno dei campi la tabella si adatta automaticamente.
- */
+// Riempe la tabella con le specifiche del prodotto. Se un campo è vuoto
+// salto la riga, cosi la tabella resta pulita anche se l'admin non lo compila.
 function populateDetailTable(product) {
     const tbody = document.getElementById('detail-table-body');
     if (!tbody) return;

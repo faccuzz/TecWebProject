@@ -30,9 +30,6 @@ CREATE TABLE users (
     FOREIGN KEY (addressId) REFERENCES address(addressId) ON DELETE CASCADE
 );
 
--- Password seed (bcrypt password_hash):
---   admin / admin   →  $2y$10$lKHZkuPCQz4TIANCqvD7POYpp551sW6GIpFVow7yqbpvGJuVeA2IC
---   user  / user    →  $2y$10$qVq./vNRtcNuMXOTXAy.YOLQayaBD9pzpDGgzQL.mpySscpiNhWX2
 INSERT INTO users(username,password,name,surname,email,phoneNumber,isAdmin) VALUES
 ('admin','$2y$10$lKHZkuPCQz4TIANCqvD7POYpp551sW6GIpFVow7yqbpvGJuVeA2IC','Davide','Rossi','admin@gmail.com','+391562145632', TRUE),
 ('user','$2y$10$qVq./vNRtcNuMXOTXAy.YOLQayaBD9pzpDGgzQL.mpySscpiNhWX2','Daniele','Bortoli','user@gmail.com','+391512631544', FALSE);

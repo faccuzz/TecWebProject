@@ -27,7 +27,8 @@ try {
     $userInfo = $db->login($email, $password);
 
     if ($userInfo) {
-        session_regenerate_id(true); // Anti Session Hijacking
+        // rigenero l'id di sessione dopo il login per sicurezza
+        session_regenerate_id(true);
         $_SESSION['email']   = $userInfo['email'];
         $_SESSION['isAdmin'] = $userInfo['isAdmin'];
         session_write_close();

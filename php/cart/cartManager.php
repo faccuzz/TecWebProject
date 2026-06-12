@@ -9,20 +9,19 @@ if (!isset($_SESSION['cart'])) {
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-//Default: restituisci il carrelo (get)
+// di default torna il carrello
 $action = isset($data['action']) ? $data['action'] : 'get';
 
-/**
- * add: aggiunge il prodotto, o ne aumenta la quantità, nel carrello
- * update: aggiorna la quantità di prodotto
- * remove: rimuove un prodotto dal carrello
- * clear: libera l'intero carrello
- * get: restituisce il carrello nella sessione
- * submit: salva informazioni per il checkout
- */
+/* azioni gestite:
+   add    -> aggiunge un prodotto (o aumenta la quantità se gia c'è)
+   update -> cambia la quantità di un prodotto
+   remove -> toglie un prodotto
+   clear  -> svuota tutto
+   get    -> ritorna il carrello in sessione
+*/
 switch ($action) {
-    //Se già presente sommo la quantità, altrimenti la assegno
     case 'add':
+        // se è già nel carrello sommo, altrimenti lo aggiungo
         $id = $data['id'];
         $qty = intval($data['qty']);
         
@@ -57,8 +56,8 @@ switch ($action) {
         break;
     
     case 'get':
-        //Non fa nulla, esce dallo switch e ritorna il carrello
     default:
+        // non fa niente, esce dallo switch e ritorna il carrello
         break;
 }
 
