@@ -1,149 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style/style.css" type="text/css" />
-    <link rel="stylesheet" href="style/components.css" type="text/css" />
-    <link rel="stylesheet" href="style/layout.css" type="text/css" />
+    <link rel="stylesheet" href="style/desktop.css">
+    <link rel="stylesheet" href="style/mobile.css">
+    <link rel="stylesheet" media="print" href="style/print.css">
 
     <script src="assets/js/animation.js" defer></script>
-    <script src="assets/js/search-engine.js" defer></script>
-    <script src="assets/js/account-menu.js" defer></script>
-    <title>Welcome page</title>
+    <script src="assets/js/bridge.js" defer></script>
+    <script src="assets/js/product/search-engine.js" defer></script>
+    <script src="assets/js/account/account-menu.js" defer></script>
+    <script src="assets/js/home/home-products.js" defer></script>
+    <title>Lumen Spirits — Home</title>
 </head>
 
 <body>
-    <nav>
+    <a href="#main-content" class="sr-only sr-only--focusable">Salta al contenuto principale</a>
+    <nav aria-label="Navigazione principale">
         <div class="nav-links">
-            <a href="#" class="menu-items active">Home</a>
-            <a href="catalog.html" class="menu-items">Catalog</a>
-            <a href="contacts.html" class="menu-items">Contacts</a>
+            <a href="index.html" class="menu-items active" aria-current="page">Home</a>
+            <a href="catalog.html" class="menu-items">Catalogo</a>
+            <a href="contacts.html" class="menu-items">Contatti</a>
         </div>
 
-        <div class="logo">LUMEN SPIRITS</div>
+        <div class="logo" lang="en">LUMEN SPIRITS</div>
 
         <div class="nav-icons">
             <div class="home-search-box" id="search-input">
-                <input type="text" class="home-search-bar" placeholder="Search..." aria-label="Search items">
+                <input type="text" class="home-search-bar" placeholder="Cerca…" aria-label="Cerca prodotti">
                 <div class="result-list"></div>
             </div>
-            <i class="fas fa-search" id="home-search-button"></i>
+            <button class="nav-search-button" id="home-search-button" aria-label="Apri la ricerca" aria-expanded="false" aria-controls="search-input"><i class="fas fa-search" aria-hidden="true"></i></button>
             <div class="account-box">
-                <button id="account-button" class="account-icon-button" aria-haspopup="true" aria-expanded="false"
-                    aria-label="Menu account">
+                <button id="account-button" class="account-icon-button" aria-haspopup="dialog" aria-expanded="false"
+                    aria-label="Apri menu account">
                     <i class="fas fa-user" aria-hidden="true"></i>
                 </button>
 
                 <div id="account-popup" class="account-popup" role="dialog" aria-modal="true"
-                    aria-label="Scegli un'azione">
-                    <button id="close-popup-button" class="hidden">Chiudi menu account</button>
+                    aria-labelledby="account-popup-title">
+                    <h2 id="account-popup-title" class="sr-only">Menu account</h2>
+                    <button id="close-popup-button" class="close-popup-btn" aria-label="Chiudi menu account" type="button">×</button>
 
                     <a href="./login.html" class="popup-link">Accedi</a>
                     <a href="./register.html" class="popup-link">Registrati</a>
                 </div>
-            </div> <a href="cart.html" aria-label="Shopping Cart"><i class="fas fa-shopping-bag"></i></a>
+            </div>
+            <a href="cart.html" aria-label="Carrello"><i class="fas fa-shopping-bag" aria-hidden="true"></i></a>
         </div>
     </nav>
     <header class="hero big-height home-table-bg">
-        <p class="shop-description">
+        <p class="shop-description" lang="en">
             Unique Lamps and Centerpieces <br />
             Transformed by Artisan Mastery
         </p>
 
-        <h1 class="giant-title">Creative Rebirth</h1>
+        <h1 class="giant-title" lang="en">Lumen Spirits</h1>
     </header>
-    <main>
-        <section class="hero hero-padding mid-height align-center">
-            <h2 class="section-title">Home Decor Products</h2>
-            <div class="row-layout">
-                <div class="card">
-                    <img src="assets/img/gin-jute.webp" alt="Bottle gin and jute lamp">
-                    <div class="card-content">
-                        <h3>Gin&amp;Jute</h3>
-                        <a href="#" class="button">Discover</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="assets/img/whisky-edison.webp" alt="Bottle whisky lamp edison style">
-                    <div class="card-content">
-                        <h3>Whisky Edison</h3>
-                        <a href="#" class="button">Discover</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="assets/img/vodka-industrial.webp" alt="Bottle vodka lamp industrial style">
-                    <div class="card-content">
-                        <h3>Vodka Industrial</h3>
-                        <a href="#" class="button">Discover</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="assets/img/wine-cork.webp" alt="Bottle wine and cork lamp">
-                    <div class="card-content">
-                        <h3>Wine&amp;Cork</h3>
-                        <a href="#" class="button">Discover</a>
-                    </div>
-                </div>
+    <main id="main-content">
+        <section class="hero hero-padding mid-height align-center" aria-labelledby="home-decor-title">
+            <h2 class="section-title" id="home-decor-title">Prodotti in evidenza</h2>
+            <div class="row-layout" aria-live="polite">
+                <!-- riempito da home-products.js -->
             </div>
         </section>
-        <section class="hero hero-padding mid-height sustainable-design-bg align-start">
-            <h2 class="section-title big-size">
+        <section class="hero hero-padding mid-height sustainable-design-bg align-start" aria-labelledby="sustainable-title">
+            <h2 class="section-title big-size" id="sustainable-title" lang="en">
                 Sustainable <br />
                 Design
             </h2>
-            <p>
+            <p lang="en">
                 Each piece is a sensory journey,<br />
                 the result of a meticulous process,<br />
                 from bottle to beauty.
             </p>
-            <a href="catalog.html" class="button">Buy now</a>
+            <a href="catalog.html" class="button" lang="en">Buy now</a>
         </section>
-        <div class="hero hero-padding mid-height align-center">
+        <section aria-label="La nostra filosofia" class="hero hero-padding mid-height align-center">
             <div class="main-quote">
-                <blockquote>
+                <blockquote lang="en">
                     We offer functional works of art,<br />
                     crafted with passion and attention to detail,<br />
                     to rediscover the beauty of reuse.
                 </blockquote>
-                <a href="catalog.html" class="button">Buy now</a>
+                <a href="catalog.html" class="button" lang="en">Buy now</a>
             </div>
-        </div>
-        <section class="hero hero-padding mid-height craftsmanship-bg align-start">
-            <h2 class="section-title big-size">Unique Craftsmanship</h2>
-            <p class="section-text">Every piece is handmade</p>
-            <a href="catalog.html" class="button">Buy now</a>
+        </section>
+        <section class="hero hero-padding mid-height craftsmanship-bg align-start" aria-labelledby="craftsmanship-title">
+            <h2 class="section-title big-size" id="craftsmanship-title" lang="en">Unique Craftsmanship</h2>
+            <p class="section-text" lang="en">Every piece is handmade</p>
+            <a href="catalog.html" class="button" lang="en">Buy now</a>
         </section>
     </main>
     <footer class="hero hero-padding footer-layout">
         <div class="footer-column">
-            <h3 class="footer-title">Discover More</h3>
+            <h2 class="footer-title">Scopri di più</h2>
             <ul class="footer-links">
-                <li><a href="#" class="menu-items">Home</a></li>
-                <li><a href="#" class="menu-items">Catalog</a></li>
-                <li><a href="#" class="menu-items">Contacts</a></li>
+                <li><a href="index.html" class="menu-items">Home</a></li>
+                <li><a href="catalog.html" class="menu-items">Catalogo</a></li>
+                <li><a href="contacts.html" class="menu-items">Contatti</a></li>
             </ul>
         </div>
 
         <div class="footer-column">
-            <h3 class="footer-title">Link up</h3>
+            <h2 class="footer-title">Seguici</h2>
             <ul class="footer-links">
-                <li><a href="#"><i class="fab fa-facebook-f fa-fw"></i>&nbsp;Facebook</a></li>
-                <li><a href="#"><i class="fab fa-instagram fa-fw"></i>&nbsp;Instagram</a></li>
-                <li><a href="#"><i class="fab fa-tiktok fa-fw"></i>&nbsp;Tiktok</a></li>
+                <li><a href="https://facebook.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f fa-fw" aria-hidden="true"></i>&nbsp;Facebook<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
+                <li><a href="https://instagram.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-fw" aria-hidden="true"></i>&nbsp;Instagram<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
+                <li><a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok fa-fw" aria-hidden="true"></i>&nbsp;TikTok<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
             </ul>
         </div>
 
         <div class="footer-column newsletter-column">
-            <h2 class="footer-title">Subscribe to our community!</h2>
-            <form class="newsletter-form">
-                <label for="email" class="sr-only">Email</label>
-                <input type="email" id="email" placeholder="email" required>
-                <button type="submit">Subscribe!</button>
+            <h2 class="footer-title">Iscriviti alla nostra community!</h2>
+            <form class="newsletter-form" aria-label="Iscrizione newsletter">
+                <label for="newsletter-email-home" class="sr-only">Indirizzo email</label>
+                <input type="email" id="newsletter-email-home" name="email" placeholder="email@esempio.it" required>
+                <button type="submit" aria-label="Iscriviti alla newsletter"><i class="fas fa-paper-plane" aria-hidden="true"></i><span class="sr-only"> Iscriviti</span></button>
             </form>
         </div>
     </footer>
 </body>
+</html>

@@ -1,157 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style/style.css" type="text/css">
-    <link rel="stylesheet" href="style/components.css" type="text/css">
-    <link rel="stylesheet" href="style/layout.css" type="text/css">
+    <link rel="stylesheet" href="style/desktop.css">
+    <link rel="stylesheet" href="style/mobile.css">
+    <link rel="stylesheet" media="print" href="style/print.css">
 
     <script src="assets/js/animation.js" defer></script>
-    <script src="assets/js/search-engine.js" defer></script>
-    <script src="assets/js/account-menu.js" defer></script>
-    <title>Contacts page</title>
+    <script src="assets/js/bridge.js" defer></script>
+    <script src="assets/js/product/search-engine.js" defer></script>
+    <script src="assets/js/account/account-menu.js" defer></script>
+    <title>Lumen Spirits — Contatti</title>
 </head>
 
 <body>
+    <a href="#main-content" class="sr-only sr-only--focusable">Salta al contenuto principale</a>
     <header>
-        <nav>
+        <nav aria-label="Navigazione principale">
             <div class="nav-links">
                 <a href="index.html" class="menu-items">Home</a>
-                <a href="catalog.html" class="menu-items">Catalog</a>
-                <a href="#" class="menu-items active">Contacts</a>
+                <a href="catalog.html" class="menu-items">Catalogo</a>
+                <a href="contacts.html" class="menu-items active" aria-current="page">Contatti</a>
             </div>
 
-            <div class="logo">LUMEN SPIRITS</div>
+            <div class="logo" lang="en">LUMEN SPIRITS</div>
 
             <div class="nav-icons">
                 <div class="home-search-box" id="search-input">
-                    <input type="text" class="home-search-bar" placeholder="Search..." aria-label="Search items">
+                    <input type="text" class="home-search-bar" placeholder="Cerca…" aria-label="Cerca prodotti">
                     <div class="result-list"></div>
                 </div>
-                <i class="fas fa-search" id="home-search-button"></i>
+                <button class="nav-search-button" id="home-search-button" aria-label="Apri la ricerca" aria-expanded="false" aria-controls="search-input"><i class="fas fa-search" aria-hidden="true"></i></button>
                 <div class="account-box">
-                    <button id="account-button" class="account-icon-button" aria-haspopup="true" aria-expanded="false"
-                        aria-label="Menu account">
+                    <button id="account-button" class="account-icon-button" aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Apri menu account">
                         <i class="fas fa-user" aria-hidden="true"></i>
                     </button>
 
                     <div id="account-popup" class="account-popup" role="dialog" aria-modal="true"
-                        aria-label="Scegli un'azione">
-                        <button id="close-popup-button" class="hidden">Chiudi menu account</button>
+                        aria-labelledby="account-popup-title">
+                        <h2 id="account-popup-title" class="sr-only">Menu account</h2>
+                        <button id="close-popup-button" class="close-popup-btn" aria-label="Chiudi menu account" type="button">×</button>
 
                         <a href="./login.html" class="popup-link">Accedi</a>
                         <a href="./register.html" class="popup-link">Registrati</a>
                     </div>
-                </div> <a href="cart.html" aria-label="Shopping Cart"><i class="fas fa-shopping-bag"></i></a>
+                </div>
+                <a href="cart.html" aria-label="Carrello"><i class="fas fa-shopping-bag" aria-hidden="true"></i></a>
             </div>
         </nav>
     </header>
-    <main>
-        <section class="hero hero-padding mid-height align-center">
-            <h2 class="section-title">Contacts</h2>
+    <main id="main-content">
+        <section class="hero hero-padding mid-height align-center" aria-labelledby="contacts-title">
+            <h1 class="section-title" id="contacts-title">Contatti</h1>
             <div class="descr">
-                <h3>Message in a bottle?</h3>
-                <p>Let's shed some light on your questions!</p>
+                <h2>Hai un messaggio in bottiglia?</h2>
+                <p>Facciamo luce sulle tue domande.</p>
             </div>
             <div class="col-layout">
                 <div class="formulario">
-                    <h3>Light up our inbox</h3>
-                    <form action="#" method="post">
+                    <h2>Scrivici</h2>
+                    <form action="#" method="post" aria-describedby="contact-form-help">
+                        <p id="contact-form-help" class="sr-only">Tutti i campi sono obbligatori.</p>
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" autocomplete="name" required>
-                            <p class="form-error-msg">Error placeholder</p>
+                            <label for="contact-name">Nome</label>
+                            <input type="text" id="contact-name" name="name" autocomplete="given-name" aria-describedby="contact-name-error" aria-required="true" required>
+                            <p class="form-error-msg" id="contact-name-error" role="alert" aria-live="polite"></p>
                         </div>
                         <div class="form-group">
-                            <label for="surname">Surname</label>
-                            <input type="text" id="surname" name="surname" autocomplete="family-name" required>
-                            <p class="form-error-msg">Error placeholder</p>
+                            <label for="contact-surname">Cognome</label>
+                            <input type="text" id="contact-surname" name="surname" autocomplete="family-name" aria-describedby="contact-surname-error" aria-required="true" required>
+                            <p class="form-error-msg" id="contact-surname-error" role="alert" aria-live="polite"></p>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" autocomplete="email" required>
-                            <p class="form-error-msg">Error placeholder</p>
+                            <label for="contact-email">Email</label>
+                            <input type="email" id="contact-email" name="email" autocomplete="email" aria-describedby="contact-email-error" aria-required="true" required>
+                            <p class="form-error-msg" id="contact-email-error" role="alert" aria-live="polite"></p>
                         </div>
                         <div class="form-group">
-                            <label for="subject">What can we help you with?</label>
-                            <select id="subject" name="subject" required>
-                                <option value="" disabled selected>Select a topic...</option>
-                                <option value="order">Questions about an order / Shipping</option>
-                                <option value="damage">My item arrived damaged</option>
-                                <option value="custom">Custom pieces for events</option>
-                                <option value="general">General inquiry</option>
+                            <label for="contact-subject">In cosa possiamo aiutarti?</label>
+                            <select id="contact-subject" name="subject" aria-describedby="contact-subject-error" aria-required="true" required>
+                                <option value="">— Seleziona un argomento —</option>
+                                <option value="order">Domande su un ordine / spedizione</option>
+                                <option value="damage">Articolo arrivato danneggiato</option>
+                                <option value="custom">Pezzi personalizzati per eventi</option>
+                                <option value="general">Informazioni generali</option>
                             </select>
-                            <p class="form-error-msg">Error placeholder</p>
+                            <p class="form-error-msg" id="contact-subject-error" role="alert" aria-live="polite"></p>
                         </div>
                         <div class="form-group">
-                            <label for="message">Add comment</label>
-                            <textarea id="message" name="message" rows="4"
-                                placeholder="Tell us more about what you need..." required></textarea>
-                            <p class="form-error-msg">Error placeholder</p>
+                            <label for="contact-message">Aggiungi un commento</label>
+                            <textarea id="contact-message" name="message" rows="4" aria-describedby="contact-message-error" aria-required="true"
+                                placeholder="Raccontaci di cosa hai bisogno…" required></textarea>
+                            <p class="form-error-msg" id="contact-message-error" role="alert" aria-live="polite"></p>
                         </div>
-                        <button type="submit">Send message</button>
+                        <button type="submit">Invia messaggio</button>
                     </form>
                 </div>
-                <aside>
-                    <h3>Additional Information</h3>
+                <section aria-labelledby="contact-info-title">
+                    <h2 id="contact-info-title">Informazioni aggiuntive</h2>
                     <div>
-                        <h4>Creative Rebirth Guarantee</h4>
-                        <p> Glass is fragile, but our commitment to you isn't. If your item arrives damaged, send us a
-                            photo within 48 hours and we'll replace it for free.</p>
+                        <h3>Garanzia Creative Rebirth</h3>
+                        <p>Il vetro è fragile, il nostro impegno verso di te no. Se l'articolo arriva danneggiato, inviaci una foto entro 48 ore e lo sostituiremo gratuitamente.</p>
                     </div>
                     <div>
-                        <h4>Working hours</h4>
-                        <p>Monday-Friday<br>9:00 AM - 6:00 PM</p>
-                        <p>We aim to reply within 24 hours.</p>
+                        <h3>Orari di lavoro</h3>
+                        <p>Lunedì–Venerdì<br>9:00 – 18:00</p>
+                        <p>Rispondiamo entro 24 ore.</p>
                     </div>
                     <div>
-                        <h4>Direct Contact</h4>
-                        <p><a href="mailto:help@creativerebirth.com">help@creativerebirth.com</a></p>
+                        <h3>Contatto diretto</h3>
+                        <p><a href="mailto:help@creativerebirth.com">help@lumenspirits.com</a></p>
                     </div>
                     <div>
-                        <h4>Social Media</h4>
-                        <p>Don't miss out latest bright ideas!</p>
+                        <h3>Social</h3>
+                        <p>Non perdere le ultime novità!</p>
                         <ul class="social-links">
-                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f fa-fw"></i>&nbsp;Facebook</a>
-                            </li>
-                            <li><a href="#" target="_blank"><i class="fab fa-instagram fa-fw"></i>&nbsp;Instagram</a>
-                            </li>
-                            <li><a href="#" target="_blank"><i class="fab fa-tiktok fa-fw"></i>&nbsp;Tiktok</a></li>
+                            <li><a href="https://facebook.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f fa-fw" aria-hidden="true"></i>&nbsp;Facebook<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
+                            <li><a href="https://instagram.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-fw" aria-hidden="true"></i>&nbsp;Instagram<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
+                            <li><a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok fa-fw" aria-hidden="true"></i>&nbsp;TikTok<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
                         </ul>
                     </div>
-                </aside>
+                </section>
             </div>
         </section>
-
     </main>
     <footer class="hero hero-padding footer-layout">
         <div class="footer-column">
-            <h3 class="footer-title">Discover More</h3>
+            <h2 class="footer-title">Scopri di più</h2>
             <ul class="footer-links">
-                <li><a href="#" class="menu-items">Home</a></li>
-                <li><a href="#" class="menu-items">Catalog</a></li>
-                <li><a href="#" class="menu-items">Contacts</a></li>
+                <li><a href="index.html" class="menu-items">Home</a></li>
+                <li><a href="catalog.html" class="menu-items">Catalogo</a></li>
+                <li><a href="contacts.html" class="menu-items">Contatti</a></li>
             </ul>
         </div>
 
         <div class="footer-column">
-            <h3 class="footer-title">Link up</h3>
+            <h2 class="footer-title">Seguici</h2>
             <ul class="footer-links">
-                <li><a href="#"><i class="fab fa-facebook-f fa-fw"></i>&nbsp;Facebook</a></li>
-                <li><a href="#"><i class="fab fa-instagram fa-fw"></i>&nbsp;Instagram</a></li>
-                <li><a href="#"><i class="fab fa-tiktok fa-fw"></i>&nbsp;Tiktok</a></li>
+                <li><a href="https://facebook.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f fa-fw" aria-hidden="true"></i>&nbsp;Facebook<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
+                <li><a href="https://instagram.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-fw" aria-hidden="true"></i>&nbsp;Instagram<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
+                <li><a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok fa-fw" aria-hidden="true"></i>&nbsp;TikTok<span class="sr-only"> (si apre in una nuova scheda)</span></a></li>
             </ul>
         </div>
 
         <div class="footer-column newsletter-column">
-            <h2 class="footer-title">Subscribe to our community!</h2>
-            <form class="newsletter-form">
-                <label for="email-newsletter" class="sr-only">Email</label>
-                <input type="email" id="email-newsletter" placeholder="email" required>
-                <button type="submit">Subscribe!</button>
+            <h2 class="footer-title">Iscriviti alla nostra community!</h2>
+            <form class="newsletter-form" aria-label="Iscrizione newsletter">
+                <label for="newsletter-email-contacts" class="sr-only">Indirizzo email</label>
+                <input type="email" id="newsletter-email-contacts" name="email" placeholder="email@esempio.it" required>
+                <button type="submit" aria-label="Iscriviti alla newsletter"><i class="fas fa-paper-plane" aria-hidden="true"></i><span class="sr-only"> Iscriviti</span></button>
             </form>
         </div>
     </footer>

@@ -1,5 +1,10 @@
+# macOS
 .DS_Store
-assets/.DS_Store
-style/.DS_Store
-assets/img/.DS_Store
-assets/query/.DS_Store
+
+# Editor / IDE locali
+.idea/
+.vscode/
+
+# Log e temp
+*.log
+*.tmp

@@ -3,15 +3,37 @@ include_once 'configDB.php';
 class database
 {
     public $connection;
+    public $lastError = null;
 
     public function connect()
     {
-        $this->connection = new mysqli(DB_CONFIG['db_host'], DB_CONFIG['db_user'], DB_CONFIG['db_password'], DB_CONFIG['db_name']);
+        // disattivo i warning di mysqli cosi gestisco l'errore a mano
+        // e posso ritornare un JSON pulito al client
+        mysqli_report(MYSQLI_REPORT_OFF);
+        $this->connection = @new mysqli(
+            DB_CONFIG['db_host'],
+            DB_CONFIG['db_user'],
+            DB_CONFIG['db_password'],
+            DB_CONFIG['db_name']
+        );
+        if ($this->connection && $this->connection->connect_errno) {
+            $this->lastError = $this->connection->connect_error;
+            $this->connection = null;
+            return false;
+        }
+        return $this->connection !== null && $this->connection !== false;
+    }
+
+    public function isConnected()
+    {
+        return $this->connection !== null && $this->connection !== false;
     }
 
     public function close()
     {
-        $this->connection->close();
+        if ($this->connection) {
+            $this->connection->close();
+        }
     }
 
     private function generateRandomID($length = 10)
@@ -39,17 +61,25 @@ class database
         return $result->num_rows > 0;
     }
 
-    public function insertProduct($name, $price, $description, $imageUrl, $inStock = 1)
+    public function insertProduct($name, $price, $description, $imageUrl, $inStock = 1,
+                                  $material = '', $author = '', $dimensions = '', $weight = '', $voltage = '')
     {
         do {
             $id = $this->generateRandomID();
         } while ($this->idExists($id));
-        $sql = "INSERT INTO products (id,productName,price,description,imageUrl,inStock) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO products
+                  (id, productName, price, description, imageUrl, material, author, dimensions, weight, voltage, inStock)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->connection->prepare($sql);
         if (!$stmt) {
             return "Errore Query: " . $this->connection->error;
         }
-        $stmt->bind_param('ssdssi', $id, $name, $price, $description, $imageUrl, $inStock);
+        $stmt->bind_param(
+            'ssdsssssssi',
+            $id, $name, $price, $description, $imageUrl,
+            $material, $author, $dimensions, $weight, $voltage,
+            $inStock
+        );
         if (!$stmt->execute()) {
             return "Errore Dati: " . $stmt->error;
         }
@@ -59,18 +89,15 @@ class database
 
     public function getProducts()
     {
-        $sql = "SELECT id,productName,price,description,imageUrl,inStock FROM products";
+        $sql = "SELECT id, productName, price, description, imageUrl,
+                       material, author, dimensions, weight, voltage, inStock
+                FROM products";
         $result = $this->connection->query($sql);
         return $result;
     }
 
     public function deleteProduct($id)
     {
-        $queryWish = "DELETE FROM wishlist WHERE product_id = ?";
-        $stmtWish = $this->connection->prepare($queryWish);
-        $stmtWish->bind_param('s', $id);
-        $stmtWish->execute();
-
         $queryItems = "DELETE FROM order_items WHERE product_id = ?";
         $stmtItems = $this->connection->prepare($queryItems);
         $stmtItems->bind_param('s', $id);
@@ -120,17 +147,76 @@ class database
         return false;
     }
 
-    public function modifyProduct($id, $name, $price, $description, $imageUrl, $inStock)
+    public function modifyProduct($id, $name, $price, $description, $imageUrl, $inStock,
+                                  $material = '', $author = '', $dimensions = '', $weight = '', $voltage = '')
     {
-        $sql = "UPDATE products SET productName = ?, price = ?, description = ?, imageUrl = ?, inStock = ? WHERE id = ?";
+        $sql = "UPDATE products
+                SET productName = ?, price = ?, description = ?, imageUrl = ?,
+                    material = ?, author = ?, dimensions = ?, weight = ?, voltage = ?,
+                    inStock = ?
+                WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('sdssis', $name, $price, $description, $imageUrl, $inStock, $id);
+        $stmt->bind_param(
+            'sdsssssssis',
+            $name, $price, $description, $imageUrl,
+            $material, $author, $dimensions, $weight, $voltage,
+            $inStock, $id
+        );
         return $stmt->execute();
+    }
+
+    public function modifyProductWithoutImage($id, $name, $price, $description, $inStock,
+                                              $material = '', $author = '', $dimensions = '', $weight = '', $voltage = '')
+    {
+        $sql = "UPDATE products
+                SET productName = ?, price = ?, description = ?,
+                    material = ?, author = ?, dimensions = ?, weight = ?, voltage = ?,
+                    inStock = ?
+                WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bind_param(
+            'sdssssssis',
+            $name, $price, $description,
+            $material, $author, $dimensions, $weight, $voltage,
+            $inStock, $id
+        );
+        return $stmt->execute();
+    }
+
+    // compone la stringa delle dimensioni partendo da larghezza e altezza in cm
+    public static function formatDimensions($width, $height)
+    {
+        $w = is_numeric($width)  ? (float)$width  : null;
+        $h = is_numeric($height) ? (float)$height : null;
+        if ($w === null || $h === null || $w <= 0 || $h <= 0) {
+            return '';
+        }
+        // se è intero lo scrivo senza virgola, sennò con la virgola (formato italiano)
+        $fmt = function ($n) {
+            if (floor($n) == $n) return (string)(int)$n;
+            return rtrim(rtrim(number_format($n, 2, ',', ''), '0'), ',');
+        };
+        return "Ø " . $fmt($w) . " cm × H " . $fmt($h) . " cm";
+    }
+
+    public static function validateAndMoveImage($image, $name, $destinationFolder)
+    {
+        if ($image['size'] > 2 * 1024 * 1024)
+            return ['error' => 'Immagine troppo grande'];
+        if (!in_array($image['type'], ['image/jpg', 'image/jpeg', 'image/png', 'image/webp']))
+            return ['error' => 'Formato non valido'];
+        $ext = pathinfo($image['name'], PATHINFO_EXTENSION);
+        $imageName = strtolower(preg_replace('/\s+/', '', $name)) . '_' . time() . '.' . $ext;
+        if (!move_uploaded_file($image['tmp_name'], $destinationFolder . $imageName))
+            return ['error' => 'Errore nel caricamento del file sul server'];
+        return ['success' => true, 'image_name' => $imageName];
     }
 
     public function getProductById($id)
     {
-        $sql = "SELECT id,productName,price,description,imageUrl,inStock FROM products WHERE id = ?";
+        $sql = "SELECT id, productName, price, description, imageUrl,
+                       material, author, dimensions, weight, voltage, inStock
+                FROM products WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
         $stmt->bind_param('s', $id);
         $stmt->execute();
@@ -174,35 +260,6 @@ class database
         $sql = "UPDATE users SET password = ? WHERE email = ?";
         $stmt = $this->connection->prepare($sql);
         $stmt->bind_param('ss', $hashedPassword, $email);
-        return $stmt->execute();
-    }
-
-    public function addToWishlist($username, $productId)
-    {
-        $sql = "INSERT INTO wishlist (user, product_id) VALUES (?, ?)";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('ss', $username, $productId);
-        return $stmt->execute();
-    }
-
-    public function getWishlist($email)
-    {
-        $sql = "SELECT w.id, p.productName, p.price, p.description
-                    FROM wishlist w
-                    JOIN products p ON w.product_id = p.id
-                    JOIN users u ON w.user = u.username
-                    WHERE u.email = ?";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    public function removeFromWishlist($id)
-    {
-        $sql = "DELETE FROM wishlist WHERE id = ?";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
 

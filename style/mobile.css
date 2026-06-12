@@ -1,0 +1,219 @@
+/* ======================================================
+   TABLET — max-width 1023px
+   ====================================================== */
+
+@media (max-width: 1023px) {
+
+    .giant-title {
+        font-size: 5rem;
+    }
+
+    /* Griglia layout */
+    .row-layout {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .result-grid > h2 {
+        grid-column: 1 / span 2;
+    }
+
+    .footer-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    #productsList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .section-title {
+        text-align: left;
+    }
+
+    /* Navigazione options page */
+    .optionsPageContainer {
+        flex-direction: column;
+        padding: 0 1.5rem;
+        gap: 0;
+    }
+
+    .sidebarOp {
+        flex: none;
+        width: 100%;
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(44, 24, 16, 0.15);
+    }
+
+    .contentOp {
+        flex: none;
+        padding: 20px 0;
+        border-left: none;
+    }
+
+    /* Checkout */
+    .checkout-layout {
+        flex-direction: column;
+    }
+
+    .order-summary {
+        flex: none;
+        width: 100%;
+    }
+
+    /* Layout a colonne (pagina contatti) */
+    .col-layout {
+        flex-direction: column;
+        gap: 2.5em;
+        margin: 3em auto;
+        padding: 0 2em;
+    }
+
+    .col-layout form,
+    .col-layout .formulario {
+        flex: none;
+        width: 100%;
+    }
+
+    .col-layout aside,
+.col-layout > section {
+        flex: none;
+        width: 100%;
+        padding: 2em;
+    }
+
+    /* Pagina login */
+    .login-page {
+        flex-direction: column;
+        padding: 2rem 1rem;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .area-logo {
+        display: none;
+    }
+
+    .login-card {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+
+/* ======================================================
+   TELEFONO — max-width 639px
+   ====================================================== */
+
+@media (max-width: 639px) {
+
+    :root {
+        --side-padding: 1.2em;
+    }
+
+    .home-search-box {
+        width: 14em;
+    }
+
+    .giant-title {
+        font-size: 3.2rem;
+    }
+
+    .big-size {
+        font-size: 2.2rem;
+    }
+
+    .main-quote blockquote {
+        font-size: 1.3rem;
+    }
+
+    .button {
+        padding: 0.8em 1.5em;
+    }
+
+    /* Navigazione: collassata verticalmente su telefono */
+    nav {
+        flex-wrap: wrap;
+        height: auto;
+        gap: 0.8em;
+        padding: 1em var(--side-padding);
+    }
+
+    .nav-links {
+        order: 2;
+        flex: 100%;
+    }
+
+    .logo {
+        order: 1;
+    }
+
+    .nav-icons {
+        order: 3;
+    }
+
+    /* Admin */
+    .adminUpload {
+        max-width: 100%;
+    }
+
+    .adminUpload--wide {
+        max-width: 100%;
+    }
+
+    .form-pair {
+        grid-template-columns: 1fr;
+    }
+
+    /* Layout a colonne */
+    .col-layout {
+        margin: 1.75em auto;
+        padding: 0 1em;
+        gap: 2em;
+    }
+
+    .col-layout aside,
+.col-layout > section {
+        padding: 1.5em;
+    }
+
+    /* Carrello */
+    .shoppingCart {
+        border-radius: 0;
+        padding: 1.25em;
+        margin: 2em auto;
+    }
+
+    /* Touch target adeguati anche su tap mobile */
+    .nav-icons > a,
+    .nav-icons > button,
+    .nav-icons .account-icon-button,
+    #home-search-button {
+        margin-left: 4px;
+    }
+
+    /* Tabelle admin scrollabili orizzontalmente per non rompere reflow */
+    .data-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+
+/* ======================================================
+   PREFERS-REDUCED-MOTION (mobile)
+   ====================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+    }
+}

@@ -1,50 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
     <head>
         <meta charset="utf-8">
-        <title> Login - Creative Rebirth</title>
-        <meta name="description" content="Login">
+        <title>Lumen Spirits — Accedi</title>
+        <meta name="description" content="Accedi al tuo account Lumen Spirits">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="stylesheet" href="style/loginStyle.css">
-        <link rel="stylesheet" href="style/style.css" type="text/css">
-        <link rel="stylesheet" href="style/components.css" type="text/css"/>
-        <link rel="stylesheet" href="style/layout.css" type="text/css"/>
 
-        <!--For introducing the font: Open Sans-->
+        <link rel="stylesheet" href="style/desktop.css">
+        <link rel="stylesheet" href="style/mobile.css">
+        <link rel="stylesheet" media="print" href="style/print.css">
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
-        <script src="assets/js/form-checker.js" defer></script>
+        <script src="assets/js/account/form-checker.js" defer></script>
     </head>
     <body class="login-page">
+        <a href="#main-content" class="sr-only sr-only--focusable">Salta al contenuto principale</a>
         <header class="area-logo">
-            <h1 class="company-name">Creative Rebirth</h1>
-            <!--Meter logo en vez otra opción-->
+            <h1 class="company-name" lang="en">Creative Rebirth</h1>
         </header>
-        
-        <main id="loginCard">
-            <h2>Log in</h2>  
-            <form action="php/login.php" method="post" id="access-form" novalidate>
+
+        <main id="main-content" class="login-card">
+            <h2>Accedi</h2>
+            <form action="php/account/login.php" method="post" id="access-form" novalidate>
                 <div class="form-group">
 
                     <label for="email-input">Email</label>
-                    <input type="email" id="email-input" name="email" autocomplete="email" required>
-                    <p class="form-error-msg">Error placeholder</p>
+                    <input type="email" id="email-input" name="email" autocomplete="email" aria-describedby="login-email-error" aria-required="true" required>
+                    <p class="form-error-msg" id="login-email-error" role="alert" aria-live="polite"></p>
 
                 </div>
                 <div class="form-group">
-                    
+
                     <label for="password-input">Password</label>
-                    <input type="password" id="password-input" name="password" autocomplete="current-password" required>
-                    <p class="form-error-msg">Error placeholder</p>
+                    <input type="password" id="password-input" name="password" autocomplete="current-password" aria-describedby="login-password-error" aria-required="true" required>
+                    <p class="form-error-msg" id="login-password-error" role="alert" aria-live="polite"></p>
 
                 </div>
-                <a class="forgotten" href="recovery.html">Have you forgotten your password?</a>
-                <button type="submit" name="login">Log in</button>
+                <a class="forgotten" href="recovery.html">Hai dimenticato la password?</a>
+                <button type="submit" name="login">Accedi</button>
             </form>
-            <a class="register" href="register.html">Register</a>
+            <a class="register" href="register.html">Registrati</a>
         </main>
     </body>
 </html>
