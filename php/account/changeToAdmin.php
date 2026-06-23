@@ -14,6 +14,11 @@ if (isset($_POST['submit'])) {
     $db->connect();
     $result = $db->makeAdmin($username);
     $db->close();
+    
+    if($result){
+        header("Location: ../../optionsPage.html");
+        exit();
+    }
 
     echo json_encode($result ? ["success" => true] : ["success" => false]);
 }
