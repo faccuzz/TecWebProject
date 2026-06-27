@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lumen Spirits — Modifica prodotto</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style/desktop.css">
-    <link rel="stylesheet" href="style/mobile.css">
-    <link rel="stylesheet" media="print" href="style/print.css">
-    <script src="assets/js/options/options-page-manager.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style/desktop.css" />
+    <link rel="stylesheet" href="style/mobile.css" />
+    <link rel="stylesheet" media="print" href="style/print.css" />
+    <script src="assets/js/options/options-page-manager.js" defer="defer"></script>
   </head>
   <body>
     <a href="#main-content" class="sr-only sr-only--focusable">Salta al contenuto principale</a>
@@ -20,16 +20,16 @@
       <h2>Modifica prodotto</h2>
       <p id="modify-status" role="status" aria-live="polite" class="sr-only"></p>
       <form id="product-upload" action="php/product/modifyProduct.php" method="POST" enctype="multipart/form-data">
-        <input type="hidden" id="id" name="id">
+        <input type="hidden" id="id" name="id" />
 
         <label for="name">Nome prodotto</label>
-        <input type="text" id="name" name="name" aria-required="true" required />
+        <input type="text" id="name" name="name" aria-required="true" required="required" />
 
         <label for="description">Descrizione</label>
-        <input type="text" id="description" name="description" aria-required="true" required />
+        <input type="text" id="description" name="description" aria-required="true" required="required" />
 
         <label for="price">Prezzo (€)</label>
-        <input type="number" step="0.01" min="0" id="price" name="price" aria-required="true" required />
+        <input type="number" step="0.01" min="0" id="price" name="price" aria-required="true" required="required" />
 
         <label for="material">Materiale</label>
         <input type="text" id="material" name="material" maxlength="120" placeholder="Es. Vetro riciclato, iuta naturale" />
@@ -62,7 +62,7 @@
         <p id="file-name-display">Nessun file selezionato</p>
 
         <label for="inStock">Disponibilità</label>
-        <select id="inStock" name="inStock" aria-required="true" required>
+        <select id="inStock" name="inStock" aria-required="true" required="required">
           <option value="true">Sì, disponibile</option>
           <option value="false">No, esaurito</option>
         </select>

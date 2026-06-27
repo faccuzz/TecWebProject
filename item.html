@@ -2,19 +2,19 @@
 <html lang="it">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style/desktop.css">
-    <link rel="stylesheet" href="style/mobile.css">
-    <link rel="stylesheet" media="print" href="style/print.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style/desktop.css" />
+    <link rel="stylesheet" href="style/mobile.css" />
+    <link rel="stylesheet" media="print" href="style/print.css" />
     <title>Lumen Spirits — Dettaglio prodotto</title>
 
-    <script src="./assets/js/bridge.js" defer></script>
-    <script src="./assets/js/product/item-loader.js" defer></script>
-    <script src="./assets/js/cart/cart-manager.js" defer></script>
-    <script src="./assets/js/animation.js" defer></script>
-    <script src="./assets/js/account/account-menu.js" defer></script>
+    <script src="./assets/js/bridge.js" defer="defer"></script>
+    <script src="./assets/js/product/item-loader.js" defer="defer"></script>
+    <script src="./assets/js/cart/cart-manager.js" defer="defer"></script>
+    <script src="./assets/js/animation.js" defer="defer"></script>
+    <script src="./assets/js/account/account-menu.js" defer="defer"></script>
 </head>
 
 <body>
@@ -31,7 +31,7 @@
 
             <div class="nav-icons">
                 <div class="home-search-box" id="search-input">
-                    <input type="text" class="home-search-bar" placeholder="Cerca…" aria-label="Cerca prodotti">
+                    <input type="text" class="home-search-bar" placeholder="Cerca…" aria-label="Cerca prodotti" />
                     <div class="result-list"></div>
                 </div>
                 <button class="nav-search-button" id="home-search-button" aria-label="Apri la ricerca" aria-expanded="false" aria-controls="search-input"><i class="fas fa-search" aria-hidden="true"></i></button>
@@ -61,7 +61,7 @@
             <div class="detail-layout">
 
                 <div class="detail-image-wrapper">
-                    <img src="./assets/img/gin-jute.webp" alt="" loading="eager" decoding="async" fetchpriority="high">
+                    <img src="./assets/img/gin-jute.webp" alt="" loading="eager" decoding="async" fetchpriority="high" />
                 </div>
 
                 <div class="detail-info">
@@ -83,7 +83,7 @@
 
                     <div class="detail-actions">
                         <label for="qty">Quantità</label>
-                        <input type="number" id="qty" name="qty" value="1" min="1" max="99" aria-describedby="qty-help">
+                        <input type="number" id="qty" name="qty" value="1" min="1" max="99" aria-describedby="qty-help" />
                         <span id="qty-help" class="sr-only">Inserisci un numero tra 1 e 99</span>
                         <button id="addToCartButton" class="button" type="button">
                             <i class="fas fa-shopping-bag" aria-hidden="true"></i> Aggiungi al carrello
@@ -117,7 +117,7 @@
             <h2 class="footer-title">Iscriviti alla nostra community!</h2>
             <form class="newsletter-form" aria-label="Iscrizione newsletter">
                 <label for="newsletter-email-item" class="sr-only">Indirizzo email</label>
-                <input type="email" id="newsletter-email-item" name="email" placeholder="email@esempio.it" required>
+                <input type="email" id="newsletter-email-item" name="email" placeholder="email@esempio.it" required="required" />
                 <button type="submit" aria-label="Iscriviti alla newsletter"><i class="fas fa-paper-plane" aria-hidden="true"></i><span class="sr-only"> Iscriviti</span></button>
             </form>
         </div>
