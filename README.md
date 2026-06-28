@@ -1,5 +1,5 @@
 ## Configurazione del database
-- Per la memorizzazione e la gestione di tutti i dati del sito web, abbiamo utilizzato phpMyAdmin per la creazione e il popolamento di un database, che abbiamo chiamato "web".
+- Per la memorizzazione e la gestione di tutti i dati del sito web, abbiamo utilizzato phpMyAdmin attraverso l'applicazione chiamata xampp per la creazione e il popolamento di un database, che abbiamo chiamato "web".
 
 - Creazione del database: Il primo passo consiste nel creare un database vuoto all'interno di phpMyAdmin, nominandolo "web".
 
