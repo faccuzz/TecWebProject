@@ -11,3 +11,5 @@
 - Una volta eseguita la query, verranno create automaticamente tutte le tabelle e inseriti i dati necessari per il corretto funzionamento del sito.
 
 ![query](assets/screenshots/query.png)
+
+- Poiché il nome del database coincide con quello impostato nel file config.db (creato per fornire i parametri necessari alla connessione) il sito utilizzerà automaticamente il database appena creato.
