@@ -1,8 +1,6 @@
-/* ======================================================
-   TABLET — max-width 1023px
-   ====================================================== */
+/* TABLET — max-width 1024px */
 
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
 
     .giant-title {
         font-size: 5rem;
@@ -107,11 +105,9 @@
 }
 
 
-/* ======================================================
-   TELEFONO — max-width 639px
-   ====================================================== */
+/* TELEFONO — max-width 640px */
 
-@media (max-width: 639px) {
+@media (max-width: 640px) {
 
     :root {
         --side-padding: 1.2em;
@@ -207,9 +203,7 @@
 }
 
 
-/* ======================================================
-   PREFERS-REDUCED-MOTION (mobile)
-   ====================================================== */
+/* PREFERS-REDUCED-MOTION (mobile) */
 
 @media (prefers-reduced-motion: reduce) {
     * {
