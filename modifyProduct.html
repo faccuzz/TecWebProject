@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lumen Spirits — Modifica prodotto</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="style/desktop.css" />
-    <link rel="stylesheet" href="style/mobile.css" />
-    <link rel="stylesheet" media="print" href="style/print.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style/desktop.css">
+    <link rel="stylesheet" href="style/mobile.css">
+    <link rel="stylesheet" media="print" href="style/print.css">
     <script src="assets/js/options/options-page-manager.js" defer="defer"></script>
   </head>
   <body>
@@ -20,34 +20,34 @@
       <h2>Modifica prodotto</h2>
       <p id="modify-status" role="status" aria-live="polite" class="sr-only"></p>
       <form id="product-upload" action="php/product/modifyProduct.php" method="POST" enctype="multipart/form-data">
-        <input type="hidden" id="id" name="id" />
+        <input type="hidden" id="id" name="id">
 
         <label for="name">Nome prodotto</label>
-        <input type="text" id="name" name="name" aria-required="true" required="required" />
+        <input type="text" id="name" name="name" required="required">
 
         <label for="description">Descrizione</label>
-        <input type="text" id="description" name="description" aria-required="true" required="required" />
+        <input type="text" id="description" name="description" required="required">
 
         <label for="price">Prezzo (€)</label>
-        <input type="number" step="0.01" min="0" id="price" name="price" aria-required="true" required="required" />
+        <input type="number" step="0.01" min="0" id="price" name="price" required="required">
 
         <label for="material">Materiale</label>
-        <input type="text" id="material" name="material" maxlength="120" placeholder="Es. Vetro riciclato, iuta naturale" />
+        <input type="text" id="material" name="material" maxlength="120" placeholder="Es. Vetro riciclato, iuta naturale">
 
         <label for="author">Autore / artigiano</label>
-        <input type="text" id="author" name="author" maxlength="80" placeholder="Es. Marco Ferretti" />
+        <input type="text" id="author" name="author" maxlength="80" placeholder="Es. Marco Ferretti">
 
         <label for="dimensionsWidth">Larghezza (cm)</label>
-        <input type="number" id="dimensionsWidth" name="dimensionsWidth" min="0" step="0.1" placeholder="Es. 9" />
+        <input type="number" id="dimensionsWidth" name="dimensionsWidth" min="0" step="0.1" placeholder="Es. 9">
 
         <label for="dimensionsHeight">Altezza (cm)</label>
-        <input type="number" id="dimensionsHeight" name="dimensionsHeight" min="0" step="0.1" placeholder="Es. 35" />
+        <input type="number" id="dimensionsHeight" name="dimensionsHeight" min="0" step="0.1" placeholder="Es. 35">
 
         <label for="weight">Peso</label>
-        <input type="text" id="weight" name="weight" maxlength="30" placeholder="Es. 1,0 kg" />
+        <input type="text" id="weight" name="weight" maxlength="30" placeholder="Es. 1,0 kg">
 
         <label for="voltage">Voltaggio</label>
-        <input type="text" id="voltage" name="voltage" maxlength="30" placeholder="Es. 220–240 V" />
+        <input type="text" id="voltage" name="voltage" maxlength="30" placeholder="Es. 220–240 V">
 
         <label for="image-upload" class="button">
           <i class="fas fa-camera" aria-hidden="true"></i> Seleziona immagine
@@ -58,11 +58,11 @@
           name="image"
           accept="image/png, image/jpg, image/jpeg, image/webp"
           aria-describedby="file-name-display"
-        />
+       >
         <p id="file-name-display">Nessun file selezionato</p>
 
         <label for="inStock">Disponibilità</label>
-        <select id="inStock" name="inStock" aria-required="true" required="required">
+        <select id="inStock" name="inStock" required="required">
           <option value="">— Seleziona disponibilità —</option>
           <option value="true">Sì, disponibile</option>
           <option value="false">No, esaurito</option>

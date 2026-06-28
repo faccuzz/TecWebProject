@@ -2,21 +2,21 @@
 <html lang="it">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <title>Lumen Spirits — Registrati</title>
-    <meta name="description" content="Crea il tuo account Lumen Spirits" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Crea il tuo account Lumen Spirits">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style/desktop.css" />
-    <link rel="stylesheet" href="style/mobile.css" />
-    <link rel="stylesheet" media="print" href="style/print.css" />
+    <link rel="stylesheet" href="style/desktop.css">
+    <link rel="stylesheet" href="style/mobile.css">
+    <link rel="stylesheet" media="print" href="style/print.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet" />
+        rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js" defer="defer"></script>
 
     <script src="assets/js/account/form-checker.js" defer="defer"></script>
@@ -25,7 +25,7 @@
 <body class="login-page">
     <a href="#main-content" class="sr-only sr-only--focusable">Salta al contenuto principale</a>
     <header class="area-logo">
-        <h1 class="company-name" lang="en">Creative Rebirth</h1>
+        <h1 class="company-name" lang="en">Lumen Spirits</h1>
     </header>
 
     <main id="main-content" class="login-card">
@@ -34,14 +34,14 @@
             <div class="form-group">
 
                 <label for="email-input">Email</label>
-                <input type="email" id="email-input" name="email" autocomplete="email" aria-describedby="register-email-error" aria-required="true" required="required" />
+                <input type="email" id="email-input" name="email" autocomplete="email" aria-describedby="register-email-error" required="required">
                 <p class="form-error-msg" id="register-email-error" role="alert" aria-live="polite"></p>
 
             </div>
             <div class="form-group">
 
                 <label for="password-input">Password</label>
-                <input type="password" id="password-input" name="password" autocomplete="new-password" aria-describedby="password-requirements-group register-password-error" aria-required="true" required="required" />
+                <input type="password" id="password-input" name="password" autocomplete="new-password" aria-describedby="password-requirements-group register-password-error" required="required">
 
                 <p id="password-requirements-label">La password deve contenere:</p>
 
@@ -57,23 +57,23 @@
             <div class="form-group">
 
                 <label for="name-input">Nome</label>
-                <input type="text" id="name-input" name="name" autocomplete="given-name" aria-describedby="register-name-error" aria-required="true" required="required" />
+                <input type="text" id="name-input" name="name" autocomplete="given-name" aria-describedby="register-name-error" required="required">
                 <p class="form-error-msg" id="register-name-error" role="alert" aria-live="polite"></p>
 
             </div>
             <div class="form-group">
 
                 <label for="surname-input">Cognome</label>
-                <input type="text" id="surname-input" name="surname" autocomplete="family-name" aria-describedby="register-surname-error" aria-required="true" required="required" />
+                <input type="text" id="surname-input" name="surname" autocomplete="family-name" aria-describedby="register-surname-error" required="required">
                 <p class="form-error-msg" id="register-surname-error" role="alert" aria-live="polite"></p>
             </div>
             <div class="form-group">
                 <label for="phone-input">Numero di telefono</label>
-                <input type="tel" id="phone-input" name="phone" autocomplete="tel" aria-describedby="phone-help register-phone-error" aria-required="true" required="required" />
+                <input type="tel" id="phone-input" name="phone" autocomplete="tel" aria-describedby="phone-help register-phone-error" required="required">
                 <p id="phone-help" class="sr-only">Numero di telefono internazionale: includere il prefisso del paese.</p>
                 <p class="form-error-msg" id="register-phone-error" role="alert" aria-live="polite"></p>
             </div>
-            <input type="hidden" name="isAdmin" value="0" />
+            <input type="hidden" name="isAdmin" value="0">
             <p class="form-error-msg" id="general-register-error" role="alert" aria-live="assertive"></p>
             <button type="submit">Crea account</button>
         </form>
