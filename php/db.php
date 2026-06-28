@@ -130,11 +130,11 @@ class database
         return $result;
     }
 
-    public function login($email, $password)
+    public function login($identifier, $password)
     {
-        $sql = "SELECT * FROM users WHERE email = ?";
+        $sql = "SELECT * FROM users WHERE email = ? OR username = ?";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param('s', $email);
+        $stmt->bind_param('ss', $identifier, $identifier);
         $stmt->execute();
 
         $result = $stmt->get_result();

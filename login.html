@@ -19,7 +19,7 @@
     <body class="login-page">
         <a href="#main-content" class="sr-only sr-only--focusable">Salta al contenuto principale</a>
         <header class="area-logo">
-            <h1 class="company-name" lang="en">Creative Rebirth</h1>
+            <h1 class="company-name" lang="en">Lumen Spirits</h1>
         </header>
 
         <main id="main-content" class="login-card">
@@ -27,8 +27,8 @@
             <form action="php/account/login.php" method="post" id="access-form" novalidate="novalidate">
                 <div class="form-group">
 
-                    <label for="email-input">Email</label>
-                    <input type="email" id="email-input" name="email" autocomplete="email" aria-describedby="login-email-error" aria-required="true" required="required" />
+                    <label for="email-input">Email o Username</label>
+                    <input type="text" id="email-input" name="identifier" autocomplete="username" aria-describedby="login-email-error" aria-required="true" required="required" />
                     <p class="form-error-msg" id="login-email-error" role="alert" aria-live="polite"></p>
 
                 </div>
