@@ -238,24 +238,59 @@ function initMessagesSection() {
     const contentZone = document.getElementById('contentZone');
     if (!contentZone) return;
 
-    async function loadMessages(filter) {
+    async function renderMessages(filter) {
         const url = filter
             ? `./php/optionsPage.php?section=messages&filter=${filter}`
             : `./php/optionsPage.php?section=messages`;
+        const res = await fetch(url);
+        contentZone.innerHTML = await res.text();
+        announceSection(filter
+            ? `Messaggi filtrati: ${filter}.`
+            : 'Tutti i messaggi caricati.');
+    }
+
+    async function loadMessages(filter) {
         try {
-            const res = await fetch(url);
-            const html = await res.text();
-            contentZone.innerHTML = html;
+            await renderMessages(filter);
             const newUrl = filter
                 ? `optionsPage.html?section=messages&filter=${filter}`
                 : `optionsPage.html?section=messages`;
-            history.pushState({ section: 'messages', filter }, '', newUrl);
-            announceSection(filter
-                ? `Messaggi filtrati: ${filter}.`
-                : 'Tutti i messaggi caricati.');
+            history.pushState({ section: 'messages', filter: filter || null }, '', newUrl);
         } catch (err) {
             console.error('Errore caricamento messaggi:', err);
         }
+    }
+
+    // segno lo stato base della sezione messaggi: così il tasto "indietro" del browser
+    // ha un punto a cui tornare (lista non filtrata) prima di pushare i filtri
+    history.replaceState({ section: 'messages', filter: null }, '', 'optionsPage.html?section=messages');
+
+    // ripristino la lista giusta quando l'utente usa indietro/avanti del browser.
+    // Lo registro una sola volta perche initMessagesSection viene rieseguito a ogni accesso alla sezione.
+    if (!window.__messagesPopstateBound) {
+        window.__messagesPopstateBound = true;
+        window.addEventListener('popstate', async (event) => {
+            const params = new URLSearchParams(window.location.search);
+            const section = (event.state && event.state.section) || params.get('section');
+            if (section !== 'messages') return;
+            const zone = document.getElementById('contentZone');
+            if (!zone) return;
+            const filter = (event.state && 'filter' in event.state)
+                ? event.state.filter
+                : params.get('filter');
+            try {
+                const url = filter
+                    ? `./php/optionsPage.php?section=messages&filter=${filter}`
+                    : `./php/optionsPage.php?section=messages`;
+                const res = await fetch(url);
+                zone.innerHTML = await res.text();
+                announceSection(filter
+                    ? `Messaggi filtrati: ${filter}.`
+                    : 'Tutti i messaggi caricati.');
+            } catch (err) {
+                console.error('Errore ripristino messaggi:', err);
+            }
+        });
     }
 
     contentZone.addEventListener('submit', async (event) => {
