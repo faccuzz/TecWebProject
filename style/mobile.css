@@ -200,6 +200,11 @@
         overflow-x: auto;
         white-space: nowrap;
     }
+
+    /* Messaggi admin: una sola colonna (il minimo di 480px sbordava su mobile) */
+    .admin-message-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 
