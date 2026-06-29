@@ -19,7 +19,7 @@ async function renderCheckoutPrice() {
     }
 
     if (subtotalContainer) {
-        subtotalContainer.textContent = formatEuro(total);
+        subtotalContainer.innerHTML = formatEuro(total);
     }
     if (totalContainer) {
         totalContainer.innerHTML = `
@@ -75,7 +75,7 @@ function validateForm() {
     // Reset dei messaggi di errore 
     [emailError, nameError, surnameError, addressError].forEach(err => {
         if (err) {
-            err.textContent = '';
+            err.innerHTML = '';
             err.style.color = '#ff0000';     
             err.style.display = 'block';      
             err.style.margin = '5px 0 0 0';   
@@ -87,25 +87,25 @@ function validateForm() {
     //Validazione dei campi
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !email.value.trim()) {
-        if (emailError) emailError.textContent = 'L\'email è obbligatoria.';
+        if (emailError) emailError.innerHTML = 'L\'email è obbligatoria.';
         isValid = false;
     } else if (!emailRegex.test(email.value.trim())) {
-        if (emailError) emailError.textContent = 'Indirizzo non valido, Inserisci una vera mail (es. nome@esempio.com).';
+        if (emailError) emailError.innerHTML = 'Indirizzo non valido, Inserisci una vera mail (es. nome@esempio.com).';
         isValid = false;
     }
 
     if (!name || !name.value.trim()) {
-        if (nameError) nameError.textContent = 'Il nome è obbligatorio.';
+        if (nameError) nameError.innerHTML = 'Il nome è obbligatorio.';
         isValid = false;
     }
 
     if (!surname || !surname.value.trim()) {
-        if (surnameError) surnameError.textContent = 'Il cognome è obbligatorio.';
+        if (surnameError) surnameError.innerHTML = 'Il cognome è obbligatorio.';
         isValid = false;
     }
 
     if (!address || !address.value.trim()) {
-        if (addressError) addressError.textContent = 'L\'indirizzo è obbligatorio.';
+        if (addressError) addressError.innerHTML = 'L\'indirizzo è obbligatorio.';
         isValid = false;
     }
 
@@ -131,7 +131,7 @@ async function clearCart() {
         previewContainer.innerHTML = '<p>Nessun prodotto nel carrello.</p>';
     }
     if (subtotalContainer){
-        subtotalContainer.textContent = formatEuro(0);
+        subtotalContainer.innerHTML = formatEuro(0);
     }
     if (totalContainer){
         totalContainer.innerHTML = `
