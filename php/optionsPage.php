@@ -461,27 +461,27 @@ function renderUsers($db)
 
     $result = $db->getUsers();
     if ($result && $result->num_rows > 0) {
-        echo "<table class='data-table'>";
-        echo "<caption class='sr-only'>Elenco degli amministratori</caption>";
-        echo "<thead><tr>"
-            . "<th scope='col'>Username</th>"
-            . "<th scope='col'>Nome</th>"
-            . "<th scope='col'>Email</th>"
-            . "<th scope='col'>Telefono</th>"
-            . "</tr></thead><tbody>";
+        echo "<ul class='admin-order-grid' aria-label='Elenco degli amministratori'>";
         while ($u = $result->fetch_assoc()) {
             if ($u['isAdmin'] == 1) {
-                $email = h($u['email']);
-                $phone = h($u['phoneNumber']);
-                echo "<tr>"
-                    . "<th scope='row'>" . h($u['username']) . "</th>"
-                    . "<td>" . h($u['name']) . " " . h($u['surname']) . "</td>"
-                    . "<td><a href='mailto:" . $email . "'>" . $email . "</a></td>"
-                    . "<td><a href='tel:" . $phone . "'>" . $phone . "</a></td>"
-                    . "</tr>";
+                $username = h($u['username']);
+                $fullname = h($u['name']) . ' ' . h($u['surname']);
+                $email    = h($u['email']);
+                $phone    = h($u['phoneNumber']);
+                echo "<li class='admin-order-card'>"
+                    . "<header class='admin-order-header'>"
+                    . "<div class='admin-order-meta'>"
+                    . "<span class='admin-order-id'>" . $username . "</span>"
+                    . "<span class='admin-order-date'>" . $fullname . "</span>"
+                    . "</div>"
+                    . "<span class='admin-order-total'>Amministratore</span>"
+                    . "</header>"
+                    . "<p class='admin-order-summary'><a href='mailto:" . $email . "'>" . $email . "</a></p>"
+                    . "<p class='admin-order-summary'><a href='tel:" . $phone . "'>" . $phone . "</a></p>"
+                    . "</li>";
             }
         }
-        echo "</tbody></table>";
+        echo "</ul>";
     } else {
         echo "<p>Nessun utente registrato.</p>";
     }
