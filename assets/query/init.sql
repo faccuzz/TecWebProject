@@ -1,9 +1,12 @@
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS wishlist;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS address;
+SET FOREIGN_KEY_CHECKS = 1;
 
 
 CREATE TABLE address (
@@ -72,8 +75,13 @@ CREATE TABLE orders(
 );
 
 INSERT INTO orders(orderID,user,orderDate,totalAmount) VALUES
-('A7B9DS3E1','user',NOW(),29.98),
-('GDFFDJ4K6','user',NOW(),14.99);
+('A7B9DS3E1','user',NOW() - INTERVAL 45 DAY,29.98),
+('GDFFDJ4K6','user',NOW() - INTERVAL 20 DAY,14.99),
+('OR2025X001','user',NOW() - INTERVAL 10 DAY,56.97),
+('OR2025X002','user',NOW() - INTERVAL 3 DAY,41.98),
+('OR2025X003','user',NOW() - INTERVAL 1 DAY,18.99),
+('ADM2025001','admin',NOW() - INTERVAL 15 DAY,38.98),
+('ADM2025002','admin',NOW() - INTERVAL 5 DAY,20.99);
 
 CREATE TABLE order_items(
     id int AUTO_INCREMENT PRIMARY KEY,
@@ -86,17 +94,34 @@ CREATE TABLE order_items(
 
 INSERT INTO order_items(orderID,product_id,quantity) VALUES
 ('A7B9DS3E1','A7B9C0D3E1',2),
-('GDFFDJ4K6','F5G8H2J4K6',1);
+('GDFFDJ4K6','F5G8H2J4K6',1),
+('OR2025X001','KSJGIE8685',1),
+('OR2025X001','S84IT09909',1),
+('OR2025X001','HSKR6574IH',1),
+('OR2025X002','LALOIO0909',2),
+('OR2025X003','SKAJSOEL9K',1),
+('ADM2025001','SLOIUAMJG0',1),
+('ADM2025001','HSJGUTYH65',1),
+('ADM2025002','AAEW34QRSD',1);
 
 
-CREATE TABLE wishlist(
+CREATE TABLE messages(
     id int AUTO_INCREMENT PRIMARY KEY,
-    user varchar(25) NOT NULL,
-    product_id char(10) NOT NULL,
-    FOREIGN KEY (user) REFERENCES users(username) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(id)
+    name varchar(64) NOT NULL,
+    surname varchar(64) NOT NULL,
+    email varchar(254) NOT NULL,
+    subject varchar(32) NOT NULL,
+    message text NOT NULL,
+    createdAt timestamp DEFAULT CURRENT_TIMESTAMP,
+    handled tinyint(1) DEFAULT 0
 );
 
-INSERT INTO wishlist(user,product_id) VALUES
-('user','A7B9C0D3E1');
+CREATE INDEX idx_messages_handled ON messages(handled);
+CREATE INDEX idx_messages_created ON messages(createdAt);
+
+INSERT INTO messages(name,surname,email,subject,message,createdAt,handled) VALUES
+('Marco','Bianchi','marco.bianchi@example.com','order','Buongiorno, ho effettuato l''ordine OR2025X001 cinque giorni fa ma non ho ancora ricevuto la mail di spedizione. Potete verificare lo stato? Grazie mille.',NOW() - INTERVAL 5 DAY, 1),
+('Giulia','Conti','giulia.conti@example.com','damage','La lampada Sapphire Glow è arrivata con il paralume danneggiato durante il trasporto. Ho fatto delle foto, come posso inviarvele per richiedere la sostituzione?',NOW() - INTERVAL 2 DAY, 0),
+('Laura','Verdi','laura.verdi@example.com','custom','Salve, vorrei sapere se è possibile commissionare una serie di 30 lampade personalizzate con il logo del nostro ristorante per un evento di apertura. Quali sono i tempi e i costi indicativi?',NOW() - INTERVAL 1 DAY, 0),
+('Andrea','Russo','andrea.russo@example.com','general','Complimenti per il sito, davvero ben fatto! Volevo solo chiedere se avete intenzione di aprire un punto vendita fisico a Milano in futuro.',NOW() - INTERVAL 12 HOUR, 1);
 

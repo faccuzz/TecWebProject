@@ -1,0 +1,210 @@
+
+================ DAVIDE ================
+
+Dead code + pulizia
+[ ] grep su src/ console.log, console.debug, TODO, FIXME residui
+[ ] Rimuovi file di test: todo-consegna.txt (questo), test_*.php, dump SQL temporanei
+[ ] Cerca funzioni JS dichiarate ma mai chiamate (dead code)
+[ ] Verifica nessun import/script non usato in <head> degli HTML
+[ ] Verifica nessuna regola CSS orfana (selettori inutilizzati)
+[ ] Cancella commenti placeholder/debug nei file PHP
+
+Controllo no codice IA
+[ ] Rileggi commenti: italiano colloquiale, non formali da generatore
+[ ] Rimuovi pattern IA: emoji, "Note:", "Important:", liste eccessive nei commenti
+[ ] Nomi variabili/funzioni consistenti col resto del progetto
+[ ] Indentazione e spacing uniformi (tab vs spaces)
+
+Relazione consegna
+[ ] Compila nomi + matricole gruppo in presentazione/lumen-spirits.tex
+[ ] Compila URL sito tecweb + email referente
+[ ] Compila tabella compiti per membro
+[ ] cd presentazione && pdflatex lumen-spirits.tex  (run x 2 per indice)
+[ ] Verifica PDF: indice, immagini, riferimenti corretti
+[ ] Sezione SQL: conferma 6 tabelle (no wishlist), menzione messages
+
+
+================ YURI ================
+
+Browser: Chrome. DevTools sempre aperto (Console + Network XHR).
+
+Setup DB
+[ ] Esegui init.sql: mysql -u root web < assets/query/init.sql
+[ ] SHOW TABLES: 6 tabelle (address, messages, order_items, orders, products, users)
+[ ] SELECT COUNT(*): messages=4, orders=7, order_items=10
+
+Funzionalità pubbliche
+[ ] index.html carica, hero ok, link funzionanti
+[ ] catalog.html mostra 12 prodotti + paginazione "Carica altri"
+[ ] Search bar catalog filtra live
+[ ] item.html?id=A7B9C0D3E1 mostra dettaglio
+[ ] Guest: click "Aggiungi al carrello" → dialog auth required
+[ ] contacts.html: invia messaggio → success + verifica DB nuovo record
+
+Account user
+[ ] Login user@gmail.com / user → redirect home
+[ ] Register nuovo account email univoca → success
+[ ] Register email duplicata → errore inline
+[ ] Aggiungi prodotto al carrello → toast appare (1 unità singolare)
+[ ] Aggiungi qty=5 → toast "5 unità" plurale
+[ ] Toast auto-dismiss dopo 4s
+[ ] Cart: cambia quantità prodotto → totale aggiornato
+[ ] Cart: rimuovi prodotto → sparisce
+[ ] Checkout completo → ordine creato in DB
+[ ] optionsPage user: Storico ordini → 5 card visibili
+[ ] Impostazioni account: modifica nome/cognome → salva
+[ ] Sicurezza: cambia password → relogin con nuova
+[ ] Click "Hai dimenticato password?" su login → inline "non implementato"
+
+Account admin
+[ ] Login admin@gmail.com / admin
+[ ] Sezione Prodotti: card grid, search bar filtra
+[ ] Click "Aggiungi prodotto" → dialog si apre centrato
+[ ] Dialog Aggiungi: submit vuoto → errore inline, no POST
+[ ] Dialog Aggiungi: compila tutto + immagine → success + reload
+[ ] Click "Modifica" su card → dialog con campi precompilati
+[ ] Modifica descrizione + submit → success
+[ ] Elimina prodotto → confirm → sparisce
+[ ] Sezione Utenti: tabella admin visibile
+[ ] Registra nuovo admin form: submit vuoto bloccato
+[ ] Registra nuovo admin: compila tutto → success
+[ ] Promuovi utente: username esistente → success
+[ ] Sezione Messaggi: 4+ card visibili
+[ ] Filtro "Da gestire" → URL aggiornato, no reload pagina
+[ ] Filtro "Gestiti" / "Tutti" → smooth swap
+[ ] Back browser button → torna filtro precedente
+[ ] Click "Segna come gestito" → badge cambia senza reload
+[ ] Click "Elimina" messaggio → confirm → sparisce
+[ ] Rispondi messaggio → inline "non implementato"
+[ ] Storico ordini admin: 2 card visibili
+[ ] Ordine multi-prodotto (OR2025X001) mostra 3 items dentro 1 card
+
+Console + Network
+[ ] Per OGNI pagina visitata: Console DevTools 0 errori rossi
+[ ] Per OGNI pagina: Network 0 richieste 404
+[ ] Verifica fetch CDN (font-awesome, intl-tel-input) raggiunge 200
+
+
+================ FILIPPO ================
+
+Strumento: Total Validator desktop (https://www.totalvalidator.com/). Free basta.
+
+Setup
+[ ] Scarica Total Validator desktop (Mac/Win)
+[ ] Configura: HTML5, no Spelling, Accessibility livello A
+[ ] Server PHP locale acceso: cd Project && /Applications/XAMPP/xamppfiles/bin/php -S localhost:8000
+
+Validazione pagine statiche (guest, no login)
+[ ] http://localhost:8000/index.html → 0 errori
+[ ] http://localhost:8000/catalog.html
+[ ] http://localhost:8000/item.html
+[ ] http://localhost:8000/cart.html
+[ ] http://localhost:8000/checkout.html
+[ ] http://localhost:8000/login.html
+[ ] http://localhost:8000/register.html
+[ ] http://localhost:8000/contacts.html
+[ ] http://localhost:8000/optionsPage.html
+
+Validazione pagine dinamiche (login user@gmail.com/user)
+[ ] cart.html con prodotti dentro
+[ ] checkout.html con prodotti dentro
+[ ] optionsPage.html?section=orderHistory
+[ ] optionsPage.html?section=configurations
+[ ] optionsPage.html?section=security
+
+Validazione pagine admin (login admin@gmail.com/admin)
+[ ] optionsPage.html?section=orderHistory
+[ ] optionsPage.html?section=configurations
+[ ] optionsPage.html?section=security
+[ ] optionsPage.html?section=products
+[ ] optionsPage.html?section=users
+[ ] optionsPage.html?section=messages
+[ ] optionsPage products: apri dialog "Aggiungi prodotto" → valida HTML risultante
+
+Fix errori
+[ ] Lista tutti errori in un doc condiviso
+[ ] Risolvi errori (delega a Davide se servono modifiche struttura)
+[ ] Ri-valida ogni pagina toccata → 0 errori finale
+
+
+================ CARMEN ================
+
+Tool: DevTools device toolbar (Cmd+Shift+M), VoiceOver (Cmd+F5 macOS) o NVDA Windows.
+
+Accessibilità — Keyboard
+[ ] TAB primo elemento ogni pagina → skip-link "Salta al contenuto" visibile
+[ ] TAB ciclo completo su index: header → contenuto → footer, ordine logico
+[ ] catalog: TAB raggiunge tutte le card prodotto + bottone "Carica altri"
+[ ] item: TAB su qty input → +/- frecce funzionano → bottone aggiungi
+[ ] Dialog Aggiungi prodotto: focus trap, TAB cicla solo dentro
+[ ] Dialog Modifica prodotto: focus trap
+[ ] Dialog auth required (guest add cart): focus trap
+[ ] ESC chiude tutti i dialog → focus torna su trigger button
+[ ] Menu mobile (320px width): TAB cicla dentro menu aperto
+[ ] Focus visibile su ogni elemento (outline non rimosso)
+
+Accessibilità — Screen Reader
+[ ] VoiceOver/NVDA legge titoli h1-h6 in ordine corretto su ogni pagina
+[ ] Form: label annunciata insieme a input
+[ ] Errori form: SR annuncia "Email non valida" quando appare
+[ ] Toast carrello: SR annuncia "Prodotto aggiunto..."
+[ ] Filtri messaggi: SR annuncia "Messaggi filtrati: pending"
+[ ] Status messaggi (handle/delete): annunciato cambio
+[ ] Tabella ordini/utenti: SR legge caption + headers correttamente
+[ ] Immagini prodotti: alt text descrittivo, no "image123.jpg"
+
+Cross-browser
+[ ] Smoke test Chrome: home → catalog → item → login → cart
+[ ] Smoke test Firefox: stesso flow
+[ ] Smoke test Safari: stesso flow
+[ ] Smoke test Edge (o Brave): stesso flow
+[ ] Dialog HTML5 <dialog> funziona su tutti i browser sopra
+[ ] intl-tel-input bandiera visibile su tutti
+
+Test media — Responsive
+[ ] Tutte pagine a 320px: no scroll orizzontale
+[ ] Tutte pagine a 768px (tablet): layout adatta
+[ ] Tutte pagine a 1280px (laptop): layout completo
+[ ] Tutte pagine a 1920px (desktop): max-width centrato, no spazio sprecato
+[ ] Dialog Aggiungi/Modifica prodotto a 320px: scroll interno, no overflow
+[ ] optionsPage sezioni admin a 320px: card stack 1-col
+
+Test media — Print (Cmd+P preview)
+[ ] index.html
+[ ] catalog.html
+[ ] item.html
+[ ] cart.html
+[ ] checkout.html
+[ ] login.html
+[ ] register.html
+[ ] contacts.html
+[ ] optionsPage.html?section=orderHistory
+[ ] optionsPage.html?section=configurations
+[ ] optionsPage.html?section=security
+[ ] optionsPage.html?section=products
+[ ] optionsPage.html?section=users
+[ ] optionsPage.html?section=messages
+
+
+================ TUTTI — DEPLOY UNIPD (sessione finale insieme) ================
+
+Solo dopo che tutti i blocchi sopra sono completi. Sessione live in 4.
+
+[ ] Aggiorna php/configDB.php con host/user/pwd/dbname UniPD
+[ ] mysqldump locale: mysqldump -u root web > dump.sql
+[ ] SSH connect: ssh login@tecweb.studenti.math.unipd.it
+[ ] scp/rsync upload Project/ → ~/src/ (escludi todo-consegna.txt, .DS_Store, .git)
+[ ] Import dump.sql su MariaDB UniPD: mysql -u USER -p DBNAME < dump.sql
+[ ] chmod 755 cartelle: find ~/src -type d -exec chmod 755 {} \;
+[ ] chmod 644 file: find ~/src -type f -exec chmod 644 {} \;
+[ ] Test URL pubblica: login admin/admin → ok
+[ ] Test URL pubblica: login user/user → ok
+[ ] Smoke test URL pubblica: catalog + item + add cart + checkout
+[ ] Verifica sezione admin messages su URL pubblica
+[ ] ZIP locale: src/ (codice clean) + dump.sql + relazione.pdf
+[ ] Verifica ZIP: niente todo-consegna.txt, niente .git, niente .DS_Store
+[ ] Upload ZIP su Moodle (solo responsabile gruppo)
+[ ] Conferma email/notifica Moodle ricevuta
+
+
+================ TUTTO VERDE → CONSEGNA ================

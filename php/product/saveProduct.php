@@ -12,19 +12,47 @@ $db = new database();
 $products = [];
 
 if (isset($_POST['name'])) {
-    $name        = $_POST['name'];
+    $name        = trim($_POST['name']);
     $price       = $_POST['price'];
-    $description = $_POST['description'];
-    $material    = $_POST['material']   ?? '';
-    $author      = $_POST['author']     ?? '';
+    $description = trim($_POST['description'] ?? '');
+    $material    = trim($_POST['material']   ?? '');
+    $author      = trim($_POST['author']     ?? '');
     $dimensions  = database::formatDimensions(
         $_POST['dimensionsWidth']  ?? '',
         $_POST['dimensionsHeight'] ?? ''
     );
-    $weight      = $_POST['weight']     ?? '';
-    $voltage     = $_POST['voltage']    ?? '';
-    $in_stock    = $_POST['inStock'] === 'true' ? 1 : 0;
+    $weight      = trim($_POST['weight']     ?? '');
+    $voltage     = trim($_POST['voltage']    ?? '');
 
+    // validazione lato server
+    $errors = [];
+    if ($name === '' || strlen($name) > 80) {
+        $errors[] = "Nome prodotto non valido";
+    }
+    $priceFloat = filter_var($price, FILTER_VALIDATE_FLOAT);
+    if ($priceFloat === false || $priceFloat <= 0 || $priceFloat > 99999) {
+        $errors[] = "Prezzo non valido";
+    }
+    if ($description === '' || strlen($description) > 500) {
+        $errors[] = "Descrizione non valida";
+    }
+    if (strlen($material) > 120 || strlen($author) > 80 || strlen($weight) > 30 || strlen($voltage) > 30) {
+        $errors[] = "Lunghezza dei campi opzionali fuori limite";
+    }
+    if (!in_array($_POST['inStock'] ?? '', ['true', 'false'], true)) {
+        $errors[] = "Disponibilita non valida";
+    }
+    if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+        $errors[] = "Immagine mancante o non caricata correttamente";
+    }
+
+    if (!empty($errors)) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'error' => implode(" - ", $errors)]);
+        exit();
+    }
+
+    $in_stock = $_POST['inStock'] === 'true' ? 1 : 0;
     $upload = database::validateAndMoveImage($_FILES['image'], $name, "../../assets/img/");
     if (isset($upload['error'])) {
         echo json_encode(['error' => $upload['error']]);

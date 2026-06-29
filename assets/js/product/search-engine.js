@@ -1,9 +1,14 @@
 let products = [];
 
+const PAGE_SIZE = 9;
+let visibleProducts = [];
+let displayedCount = 0;
+
 const searchInput = document.getElementById('search-input');
 const resultList = document.querySelector('.result-list');
 const resultGrid = document.querySelector('.result-grid');
 const resultsStatus = document.getElementById('catalog-results-status');
+const loadMoreBtn = document.getElementById('load-more-button');
 
 async function init() {
     try {
@@ -39,7 +44,7 @@ function renderProduct(htmlContent, classes, options = {}) {
 function renderList(items) {
     if (!resultList) return;
     resultList.innerHTML = '';
-    resultList.style.display = 'block';
+    resultList.classList.remove('is-hidden');
 
     if (items.length === 0) {
         resultList.removeAttribute('role');
@@ -52,7 +57,7 @@ function renderList(items) {
         return;
     }
 
-    // Imposto role="listbox" solo quando ho dei risultati da mostrare
+    //Imposto role="listbox" solo quando ho dei risultati da mostrare
     resultList.setAttribute('role', 'listbox');
     resultList.setAttribute('aria-label', 'Risultati di ricerca');
 
@@ -67,10 +72,57 @@ function renderList(items) {
     });
 }
 
+function buildCard(product, idx) {
+    const safeName = product.productName.replace(/</g, '&lt;');
+    const safeDesc = (product.description || '').replace(/</g, '&lt;');
+    const altText = `Foto del prodotto ${safeName}`;
+    //Le prime 3 immagini si vedono subito, le altre le carico man mano
+    const loadingAttr = idx < 3 ? 'eager' : 'lazy';
+    const htmlContent = `
+        <img src="./assets/img/${product.imageUrl}" alt="${altText}" loading="${loadingAttr}" decoding="async">
+        <div class="card-content">
+            <h2>${safeName}</h2>
+            <p>${safeDesc}</p>
+            <a href="item.html?id=${product.id}" class="button" aria-label="Scopri ${safeName}">Scopri</a>
+        </div>
+    `;
+    return renderProduct(htmlContent, 'card', { role: 'listitem' });
+}
+
+function updateLoadMoreButton() {
+    if (!loadMoreBtn) return;
+    const hasMore = displayedCount < visibleProducts.length;
+    loadMoreBtn.hidden = !hasMore;
+    if (hasMore) {
+        const remaining = visibleProducts.length - displayedCount;
+        loadMoreBtn.setAttribute(
+            'aria-label',
+            `Carica altri prodotti (${remaining} rimanenti)`
+        );
+    }
+}
+
+function appendNextPage() {
+    if (!resultGrid) return;
+    const start = displayedCount;
+    const end = Math.min(start + PAGE_SIZE, visibleProducts.length);
+    for (let i = start; i < end; i++) {
+        resultGrid.append(buildCard(visibleProducts[i], i));
+    }
+    displayedCount = end;
+    updateLoadMoreButton();
+    if (resultsStatus) {
+        resultsStatus.textContent =
+            `Mostrati ${displayedCount} di ${visibleProducts.length} prodotti.`;
+    }
+}
+
 function renderGrid(items) {
     if (!resultGrid) return;
     resultGrid.innerHTML = '';
-    resultGrid.style.display = 'grid';
+    resultGrid.classList.remove('is-hidden');
+    visibleProducts = items;
+    displayedCount = 0;
 
     if (items.length === 0) {
         resultGrid.removeAttribute('role');
@@ -78,27 +130,17 @@ function renderGrid(items) {
         empty.setAttribute('role', 'status');
         empty.textContent = 'Nessun prodotto trovato.';
         resultGrid.append(empty);
+        if (loadMoreBtn) loadMoreBtn.hidden = true;
         return;
     }
 
     resultGrid.setAttribute('role', 'list');
+    appendNextPage();
+}
 
-    items.forEach((product, idx) => {
-        const safeName = product.productName.replace(/</g, '&lt;');
-        const safeDesc = (product.description || '').replace(/</g, '&lt;');
-        const altText = `Foto del prodotto ${safeName}`;
-        // le prime 3 immagini si vedono subito, le altre le carico solo quando servono
-        const loadingAttr = idx < 3 ? 'eager' : 'lazy';
-        const htmlContent = `
-            <img src="./assets/img/${product.imageUrl}" alt="${altText}" loading="${loadingAttr}" decoding="async">
-            <div class="card-content">
-                <h2>${safeName}</h2>
-                <p>${safeDesc}</p>
-                <a href="item.html?id=${product.id}" class="button" aria-label="Scopri ${safeName}">Scopri</a>
-            </div>
-        `;
-        const card = renderProduct(htmlContent, 'card', { role: 'listitem' });
-        resultGrid.append(card);
+if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+        appendNextPage();
     });
 }
 
@@ -116,7 +158,7 @@ if (searchInput) {
 
         if (searchValue === '') {
             if (resultList) {
-                resultList.style.display = 'none';
+                resultList.classList.add('is-hidden');
                 setListboxExpanded(false);
             }
             if (resultGrid) {
@@ -142,11 +184,11 @@ if (searchInput) {
     });
 }
 
-// chiudo la tendina dei risultati se l'utente clicca fuori
+//Chiude la tendina dei risultati se l'utente clicca fuori
 document.addEventListener('click', (e) => {
-    if (resultList && resultList.style.display === 'block') {
+    if (resultList && !resultList.classList.contains('is-hidden')) {
         if (!searchInput.contains(e.target) && !resultList.contains(e.target)) {
-            resultList.style.display = 'none';
+            resultList.classList.add('is-hidden');
             resultList.setAttribute('aria-expanded', 'false');
         }
     }
