@@ -23,8 +23,13 @@
         grid-template-columns: 1fr;
     }
 
+    /* Su mobile impilo immagine, testo, tabella e CTA in un'unica colonna.
+       Uso flex così le posizioni grid-column/grid-row dei figli (pensate per il
+       layout a 2 colonne desktop) vengono ignorate e non creano colonne fantasma. */
     .detail-layout {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
     }
 
     #productsList {
@@ -204,6 +209,21 @@
     /* Messaggi admin: una sola colonna (il minimo di 480px sbordava su mobile) */
     .admin-message-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Storico ordini: una sola colonna (il minimo di 480px sbordava su mobile) */
+    .admin-order-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Riga articolo: nome sopra, qty/prezzo/subtotale sotto su una riga */
+    .admin-order-item {
+        grid-template-columns: 1fr auto auto;
+        grid-template-rows: auto auto;
+    }
+
+    .admin-order-item-name {
+        grid-column: 1 / -1;
     }
 }
 
