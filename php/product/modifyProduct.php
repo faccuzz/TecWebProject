@@ -12,19 +12,49 @@ $db = new database();
 $db->connect();
 
 if (isset($_POST['submit'])) {
-    $id          = $_POST['id'];
-    $name        = $_POST['name'];
-    $price       = $_POST['price'];
-    $description = $_POST['description'];
-    $material    = $_POST['material']   ?? '';
-    $author      = $_POST['author']     ?? '';
+    $id          = trim($_POST['id'] ?? '');
+    $name        = trim($_POST['name'] ?? '');
+    $price       = $_POST['price'] ?? '';
+    $description = trim($_POST['description'] ?? '');
+    $material    = trim($_POST['material']   ?? '');
+    $author      = trim($_POST['author']     ?? '');
     $dimensions  = database::formatDimensions(
         $_POST['dimensionsWidth']  ?? '',
         $_POST['dimensionsHeight'] ?? ''
     );
-    $weight      = $_POST['weight']     ?? '';
-    $voltage     = $_POST['voltage']    ?? '';
-    $in_stock    = $_POST['inStock'] === 'true' ? 1 : 0;
+    $weight      = trim($_POST['weight']     ?? '');
+    $voltage     = trim($_POST['voltage']    ?? '');
+
+    // validazione lato server
+    $errors = [];
+    if (!preg_match('/^[A-Z0-9]{10}$/', $id) || !$db->idExists($id)) {
+        $errors[] = "ID prodotto non valido";
+    }
+    if ($name === '' || strlen($name) > 80) {
+        $errors[] = "Nome prodotto non valido";
+    }
+    $priceFloat = filter_var($price, FILTER_VALIDATE_FLOAT);
+    if ($priceFloat === false || $priceFloat <= 0 || $priceFloat > 99999) {
+        $errors[] = "Prezzo non valido";
+    }
+    if ($description === '' || strlen($description) > 500) {
+        $errors[] = "Descrizione non valida";
+    }
+    if (strlen($material) > 120 || strlen($author) > 80 || strlen($weight) > 30 || strlen($voltage) > 30) {
+        $errors[] = "Lunghezza dei campi opzionali fuori limite";
+    }
+    if (!in_array($_POST['inStock'] ?? '', ['true', 'false'], true)) {
+        $errors[] = "Disponibilita non valida";
+    }
+
+    if (!empty($errors)) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'error' => implode(" - ", $errors)]);
+        $db->close();
+        exit();
+    }
+
+    $in_stock = $_POST['inStock'] === 'true' ? 1 : 0;
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $upload = database::validateAndMoveImage($_FILES['image'], $name, "../../assets/img/");

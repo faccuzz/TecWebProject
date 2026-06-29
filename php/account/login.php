@@ -10,8 +10,20 @@ if (!$data) {
     exit();
 }
 
-$email    = $data['email'] ?? '';
+$email    = trim($data['email'] ?? '');
 $password = $data['password'] ?? '';
+
+// validazione lato server: il client puo essere bypassato, ricontrollo formato
+if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 254) {
+    http_response_code(400);
+    echo json_encode(["success" => false, "message" => "Email non valida."]);
+    exit();
+}
+if ($password === '' || strlen($password) > 128) {
+    http_response_code(400);
+    echo json_encode(["success" => false, "message" => "Password non valida."]);
+    exit();
+}
 
 $db = new database();
 if (!$db->connect()) {

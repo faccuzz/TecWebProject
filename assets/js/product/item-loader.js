@@ -50,17 +50,17 @@ function populatePage(product) {
 }
 
 // Riempe la tabella con le specifiche del prodotto. Se un campo è vuoto
-// salto la riga, cosi la tabella resta pulita anche se l'admin non lo compila.
+// salto la riga, cosi la tabella resta pulita anche se non viene compilato
 function populateDetailTable(product) {
     const tbody = document.getElementById('detail-table-body');
     if (!tbody) return;
 
     const rows = [
-        { label: 'Materiale',     value: product.material },
-        { label: 'Autore',        value: product.author },
-        { label: 'Dimensioni',    value: product.dimensions },
-        { label: 'Peso',          value: product.weight },
-        { label: 'Voltaggio',     value: product.voltage },
+        { label: 'Materiale', value: product.material },
+        { label: 'Autore', value: product.author },
+        { label: 'Dimensioni', value: product.dimensions },
+        { label: 'Peso', value: product.weight },
+        { label: 'Voltaggio', value: product.voltage },
         {
             label: 'Disponibilità',
             value: Number(product.inStock) === 1 ? 'Disponibile' : 'Esaurito'

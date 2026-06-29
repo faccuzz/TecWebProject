@@ -4,7 +4,7 @@ const totalPriceContainer = document.getElementById('totalCartPrice');
 const submitCartButton = document.getElementById('submitCart');
 let cartInformation;
 
-// aggiorna il messaggio per gli screen reader (aria-live)
+// Aggiorna il messaggio per gli screen reader con aria-live
 function announceToCart(message) {
     const announcement = document.getElementById('cart-announcement');
     if (announcement) announcement.textContent = message;
@@ -13,7 +13,40 @@ function announceToCart(message) {
 async function addToCart(productID, quantity) {
     const payload = { id: productID, qty: quantity };
     await sendCartAction('add', payload);
-    announceToCart(`Prodotto aggiunto al carrello (quantità: ${quantity}).`);
+    const productName = document.getElementById('product-title')?.textContent.trim() || 'Prodotto';
+    announceToCart(`${productName} aggiunto al carrello (quantità: ${quantity}).`);
+    showCartToast(productName, quantity);
+}
+
+let cartToastTimer;
+function showCartToast(productName, quantity) {
+    const toast = document.getElementById('cart-toast');
+    const detail = document.getElementById('cart-toast-detail');
+    const closeBtn = document.getElementById('cart-toast-close');
+    if (!toast || !detail) return;
+
+    const qtyNum = Number(quantity) || 1;
+    const qtyText = qtyNum === 1 ? '1 unità' : `${qtyNum} unità`;
+    detail.textContent = `${productName} — ${qtyText}`;
+
+    toast.hidden = false;
+    requestAnimationFrame(() => toast.classList.add('is-visible'));
+
+    clearTimeout(cartToastTimer);
+    cartToastTimer = setTimeout(() => hideCartToast(), 4000);
+
+    if (closeBtn && !closeBtn.dataset.bound) {
+        closeBtn.addEventListener('click', hideCartToast);
+        closeBtn.dataset.bound = '1';
+    }
+}
+
+function hideCartToast() {
+    const toast = document.getElementById('cart-toast');
+    if (!toast) return;
+    clearTimeout(cartToastTimer);
+    toast.classList.remove('is-visible');
+    setTimeout(() => { toast.hidden = true; }, 300);
 }
 
 async function updateQuantity(id, newQty) {
@@ -153,6 +186,88 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const productId = params.get('id');
         const quantityInput = document.getElementById('qty');
-        addToCartButton.addEventListener('click', () => addToCart(productId, quantityInput.value));
+        addToCartButton.addEventListener('click', async () => {
+            const loggedIn = await isUserLoggedIn();
+            if (!loggedIn) {
+                showAuthRequiredDialog();
+                return;
+            }
+            addToCart(productId, quantityInput.value);
+        });
     }
 });
+
+// verifico la sessione PHP lato server
+async function isUserLoggedIn() {
+    try {
+        const res = await fetch('./php/account/loginCheck.php', { credentials: 'same-origin' });
+        const data = await res.json();
+        return data.logged_in === true;
+    } catch (e) {
+        return false;
+    }
+}
+
+// costruisco il dialog la prima volta che serve
+function ensureAuthRequiredDialog() {
+    if (document.getElementById('auth-required-dialog')) return;
+
+    const dlg = document.createElement('div');
+    dlg.id = 'auth-required-dialog';
+    dlg.className = 'auth-required-dialog is-hidden';
+    dlg.setAttribute('role', 'dialog');
+    dlg.setAttribute('aria-modal', 'true');
+    dlg.setAttribute('aria-labelledby', 'auth-required-title');
+    dlg.setAttribute('aria-describedby', 'auth-required-desc');
+    // pagina corrente da restituire dopo login/register
+    const returnUrl = encodeURIComponent(window.location.pathname.split('/').pop() + window.location.search);
+
+    dlg.innerHTML = `
+        <div class="auth-required-backdrop" data-close-dialog></div>
+        <div class="auth-required-panel" role="document">
+            <button type="button" class="auth-required-close" aria-label="Chiudi finestra" data-close-dialog>×</button>
+            <h2 id="auth-required-title">Accedi per continuare</h2>
+            <p id="auth-required-desc">
+                Per aggiungere prodotti al carrello devi avere un account.
+                Accedi al tuo profilo o creane uno nuovo per procedere.
+            </p>
+            <div class="auth-required-actions">
+                <a href="./login.html?return=${returnUrl}" class="button">Accedi</a>
+                <a href="./register.html?return=${returnUrl}" class="button">Registrati</a>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(dlg);
+
+    // chiusura: bottone X, backdrop, ESC
+    dlg.querySelectorAll('[data-close-dialog]').forEach(el => {
+        el.addEventListener('click', hideAuthRequiredDialog);
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !dlg.classList.contains('is-hidden')) {
+            hideAuthRequiredDialog();
+        }
+    });
+}
+
+let lastFocusedBeforeDialog = null;
+
+function showAuthRequiredDialog() {
+    ensureAuthRequiredDialog();
+    const dlg = document.getElementById('auth-required-dialog');
+    if (!dlg) return;
+    lastFocusedBeforeDialog = document.activeElement;
+    dlg.classList.remove('is-hidden');
+    // sposto il focus sul primo link cosi screen reader e tastiera capiscono
+    const firstAction = dlg.querySelector('.auth-required-actions a');
+    if (firstAction) firstAction.focus();
+}
+
+function hideAuthRequiredDialog() {
+    const dlg = document.getElementById('auth-required-dialog');
+    if (!dlg) return;
+    dlg.classList.add('is-hidden');
+    if (lastFocusedBeforeDialog && typeof lastFocusedBeforeDialog.focus === 'function') {
+        lastFocusedBeforeDialog.focus();
+    }
+}

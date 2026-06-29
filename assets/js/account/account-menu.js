@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function verifyLogin() {
         try {
-            const response = await fetch('./php/account/loginCheck.php');
+            const response = await fetch('./php/account/loginCheck.php', { credentials: 'same-origin', cache: 'no-store' });
             const data = await response.json();
 
             if (data.logged_in) {

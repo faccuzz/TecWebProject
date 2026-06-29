@@ -225,12 +225,13 @@ class database
 
     public function getOrderHistory($email)
     {
-        $sql = "SELECT o.orderID, o.orderDate, p.productName, p.price, op.quantity
+        $sql = "SELECT o.orderID, o.orderDate, o.totalAmount, p.productName, p.price, op.quantity
                     FROM orders o
                     JOIN order_items op ON o.orderID = op.orderID
                     JOIN products p ON op.product_id = p.id
                     JOIN users u ON o.user = u.username
-                    WHERE u.email = ?";
+                    WHERE u.email = ?
+                    ORDER BY o.orderDate DESC, o.orderID";
         $stmt = $this->connection->prepare($sql);
         $stmt->bind_param('s', $email);
         $stmt->execute();
