@@ -1344,6 +1344,17 @@ nav {
     word-wrap: break-word;
 }
 
+/* I campi di testo dei messaggi spezzano parole lunghe senza spazi (email, nomi,
+   oggetti) così non sforano la card su schermi stretti. min-width:0 serve perché
+   sono figli di contenitori flex, altrimenti non si restringono. */
+.admin-message-sender,
+.admin-message-email,
+.admin-message-subject,
+.admin-message-body {
+    overflow-wrap: anywhere;
+    min-width: 0;
+}
+
 .admin-message-reply {
     display: flex;
     flex-direction: column;
