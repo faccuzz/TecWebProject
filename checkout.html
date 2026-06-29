@@ -33,7 +33,7 @@
     <main class="checkout-layout" id="main-content">
         <section class="form" aria-labelledby="billing-title">
             <h2 id="billing-title">Dati di fatturazione</h2>
-            <form action="" method="post" id="Checkout-form" novalidate>
+            <form action="checkout.html" method="post" id="Checkout-form" novalidate>
                 <div class="form-group">
 
                     <label for="email-input">Email</label>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group">
                     <label for="address">Indirizzo</label>
-                    <input type="text" id="address" name="address" autocomplete="street-address" placeholder="Via, numero civico…" aria-describedby="checkout-address-error" required>
+                    <input type="text" id="address" name="address" autocomplete="address-line1" placeholder="Via, numero civico…" aria-describedby="checkout-address-error" required>
                     <p class="form-error-msg" id="checkout-address-error" role="alert" aria-live="polite"></p>
 
                 </div>
