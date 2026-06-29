@@ -2414,13 +2414,13 @@ body.cart-body {
 
 .footer-links a,
 main p a {
-    border-bottom: 2px solid rgb(var(--primary-color));
+    border-bottom: 2px solid rgb(var(--text-color));
     padding-bottom: 1px;
 }
 
 .col-layout > section .social-links a,
 .col-layout > section p a {
-    border-bottom: 2px solid var(--white);
+    border-bottom: 2px solid rgb(var(--text-color));
     padding-bottom: 1px;
 }
 
