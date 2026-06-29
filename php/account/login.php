@@ -10,8 +10,8 @@ if (!$data) {
     exit();
 }
 
-$email    = $data['email'] ?? '';
-$password = $data['password'] ?? '';
+$identifier = $data['identifier'] ?? $data['email'] ?? '';
+$password   = $data['password'] ?? '';
 
 $db = new database();
 if (!$db->connect()) {
@@ -24,7 +24,7 @@ if (!$db->connect()) {
 }
 
 try {
-    $userInfo = $db->login($email, $password);
+    $userInfo = $db->login($identifier, $password);
 
     if ($userInfo) {
         // rigenero l'id di sessione dopo il login per sicurezza
