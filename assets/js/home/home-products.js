@@ -1,9 +1,9 @@
-// Mostra 4 prodotti a caso nella sezione "Prodotti in evidenza" della home.
+//Mostra 4 prodotti a caso nella sezione "Prodotti in evidenza" della home.
 
 const HOME_PRODUCTS_COUNT = 4;
 
 function pickRandomProducts(products, count) {
-    // mischio l'array e prendo i primi N
+    // mischio l'array e prendo i primi N prodotti
     const arr = [...products];
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));

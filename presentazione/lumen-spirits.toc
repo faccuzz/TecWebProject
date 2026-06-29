@@ -1,0 +1,34 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Abstract}{2}{section.1}%
+\contentsline {section}{\numberline {2}Analisi del sito}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Target di riferimento}{2}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Tipologie di utente}{3}{subsubsection.2.1.1}%
+\contentsline {paragraph}{2.1.1.1\hskip 1em\relax Admin}{3}{paragraph*.1}%
+\contentsline {paragraph}{2.1.1.2\hskip 1em\relax User}{3}{paragraph*.2}%
+\contentsline {subsection}{\numberline {2.2}Funzionalit\`a sviluppate}{3}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Struttura e Design del sito}{4}{section.3}%
+\contentsline {section}{\numberline {4}Progettazione}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Struttura del progetto}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Strategia di sviluppo}{6}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Emotional Design e scelta dei colori}{6}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Struttura delle pagine}{6}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Header e Footer}{7}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Breadcrumb}{7}{subsubsection.4.4.2}%
+\contentsline {section}{\numberline {5}Sviluppo}{7}{section.5}%
+\contentsline {subsection}{\numberline {5.1}HTML}{7}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}CSS}{8}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}PHP}{8}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}JavaScript}{9}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}SQL}{9}{subsection.5.5}%
+\contentsline {section}{\numberline {6}SEO}{10}{section.6}%
+\contentsline {section}{\numberline {7}Accessibilit\`a}{10}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Separazione tra struttura, presentazione e comportamento}{10}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Navigazione delle pagine}{11}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Form}{11}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Tabelle}{12}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Accessibilit\`a dei colori}{12}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Test condotti}{13}{subsection.7.6}%
+\contentsline {section}{\numberline {8}Sviluppi futuri}{13}{section.8}%
+\contentsline {section}{\numberline {9}Organizzazione del lavoro}{14}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Divisione del lavoro}{14}{subsection.9.1}%

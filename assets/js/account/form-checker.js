@@ -25,14 +25,15 @@ function initFormChecker() {
                 initialCountry: "it",
             });
 
-            // la libreria intlTelInput lascia attivi degli aria-* anche quando il dropdown
-            // è chiuso e cosi rompe gli screen reader. Li ripulisco a mano.
+            // La libreria intlTelInput lascia attivi degli aria-* anche quando il dropdown
+            // è chiuso e danno fastidio agli screen reader
+            // https://github.com/jackocnr/intl-tel-input/issues/800
             const selectedFlag = phoneInput.closest('.iti')?.querySelector('.iti__selected-flag');
             if (selectedFlag) {
                 selectedFlag.removeAttribute('aria-activedescendant');
                 selectedFlag.removeAttribute('aria-owns');
                 selectedFlag.setAttribute('role', 'button');
-                // quando l'utente richiude la lista devo togliere di nuovo l'attributo
+                // Quando l'utente richiude la lista devo togliere di nuovo l'attributo
                 const observer = new MutationObserver(() => {
                     const isOpen = selectedFlag.getAttribute('aria-expanded') === 'true';
                     if (!isOpen) {
@@ -56,7 +57,7 @@ function initFormChecker() {
     }
 
     if (passwordInput && txtRequirement1) {
-        // all'inizio nessun requisito è soddisfatto
+        // Nessun requisito soddisfatto allo start
         updateRequirementsUI({ length: false, number: false, uppercase: false, special: false });
         passwordInput.addEventListener('input', () => {
             const ps = checkPasswordStrength(passwordInput.value);
@@ -65,7 +66,17 @@ function initFormChecker() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', initFormChecker);
+document.addEventListener('DOMContentLoaded', () => {
+    initFormChecker();
+    const forgotBtn = document.getElementById('forgot-password-btn');
+    const forgotErr = document.getElementById('forgot-password-error');
+    if (forgotBtn && forgotErr) {
+        forgotBtn.addEventListener('click', () => {
+            forgotErr.textContent = 'Funzione non ancora implementata. Contatta l\'assistenza tramite il modulo contatti.';
+            forgotErr.classList.add('active');
+        });
+    }
+});
 
 function verifyEmail() {
     return !!(emailInput && emailInput.checkValidity());
@@ -94,7 +105,7 @@ function setRequirementState(el, met) {
     if (!el) return;
     el.classList.toggle('requirement-met', met);
     el.classList.toggle('requirement-unmet', !met);
-    // aggiorno l'aria-label per gli screen reader
+    // aggiorno aria-label
     const baseText = el.dataset.baseText || el.textContent.replace(/^[✓✗]\s*/, '');
     el.dataset.baseText = baseText;
     el.setAttribute('aria-label', `${baseText}: ${met ? 'soddisfatto' : 'non soddisfatto'}`);
@@ -128,6 +139,7 @@ async function grantAccess() {
     try {
         const response = await fetch('php/account/login.php', {
             method: 'POST',
+            credentials: 'same-origin',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(credentials)
         });
@@ -156,6 +168,7 @@ async function registerUser() {
     try {
         const response = await fetch('php/account/register.php', {
             method: 'POST',
+            credentials: 'same-origin',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(accountDetails)
         });
@@ -216,7 +229,7 @@ function showGeneralStatus(message, kind = 'info') {
     if (!el) return;
     el.textContent = message;
     el.classList.add('active');
-    el.style.color = kind === 'success' ? 'var(--success-color)' : '';
+    el.classList.toggle('status-success', kind === 'success');
 }
 
 function showInputError(input, message) {

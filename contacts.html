@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="style/mobile.css">
     <link rel="stylesheet" media="print" href="style/print.css">
 
-    <script src="assets/js/animation.js" defer="defer"></script>
-    <script src="assets/js/bridge.js" defer="defer"></script>
-    <script src="assets/js/product/search-engine.js" defer="defer"></script>
-    <script src="assets/js/account/account-menu.js" defer="defer"></script>
+    <script src="assets/js/animation.js" defer></script>
+    <script src="assets/js/bridge.js" defer></script>
+    <script src="assets/js/product/search-engine.js" defer></script>
+    <script src="assets/js/account/account-menu.js" defer></script>
+    <script src="assets/js/contacts/contact-form.js" defer></script>
     <title>Lumen Spirits — Contatti</title>
 </head>
 
@@ -31,7 +32,7 @@
             <div class="nav-icons">
                 <div class="home-search-box" id="search-input">
                     <input type="text" class="home-search-bar" placeholder="Cerca…" aria-label="Cerca prodotti">
-                    <div class="result-list"></div>
+                    <div class="result-list is-hidden"></div>
                 </div>
                 <button class="nav-search-button" id="home-search-button" aria-label="Apri la ricerca" aria-expanded="false" aria-controls="search-input"><i class="fas fa-search" aria-hidden="true"></i></button>
                 <div class="account-box">
@@ -63,7 +64,7 @@
             <div class="col-layout">
                 <div class="formulario">
                     <h2>Scrivici</h2>
-                    <form action="#" method="post" aria-describedby="contact-form-help">
+                    <form id="contact-form" action="php/contacts/sendMessage.php" method="post" aria-describedby="contact-form-help" novalidate>
                         <p id="contact-form-help" class="sr-only">Tutti i campi sono obbligatori.</p>
                         <div class="form-group">
                             <label for="contact-name">Nome</label>
@@ -98,6 +99,7 @@
                             <p class="form-error-msg" id="contact-message-error" role="alert" aria-live="polite"></p>
                         </div>
                         <button type="submit">Invia messaggio</button>
+                        <p id="contact-form-status" class="form-status" role="status" aria-live="polite"></p>
                     </form>
                 </div>
                 <section aria-labelledby="contact-info-title">

@@ -32,7 +32,7 @@
             <div class="nav-icons">
                 <div class="home-search-box" id="search-input">
                     <input type="text" class="home-search-bar" placeholder="Cerca…" aria-label="Cerca prodotti">
-                    <div class="result-list"></div>
+                    <div class="result-list is-hidden"></div>
                 </div>
                 <button class="nav-search-button" id="home-search-button" aria-label="Apri la ricerca" aria-expanded="false" aria-controls="search-input"><i class="fas fa-search" aria-hidden="true"></i></button>
                 <div class="account-box">
@@ -57,6 +57,17 @@
 
     <main id="main-content">
         <div id="cart-announcement" aria-live="polite" role="status" class="sr-only"></div>
+
+        <div id="cart-toast" class="cart-toast" role="status" aria-live="polite" aria-atomic="true" hidden>
+            <i class="fas fa-check-circle cart-toast-icon" aria-hidden="true"></i>
+            <div class="cart-toast-body">
+                <p class="cart-toast-title">Prodotto aggiunto al carrello</p>
+                <p class="cart-toast-detail" id="cart-toast-detail"></p>
+            </div>
+            <button type="button" class="cart-toast-close" id="cart-toast-close" aria-label="Chiudi notifica">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
         <section class="hero hero-padding mid-height align-center" aria-labelledby="product-title">
             <div class="detail-layout">
 
@@ -65,12 +76,14 @@
                 </div>
 
                 <div class="detail-info">
-                    <h1 class="section-title" id="product-title">Gin &amp; Jute</h1>
+                    <div class="detail-text">
+                        <h2 class="section-title" id="product-title">Gin &amp; Jute</h2>
 
-                    <p class="section-text">
-                        Lampada artigianale ricavata da una bottiglia di gin riciclata,
-                        rivestita con intreccio di iuta naturale.
-                    </p>
+                        <p class="section-text">
+                            Lampada artigianale ricavata da una bottiglia di gin riciclata,
+                            rivestita con intreccio di iuta naturale.
+                        </p>
+                    </div>
 
                     <table class="detail-table">
                         <caption class="sr-only">Specifiche del prodotto</caption>
@@ -79,15 +92,17 @@
                         </tbody>
                     </table>
 
-                    <p class="detail-price"><span class="sr-only">Prezzo: </span>€ 89,00</p>
+                    <div class="detail-cta">
+                        <p class="detail-price"><span class="sr-only">Prezzo: </span>€ 89,00</p>
 
-                    <div class="detail-actions">
-                        <label for="qty">Quantità</label>
-                        <input type="number" id="qty" name="qty" value="1" min="1" max="99" aria-describedby="qty-help">
-                        <span id="qty-help" class="sr-only">Inserisci un numero tra 1 e 99</span>
-                        <button id="addToCartButton" class="button" type="button">
-                            <i class="fas fa-shopping-bag" aria-hidden="true"></i> Aggiungi al carrello
-                        </button>
+                        <div class="detail-actions">
+                            <label for="qty">Quantità</label>
+                            <input type="number" id="qty" name="qty" value="1" min="1" max="99" aria-describedby="qty-help">
+                            <span id="qty-help" class="sr-only">Inserisci un numero tra 1 e 99</span>
+                            <button id="addToCartButton" class="button" type="button">
+                                <i class="fas fa-shopping-bag" aria-hidden="true"></i> Aggiungi al carrello
+                            </button>
+                        </div>
                     </div>
                 </div>
 

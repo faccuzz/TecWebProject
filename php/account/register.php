@@ -11,12 +11,12 @@ if (empty($inputData)) {
     exit();
 }
 
-$username    = $inputData['username'] ?? '';
+$username    = trim($inputData['username'] ?? '');
 $password    = $inputData['password'] ?? '';
-$name        = $inputData['name'] ?? '';
-$surname     = $inputData['surname'] ?? '';
-$email       = $inputData['email'] ?? '';
-$phoneNumber = $inputData['phone'] ?? '';
+$name        = trim($inputData['name'] ?? '');
+$surname     = trim($inputData['surname'] ?? '');
+$email       = trim($inputData['email'] ?? '');
+$phoneNumber = trim($inputData['phone'] ?? '');
 
 $isAdmin = 0;
 if (isset($inputData['isAdmin'])) {
@@ -26,6 +26,50 @@ if (isset($inputData['isAdmin'])) {
     ) {
         $isAdmin = 1;
     }
+}
+
+// validazione lato server: il client puo essere bypassato, quindi ricontrollo tutto qui
+$errors = [];
+
+if (strlen($username) < 3 || strlen($username) > 32) {
+    $errors[] = "Username deve essere lungo tra 3 e 32 caratteri";
+} elseif (!preg_match('/^[a-zA-Z0-9_.-]+$/', $username)) {
+    $errors[] = "Username contiene caratteri non ammessi";
+}
+
+if (strlen($password) < 8 || strlen($password) > 128) {
+    $errors[] = "Password deve essere lunga tra 8 e 128 caratteri";
+} elseif (
+    !preg_match('/[A-Z]/', $password) ||
+    !preg_match('/[0-9]/', $password) ||
+    !preg_match('/[^A-Za-z0-9]/', $password)
+) {
+    $errors[] = "Password deve contenere maiuscola, numero e carattere speciale";
+}
+
+$nameRegex = '/^[a-zA-ZàèéìòùÀÈÉÌÒÙ\'\s\-]+$/u';
+if ($name === '' || strlen($name) > 64 || !preg_match($nameRegex, $name)) {
+    $errors[] = "Nome non valido";
+}
+if ($surname === '' || strlen($surname) > 64 || !preg_match($nameRegex, $surname)) {
+    $errors[] = "Cognome non valido";
+}
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 254) {
+    $errors[] = "Email non valida";
+}
+
+if ($phoneNumber !== '' && !preg_match('/^\+?[0-9 ]{6,20}$/', $phoneNumber)) {
+    $errors[] = "Numero di telefono non valido";
+}
+
+if (!empty($errors)) {
+    http_response_code(400);
+    echo json_encode([
+        "success" => false,
+        "message" => implode(" - ", $errors)
+    ]);
+    exit();
 }
 
 // l'indirizzo non lo chiediamo in registrazione (lo mette al checkout)
