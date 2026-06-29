@@ -438,7 +438,7 @@ function renderProducts($db)
                 . "<p class='admin-product-description'>" . h($p['description']) . "</p>"
                 . "<footer class='admin-product-actions'>"
                 . "<button type='button' class='button edit-product-btn' data-edit-id='" . $id . "' data-edit-name='" . $name . "' aria-label='Modifica prodotto " . $name . "'>Modifica</button>"
-                . "<form action='php/product/deleteProduct.php' method='post' aria-label='Elimina " . $name . "'>"
+                . "<form action='php/product/deleteProduct.php' method='post' aria-label='Elimina " . $name . "' onsubmit='return confirm(\"Sei sicuro di voler eliminare il prodotto " . $name . "?\");'>"
                 . "<input type='hidden' name='id' value='" . $id . "'>"
                 . "<button type='submit' name='submit' class='button button--danger' aria-label='Elimina prodotto " . $name . "'>Elimina</button>"
                 . "</form>"
