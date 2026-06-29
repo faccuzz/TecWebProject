@@ -43,7 +43,7 @@
 
                     <div id="account-popup" class="account-popup" role="dialog" aria-modal="true"
                         aria-labelledby="account-popup-title">
-                        <h2 id="account-popup-title" class="sr-only">Menu account</h2>
+                        <p id="account-popup-title" class="sr-only">Menu account</p>
                         <button id="close-popup-button" class="close-popup-btn" aria-label="Chiudi menu account" type="button">×</button>
 
                         <a href="./login.html" class="popup-link">Accedi</a>
@@ -68,22 +68,22 @@
                         <p id="contact-form-help" class="sr-only">Tutti i campi sono obbligatori.</p>
                         <div class="form-group">
                             <label for="contact-name">Nome</label>
-                            <input type="text" id="contact-name" name="name" autocomplete="given-name" aria-describedby="contact-name-error" aria-required="true" required>
+                            <input type="text" id="contact-name" name="name" autocomplete="given-name" aria-describedby="contact-name-error" required="required">
                             <p class="form-error-msg" id="contact-name-error" role="alert" aria-live="polite"></p>
                         </div>
                         <div class="form-group">
                             <label for="contact-surname">Cognome</label>
-                            <input type="text" id="contact-surname" name="surname" autocomplete="family-name" aria-describedby="contact-surname-error" aria-required="true" required>
+                            <input type="text" id="contact-surname" name="surname" autocomplete="family-name" aria-describedby="contact-surname-error" required="required">
                             <p class="form-error-msg" id="contact-surname-error" role="alert" aria-live="polite"></p>
                         </div>
                         <div class="form-group">
                             <label for="contact-email">Email</label>
-                            <input type="email" id="contact-email" name="email" autocomplete="email" aria-describedby="contact-email-error" aria-required="true" required>
+                            <input type="email" id="contact-email" name="email" autocomplete="email" aria-describedby="contact-email-error" required="required">
                             <p class="form-error-msg" id="contact-email-error" role="alert" aria-live="polite"></p>
                         </div>
                         <div class="form-group">
                             <label for="contact-subject">In cosa possiamo aiutarti?</label>
-                            <select id="contact-subject" name="subject" aria-describedby="contact-subject-error" aria-required="true" required>
+                            <select id="contact-subject" name="subject" aria-describedby="contact-subject-error" required="required">
                                 <option value="">— Seleziona un argomento —</option>
                                 <option value="order">Domande su un ordine / spedizione</option>
                                 <option value="damage">Articolo arrivato danneggiato</option>
@@ -94,8 +94,8 @@
                         </div>
                         <div class="form-group">
                             <label for="contact-message">Aggiungi un commento</label>
-                            <textarea id="contact-message" name="message" rows="4" aria-describedby="contact-message-error" aria-required="true"
-                                placeholder="Raccontaci di cosa hai bisogno…" required></textarea>
+                            <textarea id="contact-message" name="message" rows="4" aria-describedby="contact-message-error"
+                                placeholder="Raccontaci di cosa hai bisogno…" required="required"></textarea>
                             <p class="form-error-msg" id="contact-message-error" role="alert" aria-live="polite"></p>
                         </div>
                         <button type="submit">Invia messaggio</button>
@@ -105,7 +105,7 @@
                 <section aria-labelledby="contact-info-title">
                     <h2 id="contact-info-title">Informazioni aggiuntive</h2>
                     <div>
-                        <h3>Garanzia Creative Rebirth</h3>
+                        <h3>Garanzia Lumen Spirits</h3>
                         <p>Il vetro è fragile, il nostro impegno verso di te no. Se l'articolo arriva danneggiato, inviaci una foto entro 48 ore e lo sostituiremo gratuitamente.</p>
                     </div>
                     <div>
@@ -153,7 +153,7 @@
             <h2 class="footer-title">Iscriviti alla nostra community!</h2>
             <form class="newsletter-form" aria-label="Iscrizione newsletter">
                 <label for="newsletter-email-contacts" class="sr-only">Indirizzo email</label>
-                <input type="email" id="newsletter-email-contacts" name="email" placeholder="email@esempio.it" required>
+                <input type="email" id="newsletter-email-contacts" name="email" placeholder="email@esempio.it" required="required">
                 <button type="submit" aria-label="Iscriviti alla newsletter"><i class="fas fa-paper-plane" aria-hidden="true"></i><span class="sr-only"> Iscriviti</span></button>
             </form>
         </div>

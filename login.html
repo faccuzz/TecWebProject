@@ -11,31 +11,31 @@
         <link rel="stylesheet" media="print" href="style/print.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
-        <script src="assets/js/account/form-checker.js" defer></script>
+        <script src="assets/js/account/form-checker.js" defer="defer"></script>
     </head>
     <body class="login-page">
         <a href="#main-content" class="sr-only sr-only--focusable">Salta al contenuto principale</a>
         <header class="area-logo">
-            <h1 class="company-name" lang="en">Creative Rebirth</h1>
+            <h1 class="company-name" lang="en">Lumen Spirits</h1>
         </header>
 
         <main id="main-content" class="login-card">
             <h2>Accedi</h2>
-            <form action="php/account/login.php" method="post" id="access-form" novalidate>
+            <form action="php/account/login.php" method="post" id="access-form" novalidate="novalidate">
                 <div class="form-group">
 
-                    <label for="email-input">Email</label>
-                    <input type="email" id="email-input" name="email" autocomplete="email" aria-describedby="login-email-error" aria-required="true" required>
+                    <label for="email-input">Email o Username</label>
+                    <input type="text" id="email-input" name="identifier" autocomplete="username" aria-describedby="login-email-error" required="required">
                     <p class="form-error-msg" id="login-email-error" role="alert" aria-live="polite"></p>
 
                 </div>
                 <div class="form-group">
 
                     <label for="password-input">Password</label>
-                    <input type="password" id="password-input" name="password" autocomplete="current-password" aria-describedby="login-password-error" aria-required="true" required>
+                    <input type="password" id="password-input" name="password" autocomplete="current-password" aria-describedby="login-password-error" required="required">
                     <p class="form-error-msg" id="login-password-error" role="alert" aria-live="polite"></p>
 
                 </div>

@@ -10,20 +10,8 @@ if (!$data) {
     exit();
 }
 
-$email    = trim($data['email'] ?? '');
-$password = $data['password'] ?? '';
-
-// validazione lato server: il client puo essere bypassato, ricontrollo formato
-if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 254) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "Email non valida."]);
-    exit();
-}
-if ($password === '' || strlen($password) > 128) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "Password non valida."]);
-    exit();
-}
+$identifier = $data['identifier'] ?? $data['email'] ?? '';
+$password   = $data['password'] ?? '';
 
 $db = new database();
 if (!$db->connect()) {
@@ -36,7 +24,7 @@ if (!$db->connect()) {
 }
 
 try {
-    $userInfo = $db->login($email, $password);
+    $userInfo = $db->login($identifier, $password);
 
     if ($userInfo) {
         // rigenero l'id di sessione dopo il login per sicurezza

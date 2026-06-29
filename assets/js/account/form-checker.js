@@ -82,6 +82,10 @@ function verifyEmail() {
     return !!(emailInput && emailInput.checkValidity());
 }
 
+function verifyIdentifier() {
+    return !!(emailInput && emailInput.value.trim().length > 0);
+}
+
 function checkPasswordStrength(password) {
     const checks = {
         length: password.length >= 8,
@@ -129,7 +133,7 @@ function verifyName(input) {
 
 async function grantAccess() {
     const credentials = {
-        'email': emailInput.value.toLowerCase(),
+        'identifier': emailInput.value.trim(),
         'password': passwordInput.value,
     };
     try {
@@ -259,7 +263,7 @@ function hideInputError(input) {
 async function login() {
     hideInputError(emailInput);
     hideInputError(passwordInput);
-    if (verifyEmail()) {
+    if (verifyIdentifier()) {
         if (await grantAccess()) redirect();
         else {
             showInputError(passwordInput, 'Credenziali non valide');
@@ -267,7 +271,7 @@ async function login() {
             emailInput.focus();
         }
     } else {
-        showInputError(emailInput, 'Indirizzo email non valido');
+        showInputError(emailInput, 'Inserisci email o username');
         emailInput.focus();
     }
 }

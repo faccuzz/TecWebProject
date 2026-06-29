@@ -9,10 +9,10 @@
   <link rel="stylesheet" href="style/mobile.css">
   <link rel="stylesheet" media="print" href="style/print.css">
 
-  <script src="./assets/js/animation.js" defer></script>
-  <script src="./assets/js/bridge.js" defer></script>
-  <script src="./assets/js/product/search-engine.js" defer></script>
-  <script src="assets/js/account/account-menu.js" defer></script>
+  <script src="./assets/js/animation.js" defer="defer"></script>
+  <script src="./assets/js/bridge.js" defer="defer"></script>
+  <script src="./assets/js/product/search-engine.js" defer="defer"></script>
+  <script src="assets/js/account/account-menu.js" defer="defer"></script>
   <title>Lumen Spirits — Catalogo</title>
 </head>
 
@@ -37,7 +37,7 @@
 
                 <div id="account-popup" class="account-popup" role="dialog" aria-modal="true"
                     aria-labelledby="account-popup-title">
-                    <h2 id="account-popup-title" class="sr-only">Menu account</h2>
+                    <p id="account-popup-title" class="sr-only">Menu account</p>
                     <button id="close-popup-button" class="close-popup-btn" aria-label="Chiudi menu account" type="button">×</button>
 
                     <a href="./login.html" class="popup-link">Accedi</a>
@@ -86,7 +86,7 @@
       <h2 class="footer-title">Iscriviti alla nostra community!</h2>
       <form class="newsletter-form" aria-label="Iscrizione newsletter">
         <label for="newsletter-email" class="sr-only">Indirizzo email</label>
-        <input type="email" id="newsletter-email" name="email" placeholder="email@esempio.it" required>
+        <input type="email" id="newsletter-email" name="email" placeholder="email@esempio.it" required="required">
         <button type="submit" aria-label="Iscriviti alla newsletter"><i class="fas fa-paper-plane" aria-hidden="true"></i><span class="sr-only"> Iscriviti</span></button>
       </form>
     </div>

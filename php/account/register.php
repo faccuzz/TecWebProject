@@ -73,7 +73,6 @@ if (!empty($errors)) {
 }
 
 // l'indirizzo non lo chiediamo in registrazione (lo mette al checkout)
-// pero le colonne nella tabella address sono NOT NULL, quindi metto stringa vuota
 $address  = $inputData['street']     ?? '';
 $city     = $inputData['city']       ?? '';
 $cap      = $inputData['postalCode'] ?? '';

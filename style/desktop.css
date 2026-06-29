@@ -1,6 +1,4 @@
-/* ======================================================
-   VARIABILI GLOBALI
-   ====================================================== */
+/* VARIABILI GLOBALI */
 
 :root {
     /* Colori principali (in formato RGB cosi posso usarli anche con rgba) */
@@ -43,9 +41,7 @@
 }
 
 
-/* ======================================================
-   RESET E STILE BASE
-   ====================================================== */
+/* RESET E STILE BASE */
 
 * {
     margin: 0;
@@ -69,9 +65,7 @@ a {
 }
 
 
-/* ======================================================
-   CLASSI DI UTILITA
-   ====================================================== */
+/* CLASSI DI UTILITA */
 
 .hidden {
     position: absolute;
@@ -163,9 +157,7 @@ nav :focus-visible,
 }
 
 
-/* ======================================================
-   HERO E SFONDI
-   ====================================================== */
+/* HERO E SFONDI */
 
 header {
     margin-bottom: 2em;
@@ -265,9 +257,7 @@ header {
 }
 
 
-/* ======================================================
-   TIPOGRAFIA E DIMENSIONI
-   ====================================================== */
+/* TIPOGRAFIA E DIMENSIONI */
 
 .giant-title {
     font-size: 11rem;
@@ -318,9 +308,7 @@ header {
 }
 
 
-/* ======================================================
-   NAVIGAZIONE
-   ====================================================== */
+/* NAVIGAZIONE */
 
 nav {
     position: sticky;
@@ -418,9 +406,7 @@ nav {
 }
 
 
-/* ======================================================
-   CASELLA DI RICERCA
-   ====================================================== */
+/* CASELLA DI RICERCA */
 
 /* la search box: input che si apre in orizzontale, e sotto i risultati come tendina */
 .home-search-box {
@@ -515,9 +501,7 @@ nav {
 
 
 
-/* ======================================================
-   MENU ACCOUNT
-   ====================================================== */
+/* MENU ACCOUNT */
 
 .account-box {
     position: relative;
@@ -593,9 +577,7 @@ nav {
 }
 
 
-/* ======================================================
-   LAYOUT GRIGLIA
-   ====================================================== */
+/* LAYOUT GRIGLIA */
 
 .row-layout {
     display: grid;
@@ -674,9 +656,7 @@ nav {
 }
 
 
-/* ======================================================
-   FOOTER
-   ====================================================== */
+/* FOOTER */
 
 .newsletter-form {
     display: flex;
@@ -736,9 +716,7 @@ nav {
 }
 
 
-/* ======================================================
-   COMPONENTI
-   ====================================================== */
+/* COMPONENTI */
 
 .button {
     position: relative;
@@ -822,9 +800,7 @@ nav {
 }
 
 
-/* ======================================================
-   PRODOTTI E LISTA ITEMS
-   ====================================================== */
+/* PRODOTTI E LISTA ITEMS */
 
 .Items {
     display: flex;
@@ -860,9 +836,7 @@ nav {
 }
 
 
-/* ======================================================
-   ADMIN E LISTA PRODOTTI
-   ====================================================== */
+/* ADMIN E LISTA PRODOTTI */
 
 .mainAdmin {
     margin: 3%;
@@ -1562,9 +1536,7 @@ nav {
 }
 
 
-/* ======================================================
-   PAGINA OPZIONI ACCOUNT
-   ====================================================== */
+/* PAGINA OPZIONI ACCOUNT */
 
 .optionsPageContainer {
     display: flex;
@@ -1666,9 +1638,7 @@ nav {
 }
 
 
-/* ======================================================
-   PAGINA DETTAGLIO PRODOTTO
-   ====================================================== */
+/* PAGINA DETTAGLIO PRODOTTO */
 
 .detail-image-wrapper img {
     width: 100%;
@@ -1779,9 +1749,7 @@ nav {
 }
 
 
-/* ======================================================
-   FORM E LAYOUT COLONNE
-   ====================================================== */
+/* FORM E LAYOUT COLONNE */
 
 .descr {
     text-align: center;
@@ -1996,9 +1964,7 @@ form select {
 }
 
 
-/* ======================================================
-   LOADER DI PAGINA
-   ====================================================== */
+/* LOADER DI PAGINA */
 
 .loader-overlay {
     position: fixed;
@@ -2032,9 +1998,7 @@ form select {
 }
 
 
-/* ======================================================
-   PREFERS-REDUCED-MOTION
-   ====================================================== */
+/* PREFERS-REDUCED-MOTION */
 
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -2065,9 +2029,7 @@ form select {
 }
 
 
-/* ======================================================
-   CHECKOUT
-   ====================================================== */
+/* CHECKOUT */
 
 .checkout-header {
     background-color: rgb(var(--text-color));
@@ -2200,9 +2162,7 @@ form select {
 }
 
 
-/* ======================================================
-   CARRELLO
-   ====================================================== */
+/* CARRELLO */
 
 body.cart-body {
     background-image:
@@ -2320,9 +2280,7 @@ body.cart-body {
 }
 
 
-/* ======================================================
-   PAGINA DI LOGIN E REGISTRAZIONE
-   ====================================================== */
+/* PAGINA DI LOGIN E REGISTRAZIONE */
 
 .login-page {
     width: 100%;
