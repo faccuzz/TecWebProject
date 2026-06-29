@@ -88,18 +88,6 @@ a {
     border-width: 0;
 }
 
-/* stesso comportamento di sr-only, mi serve solo perche in item.html ho usato visually-hidden */
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
 
 /* skip link: si vede solo quando viene messo a fuoco dalla tastiera */
 .sr-only--focusable:focus {
@@ -123,15 +111,6 @@ a {
     display: none;
 }
 
-.hidden-content {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.visible-content {
-    opacity: 1;
-    visibility: visible;
-}
 
 #image-upload {
     display: none;
@@ -196,9 +175,6 @@ header {
     min-height: 30em;
 }
 
-.small-size {
-    min-height: 15em;
-}
 
 .align-center {
     justify-content: center;
@@ -798,48 +774,8 @@ nav {
 }
 
 
-/* PRODOTTI E LISTA ITEMS */
-
-.Items {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.itemBox {
-    border: 1px solid var(--border-light);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin: 1%;
-    max-width: 70%;
-    padding: 10px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.itemBox img {
-    width: 85%;
-}
-
-.productDesc {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.rowCompra {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
 
 /* ADMIN E LISTA PRODOTTI */
-
-.mainAdmin {
-    margin: 3%;
-    padding: 20px;
-}
 
 .adminUpload {
     max-width: 30%;
@@ -1578,10 +1514,6 @@ nav {
     gap: 1.5em;
 }
 
-.optionTitle {
-    margin-bottom: 20px;
-}
-
 #menu-nav {
     list-style: none;
     padding: 0;
@@ -1684,53 +1616,6 @@ nav {
     text-transform: uppercase;
     font-size: 0.8rem;
     width: 40%;
-}
-
-/* Tabella ordini / utenti — admin */
-.data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95rem;
-    margin-top: 1em;
-    background: rgb(var(--bg-color));
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.data-table caption {
-    text-align: left;
-    font-weight: 600;
-    padding: 0.5em 0;
-    color: rgb(var(--text-color));
-}
-
-.data-table thead th {
-    background: rgb(var(--text-color));
-    color: rgb(var(--primary-color));
-    text-align: left;
-    padding: 0.75em 1em;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-}
-
-.data-table tbody td,
-.data-table tbody th {
-    padding: 0.75em 1em;
-    border-bottom: 1px solid rgba(28, 14, 8, 0.15);
-    text-align: left;
-    vertical-align: top;
-}
-
-.data-table tbody tr:last-child td,
-.data-table tbody tr:last-child th {
-    border-bottom: none;
-}
-
-.data-table tbody tr:nth-child(even) {
-    background-color: rgba(140, 60, 8, 0.04);
 }
 
 .detail-price {
@@ -2163,11 +2048,6 @@ form select {
     font-size: 1.1rem;
     cursor: pointer;
     text-transform: uppercase;
-}
-
-.checkout-sidebar {
-    position: sticky;
-    top: 2rem;
 }
 
 

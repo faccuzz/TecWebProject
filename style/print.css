@@ -193,7 +193,6 @@
         box-shadow: none;
     }
 
-    .data-table,
     .detail-table {
         border-collapse: collapse;
         page-break-inside: avoid;
@@ -287,8 +286,6 @@
         color: #000;
     }
 
-    .data-table th,
-    .data-table td,
     .detail-table th,
     .detail-table td {
         border-bottom: 1px solid #000;

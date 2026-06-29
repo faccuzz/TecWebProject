@@ -225,12 +225,6 @@
         margin-left: 4px;
     }
 
-    /* Tabelle admin scrollabili orizzontalmente per non rompere reflow */
-    .data-table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
 
     /* Form inline admin: impila input e bottone in colonna invece di riga */
     .adminUpload--inline {
