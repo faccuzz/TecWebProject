@@ -2414,7 +2414,7 @@ body.cart-body {
 
 .footer-links a,
 main p a {
-    border-bottom: 2px solid rgb(var(--text-color));
+    border-bottom: 2px solid rgb(var(--decoration-color));
     padding-bottom: 1px;
 }
 
