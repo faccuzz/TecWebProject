@@ -365,7 +365,7 @@ Un altro importante accorgimento \`e l'uso delle tecnologie asincrone per modern
 Infine l'uso di JavaScript \`e stato centrale per garantire un controllo rigoroso sui componenti dell'interfaccia, come le finestre di dialogo modali utilizzate nel pannello amministrativo per l'aggiunta e la modifica dei prodotti. Anche la validazione dei dati beneficia di questo strato comportamentale: prima che il modulo venga inviato al server, lo script intercetta eventuali campi obbligatori vuoti, fornendo un avviso immediato che guida l'utente nella correzione e riducendo cos\`i i tempi di attesa legati ai ricaricamenti della pagina.
 
 \subsection{SQL}
-La persistenza dei dati dell'intero sistema \`e stata affidata a un database relazionale progettato in linguaggio SQL, utilizzando il motore \textbf{InnoDB}. L'architettura del database \`e strutturata in modo normalizzato su sei tabelle principali: \textbf{users} (gestisce le credenziali e distingue tra utenti standard e amministratori), \textbf{address} (dati di spedizione collegati all'utente), \textbf{products} (catalogo articoli con prezzo, descrizione, dimensioni, materiali), \textbf{orders} (testata degli ordini con data e totale), \textbf{order\_items} (righe d'ordine collegate ai prodotti) e \textbf{messages} (messaggi ricevuti dal modulo contatti, con flag di gestione).
+La persistenza dei dati dell'intero sistema \`e stata affidata a un database relazionale progettato in linguaggio SQL. L'architettura del database \`e strutturata in modo normalizzato su sei tabelle principali: \textbf{users} (gestisce le credenziali e distingue tra utenti standard e amministratori), \textbf{address} (dati di spedizione collegati all'utente), \textbf{products} (catalogo articoli con prezzo, descrizione, dimensioni, materiali), \textbf{orders} (testata degli ordini con data e totale), \textbf{order\_items} (righe d'ordine collegate ai prodotti) e \textbf{messages} (messaggi ricevuti dal modulo contatti, con flag di gestione).
 
 Per assicurare la massima coerenza dei dati, sono stati implementati vincoli di chiave esterna con clausola \texttt{ON DELETE CASCADE}, fondamentale per la manutenibilit\`a: ad esempio, se un utente decide di eliminare il proprio profilo, il sistema rimuove automaticamente e in modo sicuro tutti i suoi ordini e le righe d'ordine collegate.
 
@@ -484,6 +484,7 @@ Sono stati eseguiti numerosi test manuali per verificare l'accessibilit\`a come 
   \item parole inglesi in tag \texttt{<span>} e attributo \texttt{lang="en"}
   \item controllo su invio dei dati
   \item messaggi di riscontro (feedback) quando l'utente compie delle operazioni
+  \item controlli su TotalValidator
 \end{itemize}
 
 \sectionrule

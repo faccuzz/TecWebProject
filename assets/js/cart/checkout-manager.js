@@ -19,7 +19,7 @@ async function renderCheckoutPrice() {
     }
 
     if (subtotalContainer) {
-        subtotalContainer.innerHTML = formatEuro(total);
+        subtotalContainer.textContent = formatEuro(total);
     }
     if (totalContainer) {
         totalContainer.innerHTML = `
@@ -63,77 +63,76 @@ async function renderPreview() {
 }
 
 function validateForm() {
-    const email = document.getElementById('email-input');
-    const name = document.getElementById('name-input');
-    const surname = document.getElementById('surname-input');
-    const address = document.getElementById('address');
-    const emailError = document.getElementById('checkout-email-error');
-    const nameError = document.getElementById('checkout-name-error');
-    const surnameError = document.getElementById('checkout-surname-error');
-    const addressError = document.getElementById('checkout-address-error');
-
-    // Reset dei messaggi di errore 
-    [emailError, nameError, surnameError, addressError].forEach(err => {
-        if (err) {
-            err.innerHTML = '';
-            err.style.color = '#ff0000';     
-            err.style.display = 'block';      
-            err.style.margin = '5px 0 0 0';   
-        }
-    });
+    const fields = [
+        {
+            input: document.getElementById('email-input'),
+            error: document.getElementById('checkout-email-error'),
+            msg: 'L\'email è obbligatoria.',
+            regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            regexMsg: 'Indirizzo non valido (es. nome@esempio.com).'
+        },
+        {
+            input: document.getElementById('name-input'),
+            error: document.getElementById('checkout-name-error'),
+            msg: 'Il nome è obbligatorio.'
+        },
+        {
+            input: document.getElementById('surname-input'),
+            error: document.getElementById('checkout-surname-error'),
+            msg: 'Il cognome è obbligatorio.'
+        },
+        {
+            input: document.getElementById('address'),
+            error: document.getElementById('checkout-address-error'),
+            msg: 'L\'indirizzo è obbligatorio.'
+        },
+    ];
 
     let isValid = true;
+    fields.forEach(({ input, error, msg, regex, regexMsg }) => {
+        if (!input || !error) return;
+        const value = input.value.trim();
+        let fieldError = '';
+        if (!value) fieldError = msg;
+        else if (regex && !regex.test(value)) fieldError = regexMsg;
 
-    //Validazione dei campi
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !email.value.trim()) {
-        if (emailError) emailError.innerHTML = 'L\'email è obbligatoria.';
-        isValid = false;
-    } else if (!emailRegex.test(email.value.trim())) {
-        if (emailError) emailError.innerHTML = 'Indirizzo non valido, Inserisci una vera mail (es. nome@esempio.com).';
-        isValid = false;
-    }
-
-    if (!name || !name.value.trim()) {
-        if (nameError) nameError.innerHTML = 'Il nome è obbligatorio.';
-        isValid = false;
-    }
-
-    if (!surname || !surname.value.trim()) {
-        if (surnameError) surnameError.innerHTML = 'Il cognome è obbligatorio.';
-        isValid = false;
-    }
-
-    if (!address || !address.value.trim()) {
-        if (addressError) addressError.innerHTML = 'L\'indirizzo è obbligatorio.';
-        isValid = false;
-    }
+        if (fieldError) {
+            error.textContent = fieldError;
+            error.classList.add('active');
+            input.setAttribute('aria-invalid', 'true');
+            isValid = false;
+        } else {
+            error.textContent = '';
+            error.classList.remove('active');
+            input.removeAttribute('aria-invalid');
+        }
+    });
 
     return isValid;
 }
 
 async function clearCart() {
-    try{
-        if (typeof sendCartAction === 'function'){
+    try {
+        if (typeof sendCartAction === 'function') {
             await sendCartAction('clear');
         } else {
-            await fetch('./php/cart/cartManager.php',{
+            await fetch('./php/cart/cartManager.php', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({action: 'clear'})
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'clear' })
             });
         }
-    } catch (error){
+    } catch (error) {
         console.error("Errore durante lo svuotamento del carrello:", error);
     }
 
-    if (previewContainer){
+    if (previewContainer) {
         previewContainer.innerHTML = '<p>Nessun prodotto nel carrello.</p>';
     }
-    if (subtotalContainer){
-        subtotalContainer.innerHTML = formatEuro(0);
+    if (subtotalContainer) {
+        subtotalContainer.textContent = formatEuro(0);
     }
-    if (totalContainer){
+    if (totalContainer) {
         totalContainer.innerHTML = `
             <span>Totale</span>
             <span class="total-price">${formatEuro(0)}</span>
@@ -141,22 +140,20 @@ async function clearCart() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('Checkout-form');
-    if (form){
-        form.addEventListener('submit', async function(event){
-            event.preventDefault(); 
-            if (validateForm()){
-                alert('Pagamento effettuato');
-                form.reset(); 
-                await clearCart(); 
-                window.location.href = 'index.html';
-            }
-        });
-    }
+const checkoutForm = document.getElementById('Checkout-form');
+if (checkoutForm) {
+    checkoutForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (validateForm()) {
+            alert('Pagamento effettuato');
+            checkoutForm.reset();
+            await clearCart();
+            window.location.href = 'index.html';
+        }
+    });
+}
 
-    if (previewContainer){
-        renderPreview();
-        renderCheckoutPrice();
-    }
-});
+if (previewContainer) {
+    renderPreview();
+    renderCheckoutPrice();
+}
