@@ -9,12 +9,15 @@ include_once '../session_bootstrap.php';
     
     $db = new database();
     if(isset($_POST['submit'])){
-        $name = trim($_POST['name'] ?? '');
-        $surname = trim($_POST['surname'] ?? '');
-        $email = trim($_POST['email'] ?? '');
-        $phoneNumber = trim($_POST['phoneNumber'] ?? '');
+        $name = '';
+        if (isset($_POST['name'])) $name = trim($_POST['name']);
+        $surname = '';
+        if (isset($_POST['surname'])) $surname = trim($_POST['surname']);
+        $email = '';
+        if (isset($_POST['email'])) $email = trim($_POST['email']);
+        $phoneNumber = '';
+        if (isset($_POST['phoneNumber'])) $phoneNumber = trim($_POST['phoneNumber']);
 
-        // validazione lato server
         $errors = [];
         $nameRegex = '/^[a-zA-ZàèéìòùÀÈÉÌÒÙ\'\s\-]+$/u';
 
@@ -32,7 +35,6 @@ include_once '../session_bootstrap.php';
         }
 
         if (!empty($errors)) {
-            // sticky form: salvo i valori inseriti in sessione cosi renderConfig li ripropone
             $_SESSION['stickyConfig'] = [
                 'name'        => $name,
                 'surname'     => $surname,

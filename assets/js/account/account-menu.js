@@ -30,18 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function openMenu() {
-        accountPopup.classList.add('active');
-        accountBtn.setAttribute('aria-expanded', 'true');
-        const firstLink = accountPopup.querySelector('a.popup-link');
-        if (firstLink) firstLink.focus();
-        else {
-            const focusable = getFocusable();
-            if (focusable[0]) focusable[0].focus();
-        }
-    }
-
-    function closeMenu({ returnFocus = true } = {}) {
+    function closeMenu(returnFocus) {
+        if (returnFocus === undefined) returnFocus = true;
         accountPopup.classList.remove('active');
         accountBtn.setAttribute('aria-expanded', 'false');
         if (returnFocus) accountBtn.focus();
@@ -54,14 +44,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         e.stopPropagation();
         if (accountPopup.classList.contains('active')) {
-            closeMenu();
+            closeMenu(true);
+            return;
+        }
+        // apertura inline
+        accountPopup.classList.add('active');
+        accountBtn.setAttribute('aria-expanded', 'true');
+        const firstLink = accountPopup.querySelector('a.popup-link');
+        if (firstLink) {
+            firstLink.focus();
         } else {
-            openMenu();
+            const focusable = getFocusable();
+            if (focusable[0]) focusable[0].focus();
         }
     });
 
     if (closePopupBtn) {
-        closePopupBtn.addEventListener('click', () => closeMenu());
+        closePopupBtn.addEventListener('click', () => closeMenu(true));
     }
 
     document.addEventListener('click', (e) => {
@@ -70,17 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
             !accountPopup.contains(e.target) &&
             e.target !== accountBtn
         ) {
-            closeMenu({ returnFocus: false });
+            closeMenu(false);
         }
     });
 
     accountPopup.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            closeMenu();
+            closeMenu(true);
             return;
         }
 
-        // Tengo il focus dentro al popup (Tab e Shift+Tab fanno il giro)
         if (e.key === 'Tab') {
             const focusable = Array.from(getFocusable());
             if (focusable.length === 0) return;

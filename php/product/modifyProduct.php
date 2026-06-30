@@ -12,20 +12,28 @@ $db = new database();
 $db->connect();
 
 if (isset($_POST['submit'])) {
-    $id          = trim($_POST['id'] ?? '');
-    $name        = trim($_POST['name'] ?? '');
-    $price       = $_POST['price'] ?? '';
-    $description = trim($_POST['description'] ?? '');
-    $material    = trim($_POST['material']   ?? '');
-    $author      = trim($_POST['author']     ?? '');
-    $dimensions  = database::formatDimensions(
-        $_POST['dimensionsWidth']  ?? '',
-        $_POST['dimensionsHeight'] ?? ''
-    );
-    $weight      = trim($_POST['weight']     ?? '');
-    $voltage     = trim($_POST['voltage']    ?? '');
+    $id = '';
+    if (isset($_POST['id'])) $id = trim($_POST['id']);
+    $name = '';
+    if (isset($_POST['name'])) $name = trim($_POST['name']);
+    $price = '';
+    if (isset($_POST['price'])) $price = $_POST['price'];
+    $description = '';
+    if (isset($_POST['description'])) $description = trim($_POST['description']);
+    $material = '';
+    if (isset($_POST['material'])) $material = trim($_POST['material']);
+    $author = '';
+    if (isset($_POST['author'])) $author = trim($_POST['author']);
+    $dimWidth = '';
+    if (isset($_POST['dimensionsWidth'])) $dimWidth = $_POST['dimensionsWidth'];
+    $dimHeight = '';
+    if (isset($_POST['dimensionsHeight'])) $dimHeight = $_POST['dimensionsHeight'];
+    $dimensions = database::formatDimensions($dimWidth, $dimHeight);
+    $weight = '';
+    if (isset($_POST['weight'])) $weight = trim($_POST['weight']);
+    $voltage = '';
+    if (isset($_POST['voltage'])) $voltage = trim($_POST['voltage']);
 
-    // validazione lato server
     $errors = [];
     if (!preg_match('/^[A-Z0-9]{10}$/', $id) || !$db->idExists($id)) {
         $errors[] = "ID prodotto non valido";
@@ -43,7 +51,9 @@ if (isset($_POST['submit'])) {
     if (strlen($material) > 120 || strlen($author) > 80 || strlen($weight) > 30 || strlen($voltage) > 30) {
         $errors[] = "Lunghezza dei campi opzionali fuori limite";
     }
-    if (!in_array($_POST['inStock'] ?? '', ['true', 'false'], true)) {
+    $stockVal = '';
+    if (isset($_POST['inStock'])) $stockVal = $_POST['inStock'];
+    if ($stockVal !== 'true' && $stockVal !== 'false') {
         $errors[] = "Disponibilita non valida";
     }
 

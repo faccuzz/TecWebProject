@@ -10,39 +10,33 @@ if (!$data) {
     exit();
 }
 
-$identifier = $data['identifier'] ?? $data['email'] ?? '';
-$password   = $data['password'] ?? '';
+$identifier = '';
+if (isset($data['identifier'])) {
+    $identifier = $data['identifier'];
+} elseif (isset($data['email'])) {
+    $identifier = $data['email'];
+}
+$password = '';
+if (isset($data['password'])) {
+    $password = $data['password'];
+}
 
 $db = new database();
 if (!$db->connect()) {
-    http_response_code(503);
-    echo json_encode([
-        "success" => false,
-        "message" => "Servizio temporaneamente non disponibile. Riprova più tardi."
-    ]);
-    exit();
+    dbFailJson("Servizio non disponibile. Riprova più tardi.");
 }
 
-try {
-    $userInfo = $db->login($identifier, $password);
+$userInfo = $db->login($identifier, $password);
 
-    if ($userInfo) {
-        // rigenero l'id di sessione dopo il login per sicurezza
-        session_regenerate_id(true);
-        $_SESSION['email']   = $userInfo['email'];
-        $_SESSION['isAdmin'] = $userInfo['isAdmin'];
-        session_write_close();
-        echo json_encode(["success" => true]);
-    } else {
-        echo json_encode(["success" => false, "message" => "Credenziali non valide."]);
-    }
-} catch (Throwable $e) {
-    http_response_code(500);
-    echo json_encode([
-        "success" => false,
-        "message" => "Errore durante l'accesso. Riprova più tardi."
-    ]);
-} finally {
-    $db->close();
+if ($userInfo) {
+    regenSession();
+    $_SESSION['email']   = $userInfo['email'];
+    $_SESSION['isAdmin'] = $userInfo['isAdmin'];
+    session_write_close();
+    echo json_encode(["success" => true]);
+} else {
+    echo json_encode(["success" => false, "message" => "Credenziali non valide."]);
 }
+
+$db->close();
 ?>

@@ -11,13 +11,17 @@ if (!$data) {
     exit();
 }
 
-$name    = trim($data['name']    ?? '');
-$surname = trim($data['surname'] ?? '');
-$email   = trim($data['email']   ?? '');
-$subject = trim($data['subject'] ?? '');
-$message = trim($data['message'] ?? '');
+$name = '';
+if (isset($data['name'])) $name = trim($data['name']);
+$surname = '';
+if (isset($data['surname'])) $surname = trim($data['surname']);
+$email = '';
+if (isset($data['email'])) $email = trim($data['email']);
+$subject = '';
+if (isset($data['subject'])) $subject = trim($data['subject']);
+$message = '';
+if (isset($data['message'])) $message = trim($data['message']);
 
-// whitelist degli oggetti consentiti (devono coincidere con i value del select in contacts.html)
 $allowedSubjects = ['order', 'damage', 'custom', 'general'];
 
 $errors = [];
@@ -49,39 +53,27 @@ if (!empty($errors)) {
 
 $db = new database();
 if (!$db->connect()) {
-    http_response_code(503);
-    echo json_encode([
-        "success" => false,
-        "message" => "Servizio temporaneamente non disponibile. Riprova più tardi."
-    ]);
-    exit();
+    dbFailJson("Servizio non disponibile. Riprova più tardi.");
 }
 
-try {
-    $sql = "INSERT INTO messages (name, surname, email, subject, message)
-            VALUES (?, ?, ?, ?, ?)";
-    $stmt = $db->connection->prepare($sql);
-    if (!$stmt) {
-        http_response_code(500);
-        echo json_encode([
-            "success" => false,
-            "message" => "Errore durante l'invio del messaggio. Riprova più tardi."
-        ]);
-        exit();
-    }
-    $stmt->bind_param('sssss', $name, $surname, $email, $subject, $message);
-    $stmt->execute();
-    echo json_encode([
-        "success" => true,
-        "message" => "Messaggio inviato. Ti risponderemo entro 24 ore."
-    ]);
-} catch (Throwable $e) {
+$sql = "INSERT INTO messages (name, surname, email, subject, message)
+        VALUES (?, ?, ?, ?, ?)";
+$stmt = $db->connection->prepare($sql);
+if (!$stmt) {
     http_response_code(500);
     echo json_encode([
         "success" => false,
-        "message" => "Errore durante l'invio del messaggio. Riprova più tardi."
+        "message" => "Errore durante l'invio del messaggio."
     ]);
-} finally {
     $db->close();
+    exit();
 }
+$stmt->bind_param('sssss', $name, $surname, $email, $subject, $message);
+$stmt->execute();
+echo json_encode([
+    "success" => true,
+    "message" => "Messaggio inviato. Ti risponderemo entro 24 ore."
+]);
+
+$db->close();
 ?>

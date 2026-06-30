@@ -9,7 +9,8 @@ if (!isset($_SESSION['email'])) {
 $db = new database();
 $db->connect();
 
-$section = $_GET['section'] ?? '';
+$section = '';
+if (isset($_GET['section'])) $section = $_GET['section'];
 
 switch ($section) {
     case 'orderHistory':
@@ -48,7 +49,6 @@ switch ($section) {
 }
 $db->close();
 
-// scorciatoia per fare l'escape dei dati prima di stamparli (evita XSS)
 function h($s)
 {
     return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
@@ -128,11 +128,10 @@ function renderConfig($db)
 {
     echo "<h2>Impostazioni account</h2>";
 
-    // sticky form: se l'ultimo invio è stato rifiutato uso i valori inseriti dall'utente
-    $sticky = $_SESSION['stickyConfig'] ?? null;
+    $sticky = null;
+    if (isset($_SESSION['stickyConfig'])) $sticky = $_SESSION['stickyConfig'];
     unset($_SESSION['stickyConfig']);
 
-    // feedback inline da query string
     if (!empty($_GET['error'])) {
         echo "<p class='form-error-msg active' role='alert'>" . h($_GET['error']) . "</p>";
     } elseif (!empty($_GET['success'])) {
@@ -142,10 +141,14 @@ function renderConfig($db)
     $userInfo = $db->getUserInfo($_SESSION['email']);
     if ($userInfo && $userInfo->num_rows > 0) {
         while ($row = $userInfo->fetch_assoc()) {
-            $name        = $sticky['name']        ?? $row['name'];
-            $surname     = $sticky['surname']     ?? $row['surname'];
-            $email       = $sticky['email']       ?? $row['email'];
-            $phoneNumber = $sticky['phoneNumber'] ?? $row['phoneNumber'];
+            $name = $row['name'];
+            if ($sticky !== null && isset($sticky['name'])) $name = $sticky['name'];
+            $surname = $row['surname'];
+            if ($sticky !== null && isset($sticky['surname'])) $surname = $sticky['surname'];
+            $email = $row['email'];
+            if ($sticky !== null && isset($sticky['email'])) $email = $sticky['email'];
+            $phoneNumber = $row['phoneNumber'];
+            if ($sticky !== null && isset($sticky['phoneNumber'])) $phoneNumber = $sticky['phoneNumber'];
 
             echo "<div class='adminUpload adminUpload--wide adminUpload--grid'>
                 <form action='php/account/modifyUserInfo.php' method='post' aria-labelledby='config-form-title'>
@@ -186,7 +189,6 @@ function renderSecurity($db)
 {
     echo "<h2>Sicurezza</h2>";
 
-    // feedback inline da query string
     if (!empty($_GET['error'])) {
         echo "<p class='form-error-msg active' role='alert'>" . h($_GET['error']) . "</p>";
     } elseif (!empty($_GET['success'])) {
@@ -570,11 +572,13 @@ function renderMessages($db)
         'general' => 'Informazioni generali'
     ];
 
-    $activeFilter = $_GET['filter'] ?? null;
+    $activeFilter = null;
+    if (isset($_GET['filter'])) $activeFilter = $_GET['filter'];
     if ($activeFilter !== null && !in_array($activeFilter, ['pending', 'handled', 'all'], true)) {
         $activeFilter = null;
     }
-    $filter = $activeFilter ?? 'all';
+    $filter = 'all';
+    if ($activeFilter !== null) $filter = $activeFilter;
 
     echo "<section aria-labelledby='messages-filter-title'>";
     echo "<h3 id='messages-filter-title' class='sr-only'>Filtro messaggi</h3>";
@@ -603,7 +607,8 @@ function renderMessages($db)
             $id        = (int)$m['id'];
             $sender    = h($m['name']) . ' ' . h($m['surname']);
             $email     = h($m['email']);
-            $subjLabel = $subjectLabels[$m['subject']] ?? h($m['subject']);
+            $subjLabel = h($m['subject']);
+            if (isset($subjectLabels[$m['subject']])) $subjLabel = $subjectLabels[$m['subject']];
             $msgText   = h($m['message']);
             $date      = h($m['createdAt']);
             $handled   = (int)$m['handled'] === 1;

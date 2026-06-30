@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-//Estrae larghezza e altezza del prodotto nel db
 function parseDimensions(str) {
     if (!str) return { width: '', height: '' };
     const heightMatch = str.match(/H\s*([\d]+(?:[.,][\d]+)?)\s*cm/i);
@@ -66,7 +65,6 @@ function initOptionsPage() {
         }
     }
 
-    // uso questa sia quando l'utente clicca sul menu, sia all'avvio se nell'url c'è ?già la sezione
     function activateSection(sezione) {
         const targetBtn = menu.querySelector(`button[data-section="${sezione}"]`);
         if (!targetBtn) return;
@@ -89,7 +87,6 @@ function initOptionsPage() {
         if (!button) return;
         const elemento = button.closest('li');
 
-        //non ricarico se sezione già aperta
         if (elemento.classList.contains('active')) {
             event.preventDefault();
             return;
@@ -97,7 +94,6 @@ function initOptionsPage() {
         activateSection(button.getAttribute('data-section'));
     });
 
-    // se nell'url c'è già la sezione, apro quella (es. dopo aver inviato un nuovo prodotto)
     const initialSection = new URLSearchParams(window.location.search).get('section');
     if (initialSection && SECTION_LABELS[initialSection]) {
         activateSection(initialSection);
@@ -109,7 +105,6 @@ function initOptionsPage() {
             const html = await risposta.text();
             areaContenuto.innerHTML = html;
 
-            // sposto il focus sulla zona dei contenuti (preventScroll evita che anche la pagina si allinei al focus)
             areaContenuto.focus({ preventScroll: true });
             announceSection(`Sezione ${SECTION_LABELS[sezione] || sezione} caricata.`);
 
@@ -162,7 +157,6 @@ function initOptionsPage() {
             showStatus('');
             const formData = new FormData(productForm);
 
-            // controllo i campi obbligatori. fileInput.files serve per l'immagine
             const file = fileInput && fileInput.files[0];
             if (!formData.get('name') || !formData.get('description') || !formData.get('price') || !formData.get('inStock') || !file || file.size === 0) {
                 showStatus('Compila tutti i campi obbligatori e seleziona un\'immagine.');
@@ -174,7 +168,6 @@ function initOptionsPage() {
                 const result = await response.json();
                 if (result.success) {
                     showStatus('Prodotto aggiunto con successo.', false);
-                    // forzo il reload
                     setTimeout(() => { window.location.assign('optionsPage.html?section=products&t=' + Date.now()); }, 600);
                 } else {
                     showStatus('Errore: ' + (result.error || 'salvataggio non riuscito.'));
@@ -489,7 +482,6 @@ function initSecurityPasswordChecker() {
         el.setAttribute('aria-label', `${baseText}: ${met ? 'soddisfatto' : 'non soddisfatto'}`);
     }
 
-    //Stato iniziale: nessun requisito è ok
     [req1, req2, req3, req4].forEach(r => setReq(r, false));
 
     newPassword.addEventListener('input', () => {

@@ -11,12 +11,18 @@ if (empty($inputData)) {
     exit();
 }
 
-$username    = trim($inputData['username'] ?? '');
-$password    = $inputData['password'] ?? '';
-$name        = trim($inputData['name'] ?? '');
-$surname     = trim($inputData['surname'] ?? '');
-$email       = trim($inputData['email'] ?? '');
-$phoneNumber = trim($inputData['phone'] ?? '');
+$username = '';
+if (isset($inputData['username'])) $username = trim($inputData['username']);
+$password = '';
+if (isset($inputData['password'])) $password = $inputData['password'];
+$name = '';
+if (isset($inputData['name'])) $name = trim($inputData['name']);
+$surname = '';
+if (isset($inputData['surname'])) $surname = trim($inputData['surname']);
+$email = '';
+if (isset($inputData['email'])) $email = trim($inputData['email']);
+$phoneNumber = '';
+if (isset($inputData['phone'])) $phoneNumber = trim($inputData['phone']);
 
 $isAdmin = 0;
 if (isset($inputData['isAdmin'])) {
@@ -28,7 +34,6 @@ if (isset($inputData['isAdmin'])) {
     }
 }
 
-// validazione lato server: il client puo essere bypassato, quindi ricontrollo tutto qui
 $errors = [];
 
 if (strlen($username) < 3 || strlen($username) > 32) {
@@ -72,48 +77,40 @@ if (!empty($errors)) {
     exit();
 }
 
-// l'indirizzo non lo chiediamo in registrazione (lo mette al checkout)
-$address  = $inputData['street']     ?? '';
-$city     = $inputData['city']       ?? '';
-$cap      = $inputData['postalCode'] ?? '';
-$province = $inputData['province']   ?? '';
-$state    = $inputData['state']      ?? '';
+// indirizzo lo mette al checkout
+$address = '';
+if (isset($inputData['street'])) $address = $inputData['street'];
+$city = '';
+if (isset($inputData['city'])) $city = $inputData['city'];
+$cap = '';
+if (isset($inputData['postalCode'])) $cap = $inputData['postalCode'];
+$province = '';
+if (isset($inputData['province'])) $province = $inputData['province'];
+$state = '';
+if (isset($inputData['state'])) $state = $inputData['state'];
 
 $db = new database();
 if (!$db->connect()) {
-    http_response_code(503);
-    echo json_encode([
-        "success" => false,
-        "message" => "Servizio temporaneamente non disponibile. Riprova più tardi."
-    ]);
-    exit();
+    dbFailJson("Servizio non disponibile. Riprova più tardi.");
 }
 
-try {
-    $result = $db->registration($username, $password, $name, $surname, $email, $phoneNumber, $isAdmin, $address, $city, $cap, $province, $state);
+$result = $db->registration($username, $password, $name, $surname, $email, $phoneNumber, $isAdmin, $address, $city, $cap, $province, $state);
 
-    if ($result) {
-        if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
-            echo json_encode(["success" => true, "stayOnPage" => true]);
-        } else {
-            $_SESSION['email']   = $email;
-            $_SESSION['isAdmin'] = $isAdmin;
-            session_write_close();
-            echo json_encode(["success" => true, "stayOnPage" => false]);
-        }
+if ($result) {
+    if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
+        echo json_encode(["success" => true, "stayOnPage" => true]);
     } else {
-        echo json_encode([
-            "success" => false,
-            "message" => "Registrazione fallita. Controlla i dati e riprova."
-        ]);
+        $_SESSION['email']   = $email;
+        $_SESSION['isAdmin'] = $isAdmin;
+        session_write_close();
+        echo json_encode(["success" => true, "stayOnPage" => false]);
     }
-} catch (Throwable $e) {
-    http_response_code(500);
+} else {
     echo json_encode([
         "success" => false,
-        "message" => "Errore durante la registrazione. Riprova più tardi."
+        "message" => "Registrazione fallita. Controlla i dati e riprova."
     ]);
-} finally {
-    $db->close();
 }
+
+$db->close();
 ?>

@@ -12,19 +12,24 @@ $db = new database();
 $products = [];
 
 if (isset($_POST['name'])) {
-    $name        = trim($_POST['name']);
-    $price       = $_POST['price'];
-    $description = trim($_POST['description'] ?? '');
-    $material    = trim($_POST['material']   ?? '');
-    $author      = trim($_POST['author']     ?? '');
-    $dimensions  = database::formatDimensions(
-        $_POST['dimensionsWidth']  ?? '',
-        $_POST['dimensionsHeight'] ?? ''
-    );
-    $weight      = trim($_POST['weight']     ?? '');
-    $voltage     = trim($_POST['voltage']    ?? '');
+    $name = trim($_POST['name']);
+    $price = $_POST['price'];
+    $description = '';
+    if (isset($_POST['description'])) $description = trim($_POST['description']);
+    $material = '';
+    if (isset($_POST['material'])) $material = trim($_POST['material']);
+    $author = '';
+    if (isset($_POST['author'])) $author = trim($_POST['author']);
+    $dimWidth = '';
+    if (isset($_POST['dimensionsWidth'])) $dimWidth = $_POST['dimensionsWidth'];
+    $dimHeight = '';
+    if (isset($_POST['dimensionsHeight'])) $dimHeight = $_POST['dimensionsHeight'];
+    $dimensions = database::formatDimensions($dimWidth, $dimHeight);
+    $weight = '';
+    if (isset($_POST['weight'])) $weight = trim($_POST['weight']);
+    $voltage = '';
+    if (isset($_POST['voltage'])) $voltage = trim($_POST['voltage']);
 
-    // validazione lato server
     $errors = [];
     if ($name === '' || strlen($name) > 80) {
         $errors[] = "Nome prodotto non valido";
@@ -39,7 +44,9 @@ if (isset($_POST['name'])) {
     if (strlen($material) > 120 || strlen($author) > 80 || strlen($weight) > 30 || strlen($voltage) > 30) {
         $errors[] = "Lunghezza dei campi opzionali fuori limite";
     }
-    if (!in_array($_POST['inStock'] ?? '', ['true', 'false'], true)) {
+    $stockVal = '';
+    if (isset($_POST['inStock'])) $stockVal = $_POST['inStock'];
+    if ($stockVal !== 'true' && $stockVal !== 'false') {
         $errors[] = "Disponibilita non valida";
     }
     if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {

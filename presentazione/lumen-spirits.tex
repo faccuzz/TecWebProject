@@ -50,6 +50,15 @@
 \definecolor{tablerule}{HTML}{4A4A4A}
 \definecolor{lightgray}{HTML}{888888}
 \definecolor{unipdred}{HTML}{9B0014}
+\definecolor{swTextBody}{HTML}{1C0E08}
+\definecolor{swCream}{HTML}{FCF8F4}
+\definecolor{swWhite}{HTML}{FFFFFF}
+\definecolor{swTerracotta}{HTML}{8C3C08}
+\definecolor{swSuccess}{HTML}{1E6F3D}
+\definecolor{swError}{HTML}{C42B1C}
+\definecolor{swIconSecondary}{HTML}{595959}
+\definecolor{swLogout}{HTML}{A32A24}
+\newcommand{\swatch}[1]{\fcolorbox{tablerule}{#1}{\rule{0pt}{0.7em}\hspace{0.7em}}}
 
 % ---- Stile heading (numerati come nel PDF originale) ----
 \titleformat{\section}{\Huge\bfseries}{\thesection.}{0.5em}{}
@@ -88,7 +97,6 @@
 
   \vspace*{1cm}
 
-  % TODO: aggiungere logo UniPD in img/logo-unipd.png
   \includegraphics[width=0.35\textwidth]{img/logo_unipd.png}\\[0.5cm]
   % \fbox{\parbox{0.45\textwidth}{\centering\vspace{1.5cm}\textit{[ Logo UniPD -- img/logo-unipd.png ]}\vspace{1.5cm}}}\\[1cm]
 
@@ -102,13 +110,13 @@
   \begin{tabular}{|p{5cm}|p{3cm}|}
     \hline
     % TODO: sostituire con nomi e matricole reali
-    Davide Facco & \textit{matricola} \\
+    Davide \\ Facco & \textit{2087852} \\
     \hline
-    Membro 2 & \textit{matricola} \\
+    Yuri Vinicius \\ Kaneda Fernandes & \textit{2082856} \\
     \hline
-    Membro 3 & \textit{matricola} \\
+    Carmen \\ Marquez & \textit{2170057} \\
     \hline
-    Membro 4 & \textit{matricola} \\
+    Filippo \\ Zonta Rocha & \textit{1149339} \\
     \hline
   \end{tabular}\\[1.2cm]
 
@@ -120,7 +128,7 @@
     \hline
     Link sito web & \textit{http://tecweb.studenti.math.unipd.it/.../index.html} \\
     \hline
-    Email referente gruppo & \textit{referente@studenti.unipd.it} \\
+    Email referente gruppo & \textit{filippo.zontarocha@studenti.unipd.it} \\
     \hline
   \end{tabular}\\[1.2cm]
 
@@ -159,9 +167,9 @@
 % =====================================================================
 \section{Abstract}
 
-Il progetto ``Lumen Spirits'' si basa sulla creazione di una piattaforma e-commerce dedicata alla vendita di lampade artigianali realizzate a partire da bottiglie di vetro recuperate. Per noi il tema dell'\textbf{upcycling} e del consumo consapevole rappresenta un punto di partenza valoriale: con questo progetto intendiamo promuovere una maggiore sensibilit\`a verso il riuso creativo e il design sostenibile.
+Il progetto ``Lumen Spirits'' si basa sulla creazione di una piattaforma e-commerce dedicata alla vendita di lampade artigianali realizzate a partire da bottiglie di vetro recuperate. Il tema del riciclaggio e del consumo consapevole rappresenta un forte punto di partenza per noi: con questo progetto intendiamo promuovere una maggiore sensibilit\`a verso il riuso creativo e il design sostenibile.
 
-La piattaforma permette ai visitatori di sfogliare il catalogo, ricercare prodotti specifici, leggere schede dettagliate e aggiungere articoli al carrello senza barriere di registrazione. Gli utenti registrati possono completare l'acquisto, salvare un indirizzo di spedizione e consultare la cronologia dei propri ordini. Gli amministratori dispongono di un pannello dedicato per creare, modificare ed eliminare i prodotti del catalogo, gestire i ruoli degli utenti, monitorare gli ordini e gestire i messaggi ricevuti dal modulo contatti.
+La piattaforma permette ai visitatori di sfogliare il catalogo, ricercare prodotti specifici e leggere schede dettagliate. Gli utenti registrati possono aggiungere prodotti al carrello, visionare e modificare le informazioni personali e lo storico degli ordini. Gli amministratori, nella loro area personale, possono creare, modificare ed eliminare i prodotti del catalogo, aggiungere amministratori e gestire i messaggi ricevuti dal modulo contatti.
 
 \sectionrule
 
@@ -171,7 +179,7 @@ La piattaforma permette ai visitatori di sfogliare il catalogo, ricercare prodot
 \section{Analisi del sito}
 
 \subsection{Target di riferimento}
-Il sito ha una grafica ed un tono \textit{warm} e minimalista, pensati per avvicinare un pubblico attento al design e alla sostenibilit\`a ambientale. Allo stesso tempo costituisce una piattaforma universale: chiunque cerchi un oggetto di arredo unico o un regalo dal valore simbolico pu\`o trovare un'esperienza di navigazione semplice e accessibile. Sono stati inclusi ausili alla navigazione e accorgimenti volti a garantire l'accessibilit\`a del sito, in modo da non escludere nessuna categoria di utenti.
+Il sito ha una grafica ed un tono caldo e minimalista, pensato per avvicinare un pubblico attento al design e alla sostenibilit\`a ambientale. Allo stesso tempo costituisce una piattaforma universale: chiunque cerchi un oggetto di arredo o un regalo unico pu\`o trovare un'esperienza di navigazione semplice e accessibile. Sono stati inclusi strumenti e accorgimenti alla navigazione a garantire l'accessibilit\`a del sito, in modo da non escludere nessuna categoria di utenti.
 
 Di seguito alcune possibili ricerche sui motori di ricerca che gli utenti potrebbero fare:
 \begin{itemize}
@@ -187,32 +195,31 @@ Di seguito alcune possibili ricerche sui motori di ricerca che gli utenti potreb
   \item Accedi Lumen Spirits.
 \end{itemize}
 
-La facilit\`a di reperimento delle informazioni \`e garantita anche quando l'utente ha solo una vaga idea di ci\`o che cerca: la barra di ricerca presente nel catalogo, basata su filtri dinamici lato client, consente di restringere la selezione in tempo reale e di raggiungere ``il tiro perfetto'' anche quando il termine inserito \`e parziale o approssimativo.
+La facilit\`a di reperimento delle informazioni \`e garantita anche quando l'utente ha solo una vaga idea di ci\`o che cerca: la barra di ricerca presente nel catalogo consente di restringere la selezione in tempo reale e di raggiungere ``il tiro perfetto'' anche quando il termine inserito \`e parziale o approssimativo.
 
 \subsubsection{Tipologie di utente}
 Sono stati individuati due tipi di utente: l'utente amministratore (admin) e l'utente semplice (user).
 
 \subsubsubsection{2.1.1.1\quad Admin}
-Staff incaricato della gestione del catalogo e degli ordini.
+Lo staff che è incaricato della gestione del catalogo
 \begin{itemize}
-  \item ha accesso a tutti i prodotti e a tutti gli ordini registrati nel sistema;
-  \item pu\`o creare nuovi prodotti, modificarne i dettagli o eliminarli;
-  \item pu\`o promuovere altri utenti al ruolo di amministratore.
+  \item ha accesso a tutti i prodotti e a tutti i messaggi spediti dai clienti
+  \item pu\`o creare nuovi prodotti, modificarne i dettagli o eliminarli
+  \item pu\`o promuovere altri utenti al ruolo di amministratore
 \end{itemize}
 
 \subsubsubsection{2.1.1.2\quad User}
 Pu\`o essere a sua volta:
 \begin{itemize}
-  \item \textbf{Visitatore}: utente che accede al sito senza effettuare alcun login o registrazione
+  \item \textbf{Utente visitatore}: l'utente che accede al sito senza effettuare il login o la registrazione
   \begin{itemize}
-    \item pu\`o sfogliare il catalogo, leggere le schede prodotto e usare la ricerca;
-    \item pu\`o aggiungere articoli al carrello, memorizzato localmente nel browser.
+    \item pu\`o sfogliare il catalogo, leggere le schede prodotto e usare la ricerca
   \end{itemize}
   \item \textbf{Utente registrato}: utente che accede al sito effettuando login o registrazione
   \begin{itemize}
-    \item pu\`o effettuare tutte le azioni del visitatore;
-    \item pu\`o completare il checkout, salvare i propri dati anagrafici e l'indirizzo di spedizione;
-    \item pu\`o consultare lo storico degli ordini effettuati.
+    \item pu\`o effettuare tutte le azioni del visitatore
+    \item pu\`o aggiungere prodotti al carrello, salvare e modificare i propri dati anagrafici
+    \item pu\`o consultare lo storico degli ordini effettuati
   \end{itemize}
 \end{itemize}
 
@@ -220,30 +227,26 @@ Pu\`o essere a sua volta:
 \begin{itemize}
   \item \textbf{Funzionalit\`a pubbliche} accessibili a qualsiasi tipo di utente:
   \begin{itemize}
-    \item consultazione del catalogo con presentazione di ciascun prodotto, materiali utilizzati e descrizione artigianale;
-    \item ricerca live con filtraggio immediato dei risultati;
-    \item gestione di un carrello persistente nel browser anche senza autenticazione.
+    \item consultazione del catalogo con presentazione di ciascun prodotto, materiali utilizzati e descrizione artigianale
+    \item ricerca live con filtraggio immediato dei risultati
+    \item gestione di un carrello persistente nel browser (solo utente registrato)
+    \item l'utente ha la possibilità di stampare le pagine
   \end{itemize}
   \item \textbf{Gestione account utente}:
   \begin{itemize}
-    \item registrazione con username, email e password;
-    \item modifica dei dati anagrafici e dell'indirizzo di spedizione in qualsiasi momento;
-    \item cambio password.
+    \item registrazione con username, email, password, nome, cognome e numero di telefono
+    \item modifica dei dati anagrafici in qualsiasi momento
+    \item cambio password
   \end{itemize}
-  \item \textbf{Checkout e ordini} (core business del sito):
+  \item \textbf{Checkout e ordini}:
   \begin{itemize}
-    \item completamento dell'ordine tramite modulo riepilogativo con calcolo dinamico del totale;
-    \item visualizzazione dello storico degli ordini effettuati nell'area profilo.
+    \item Visualizzazione dell'ordine tramite modulo riepilogativo con calcolo dinamico del totale in base al carrello
+    \item visualizzazione dello storico degli ordini effettuati nell'area profilo
   \end{itemize}
   \item \textbf{Funzionalit\`a amministrative}:
   \begin{itemize}
-    \item CRUD completo dei prodotti del catalogo;
-    \item visualizzazione tabellare di tutti gli ordini per la pianificazione della logistica;
-    \item gestione dei ruoli utente attraverso il flag \texttt{isAdmin}.
-  \end{itemize}
-  \item \textbf{Stampa}:
-  \begin{itemize}
-    \item l'utente pu\`o stampare le pagine del sito, in particolare la ricevuta d'ordine, grazie a un foglio di stile dedicato.
+    \item CRUD completo dei prodotti del catalogo
+    \item gestione dei ruoli utente attraverso il flag \texttt{isAdmin}
   \end{itemize}
 \end{itemize}
 
@@ -254,27 +257,25 @@ Pu\`o essere a sua volta:
 % =====================================================================
 \section{Struttura e Design del sito}
 
-Prima di iniziare la fase di scrittura del codice abbiamo disegnato una bozza di come il sito sarebbe dovuto apparire a lavori finiti, creando cos\`i delle aspettative e dei metodi di paragone mediante i quali sarebbe stato poi possibile verificare durante e alla fine che il lavoro rappresentasse la visione iniziale del progetto.
+Prima di iniziare la fase di scrittura del codice abbiamo disegnato una bozza di come il sito sarebbe dovuto apparire a lavori finiti, creando cos\`i delle aspettative e dei metodi di paragone tramite i quali sarebbe stato poi possibile verificare, durante e alla fine, che il lavoro rappresentasse la visione iniziale del sito.
 
-Il design che abbiamo creato \`e ampio e poco profondo, raggiungendo un'ampiezza di 5 voci, definite dal menu di navigazione, ed una profondit\`a massima raggiungibile di 3.
+Il design che abbiamo creato \`e ampio e poco profondo, raggiungendo un'ampiezza di 5 voci, definite dal menu di navigazione, ed una profondit\`a massima di navigazione pari a 3, pari a 5 con flusso di acquisto con utente loggato e pari a 6 con flusso di acquisto con utente non loggato.
 
 Le 5 voci del menu sono, in ordine:
 \begin{itemize}
-  \item \textbf{Home}: pagina principale dove accogliamo l'utente con presentazione del progetto e prodotti in evidenza;
-  \item \textbf{Catalogo}: griglia completa dei prodotti disponibili con filtri di ricerca e paginazione;
-  \item \textbf{Carrello}: riepilogo degli articoli aggiunti con possibilit\`a di modificare quantit\`a o rimuovere voci;
-  \item \textbf{Contatti}: informazioni sul gruppo, modulo per richieste, recapiti email e social;
-  \item \textbf{Profilo}: dopo il login mostra dati dell'utente, indirizzo e storico ordini (per gli admin: pannello di gestione catalogo, utenti, ordini e messaggi ricevuti).
+  \item \textbf{Home}: pagina principale dove viene presentato il progetto e i prodotti in evidenza
+  \item \textbf{Catalogo}: griglia completa dei prodotti disponibili con filtri di ricerca e paginazione
+  \item \textbf{Carrello}: riepilogo degli articoli aggiunti con possibilit\`a di modificare quantit\`a e/o rimuovere voci
+  \item \textbf{Contatti}: informazioni sul gruppo, modulo per richieste, recapiti email e social
+  \item \textbf{Profilo}: dopo il login o la registrazione mostra dati dell'utente, indirizzo e storico ordini (per gli admin: pannello di gestione catalogo, utenti e messaggi ricevuti).
 \end{itemize}
 
 Le altre pagine che \`e possibile visualizzare sono:
 \begin{itemize}
-  \item \textbf{Login}: pagina che compare quando un utente seleziona l'icona del profilo nel men\`u senza aver ancora effettuato l'accesso. Permette di effettuare il login con username e password, o di recarsi alla pagina di registrazione;
-  \item \textbf{Registrazione}: permette di creare un nuovo account inserendo username, email e password;
+  \item \textbf{Login}: pagina che compare quando un utente seleziona l'icona del profilo nel men\`u senza aver ancora effettuato l'accesso e preme su login. Permette di effettuare il login con username/email e password, o di recarsi alla pagina di registrazione;
+  \item \textbf{Registrazione}: pagina che compare quando un utente seleziona l'icona del profilo nel men\`u senza aver ancora effettuato l'accesso e preme su registrati. Permette di creare un nuovo account inserendo username, email e password;
   \item \textbf{Scheda prodotto}: pagina dedicata al singolo articolo, con galleria immagini, descrizione estesa, prezzo e bottone per aggiungere al carrello;
-  \item \textbf{Modifica prodotto}: pagina riservata agli amministratori per creare o aggiornare un articolo del catalogo;
-  \item \textbf{Errore 404}: l'utente cerca una pagina sconosciuta;
-  \item \textbf{Errore 500}: c'\`e un errore da parte del server.
+  \item \textbf{Checkout}: il checkout avviene dopo aver inserito almeno un prodotto nel carrello, è possibile accedervi clicando completa l'acquisto. Permette di revisionare l'ordine e inserire i dati di spedizione.
 \end{itemize}
 
 \sectionrule
@@ -284,28 +285,25 @@ Le altre pagine che \`e possibile visualizzare sono:
 % =====================================================================
 \section{Progettazione}
 
-Successivamente alla fase di Design abbiamo iniziato a creare un progetto per costruire il sito. Questa fase ci \`e servita per avere una sorta di blueprint per capire come effettivamente i pezzi vadano uniti e per capire come farli funzionare insieme.
+Successivamente alla fase di Design abbiamo iniziato a creare un progetto per costruire il sito. Questa fase ci \`e servita per avere una sorta di blueprint per capire come effettivamente i pezzi andavano uniti per capire come farli funzionare insieme.
 
 \subsection{Struttura del progetto}
 Per creare la blueprint ci siamo forniti di un'applicazione esterna, \textbf{draw.io}, per disegnare la struttura ed avere dei riferimenti visivi:
 
 \begin{center}
-  % TODO: inserire diagramma blueprint in img/blueprint.png
-  % \includegraphics[width=0.85\textwidth]{img/blueprint.png}
-  \fbox{\parbox{0.85\textwidth}{\centering\vspace{2cm}\textit{[ Diagramma blueprint draw.io -- placeholder ]}\\\small Home, Catalogo, Carrello, Contatti, Profilo con relative pagine dipendenti\vspace{2cm}}}
+  \includegraphics[width=0.85\textwidth]{img/blueprint.png}
 \end{center}
 
 Abbiamo quindi disegnato tutte le pagine che volevamo fossero raggiungibili, dove i rettangoli con angoli arrotondati rappresentano le voci del menu, mentre i rettangoli rappresentano le pagine che effettivamente l'utente raggiunger\`a una volta cliccata la voce a seconda delle sue condizioni di visitatore o utente registrato.
 
 \begin{center}
-  % TODO: inserire diagramma flussi in img/flussi.png
-  \fbox{\parbox{0.7\textwidth}{\centering\vspace{1.5cm}\textit{[ Diagramma flussi utente -- placeholder ]}\\\small Home $\to$ Catalogo $\to$ Scheda prodotto $\to$ Carrello $\to$ Checkout\vspace{1.5cm}}}
+  \includegraphics[width=0.85\textwidth]{img/flussi.png}
 \end{center}
 
-Abbiamo successivamente disegnato dei sentieri che un utente pu\`o fare dalla Home senza dover interagire con il menu, dove i cerchi sono delle azioni che l'utente deve fare per continuare il percorso. Abbiamo deciso di rendere raggiungibili \textbf{Catalogo} e \textbf{Carrello} direttamente dalla Home, poich\`e sono il cuore del sito e vogliamo riuscire a portare pi\`u utenti possibili al completamento dell'acquisto. Tutte le altre pagine rimangono raggiungibili in ogni momento attraverso il menu di navigazione.
+Abbiamo successivamente disegnato dei sentieri che un utente pu\`o fare dalla Home senza dover interagire con il menu, dove i cerchi sono delle azioni che l'utente deve fare per continuare il percorso. Abbiamo deciso di rendere raggiungibili \textbf{Catalogo} e \textbf{Prodotto} direttamente dalla Home, poich\`e sono il cuore del sito e vogliamo riuscire a portare pi\`u utenti possibili ad avere interesse e completare l'acquisto. Tutte le altre pagine rimangono raggiungibili in ogni momento attraverso il menu di navigazione.
 
 \subsection{Strategia di sviluppo}
-Come strategia di sviluppo abbiamo deciso di usare la tecnica \textbf{Mobile first}, dove si d\`a particolare attenzione agli utenti che accedono al sito dallo smartphone. Ogni pagina \`e stata inizialmente pensata per schermi pi\`u piccoli, dove la disposizione degli elementi informativi \`e risultata pi\`u complessa, per poi essere adattata e completata per schermi di dimensioni maggiori.
+Come strategia di sviluppo abbiamo adottato la tecnica \textbf{Desktop first}: ogni pagina \`e stata inizialmente progettata per schermi di grandi dimensioni, dove la ricchezza visiva del catalogo prodotti e la complessit\`a delle schede articolo trovano la loro espressione ottimale. Questa scelta riflette il profilo del nostro utente target, un adulto che valuta e acquista prodotti artigianali di fascia media preferibilmente da un contesto desktop, dove pu\`o apprezzare le immagini ad alta risoluzione e i dettagli tecnici del prodotto. Il layout \`e stato successivamente adattato per dispositivi mobili tramite media query con \texttt{max-width}, garantendo la fruibilit\`a del sito anche da smartphone.
 
 \subsection{Emotional Design e scelta dei colori}
 Per quanto riguarda l'\textbf{Emotional Design}, abbiamo scelto un approccio orientato alla fiducia, all'artigianalit\`a e al senso di calore domestico, piuttosto che all'intrattenimento. Trattandosi di oggetti artigianali realizzati con materiali di recupero, abbiamo evitato meccaniche di gamification (come badge di esclusivit\`a o ricompense a sorpresa) che avrebbero rischiato di banalizzare il valore del singolo pezzo.
@@ -313,16 +311,15 @@ Per quanto riguarda l'\textbf{Emotional Design}, abbiamo scelto un approccio ori
 Abbiamo invece lavorato sulla componente estetica attraverso la scelta cromatica. Abbiamo optato per sfumature di \textit{terracotta} e \textit{crema} come colori primari per richiamare i materiali naturali (terra, sabbia, legno) e per trasmettere calore, manualit\`a e attenzione ambientale, allontanandoci da palette fredde o eccessivamente sature.
 
 \subsection{Struttura delle pagine}
-La struttura di tutte le pagine del sito \`e semplice cos\`i da dare all'utente una sensazione di pulizia e ordine.\\
-Tutte le pagine sono cos\`i divise: Header, Main, Footer.
+La struttura delle pagine del sito \`e semplice, cos\`i da dare all'utente una sensazione di pulizia e ordine.\\
+La maggior parte delle pagine \`e divisa in tre aree: Header, Main e Footer. Fanno eccezione le pagine di Login e Registrazione, che non presentano n\`e Header n\`e Footer: la loro interfaccia \`e volutamente minimale per ridurre la frizione e mantenere il focus sul completamento del form.
 
 \subsubsection{Header e Footer}
-Header e Footer sono gli unici elementi nel sito che si ripetono in tutte le pagine ed essi servono per dare un inizio ed una fine alla pagina.\\
-Nell'Header \`e presente il logo dell'associazione e il men\`u di navigazione che offre un accesso rapido a tutte le sezioni del sito. Nel caso di schermi pi\`u piccoli, il men\`u di navigazione viene sostituito da un men\`u ad hamburger, implementato utilizzando codice JavaScript.\\
-Il Footer invece presenta un comodo pulsante per tornare in cima alla pagina e tutti i contatti del gruppo, oltre ai link social.
-
-\subsubsection{Breadcrumb}
-Le \textbf{breadcrumb} sono presenti nelle pagine interne del sito e vengono utilizzate per dare all'utente senso dell'orientamento all'interno del sito. Esse danno conferma visiva all'utente di dove si trova in quell'istante e del percorso che ha fatto per arrivarci.
+Header e Footer sono elementi strutturali presenti nella stragrande maggioranza delle pagine, ma non identici: la loro forma varia in base al contesto di navigazione.\\
+Nelle pagine principali (Home, Catalogo, Prodotto, Contatti) l'Header include il logo dell'associazione e il men\`u di navigazione completo, che offre accesso rapido a tutte le sezioni del sito.\\
+Nelle pagine che richiedono concentrazione da parte dell'utente (Carrello, Checkout, Impostazioni) l'Header adotta una forma ridotta, con la sola freccia di ritorno alla pagina precedente ed il logo del progetto. La scelta non \`e legata esclusivamente al flusso d'acquisto, ma al principio generale di ridurre le distrazioni quando l'utente sta compiendo un'azione deliberata: eliminare il men\`u evita abbandoni accidentali e mantiene il focus sul compito in corso.\\
+Le pagine di Login e Registrazione sono invece prive sia di Header che di Footer: essendo il punto d'ingresso all'area autenticata, non hanno contesto di navigazione precedente a cui tornare, e la loro interfaccia minima riduce al minimo la frizione per il completamento del form.\\
+Il Footer nelle pagine principali presenta un pulsante per tornare in cima alla pagina, i link di navigazione rapida, i social del gruppo e un form di iscrizione alla newsletter.
 
 \sectionrule
 
@@ -343,7 +340,7 @@ Il progetto adotta una strategia basata su fogli di stile CSS esterni, ottimizza
 
 \begin{itemize}
   \item \textbf{desktop.css}: gestisce il layout per gli schermi di grandi dimensioni, offrendo una navigazione pensata per l'uso da postazione fissa o portatile;
-  \item \textbf{mobile.css}: si attiva per gli schermi pi\`u piccoli tramite una \textit{media query} con punto di rottura (breakpoint) a 768\,px (compromesso ideale per coprire la stragrande maggioranza dei dispositivi mobile e tablet in commercio); in questo modo viene garantita un'esperienza d'uso fluida su dispositivi mobile;
+  \item \textbf{mobile.css}: si attiva per gli schermi pi\`u piccoli tramite due \textit{media query} con punti di rottura a 1024\,px (tablet) e 640\,px (telefoni), garantendo un'esperienza d'uso fluida su entrambe le tipologie di dispositivo;
   \item \textbf{print.css}: ottimizza la resa della pagina per la stampa, eliminando elementi superflui e migliorando la leggibilit\`a su carta o PDF.
 \end{itemize}
 
@@ -353,20 +350,19 @@ L'approccio utilizzato segue i principi del \textbf{Responsive Web Design}, perm
 Per completare l'architettura del progetto, \`e stata implementata una rigorosa separazione tra logica di business e interfaccia utente:
 
 \begin{itemize}
-  \item \textbf{Architettura basata su placeholder}: le pagine HTML non contengono dati statici per le sezioni variabili, ma utilizzano dei segnaposti (es. \texttt{[HEADER]}, \texttt{[FOOTER]}). Questo approccio permette al codice PHP di incorporare i contenuti dinamicamente, rendendo la manutenzione del layout indipendente dalla gestione dei dati;
   \item \textbf{Generazione dinamica dal database}: il backend in PHP \`e responsabile del recupero delle informazioni dal database per la costruzione di elementi complessi della pagina (degli esempi sono l'elenco dei prodotti del catalogo, le tabelle riepilogative degli ordini nell'area profilo o l'inserimento dell'indirizzo di spedizione in fase di checkout);
   \item \textbf{Validazione lato server}: il codice PHP esegue una validazione robusta lato server su tutti i dati inviati tramite i form (registrazione, login, checkout, gestione catalogo), un passaggio cruciale per la sicurezza in quanto garantisce l'integrit\`a dei dati prima del loro salvataggio nel database, gestendo eventuali errori e restituendo feedback mirati all'utente;
-  \item \textbf{Gestione degli stati e sessioni}: la logica PHP governa anche l'accesso alle aree riservate e la persistenza dell'utente, differenziando dinamicamente i contenuti mostrati a un cliente rispetto a quelli destinati all'amministratore. Le sessioni utilizzano cookie configurati con \texttt{HttpOnly}, \texttt{Secure} e \texttt{SameSite=Lax}, e le password sono memorizzate tramite \texttt{password\_hash} (bcrypt).
+  \item \textbf{Gestione degli stati e sessioni}: la logica PHP governa anche l'accesso alle aree riservate e la persistenza dell'utente, differenziando dinamicamente i contenuti mostrati a un cliente rispetto a quelli destinati all'amministratore. Le sessioni utilizzano cookie configurati con \texttt{HttpOnly} e \texttt{SameSite=Lax}, e le password sono memorizzate tramite \texttt{password\_hash} (bcrypt).
 \end{itemize}
 
 \subsection{JavaScript}
 Il ruolo di JavaScript all'interno del progetto \`e stato concepito per gestire esclusivamente lo strato comportamentale e l'interattivit\`a, operando in totale sinergia con la struttura HTML5 e la logica PHP.
 
-Sotto il profilo dell'accessibilit\`a, una delle implementazioni pi\`u significative riguarda la gestione del menu mobile: quando l'utente attiva l'hamburger menu, lo script, oltre che mostrarlo visivamente, attiva un sistema di \textit{focus trap} che impedisce alla navigazione da tastiera di uscire involontariamente dai confini del menu aperto. Parallelamente, la funzione di ricerca dei prodotti \`e stata ottimizzata attraverso il \textit{debouncing}, ritardando l'elaborazione del filtro durante la digitazione per evitare cali di performance, inviando poi feedback immediati tramite \texttt{aria-live} per segnalare il numero di risultati trovati.
+Sotto il profilo dell'accessibilit\`a, la funzione di ricerca dei prodotti utilizza l'attributo \texttt{aria-live} per segnalare in tempo reale agli screen reader il numero di risultati trovati durante la digitazione, mentre la lista dei prodotti viene filtrata istantaneamente lato client confrontando la query con i dati testuali esposti su ciascuna scheda.
 
-Un altro importante accorgimento \`e l'uso delle tecnologie asincrone per modernizzare l'interazione con il server senza interrompere la navigazione. Attraverso l'\textbf{API Fetch}, il sito gestisce in tempo reale l'aggiunta e la rimozione di articoli dal carrello, oltre a permettere all'amministratore di filtrare prodotti e ordini tramite \textbf{AJAX}. Questo approccio permette di aggiornare dinamicamente solo le porzioni di pagina necessarie, rendendo l'area gestionale rapida e reattiva.
+Un altro importante accorgimento \`e l'uso delle tecnologie asincrone per modernizzare l'interazione con il server senza interrompere la navigazione. Attraverso l'\textbf{API Fetch}, il sito gestisce in tempo reale l'aggiunta e la rimozione di articoli dal carrello e il caricamento delle diverse sezioni dell'area personale (storico ordini, gestione messaggi, gestione del catalogo), aggiornando dinamicamente solo le porzioni di pagina necessarie e rendendo cos\`i la navigazione rapida e reattiva.
 
-Infine l'uso di JavaScript \`e stato centrale per garantire un controllo rigoroso sui componenti dell'interfaccia, come le finestre di dialogo o il carosello di immagini, che l'utente pu\`o mettere in pausa manualmente per facilitarne la visione. Anche la validazione dei dati beneficia di questo strato comportamentale: prima che il modulo venga inviato al server, lo script intercetta eventuali campi obbligatori vuoti, fornendo un avviso immediato che guida l'utente nella correzione e riducendo cos\`i i tempi di attesa legati ai ricaricamenti della pagina.
+Infine l'uso di JavaScript \`e stato centrale per garantire un controllo rigoroso sui componenti dell'interfaccia, come le finestre di dialogo modali utilizzate nel pannello amministrativo per l'aggiunta e la modifica dei prodotti. Anche la validazione dei dati beneficia di questo strato comportamentale: prima che il modulo venga inviato al server, lo script intercetta eventuali campi obbligatori vuoti, fornendo un avviso immediato che guida l'utente nella correzione e riducendo cos\`i i tempi di attesa legati ai ricaricamenti della pagina.
 
 \subsection{SQL}
 La persistenza dei dati dell'intero sistema \`e stata affidata a un database relazionale progettato in linguaggio SQL, utilizzando il motore \textbf{InnoDB}. L'architettura del database \`e strutturata in modo normalizzato su sei tabelle principali: \textbf{users} (gestisce le credenziali e distingue tra utenti standard e amministratori), \textbf{address} (dati di spedizione collegati all'utente), \textbf{products} (catalogo articoli con prezzo, descrizione, dimensioni, materiali), \textbf{orders} (testata degli ordini con data e totale), \textbf{order\_items} (righe d'ordine collegate ai prodotti) e \textbf{messages} (messaggi ricevuti dal modulo contatti, con flag di gestione).
@@ -390,8 +386,7 @@ Al fine di migliorare il ranking del sito all'interno dei motori di ricerca, \`e
   \item uso corretto della gerarchia degli heading;
   \item eliminazione di link circolari o errati;
   \item utilizzo di tag semantici che aiutino i motori di ricerca a identificare le diverse parti del layout;
-  \item struttura gerarchica che in ampiezza non supera le 5 voci e non si spinge mai oltre i 3 livelli di profondit\`a;
-  \item inclusione di pagine di errore;
+  \item struttura gerarchica che in ampiezza non supera le 5 voci e non si spinge oltre i 3 livelli di profondit\`a;
   \item utilizzo di un sistema di fogli di stile differenziati per dispositivi mobile per garantire una navigazione fluida su schermi di qualsiasi dimensione.
 \end{itemize}
 
@@ -421,7 +416,7 @@ Il sito \`e stato progettato per garantire un'esperienza d'uso fluida e senza ba
   \item \textbf{Salto al contenuto}: per ottimizzare l'interazione degli utenti che utilizzano tecnologie assistive o la sola tastiera;
   \item \textbf{Contestualizzazione semantica tramite attributi ARIA}: forniscono un contesto chiaro ai vari elementi della pagina; questo permette agli screen reader di identificare immediatamente la funzione di sezioni specifiche;
   \item \textbf{Navigazione da tastiera e focus}: l'intero sito \`e navigabile esclusivamente tramite tastiera; questo \`e reso possibile da una struttura logica ordinata del codice HTML; ne consegue che l'ordine di tabulazione segue naturalmente il flusso dei contenuti;
-  \item \textbf{Gestione dei componenti dinamici}: elementi complessi come i caroselli o le finestre di dialogo sono arricchiti con attributi e descrizioni testuali esplicite per informare l'utente di ogni cambiamento di stato o dell'apertura di nuovi contenuti;
+  \item \textbf{Gestione dei componenti dinamici}: elementi complessi come le finestre di dialogo sono arricchiti con attributi e descrizioni testuali esplicite per informare l'utente di ogni cambiamento di stato o dell'apertura di nuovi contenuti;
   \item \textbf{Feedback per l'utente}: all'interno del sito sono presenti collegamenti che permettono di tornare rapidamente ai punti cardine della pagina, migliorando la velocit\`a di spostamento all'interno delle diverse pagine;
   \item \textbf{Supporto visivo e testuale}: ogni campo di input nei form \`e accompagnato da etichette e brevi testi descrittivi i quali garantiscono che l'utente sappia sempre esattamente quali dati inserire e in quale formato.
 \end{itemize}
@@ -431,8 +426,6 @@ La progettazione dei moduli di registrazione e checkout \`e stata guidata dalla 
 Inoltre sono stati implementati \texttt{aria-describedby} per collegare i campi a messaggi di aiuto o esempi pratici, assicurando che le istruzioni siano lette contestualmente all'inserimento dei dati.
 
 Per prevenire errori, sono stati utilizzati attributi HTML5 come \texttt{required}, \texttt{minlength}, \texttt{maxlength} e \texttt{type} specifici che forniscono un feedback immediato al browser e all'utente. In caso di dati mancanti o errati, il sistema \`e predisposto per visualizzare messaggi chiari di errore che guidano l'utente alla correzione, mantenendo il focus sugli elementi che richiedono attenzione per non interrompere il flusso di compilazione.
-
-Le informazioni correlate sono state organizzate all'interno di tag \texttt{<fieldset>} con relative \texttt{<legend>}, permettendo a chi naviga tramite tecnologie assistive di comprendere immediatamente in quale sezione si trova.
 
 \subsection{Tabelle}
 Le tabelle presenti nel sito, in particolare quelle utilizzate nell'area amministrativa per la gestione del catalogo e degli ordini, sono state sviluppate per essere perfettamente fruibili anche da chi utilizza tecnologie assistive. La struttura non \`e puramente visiva, ma segue rigorosi criteri semantici:
@@ -445,51 +438,52 @@ Le tabelle presenti nel sito, in particolare quelle utilizzate nell'area amminis
 \end{itemize}
 
 \subsection{Accessibilit\`a dei colori}
-Uno degli obiettivi principali \`e stato definire una palette cromatica che richiamasse il tema dell'artigianalit\`a sostenibile e che allo stesso tempo garantisse il pieno rispetto dei criteri di successo \textbf{WCAG 2.1} al livello \textbf{AA}.
+Uno degli obiettivi principali \`e stato definire una palette cromatica che richiamasse il tema dell'artigianalit\`a sostenibile e che allo stesso tempo garantisse il pieno rispetto dei criteri di successo \textbf{WCAG 2.2} al livello \textbf{AA}.
 
 La fase di esplorazione visiva \`e iniziata su \textbf{Figma}, dove sono stati testati diversi accostamenti cromatici per trovare un equilibrio tra un'estetica moderna e la chiarezza necessaria a un sito commerciale.
 
-Ogni accostamento tra sfondo e testo \`e stato verificato meticolosamente con il \textbf{Color Contrast Checker}, strumento che ha permesso di testare i rapporti di contrasto in tempo reale, assicurando che il rapporto fosse superiore a 4.5:1 per il testo normale e 3:1 per i testi di grandi dimensioni ed elementi grafici, come previsto dalle normative. Particolare attenzione \`e stata posta agli elementi interattivi, come i bottoni di acquisto o i campi dei form di login, dove il contrasto deve rimanere elevato anche durante gli stati di \textit{hover} o \textit{focus} per non disorientare l'utente.
+Ogni combinazione di testo e sfondo realmente presente nelle pagine \`e stata verificata con due strumenti complementari di audit automatico: \textbf{axe-core} (motore di analisi sviluppato da Deque) e il pannello di accessibilit\`a di \textbf{Lighthouse} integrato nei DevTools di Chrome. Entrambi scansionano la pagina renderizzata e segnalano le coppie che non rispettano i rapporti minimi previsti dalle \textbf{WCAG 2.2} (4.5:1 per il testo normale, 3:1 per il testo di grandi dimensioni ed elementi grafici), garantendo una doppia verifica indipendente. La palette \`e organizzata su un unico sfondo neutro (crema \texttt{\#FCF8F4}) e i colori semantici (errore, successo, accento) sono utilizzati prevalentemente come colori di testo e di icona; gli sfondi pieni colorati compaiono solo in micro-stati interattivi --- ad esempio il bottone CTA in \textit{hover}/\textit{focus} o il bottone di eliminazione amministrativa in \textit{hover} --- e sono stati verificati anche in quei contesti.
 
 \vspace{0.5em}
 \begin{center}
 \small
-\begin{tabular}{|p{4.5cm}|p{4.5cm}|p{3cm}|}
+\begin{tabular}{|p{4.8cm}|p{4.8cm}|p{2.2cm}|}
   \hline
   \rowcolor{tableheader}
   \textbf{Foreground} & \textbf{Background} & \textbf{Contrasto} \\
   \hline
-  \texttt{\#1C0E08} testo del corpo & \texttt{\#FCF8F4} sfondo crema della pagina & 16.8:1 -- Pass \\
+  \swatch{swTextBody} testo del corpo & \swatch{swCream} sfondo crema della pagina & 16.8:1 -- AAA \\
   \hline
-  \texttt{\#FFFFFF} testo dei bottoni & \texttt{\#8C3C08} sfondo CTA terracotta & 5.9:1 -- Pass \\
+  \swatch{swCream} testo dei bottoni CTA & \swatch{swTerracotta} bottone in \textit{hover}/\textit{focus} & 7.2:1 -- AAA \\
   \hline
-  \texttt{\#FFFFFF} testo dei bottoni & \texttt{\#1E6F3D} feedback di successo & 4.6:1 -- Pass \\
+  \swatch{swCream} testo bottoni ``Elimina'' & \swatch{swError} bottone admin distruttivo (\textit{hover}) & 5.4:1 -- AA \\
   \hline
-  \texttt{\#FFFFFF} testo dei bottoni & \texttt{\#C42B1C} feedback di errore & 4.7:1 -- Pass \\
+  \swatch{swError} testo di errore inline & \swatch{swCream} sfondo crema della pagina & 5.4:1 -- AA \\
   \hline
-  \texttt{\#1C0E08} testo descrittivo & \texttt{\#E8DCCF} card di prodotto & 11.2:1 -- Pass \\
+  \swatch{swSuccess} testo e icone di successo & \swatch{swCream} sfondo crema della pagina & 5.9:1 -- AA \\
   \hline
-  \texttt{\#1F4E96} link non visitati & \texttt{\#FCF8F4} sfondo della pagina & 7.5:1 -- Pass \\
+  \swatch{swTerracotta} link visitati e accenti & \swatch{swCream} sfondo crema della pagina & 7.2:1 -- AAA \\
   \hline
-  \texttt{\#5C2A6E} link visitati & \texttt{\#FCF8F4} sfondo della pagina & 8.1:1 -- Pass \\
+  \swatch{swIconSecondary} icone secondarie & \swatch{swCream} sfondo crema della pagina & 6.7:1 -- AA \\
+  \hline
+  \swatch{swLogout} link di logout & \swatch{swCream} sfondo crema della pagina & 6.7:1 -- AA \\
   \hline
 \end{tabular}
 \end{center}
 
 \subsection{Test condotti}
-Il progetto \`e stato sviluppato su macchine Windows e macOS, utilizzando come browser principale Chrome. \`E stata utilizzata la funzionalit\`a ``ispeziona'' del browser per simulare l'utilizzo di display pi\`u piccoli e di dispositivi mobili. Oltre a Chrome, il sito \`e stato testato anche su altri browser come Microsoft Edge, Brave, Firefox e Safari.
-
+Il progetto \`e stato sviluppato su macchine Windows e macOS, utilizzando come browser principale Brave. \`E stata utilizzata la funzionalit\`a ``ispeziona'' del browser per simulare l'utilizzo di display pi\`u piccoli e di dispositivi mobili. Oltre a Brave, il sito \`e stato testato anche su altri browser come Microsoft Edge, Chrome, Firefox e Safari.
 Sono stati eseguiti numerosi test manuali per verificare l'accessibilit\`a come ad esempio:
 \begin{itemize}
-  \item controllo dei contrasti tra i colori;
-  \item controllo attributi \texttt{alt} nelle immagini;
-  \item presenza di aiuti alla navigazione;
-  \item presenza di link rotti o circolari;
-  \item possibilit\`a di navigare da tastiera con TAB e frecce direzionali;
-  \item livelli delle intestazioni corretti;
-  \item parole inglesi in tag \texttt{<span>} e attributo \texttt{lang="en"};
-  \item controllo su invio dei dati;
-  \item messaggi di riscontro (feedback) quando l'utente compie delle operazioni.
+  \item controllo dei contrasti tra i colori
+  \item controllo attributi \texttt{alt} nelle immagini
+  \item presenza di aiuti alla navigazione
+  \item presenza di link rotti o circolari
+  \item possibilit\`a di navigare da tastiera con TAB
+  \item livelli delle intestazioni corretti
+  \item parole inglesi in tag \texttt{<span>} e attributo \texttt{lang="en"}
+  \item controllo su invio dei dati
+  \item messaggi di riscontro (feedback) quando l'utente compie delle operazioni
 \end{itemize}
 
 \sectionrule
@@ -499,15 +493,16 @@ Sono stati eseguiti numerosi test manuali per verificare l'accessibilit\`a come 
 % =====================================================================
 \section{Sviluppi futuri}
 
-Il sito web al momento della consegna descrive la visione iniziale del gruppo. Durante la scrittura del codice sono state collezionate tante idee aggiuntive da ogni membro con il desiderio di incorporarle nel progetto.\\
+Il sito web al momento della consegna descrive la visione iniziale del gruppo. Durante la scrittura del codice sono state collezionate tante idee aggiuntive da ogni membro con il prospetto di incorporarle nel progetto.\\
 Queste idee comprendono per esempio:
 \begin{itemize}
-  \item implementazione di una modalit\`a scura;
-  \item sistema di recensioni e valutazioni dei prodotti, con possibilit\`a di filtrare il catalogo per punteggio medio;
-  \item integrazione di un gateway di pagamento reale (Stripe o PayPal) al posto del flusso di checkout simulato;
-  \item widget nella pagina del profilo che comunica in modo immediato lo stato dell'ordine in corso di spedizione;
-  \item aggiunta di una sezione blog in cui raccontare il processo artigianale e la storia dietro ai singoli pezzi;
-  \item internazionalizzazione (i18n) con almeno italiano e inglese.
+  \item implementazione di una modalit\`a scura
+  \item sistema di recensioni e valutazioni dei prodotti, con possibilit\`a di filtrare il catalogo per punteggio medio
+  \item integrazione di un gateway di pagamento reale (Stripe o PayPal) al posto del flusso di checkout simulato
+  \item implementazione di una whishlist che permetta all'utente di salvare i prodotti piaciuti per un acquisto futuro
+  \item widget nella pagina del profilo che comunica in modo immediato lo stato dell'ordine in corso di spedizione
+  \item aggiunta di una sezione FAQ in cui rispondere alle domande più comuni sul processo artigianale, sui prodotti e su tutto il progetto
+  \item internazionalizzazione (i18n) con almeno italiano e inglese
 \end{itemize}
 Queste idee non sono state scartate e il gruppo si riserva la possibilit\`a di continuare ad aggiungere funzionalit\`a al sito.
 
@@ -515,12 +510,12 @@ Queste idee non sono state scartate e il gruppo si riserva la possibilit\`a di c
 
 % =====================================================================
 % 9. Organizzazione del lavoro
+%
+%   Da revisionare
 % =====================================================================
 \section{Organizzazione del lavoro}
 
 \subsection{Divisione del lavoro}
-
-% TODO: aggiornare con nomi reali e compiti effettivi di ciascun membro
 
 \textbf{Davide Facco}
 \begin{itemize}
@@ -534,7 +529,7 @@ Queste idee non sono state scartate e il gruppo si riserva la possibilit\`a di c
   \item stesura relazione.
 \end{itemize}
 
-\textbf{Membro 2}
+\textbf{Yuri Vinicius Kaneda}
 \begin{itemize}
   \item responsabile del gruppo;
   \item sviluppo pagina Home;
@@ -548,7 +543,7 @@ Queste idee non sono state scartate e il gruppo si riserva la possibilit\`a di c
   \item stesura relazione.
 \end{itemize}
 
-\textbf{Membro 3}
+\textbf{Filippo Zonta Rocha}
 \begin{itemize}
   \item sviluppo pagina Profilo;
   \item sviluppo pagina Admin (CRUD prodotti);
@@ -561,7 +556,7 @@ Queste idee non sono state scartate e il gruppo si riserva la possibilit\`a di c
   \item stesura relazione.
 \end{itemize}
 
-\textbf{Membro 4}
+\textbf{Carmen Marquez}
 \begin{itemize}
   \item revisione correttezza pagine HTML;
   \item creazione template di header e footer;

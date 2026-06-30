@@ -49,8 +49,6 @@ function populatePage(product) {
     populateDetailTable(product);
 }
 
-// Riempe la tabella con le specifiche del prodotto. Se un campo è vuoto
-// salto la riga, cosi la tabella resta pulita anche se non viene compilato
 function populateDetailTable(product) {
     const tbody = document.getElementById('detail-table-body');
     if (!tbody) return;

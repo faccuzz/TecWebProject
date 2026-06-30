@@ -218,6 +218,10 @@
         page-break-inside: avoid;
     }
 
+    .admin-product-card[hidden] {
+        display: none;
+    }
+
     .admin-product-media img {
         width: 100%;
         height: auto;

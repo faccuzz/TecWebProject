@@ -57,7 +57,6 @@ function renderList(items) {
         return;
     }
 
-    //Imposto role="listbox" solo quando ho dei risultati da mostrare
     resultList.setAttribute('role', 'listbox');
     resultList.setAttribute('aria-label', 'Risultati di ricerca');
 
@@ -76,7 +75,6 @@ function buildCard(product, idx) {
     const safeName = product.productName.replace(/</g, '&lt;');
     const safeDesc = (product.description || '').replace(/</g, '&lt;');
     const altText = `Foto del prodotto ${safeName}`;
-    //Le prime 3 immagini si vedono subito, le altre le carico man mano
     const loadingAttr = idx < 3 ? 'eager' : 'lazy';
     const htmlContent = `
         <img src="./assets/img/${product.imageUrl}" alt="${altText}" loading="${loadingAttr}" decoding="async">
@@ -184,7 +182,6 @@ if (searchInput) {
     });
 }
 
-//Chiude la tendina dei risultati se l'utente clicca fuori
 document.addEventListener('click', (e) => {
     if (resultList && !resultList.classList.contains('is-hidden')) {
         if (!searchInput.contains(e.target) && !resultList.contains(e.target)) {

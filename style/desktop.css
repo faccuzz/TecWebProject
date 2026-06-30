@@ -6,9 +6,6 @@
     --text-color: 28, 14, 8;          /* marrone molto scuro per il testo */
     --decoration-color: 140, 60, 8;   /* terra scuro per gli accenti */
 
-    /* sfondo card, uguale al primary */
-    --bg-color: 252, 248, 244;
-
     /* messaggi di errore/conferma */
     --error-color: #C42B1C;
     --success-color: #1E6F3D;
@@ -19,9 +16,6 @@
     /* link del logout: rosso ma non sparato in faccia */
     --logout-color: #A32A24;
     --logout-color-hover: #7A1F1B;
-
-    /* outline del focus quando lo sfondo è scuro (nav, hero scuri ecc.) */
-    --focus-on-dark: rgb(252, 248, 244);
 
     /* Bordi */
     --border-light: #e0e0e0;
@@ -130,7 +124,7 @@ nav :focus-visible,
 .home-table-bg :focus-visible,
 .sustainable-design-bg :focus-visible,
 .craftsmanship-bg :focus-visible {
-    outline-color: var(--focus-on-dark);
+    outline-color: rgb(var(--primary-color));
 }
 
 
@@ -669,6 +663,21 @@ nav {
     color: rgb(var(--decoration-color));
 }
 
+.back-to-top {
+    grid-column: 1 / -1;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(var(--text-color));
+    font-size: 0.9rem;
+    padding: 0.5em;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.back-to-top:hover {
+    opacity: 1;
+}
+
 .footer-title {
     font-size: 1.2rem;
     font-weight: 600;
@@ -721,7 +730,7 @@ nav {
 }
 
 .card {
-    background-color: rgb(var(--bg-color));
+    background-color: rgb(var(--primary-color));
     overflow: hidden;
     text-align: center;
 }
@@ -1624,6 +1633,53 @@ nav {
     width: 40%;
 }
 
+/* Tabella ordini / utenti — admin */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    margin-top: 1em;
+    background: rgb(var(--primary-color));
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.data-table caption {
+    text-align: left;
+    font-weight: 600;
+    padding: 0.5em 0;
+    color: rgb(var(--text-color));
+}
+
+.data-table thead th {
+    background: rgb(var(--text-color));
+    color: rgb(var(--primary-color));
+    text-align: left;
+    padding: 0.75em 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.data-table tbody td,
+.data-table tbody th {
+    padding: 0.75em 1em;
+    border-bottom: 1px solid rgba(28, 14, 8, 0.15);
+    text-align: left;
+    vertical-align: top;
+}
+
+.data-table tbody tr:last-child td,
+.data-table tbody tr:last-child th {
+    border-bottom: none;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: rgba(140, 60, 8, 0.04);
+}
+
 .detail-price {
     font-size: 1.6rem;
     font-weight: 600;
@@ -2419,14 +2475,10 @@ body.cart-body {
 }
 
 .footer-links a,
-main p a {
-    border-bottom: 2px solid rgb(var(--decoration-color));
-    padding-bottom: 1px;
-}
-
+main p a,
 .col-layout > section .social-links a,
 .col-layout > section p a {
-    border-bottom: 2px solid rgb(var(--text-color));
+    border-bottom: 2px solid rgb(var(--primary-color));
     padding-bottom: 1px;
 }
 

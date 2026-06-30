@@ -3,27 +3,24 @@ const searchButton = document.getElementById('home-search-button');
 const searchBar = document.querySelector('.home-search-bar');
 
 if (searchBox && searchButton && searchBar) {
-    function setSearchExpanded(expanded) {
-        if (expanded) {
-            searchBox.classList.add('active');
-            searchButton.setAttribute('aria-expanded', 'true');
-        } else {
-            searchBox.classList.remove('active');
-            searchButton.setAttribute('aria-expanded', 'false');
-        }
-    }
-
     searchButton.addEventListener('click', (e) => {
         e.preventDefault();
         const isOpen = searchBox.classList.contains('active');
-        setSearchExpanded(!isOpen);
-        if (!isOpen) searchBar.focus();
+        if (isOpen) {
+            searchBox.classList.remove('active');
+            searchButton.setAttribute('aria-expanded', 'false');
+        } else {
+            searchBox.classList.add('active');
+            searchButton.setAttribute('aria-expanded', 'true');
+            searchBar.focus();
+        }
     });
 
     document.addEventListener('click', (e) => {
         if (!searchBox.contains(e.target) && e.target !== searchButton) {
             if (searchBox.classList.contains('active')) {
-                setSearchExpanded(false);
+                searchBox.classList.remove('active');
+                searchButton.setAttribute('aria-expanded', 'false');
                 searchBar.value = '';
             }
         }
@@ -31,7 +28,8 @@ if (searchBox && searchButton && searchBar) {
 
     searchBar.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            setSearchExpanded(false);
+            searchBox.classList.remove('active');
+            searchButton.setAttribute('aria-expanded', 'false');
             searchBar.value = '';
             searchButton.focus();
         }

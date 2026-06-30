@@ -9,9 +9,9 @@ include_once '../session_bootstrap.php';
     
     $db = new database();
     if(isset($_POST['submit'])){
-        $id = trim($_POST['id'] ?? '');
+        $id = '';
+        if (isset($_POST['id'])) $id = trim($_POST['id']);
 
-        // validazione lato server: id deve essere alfanumerico maiuscolo lungo 10
         if (!preg_match('/^[A-Z0-9]{10}$/', $id)) {
             header("Location: ../../optionsPage.html?section=products&error=" . urlencode("ID prodotto non valido"));
             exit();

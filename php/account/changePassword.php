@@ -12,7 +12,6 @@ include_once '../session_bootstrap.php';
         $password = $_POST['newPass'];
         $confermPass = $_POST['confPass'];
 
-        // validazione lato server: lunghezza + complessita identica al register
         if (strlen($password) < 8 || strlen($password) > 128) {
             header("Location: ../../optionsPage.html?section=security&error=" . urlencode("Password deve essere lunga tra 8 e 128 caratteri"));
             exit();
