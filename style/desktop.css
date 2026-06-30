@@ -2044,13 +2044,20 @@ form select {
     text-decoration: underline;
 }
 
+.checkout-title {
+    max-width: 1200px;
+    margin: 2rem auto 1rem;
+    padding: 0 1rem;
+    text-align: center;
+}
+
 .checkout-layout {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     gap: 2em;
     max-width: 1200px;
-    margin: 2rem auto;
+    margin: 1rem auto 2rem;
     padding: 0 1rem;
 }
 
