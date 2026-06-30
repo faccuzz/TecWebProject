@@ -1,4 +1,4 @@
-/* TABLET — max-width 1024px */
+/* TABLET — 1024px */
 
 @media (max-width: 1024px) {
 
@@ -110,7 +110,7 @@
 }
 
 
-/* TELEFONO — max-width 640px */
+/* TELEFONO — 640px */
 
 @media (max-width: 640px) {
 

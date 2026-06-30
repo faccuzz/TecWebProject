@@ -25,15 +25,11 @@ function initFormChecker() {
                 initialCountry: "it",
             });
 
-            // La libreria intlTelInput lascia attivi degli aria-* anche quando il dropdown
-            // è chiuso e danno fastidio agli screen reader
-            // https://github.com/jackocnr/intl-tel-input/issues/800
             const selectedFlag = phoneInput.closest('.iti')?.querySelector('.iti__selected-flag');
             if (selectedFlag) {
                 selectedFlag.removeAttribute('aria-activedescendant');
                 selectedFlag.removeAttribute('aria-owns');
                 selectedFlag.setAttribute('role', 'button');
-                // Quando l'utente richiude la lista devo togliere di nuovo l'attributo
                 const observer = new MutationObserver(() => {
                     const isOpen = selectedFlag.getAttribute('aria-expanded') === 'true';
                     if (!isOpen) {
@@ -57,7 +53,6 @@ function initFormChecker() {
     }
 
     if (passwordInput && txtRequirement1) {
-        // Nessun requisito soddisfatto allo start
         updateRequirementsUI({ length: false, number: false, uppercase: false, special: false });
         passwordInput.addEventListener('input', () => {
             const ps = checkPasswordStrength(passwordInput.value);
@@ -105,7 +100,6 @@ function setRequirementState(el, met) {
     if (!el) return;
     el.classList.toggle('requirement-met', met);
     el.classList.toggle('requirement-unmet', !met);
-    // aggiorno aria-label
     const baseText = el.dataset.baseText || el.textContent.replace(/^[✓✗]\s*/, '');
     el.dataset.baseText = baseText;
     el.setAttribute('aria-label', `${baseText}: ${met ? 'soddisfatto' : 'non soddisfatto'}`);
@@ -180,11 +174,21 @@ async function registerUser() {
 }
 
 async function register() {
-    hideInputError(emailInput);
-    hideInputError(passwordInput);
-    hideInputError(nameInput);
-    hideInputError(surnameInput);
-    hideInputError(phoneInput);
+    const campi = [emailInput, passwordInput, nameInput, surnameInput, phoneInput];
+    for (let i = 0; i < campi.length; i++) {
+        const input = campi[i];
+        if (!input) continue;
+        input.classList.remove('input-error');
+        input.removeAttribute('aria-invalid');
+        const gruppo = input.closest('.form-group');
+        if (gruppo) {
+            const msg = gruppo.querySelector('.form-error-msg');
+            if (msg) {
+                msg.classList.remove('active');
+                msg.textContent = '';
+            }
+        }
+    }
 
     let validRegistration = 0;
     const ps = checkPasswordStrength(passwordInput.value);
@@ -218,7 +222,6 @@ async function register() {
             );
         }
     } else {
-        // metto il focus sul primo campo sbagliato
         const firstError = form.querySelector('.input-error');
         if (firstError) firstError.focus();
     }
@@ -246,23 +249,23 @@ function showInputError(input, message) {
     }
 }
 
-function hideInputError(input) {
-    if (!input) return;
-    input.classList.remove('input-error');
-    input.removeAttribute('aria-invalid');
-    const inputForm = input.closest('.form-group');
-    if (inputForm) {
-        const errorMessage = inputForm.querySelector('.form-error-msg');
-        if (errorMessage) {
-            errorMessage.classList.remove('active');
-            errorMessage.textContent = '';
-        }
-    }
-}
 
 async function login() {
-    hideInputError(emailInput);
-    hideInputError(passwordInput);
+    const campi = [emailInput, passwordInput];
+    for (let i = 0; i < campi.length; i++) {
+        const input = campi[i];
+        if (!input) continue;
+        input.classList.remove('input-error');
+        input.removeAttribute('aria-invalid');
+        const gruppo = input.closest('.form-group');
+        if (gruppo) {
+            const msg = gruppo.querySelector('.form-error-msg');
+            if (msg) {
+                msg.classList.remove('active');
+                msg.textContent = '';
+            }
+        }
+    }
     if (verifyIdentifier()) {
         if (await grantAccess()) redirect();
         else {

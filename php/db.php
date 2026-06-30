@@ -1,5 +1,18 @@
 <?php
 include_once 'configDB.php';
+
+function dbFailJson($msg) {
+    http_response_code(503);
+    echo json_encode(["success" => false, "message" => $msg]);
+    exit();
+}
+
+function dbFailRedirect($url) {
+    http_response_code(503);
+    header("Location: " . $url);
+    exit();
+}
+
 class database
 {
     public $connection;
@@ -7,8 +20,6 @@ class database
 
     public function connect()
     {
-        // disattivo i warning di mysqli cosi gestisco l'errore a mano
-        // e posso ritornare un JSON pulito al client
         mysqli_report(MYSQLI_REPORT_OFF);
         $this->connection = @new mysqli(
             DB_CONFIG['db_host'],
@@ -183,7 +194,6 @@ class database
         return $stmt->execute();
     }
 
-    // compone la stringa delle dimensioni partendo da larghezza e altezza in cm
     public static function formatDimensions($width, $height)
     {
         $w = is_numeric($width)  ? (float)$width  : null;
@@ -191,7 +201,6 @@ class database
         if ($w === null || $h === null || $w <= 0 || $h <= 0) {
             return '';
         }
-        // se è intero lo scrivo senza virgola, sennò con la virgola (formato italiano)
         $fmt = function ($n) {
             if (floor($n) == $n) return (string)(int)$n;
             return rtrim(rtrim(number_format($n, 2, ',', ''), '0'), ',');

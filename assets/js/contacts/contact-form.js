@@ -19,21 +19,6 @@ function setFieldError(input, message) {
     input.setAttribute('aria-invalid', 'true');
 }
 
-function clearFieldError(input) {
-    if (!input) return;
-    const errorEl = document.getElementById(input.getAttribute('aria-describedby'));
-    if (errorEl) {
-        errorEl.textContent = '';
-        errorEl.classList.remove('active');
-    }
-    input.classList.remove('input-error');
-    input.removeAttribute('aria-invalid');
-}
-
-function clearAllErrors() {
-    [contactNameInput, contactSurnameInput, contactEmailInput, contactSubjectSelect, contactMessageInput]
-        .forEach(clearFieldError);
-}
 
 function validateName(value) {
     return value.length > 0 && value.length <= 64 && /^[a-zA-ZàèéìòùÀÈÉÌÒÙ'\s\-]+$/.test(value);
@@ -45,7 +30,21 @@ function validateEmail(value) {
 }
 
 function validateContactForm() {
-    clearAllErrors();
+    const tuttiInput = [contactNameInput, contactSurnameInput, contactEmailInput, contactSubjectSelect, contactMessageInput];
+    for (let i = 0; i < tuttiInput.length; i++) {
+        const input = tuttiInput[i];
+        if (!input) continue;
+        const errId = input.getAttribute('aria-describedby');
+        if (errId) {
+            const errEl = document.getElementById(errId);
+            if (errEl) {
+                errEl.textContent = '';
+                errEl.classList.remove('active');
+            }
+        }
+        input.classList.remove('input-error');
+        input.removeAttribute('aria-invalid');
+    }
     let valid = true;
 
     const name = contactNameInput.value.trim();
@@ -133,7 +132,6 @@ function initContactForm() {
             showStatus(result.message || 'Messaggio inviato.', 'success');
             contactForm.reset();
         } else {
-            //campi già compilati non spariscono
             showStatus((result && result.message) || 'Invio non riuscito.', 'error');
         }
     });

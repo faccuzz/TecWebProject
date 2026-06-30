@@ -4,7 +4,6 @@ const totalPriceContainer = document.getElementById('totalCartPrice');
 const submitCartButton = document.getElementById('submitCart');
 let cartInformation;
 
-// Aggiorna il messaggio per gli screen reader con aria-live
 function announceToCart(message) {
     const announcement = document.getElementById('cart-announcement');
     if (announcement) announcement.textContent = message;
@@ -19,6 +18,15 @@ async function addToCart(productID, quantity) {
 }
 
 let cartToastTimer;
+
+function chiudiToast() {
+    const toast = document.getElementById('cart-toast');
+    if (!toast) return;
+    clearTimeout(cartToastTimer);
+    toast.classList.remove('is-visible');
+    setTimeout(() => { toast.hidden = true; }, 300);
+}
+
 function showCartToast(productName, quantity) {
     const toast = document.getElementById('cart-toast');
     const detail = document.getElementById('cart-toast-detail');
@@ -26,27 +34,21 @@ function showCartToast(productName, quantity) {
     if (!toast || !detail) return;
 
     const qtyNum = Number(quantity) || 1;
-    const qtyText = qtyNum === 1 ? '1 unità' : `${qtyNum} unità`;
-    detail.textContent = `${productName} — ${qtyText}`;
+    let qtyText;
+    if (qtyNum === 1) qtyText = '1 unità';
+    else qtyText = qtyNum + ' unità';
+    detail.textContent = productName + ' — ' + qtyText;
 
     toast.hidden = false;
     requestAnimationFrame(() => toast.classList.add('is-visible'));
 
     clearTimeout(cartToastTimer);
-    cartToastTimer = setTimeout(() => hideCartToast(), 4000);
+    cartToastTimer = setTimeout(chiudiToast, 4000);
 
     if (closeBtn && !closeBtn.dataset.bound) {
-        closeBtn.addEventListener('click', hideCartToast);
+        closeBtn.addEventListener('click', chiudiToast);
         closeBtn.dataset.bound = '1';
     }
-}
-
-function hideCartToast() {
-    const toast = document.getElementById('cart-toast');
-    if (!toast) return;
-    clearTimeout(cartToastTimer);
-    toast.classList.remove('is-visible');
-    setTimeout(() => { toast.hidden = true; }, 300);
 }
 
 async function updateQuantity(id, newQty) {
@@ -197,7 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// verifico la sessione PHP lato server
 async function isUserLoggedIn() {
     try {
         const res = await fetch('./php/account/loginCheck.php', { credentials: 'same-origin' });
@@ -208,7 +209,6 @@ async function isUserLoggedIn() {
     }
 }
 
-// costruisco il dialog la prima volta che serve
 function ensureAuthRequiredDialog() {
     if (document.getElementById('auth-required-dialog')) return;
 
@@ -219,7 +219,6 @@ function ensureAuthRequiredDialog() {
     dlg.setAttribute('aria-modal', 'true');
     dlg.setAttribute('aria-labelledby', 'auth-required-title');
     dlg.setAttribute('aria-describedby', 'auth-required-desc');
-    // pagina corrente da restituire dopo login/register
     const returnUrl = encodeURIComponent(window.location.pathname.split('/').pop() + window.location.search);
 
     dlg.innerHTML = `
@@ -239,7 +238,6 @@ function ensureAuthRequiredDialog() {
     `;
     document.body.appendChild(dlg);
 
-    // chiusura: bottone X, backdrop, ESC
     dlg.querySelectorAll('[data-close-dialog]').forEach(el => {
         el.addEventListener('click', hideAuthRequiredDialog);
     });
@@ -258,7 +256,6 @@ function showAuthRequiredDialog() {
     if (!dlg) return;
     lastFocusedBeforeDialog = document.activeElement;
     dlg.classList.remove('is-hidden');
-    // sposto il focus sul primo link cosi screen reader e tastiera capiscono
     const firstAction = dlg.querySelector('.auth-required-actions a');
     if (firstAction) firstAction.focus();
 }
