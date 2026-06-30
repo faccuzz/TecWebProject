@@ -254,12 +254,10 @@ function initMessagesSection() {
         }
     }
 
-    // segno lo stato base della sezione messaggi: così il tasto "indietro" del browser
-    // ha un punto a cui tornare (lista non filtrata) prima di pushare i filtri
+    //Mi permette di segnare lo stato del filtro messaggi, in maniera che il tasto indietro del
+    //browser ritorni allo stato precedente
     history.replaceState({ section: 'messages', filter: null }, '', 'optionsPage.html?section=messages');
 
-    // ripristino la lista giusta quando l'utente usa indietro/avanti del browser.
-    // Lo registro una sola volta perche initMessagesSection viene rieseguito a ogni accesso alla sezione.
     if (!window.__messagesPopstateBound) {
         window.__messagesPopstateBound = true;
         window.addEventListener('popstate', async (event) => {
